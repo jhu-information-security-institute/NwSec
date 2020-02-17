@@ -1,0 +1,409 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" 
+href="C:\IBM developerWorks\article-author-package\developerworks\xsl\dw-document-html-4.0.xsl" ?>
+<dw-document xsi:noNamespaceSchemaLocation="C:\\IBM developerworks\article-author-package\developerworks\schema\dw-document-4.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!-- C:\IBM developerWorks\article-author-package\developerworks\schema\dw-document-4.0.xsd  -->
+
+<dw-article local-site="worldwide" ratings-form="auto" related-contents="auto" toc="auto" skill-level="1">
+<id cma-id="" domino-uid="" content-id="" original="yes" />
+
+<keywords content="networking, internet, protocol availability, reliability, SCTP, IP" />
+<meta-last-updated day="06" month="04" year="2005" initials="maa" />
+
+<content-area-primary name="linux" />
+<title>Stream Control Transmission Protocol</title>
+<subtitle>An alternate transport layer protocol</subtitle>
+
+<target-content-file filename="msdemo.zip" file-type="zip" size="3 KB" file-description="Multi-streaming SCTP Demo Source" target-content-type="Code sample" link-method-ftp="yes" url-ftp="ftp://blah/msdemo.zip" link-method-http="yes" url-http="http://blah/msdemo.zip" link-method-dd="yes" url-download-director="http://where-to-go???/msdemo.zip" show-license="yes" registration-required="no" />
+
+<author jobtitle="Senior Principal Software Engineer" company="Emulex" email-cc="mtj@mtjones.com" email="mtj@mtjones.com">
+	<bio>M. Tim Jones is an embedded software engineer and the author of <i>GNU/Linux Application
+		Programming, AI Application Programming,</i> and <i>BSD Sockets Programming from a
+		Multilanguage Perspective.</i> His engineering background ranges from the development of
+		kernels for geosynchronous spacecraft to embedded systems architecure and networking
+		protocols development. Tim is a senior principal engineer at Emulex Corp.
+	</bio>
+	<img src="mtimjones.jpg" width="64" height="80" alt="Author photo" />
+	<name>M. Tim Jones</name>
+</author>
+
+<date-published day="13" month="04" year="2005" />
+<!--<date-updated day="20" month="03" year="2005" />-->
+
+
+<abstract>The Stream Control Transmission Protocol (SCTP) is a reliable transport protocol that offers services similar to both the Transmission Control Protocol (TCP) and the User Datagram Protocol (UDP). Like TCP, SCTP provides reliable, ordered delivery of data between two endpoints, but it also preserves message boundaries of data, like UDP. It uses the standard BSD Sockets calls along with a few extensions that simplify sockets programming. But SCTP also offers several advantages over TCP and UDP, such as multi-homing and multi-streaming. This article introduces some of the important features of SCTP in the Linux 2.6 kernel (lksctp) along with server and client source code that demonstrates SCTP's multi-streaming feature.</abstract>
+
+<!--<column-info col-name="series name" col-icon="column_icon.gif" />-->
+
+<docbody>
+	<p>SCTP is a reliable general-purpose transport layer protocol for use on IP networks (see Figure 1).
+		While the protocol was originally designed for telephony signaling (under the RFC 2960), SCTP also
+		solved some of the limitations of TCP while borrowing beneficial features of UDP. It provides features
+		for high availability, increased reliability, and improved security for socket initiation.</p>
+
+		<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 1. Layered architecture of the IP stack</heading>
+			<img src="images\figure1.gif" width="350" height="183" alt="Layered architecture of the IP stack"/>
+		</figure>
+
+	<heading refname="" type="major" toc="yes" alttoc="">The IP stack</heading>
+		<p>Let's begin with a quick overview of the IP stack. The Internet protocol suite is split into several
+			layers, with each layer providing specific functionality (see Figure 1). Starting from the bottom,
+			the <i>link layer</i> provides the physical interface to the communication medium (such as an
+			Ethernet device). The <i>network layer</i> manages the movement of packets in a network,
+			specifically getting packets to their destination (called <i>routing</i>). The <i>transport layer</i>
+			regulates the flow of packets between two hosts for the application layer. It also presents the
+			application endpoint for communication, known as a <i>port.</i> Finally, the <i>application layer</i>
+			provides meaning to the data transported through the socket. This data could consist of e-mail
+			messages using the Simple Mail Transport Protocol (SMTP) or Web pages rendered through the
+			Hypertext Transport Protocol (HTTP).</p>
+
+<sidebar>All application layer protocols utilize the sockets layer as their interface to the transport layer
+	protocol. The Sockets API was developed at UC Berkeley within the BSD UNIX<reg>®</reg> operating
+	system.
+</sidebar>
+
+		<heading refname="" type="minor" toc="no" alttoc="">The transport layer protocols</heading>
+			<p>The two most popular transport layer protocols are TCP and UDP. TCP is a reliable protocol that
+				guarantees sequenced, ordered delivery of data and manages congestion within a network. UDP
+				is a message-oriented protocol that neither guarantees ordering of delivery nor manages congestion.
+				But UDP is a fast protocol that preserves the boundaries of the messages it transports.</p>
+			<p>SCTP provides reliable ordered delivery of data like TCP but operates in a message-oriented fashion
+				like UDP (preserving message boundaries). SCTP also provides several advanced features, such as:</p>
+				<ul>
+					<li>Multi-homing</li>
+					<li>Multi-streaming</li>
+					<li>Initiation protection</li>
+					<li>Message framing</li>
+					<li>Configurable unordered delivery</li>
+					<li>Graceful shutdown</li>
+				</ul>
+
+	<heading refname="" type="major" toc="yes" alttoc="">Major features of SCTP</heading>
+		<p>The two most important feature enhancements in SCTP over traditional transport layer protocols are
+			end-host multi-homing and multi-streaming. SCTP also includes several other enhancements that are
+			important in their own right, but I begin with multi-homing and multi-streaming.</p>
+
+		<heading refname="" type="minor" toc="no" alttoc="">Multi-homing</heading>
+			<p><i>Multi-homing</i> is an important feature in SCTP that provides applications with higher availability
+				than those that use TCP. A <i>multi-homed host</i> is one that has more than one network interface
+				(and therefore more than one IP address for which it can be addressed). In TCP, a <i>connection</i>
+				refers to a channel between two endpoints (in this case, a socket between the interfaces of two hosts).
+				SCTP introduces the concept of an <i>association,</i> which exists between two hosts but potentially
+				to multiple interfaces at each host.</p>
+			<p>Figure 2 illustrates the difference between a TCP connection and an SCTP association. At the top of
+				Figure 2 is a TCP connection. Each host includes a single network interface, and a connection is created
+				between a single interface on each of the client and server. Upon establishment, the connection is bound
+				to each interface. At the bottom of the figure, you can see an architecture that includes two network interfaces
+				per host. Two paths are provided through the independent networks, one from interface C0 to S0 and another
+				from C1 to S1. In SCTP, these two paths would be collected into an association. SCTP monitors the paths
+				of the association using a built-in heartbeat; upon detecting a path failure, the protocol sends traffic over the
+				alternate path. It's not even necessary for the applications to know that a failover recovery occurred.</p>
+
+				<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 2. TCP connection vs. an SCTP association</heading>
+					<img src="images\figure2.gif" width="481" height="328" alt="TCP connection vs. an SCTP association"/>
+				</figure>
+
+<sidebar>Failover can also be used to maintain network application connectivity. For example, consider a laptop that
+	includes a wireless 802.11 interface and an Ethernet interface. When the laptop is in its docking station, the
+	higher-speed Ethernet interface would be preferred (in SCTP, called the <i>primary address</i>); but upon loss of
+	this connection (removal from the docking station), connections would be failed over to the wireless interface. Upon
+	return to the docking station, the Ethernet connection would be detected and communication resumed over this
+	interface. This is powerful mechanism for high availability and reliability.
+</sidebar>
+
+		<heading refname="" type="minor" toc="no" alttoc="">Multi-streaming</heading>
+			<p>In some ways, an SCTP association is like a TCP connection except that SCTP supports multiple streams
+				within an association. All the streams within an association are independent but related to the association
+				(see Figure 3). Each stream is given a stream number, which is encoded inside SCTP packets flowing through
+				the association. Multi-streaming is important, because a blocked stream (for example, one awaiting
+				retransmission resulting from the loss of a packet) does not affect the other streams in an association. This
+				problem is commonly referred to as <i>head-of-line blocking,</i> and TCP is prone to such blocking.</p>
+
+				<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 3. Relationship of an SCTP association to streams.</heading>
+					<img src="images\figure3.gif" width="502" height="162" alt="Relationship of an SCTP association to streams."/>
+				</figure>
+
+<sidebar>The HTTP protocol shares control and data over the same socket. A Web client requests a file from a server,
+	and the server sends the file back over the same connection. A multi-streamed HTTP server would provide better
+	interactivity, because multiple requests could be serviced on independent streams within the association. This functionality
+	would parallelize the responses and, while not potentially faster, would simultaneously load the HTML and graphics images,
+	providing the perception of better responsiveness.
+</sidebar>
+
+			<p>Multi-streaming is an important feature of SCTP, especially when you consider some of the control and
+				data issues in protocol design. In TCP, control and data typically share the same connection, which can be
+				problematic because control packets can be delayed behind data packets. If control and data were split into
+				independent streams, control data could be dealt with in a more timely manner resulting in better
+				utilization of available resources.</p>
+
+		<heading refname="" type="minor" toc="no" alttoc="">Initiation protection</heading>
+			<p>Initiating a new connection in TCP and SCTP occurs with a packet handshake. In TCP, it's a called <i>three-way
+				handshake.</i> The client sends a <code type="inline">SYN</code> packet (short for <i>Synchronize</i>), for
+				which the server responds with a <code type="inline">SYN-ACK</code> packet (<i>Synchronize-Acknowledge</i>).
+				Finally, the client confirms receipt with an <code type="inline">ACK</code> packet (see Figure 4). The problem
+				that can occur with TCP is when a rogue client forges an IP packet with a bogus source address, then floods a
+				server with TCP <code type="inline">SYN</code> packets. The server allocates resources for the connections
+				upon reciept of the <code type="inline">SYN</code>, and under a flood of <code type="inline">SYN</code> packets,
+				eventually runs out and is unable to service new requests. This problem is commonly called a <i>Denial of Service</i>
+				(DoS) attack.</p>
+				
+			<p>SCTP protects against this type of attack through a four-way handshake and the introduction of a 
+			    cookie.  In SCTP, a client initiates a connection with an <code type="inline">INIT</code> packet. 
+			    The server responds with an <code type="inline">INIT-ACK</code>, which includes the cookie (a 
+			    unique context identifying this proposed connection). The client then responds with a 
+			    <code type="inline">COOKIE-ECHO</code>, which contains the cookie sent by the server. At this 
+			    point, the server allocates the resource for the connection, and acknowledges this by sending a 
+			    <code type="inline">COOKIE-ACK</code> to the client.</p>
+			    
+				<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 4. The packet exchanges for the TCP and STCP handshake</heading>
+					<img src="images\figure4.gif" width="541" height="258" alt="The packet exchanges for the TCP and SCTP handshake"/>
+				</figure>
+
+			<p>To solve the problem of delayed data movement with the four-way handshake, SCTP permits data to be included in
+				the <code type="inline">COOKIE-ECHO</code> and <code type="inline">COOKIE-ACK</code> packets.</p>
+
+		<heading refname="" type="minor" toc="no" alttoc="">Message framing</heading>
+			<p>With message framing, the boundaries in which messages are communicated through a socket are preserved,
+				which means that if a client sends 100 bytes to a server followed by 50 bytes, the server will read 100 bytes
+				and 50 bytes, respectively, for two reads. UDP also operates in this way, which makes it advantageous for
+				message-oriented protocols. In contrast, TCP operates in a byte-stream fashion. Without framing, a peer may
+				receive more or less than was sent (splitting up a write, or aggregating multiple writes into a single read). This
+				behavior requires that message-oriented protocols operating over TCP provide data-buffer and message framing
+				within their application layer (a potentially complex task).</p>
+			<p>SCTP provides for message framing in data transfer. When a peer performs a write on a socket, it is guaranteed
+				that this same-sized chunk of data will be read at the peer endpoint (see Figure 5). For stream-oriented data, such
+				as audio or video data, lack of framing is acceptable</p>
+
+				<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 5. Message framing in UDP/SCTP vs. a byte stream-oriented protocol</heading>
+					<img src="images\figure5.gif" width="430" height="193" alt="Message framing in UDP/SCTP vs. a byte stream -oriented protocol"/>
+				</figure>
+
+		<heading refname="" type="minor" toc="no" alttoc="">Configurable unordered delivery</heading>
+			<p>Messages in SCTP are transferred reliably but not necessarily in the desired order. TCP guarantees that data
+				is delivered in order (which is a good thing, considering TCP is a stream protocol). UDP guarantees no ordering.
+				You can also configure streams within SCTP to accept unordered messages, if desired.</p>
+			<p>This feature can be useful in message-oriented protocols, where requests are independent and ordering is
+				not important. Further, you can configure unordered delivery on a stream-by-stream basis within an association.</p>
+
+		<heading refname="" type="minor" toc="no" alttoc="">Graceful shutdown</heading>
+			<p>TCP and SCTP are connection-based protocols, whereas UDP is a connection-less protocol. Both TCP and
+				SCTP require connection setup and teardown between peers. What you'll find different for socket shutdown
+				in SCTP is the removal of TCP's <i>half-close</i>.</p>
+			<p>In Figure 6, you see the shutdown sequences for TCP and SCTP. In TCP, it's possible for a peer to close its
+				end of a socket (resulting in a <code type="inline">FIN</code> packet being sent) but then continue to receive
+				data. The <code type="inline">FIN</code> indicates that no more data is to be sent by this endpoint, but until the
+				peer closes its end of the socket, it may continue to transmit data. Applications rarely use this half-closed state,
+				and therefore the SCTP designers opted to remove it and replace it with a cleaner termination sequence. When
+				a peer closes its socket (resulting in the issuance of a <code type="inline">SHUTDOWN</code> primitive), both
+				endpoints are required to close, and no further data movement is permitted in either direction.</p>
+
+				<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 6. TCP and SCTP connection termination sequences</heading>
+					<img src="images\figure6.gif" width="532" height="258" alt="TCP and SCTP connection termination sequences"/>
+				</figure>
+
+	<heading refname="" type="major" toc="yes" alttoc="">Multi-streaming demonstration</heading>
+		<p>Now that you have some idea of the basic features of SCTP, let's look at a sample server and client written
+			in the C programming language that demonstrate SCTP's multi-streaming feature.</p>
+		<p>This example presents a server that implements a form of the daytime protocol. This traditional server emits
+			the current time to a connected client, but for SCTP, I emit the local time on stream 0 and Greenwich Mean Time
+			(GMT) on stream 1. This simple example allows me to demonstrate the APIs for stream communication. Figure 7
+			outlines the entire process and shows not only the flow of the application from a sockets API perspective but
+			also the relationships from a client and server perspective.</p>
+
+			<figure><heading refname="" type="figure" toc="no" name="" alttoc="">Figure 7. Sockets functions used in the multi-streaming daytime server and client</heading>
+				<img src="images\figure7.gif" width="422" height="533" alt="Sockets functions used in the multi-streaming daytime server and client"/>
+			</figure>
+
+<sidebar>I've developed these applications on the GNU/Linux operating system with a 2.6.11 kernel and the Linux
+	Kernel SCTP project (lksctp). The nonstandard sockets functions are provided in the lksctp tools package, which
+	is available from sourceforge. See <a href= "#resources">Resources</a> for links.
+</sidebar>
+
+		<heading toc="no" refname="" type="minor">The daytime server</heading>
+			<p>The multi-stream daytime server is shown in Listing 1. I've omitted all error checking from this example just to
+				make it a bit more readable, but the code in the downloadable .zipfile demonstrates error checking as well as
+				other SCTP socket extensions.</p>
+			<p>The server begins in Listing 1 with the creation of the server socket (using <code type="inline">IPPROTO_SCTP</code>
+				to create an SCTP one-to-one socket). I then create a <code type="inline">sockaddr</code> structure,
+				specifying that connections are permitted from any local interface (using the wildcard address,
+				<code type="inline">INADDR_ANY</code>). I bind this <code type="inline">sockaddr</code> structure
+				to the socket using the <code type="inline">bind</code> call, then place the server socket into the listening
+				state. At this point, incoming connections are possible.</p>
+
+<p><b>Listing 1. Daytime server written for SCTP using multiple streams</b></p>
+<code type="section">
+int main()
+{
+  int listenSock, connSock, ret;
+  struct sockaddr_in servaddr;
+  char buffer[MAX_BUFFER+1];
+  time_t currentTime;
+
+  /* Create SCTP TCP-Style Socket */
+  listenSock = <b>socket</b>( AF_INET, SOCK_STREAM, IPPROTO_SCTP );
+
+  /* Accept connections from any interface */
+  bzero( (void *)&amp;servaddr, sizeof(servaddr) );
+  servaddr.sin_family = AF_INET;
+  servaddr.sin_addr.s_addr = <b>htonl</b>( INADDR_ANY );
+  servaddr.sin_port = <b>htons</b>(MY_PORT_NUM);
+
+  /* Bind to the wildcard address (all) and MY_PORT_NUM */
+  ret = <b>bind</b>( listenSock, 
+               (struct sockaddr *)&amp;servaddr, sizeof(servaddr) );
+
+  /* Place the server socket into the listening state */
+  <b>listen</b>( listenSock, 5 );
+
+  /* Server loop... */
+  while( 1 ) {
+
+    /* Await a new client connection */
+    connSock = <b>accept</b>( listenSock, 
+                        (struct sockaddr *)NULL, (int *)NULL );
+
+    /* New client socket has connected */
+
+    /* Grab the current time */
+    currentTime = time(NULL);
+
+    /* Send local time on stream 0 (local time stream) */
+    snprintf( buffer, MAX_BUFFER, "%s\n", ctime(&amp;currentTime) );
+
+    ret = <b>sctp_sendmsg</b>( connSock, 
+                          (void *)buffer, (size_t)strlen(buffer),
+                          NULL, 0, 0, 0, LOCALTIME_STREAM, 0, 0 );
+
+    /* Send GMT on stream 1 (GMT stream) */
+    snprintf( buffer, MAX_BUFFER, "%s\n", 
+               asctime( gmtime( &amp;currentTime ) ) );
+
+    ret = <b>sctp_sendmsg</b>( connSock, 
+                          (void *)buffer, (size_t)strlen(buffer),
+                          NULL, 0, 0, 0, GMT_STREAM, 0, 0 );
+
+    /* Close the client connection */
+    <b>close</b>( connSock );
+
+  }
+
+  return 0;
+}
+</code>
+
+<sidebar>Notice that SCTP uses many of the same sockets API as TCP and UDP do. Some additional API functions
+	are provided in the lksctp development tools (see <a href="#resources">Resources</a>).
+</sidebar>
+
+			<p>In the server loop, new client connections are awaited. Upon return from the <code type="inline">accept</code>
+				function, a new client connection is identified by the <code type="inline">connSock</code> socket. I grab
+				the current time using the <code type="inline">time</code> function, then convert it to a string with
+				<code type="inline">snprintf</code>. With the <code type="inline">sctp_sendmsg</code> function (a
+				nonstandard sockets call), I can send the string to the client, specifying the particular stream 
+				(<code type="inline">LOCALTIME_STREAM</code>). When the localtime string has been sent,
+				I package the current time in GMT as a string, then send this on stream <code type="inline">GMT_STREAM</code>.</p>
+			<p>At this point, the daytime server has fulfilled its duty, so I close the socket and await a new client connection.
+				That was simple; now, let's see what the daytime client must do to handle multi-streaming.</p>
+				
+		<heading toc="no" refname="" type="minor">The daytime client</heading>
+			<p>The multi-streaming client is shown in Listing 2. In the client, I create an SCTP socket, then create a
+				<code type="inline">sockaddr</code> structure containing the endpoint to which it will connect. The
+				<code type="inline">connect</code> function then establishes a connection to the server. To retrieve the
+				stream number of a message, SCTP requires enabling the socket option <code type="inline">sctp_data_io_event</code>).
+				With this enabled, when I receive a message through the <code type="inline">sctp_recvmsg</code> API
+				function, I also receive a <code type="inline">sctp_sndrcvinfo</code> structure that contains the stream
+				number. This number allows me to discriminate between messages from stream 0 (localtime) and stream
+				1 (GMT).</p>
+
+<p><b>Listing 2. Daytime client written for SCTP using multiple streams</b></p>
+<code type="section">
+int main()
+{
+  int connSock, in, i, flags;
+  struct sockaddr_in servaddr;
+  struct sctp_sndrcvinfo sndrcvinfo;
+  struct sctp_event_subscribe events;
+  char buffer[MAX_BUFFER+1];
+
+  /* Create an SCTP TCP-Style Socket */
+  connSock = <b>socket</b>( AF_INET, SOCK_STREAM, IPPROTO_SCTP );
+
+  /* Specify the peer endpoint to which we'll connect */
+  bzero( (void *)&amp;servaddr, sizeof(servaddr) );
+  servaddr.sin_family = AF_INET;
+  servaddr.sin_port = <b>htons</b>(MY_PORT_NUM);
+  servaddr.sin_addr.s_addr = <b>inet_addr</b>( "127.0.0.1" );
+
+  /* Connect to the server */
+  <b>connect</b>( connSock, (struct sockaddr *)&amp;servaddr, sizeof(servaddr) );
+
+  /* Enable receipt of SCTP Snd/Rcv Data via sctp_recvmsg */
+  memset( (void *)&amp;events, 0, sizeof(events) );
+  events.sctp_data_io_event = 1;
+  <b>setsockopt</b>( connSock, SOL_SCTP, SCTP_EVENTS,
+               (const void *)&amp;events, sizeof(events) );
+
+  /* Expect two messages from the peer */
+  for (i = 0 ; i &lt; 2 ; i++) {
+
+    in = <b>sctp_recvmsg</b>( connSock, (void *)buffer, sizeof(buffer),
+                        (struct sockaddr *)NULL, 0, 
+                        &amp;sndrcvinfo, &amp;flags );
+
+    /* Null terminate the incoming string */
+    buffer[in] = 0;
+
+    if        (sndrcvinfo.sinfo_stream == LOCALTIME_STREAM) {
+      printf("(Local) %s\n", buffer);
+    } else if (sndrcvinfo.sinfo_stream == GMT_STREAM) {
+      printf("(GMT  ) %s\n", buffer);
+    }
+
+  }
+
+  /* Close our socket and exit */
+  <b>close</b>(connSock);
+
+  return 0;
+}
+</code>
+
+	<heading refname="" type="major" toc="yes" alttoc="">The future of SCTP</heading>
+		<p>SCTP is a relatively new protocol, considering that it became an RFC in October 2000. Since then, it
+			has found its way into all major operating systems, including GNU/Linux, BSD, and Solaris. It's also
+			available for the Microsoft<reg>®</reg> Windows<reg>®</reg> operating systems as a third-party
+			commercial package.</p>
+		<p>With its availability, applications will begin to utilize SCTP as their primary transport. Traditional
+			applications such as FTP and HTTP have been built on the features of SCTP. Other protocols are
+			using SCTP, such as the Session Initiation Protocol (SIP) and the Common Channel Signaling System No.
+			7 (SS7). Commercially, you can find SCTP in Cisco's IOS.</p>
+		<p>With the inclusion of SCTP into the 2.6 Linux kernel, it's now possible to build and deploy highly available
+			and reliable networked applications. As an IP-based protocol, SCTP is a seamless replacement for TCP
+			and UDP but also extends new services, such as multi-homing, multi-streaming, and increased security.</p>
+		<p>This article presented a look at some of the high-level features of SCTP, and I encourage you to explore the
+			other capabilities that it provides. The Linux Kernel SCTP project (lksctp) provides API extensions and
+			documentation that will help you on your way.</p>
+</docbody>
+
+<resource-list>
+	<ul>
+	    <li>Learn about other networking improvements of the <a href="http://www-128.ibm.com/developerworks/linux/library/l-net26.html">Linux 2.6 kernel</a>.</li>
+	    <li>Find the latest Linux kernel at <a href="http://www.kernel.org">kernel.org</a>.</li>
+	    <li>Read the Request for Comments Introduction to <a href="http://www.faqs.org/rfcs/rfc3286.html">SCTP</a>.</li>
+	    <li>See the latest status of the <a href="http://lksctp.sourceforge.net/">Linux Kernel SCTP Project</a> at SourceForge.</li>
+	    <li>Read the <a href="http://devworks.krcinfo.com/WebForms/ProductDetails.aspx?ProductID=0201721864"><i>SCTP Reference Guide</i></a>, written by its creators Randall Stewart and Qiaobing Xie.</li>
+	    <li>Discover research at the University of Delaware investigating <a href="http://pel.cis.udel.edu/">alternative transport layer protocols</a>, such as SCTP.</li>
+	    <li>Read the Internet Standard for SCTP, <a href="http://www.faqs.org/rfcs/rfc2960.html">RFC2960</a>.</li>
+	    <li>Explore the implementation issues in the <a href="http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-sctpimpguide-13.txt"><i>SCTP Implementer's Guide Internet-Draft</i></a>.</li>
+	    <li>Inviestigate the SCTP Sockets API Extensions in the latest <a href="http://www.ietf.org/internet-drafts/draft-ietf-tsvwg-sctpsocket-10.txt">Internet-Draft</a>.</li>
+	    <li>Visit the <a href="http://www.sctp.de">sctp.de</a> page for information about SCTP implementations, RFCs, and tutorials.</li>
+	    <li>Get involved in the Signaling Transport (sigtran) <a href="http://www.ietf.org/html.charters/sigtran-charter.html">working group</a>.</li>
+	    <li>Find more resources for Linux developers in the <a href="http://www.ibm.com/developerworks/linux/">developerWorks Linux zone</a>.</li>
+		<li>Visit the <a href="http://www.ibm.com/developerworks/offers/linux-speed-start/">Speed-start your Linux app</a> site for the latest no-charge trial downloads for Linux (WebSphere Studio Application Developer, WebSphere Application Server, DB2 Universal Database, Tivoli Access Manager, and Tivoli Directory Server), as well as how-to articles and tech support.</li>
+		<li>Get involved in the developerWorks community by participating in <a href="http://www.ibm.com/developerworks/blogs/">developerWorks blogs</a>.</li>
+		<li>Purchase <a href="http://devworks.krcinfo.com/WebForms/ProductList.aspx?Search=Category&amp;id=300&amp;parent=Linux" target="new">Linux books at discounted prices</a> in the Linux section of the Developer Bookstore.</li>
+	</ul>
+</resource-list>
+</dw-article>
+</dw-document>
