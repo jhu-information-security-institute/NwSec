@@ -1,0 +1,88 @@
+
+ --------- THIS TOOL IS EMBARGOED UNTIL FEBRUARY 28TH, 2005 --------------
+
+icmp-reset
+
+This audit tool is brought to you by NISCC (National Infrastructure Security
+Co-ordination Centre).
+
+It was generated to help vendors and network administrators audit their
+systems and networks. It allows you to set many parameters of the audit.
+By default, many of them will be randomized for each packet. Thus, this
+tool may also prove to be useful to tune IDSs and the like.
+
+I welcome any comments. You can reach me at <fernando@gont.com.ar>.
+A discussion of the blind connection-reset attack and the possible
+counter-measures can be found at my IETF Internet-Draft about the subject.
+You can download it from:
+
+        http://www.gont.com.ar/drafts/icmp-attacks-against-tcp.html
+
+
+Those vendors that have not yet contacted NISCC are encouraged to do so.
+You can reach NISCC at their e-mail address: <vulteam@niscc.gov.uk>
+
+
+A brief "tutorial" on the audit tool.
+
+Typical use:
+
+icmp-reset -c 192.168.0.1:1024-1100 -s 172.16.0.1:80 -t client -r 10
+
+The "-c" option specifies the client data. The client IP address is
+*required*. The client port number (or a port range) is optional. If you
+don't specifiy any port, the tool will try every port in the range 0-65535.
+If you do specify a range, the tool will try just that range. If you specify
+a single port, say "-c 192.168.0.1:1024", the tool will try just that port
+number (and thus the attack will require fewer packets).
+
+The "-s" option specifies the server data. The same considerations apply.
+Be aware that if you do not speficy any ports (neither for the client, nor
+for the server), then 65536*65536 packets will be required to perform the
+attack.
+
+The "-t" option specifies who will be the target of the packets. In this
+case, the packets will be sent to the client.
+
+The "-r" option lets you limit the bandwidth that will be used for the
+attack (in kbps). In this case, we'd be using 10 kbps (obviously, it's a
+raw estimation). This option is useful in case there's an intermediate
+router that will rate-limit ICMP traffic, and possibly discard those packets
+that exceed some specified threshold. This option is also useful if any of
+the intervening systems cannot keep up with the rate at which you are
+sending your packets, and thus will discard some of them.
+
+By default, the source address of the packet will be forged to that of the
+party that is not being attacked. In this case, the source address would be
+set to "172.16.0.1". The "-n" option will cause packets to be sent using
+your own IP address (i.e., the attacker's address). This is useful if any
+intervening router is performing egress-filtering.
+
+Additionaly, the -f" option lets you specify the source address of the
+packets. For example, the command:
+
+icmp-reset -c 192.168.0.1:1024-1100 -s 172.16.0.1:80 -t client -r 10 -f 10.0.0.1
+
+will cause "10.0.0.1" to be used as the source address of the ICMP messages.
+
+By default, many fields (TTL, payload TTL, IP ID, payload ID, TCP SEQ, etc.)
+are set to random values. The TOS of both the IP packet and the IP header
+contained in the payload of the ICMP error message are set to 0x00 (normal
+traffic).
+
+By default, ICMP type 3 (Destination Unreachable"), code 2 ("Protocol
+Unreachable") messages will be sent. But you can specify any ICMP code by
+means of the "-i" option.
+
+By default, the IP header contained in the payload of the ICMP error message
+will claim a datagram size of 576 bytes. However, you can specify any size by
+means of the "-z" option. Note that this option will not affect the actual
+number of bytes that will be transferred. It just sets the corresponding
+header field to the specified value.
+
+--
+Fernando Gont
+e-mail: fernando@gont.com.ar
+
+
+ --------- THIS TOOL IS EMBARGOED UNTIL FEBRUARY 28TH, 2005 --------------
