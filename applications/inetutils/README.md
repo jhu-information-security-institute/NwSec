@@ -21,7 +21,7 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. run the container and execute sequence to start the server
 1. interact with the running server from an external telnet client and capture the network transaction using wireshark that is running elsewhere (e.g., another VM, another RPI, etc.)
 
-# setup build environment
+# setup native build environment (RPI4B running Ubuntu OS)
 ## obtain source
 1. `$ sudo apt-get install dpkg-dev`
 1. edit `/etc/apt/sources.list` and uncomment all the deb-src package instances (note: there is one that needs to remain commented as it causes an error)
@@ -45,7 +45,7 @@ telnet                  stream  tcp     nowait  root    /usr/local/libexec/telne
 </code></pre>
 1. `$ sudo systemctl restart inetd`
 
-## control and query status via inetd
+## inetd controls and queries telnetd status
 * sudo systemctl start inetd
 * sudo systemctl status inetd
 * sudo systemctl stop inetd
