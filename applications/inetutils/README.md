@@ -1,4 +1,5 @@
 # initial research
+The steps here setup the target (Ubuntu Server 18.04 running on a RPI4B), identified the telnetd package to build and installed its binaries using the package manager, and explored available documentation.   
 1. install clean image of ubuntu server 18.04 on sd-card
 1. boot ubuntu server and login over console (login: ubuntu, ubuntu)
 1. `$ sudo apt-get update`
@@ -8,6 +9,7 @@
 1. documentation available [here](https://www.gnu.org/software/inetutils/manual/html_node/) and with: `$ man telnetd`
 
 # overview of steps
+The steps here outline the sequence needed for obtaining, building, and running telnetd on the target within Docker.  Also included are the additional steps that setup and use a telnet client to interact with it for capturing related network transactions between them.
 1. install clean image of ubuntu server 18.04 on sd-card
 1. boot ubuntu server and login over console (login: ubuntu, ubuntu)
 1. `$ sudo apt-get update`
