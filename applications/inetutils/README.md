@@ -12,8 +12,8 @@
 1. boot ubuntu server and login over console (login: ubuntu, ubuntu)
 1. `$ sudo apt-get update`
 1. setup network, ssh access (`$ sudo apt-get install openssh-server && sudo systemctl start sshd`), and login via ssh
-1. install docker
-1. create a docker container for the build environment and source gathering (native)
+1. install docker (using the script)
+1. create a docker container (using the Dockerfile) for the build environment and source gathering (native)
 1. run the container and execute sequence to build telnetd
 1. create a docker container for the runtime environment and telnetd installation/setup
 1. run the container and execute sequence to start the server
