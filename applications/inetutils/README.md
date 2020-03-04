@@ -43,13 +43,17 @@ The steps here outline the sequence needed for obtaining, building, and running 
 #:BSD: Shell, login, exec and talk are BSD protocols.
 telnet                  stream  tcp     nowait  root    /usr/local/libexec/telnetd      telnetd
 </code></pre>
-1. `$ sudo systemctl restart inetd`
+1. edit /etc/pam.d/login and comment out (prefix with #) the following line to allow root user login
+<pre><code>
+auth [success=ok new_authtok_reqd=ok ignore=ignore user_unknown=bad default=die] pam_securetty.so
+</code></pre>
+1. `$ sudo systemctl restart inetutils-inetd`
 
 ## inetd controls and queries telnetd status
-* sudo systemctl start inetd
-* sudo systemctl status inetd
-* sudo systemctl stop inetd
-* sudo systemctl restart inetd
+* sudo systemctl start inetutils-inetd
+* sudo systemctl status inetutils-inetd
+* sudo systemctl stop inetutils-inetd
+* sudo systemctl restart inetutils-inetd
 
 
 
