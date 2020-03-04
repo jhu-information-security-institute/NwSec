@@ -77,6 +77,7 @@ telnet                  stream  tcp     nowait  root    /usr/local/libexec/telne
 auth [success=ok new_authtok_reqd=ok ignore=ignore user_unknown=bad default=die] pam_securetty.so
 </code></pre>
 1. `$ sudo systemctl restart inetutils-inetd`
+1. to confirm that telnetd is listening on port 23, use `$ netcat -a`
 
 ## inetd controls and queries telnetd status
 * sudo systemctl start inetutils-inetd
