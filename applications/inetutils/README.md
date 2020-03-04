@@ -50,6 +50,7 @@ The steps here outline the sequence needed for obtaining, building, and running 
 
 # setup cross-build environment (VM running Kali OS)
 ## obtain source
+1. download the source from the RPIB running Ubuntu OS and copy the source over to the VM
 
 ## install dependencies
 1. `$ sudo apt-get install build-essential vim autotools-dev automake autoconf help2man`
