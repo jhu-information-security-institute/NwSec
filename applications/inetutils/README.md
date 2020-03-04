@@ -5,7 +5,7 @@ The steps here setup the target (Ubuntu Server 18.04 running on a RPI4B), identi
 1. `$ sudo apt-get update`
 1. setup network, ssh access (`$ sudo apt-get install openssh-server && sudo systemctl start sshd`), and login via ssh
 1. search for telnetd with: `$ apt-cache search telnetd`
-1. install telnetd with: `$ sudo apt-get install inetutils-telnetd` (installs it into /usr/sbin/telnetd)
+1. install telnetd with: `$ sudo apt-get install inetutils-inetd inetutils-telnetd` (installs it into /usr/sbin/telnetd)
 1. documentation available [here](https://www.gnu.org/software/inetutils/manual/html_node/) and with: `$ man telnetd`
 
 # overview of steps
