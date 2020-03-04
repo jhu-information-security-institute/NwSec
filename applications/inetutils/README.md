@@ -56,7 +56,12 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. Download [gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu](https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu) and install in /opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu
 1. Extract sysroot from the RPI OS (/lib, /usr/include, /usr/lib, /usr/local/include, /usr/local/lib)
 
-
+## build inetutils
+1. `export CROSS_COMPILE=/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-`
+1. `export ARCH=aarch64`
+1. `autoreconf -f -i`
+1. `./configure`
+1. `make -j8`
 
 # setup runtime environment
 1. `$ sudo apt-get install inetutils-inetd`
@@ -77,6 +82,3 @@ auth [success=ok new_authtok_reqd=ok ignore=ignore user_unknown=bad default=die]
 * sudo systemctl status inetutils-inetd
 * sudo systemctl stop inetutils-inetd
 * sudo systemctl restart inetutils-inetd
-
-
-
