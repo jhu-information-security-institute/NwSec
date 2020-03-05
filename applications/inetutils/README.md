@@ -40,6 +40,7 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. edit `/etc/apt/sources.list` and uncomment all the deb-src package instances (note: there is one that needs to remain commented as it causes an error)
 1. `$ sudo apt-get update`
 1. `$ apt-get source inetutils`
+1. `$ tar -cvf inetutils-1.9.4.tar inetutils-1.9.4`
 
 ## install dependencies
 1. `$ sudo apt-get install build-essential vim autotools-dev automake autoconf help2man`
@@ -58,9 +59,8 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. Extract sysroot from the RPI OS (/lib, /usr/include, /usr/lib, /usr/local/include, /usr/local/lib)
 
 ## build inetutils
-1. `export CROSS_COMPILE=/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-`
-1. `export ARCH=aarch64`
-1. `autoreconf -f -i`
+1. `export CROSS_COMPILE=/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu- && export ARCH=aarch64`
+1. `autoreconf -f -i && automake && autoconf`
 1. `./configure`
 1. `make -j8`
 
