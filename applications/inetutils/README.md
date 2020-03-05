@@ -40,6 +40,7 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. edit `/etc/apt/sources.list` and uncomment all the deb-src package instances (note: there is one that needs to remain commented as it causes an error)
 1. `$ sudo apt-get update`
 1. `$ apt-get source inetutils`
+1. `$ tar -cvf inetutils-1.9.4.tar inetutils-1.9.4`
 
 ## install dependencies
 1. `$ sudo apt-get install build-essential vim autotools-dev automake autoconf help2man`
