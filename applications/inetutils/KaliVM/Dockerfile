@@ -18,10 +18,12 @@ FROM registry.gitlab.com/kalilinux/build-scripts/kali-docker/kali:2019.4
 RUN apt-get update
 
 # Get the dependencies for git, then get openssl
-RUN apt-get install build-essential autotools-dev automake autoconf -y
+RUN apt-get install build-essential autotools-dev automake autoconf texinfo -y
 
 # Create a directory for mounting gnu toolchain with cross-compiler from a host folder
 RUN mkdir -p /opt/gnu
+RUN useradd -ms /bin/bash dummy
+COPY cross-compile.sh /home/dummy/.
 
 # Finished!
-RUN echo 'Container is ready, run it using $ sudo docker --name kalibuildenv -v /opt/gnu:/opt/gnu run -it tkalibuildenv:latest'
+RUN echo 'Container is ready, run it using $ sudo docker run --name kalibuildenv -v /opt/gnu:/opt/gnu -it tkalibuildenv:latest'

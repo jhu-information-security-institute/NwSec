@@ -50,19 +50,16 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. `$ make`
 
 # setup cross-build environment (VM running Kali OS)
-## obtain source
-1. download the source from the RPIB running Ubuntu OS and copy the source over to the VM
-
-## install dependencies
-1. `$ sudo apt-get install build-essential vim autotools-dev automake autoconf help2man`
-1. Download [gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu](https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu) and install in /opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu
-1. Extract sysroot from the RPI OS (/lib, /usr/include, /usr/lib, /usr/local/include, /usr/local/lib)
-
-## build inetutils
-1. `export CROSS_COMPILE=/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu- && export ARCH=aarch64`
-1. `autoreconf -f -i && automake && autoconf`
-1. `./configure`
-1. `make -j8`
+1. Download [gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu](https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu) and install in `/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu`
+1. from top-level git folder, `$ git apply applications/inetutils/inetutils-1.9.4-PATH_PROCNET_DEV.patch`
+1. then, from same folder, `$ git ls-files -z applications/inetutils/inetutils-1.9.4 | xargs -0 tar -cvf inetutils-1.9.4.tar`
+1. cd into applications/inetutils/KaliVM
+1. build the container `$ sudo docker build -t tkalibuildenv .`
+1. run the container `$ sudo docker run --name kalibuildenv -v /opt/gnu:/opt/gnu -it tkalibuildenv:latest`
+1. from the host, copy inetutils-1.9.4.tar into it using `$ sudo docker cp inetutils-1.9.4.tar kalibuildenv:/home/dummy/.`
+1. then, within the running container, switch to dummy user `$ su dummy`
+1. next, extract the tar file (from `/home/dummy`) and cd into the `applications/inetutils/inetutils-1.9.4` directory
+1. then, build it by running `$ /home/dummy/cross-compile.sh`
 
 # setup runtime environment
 1. `$ sudo apt-get install inetutils-inetd`

@@ -1,0 +1,16 @@
+#RAJ: After some googling, I located http://repository.timesys.com/buildsources/i/inetutils/inetutils-1.9/inetutils-1.9-PATH_PROCNET_DEV.patch and created this similar patch to address the compile error (when cross-compiling)
+diff --git a/applications/inetutils/inetutils-1.9.4/ifconfig/system/linux.c b/applications/inetutils/inetutils-1.9.4/ifconfig/system/linux.c
+index ef27d65..1f9a919 100644
+--- a/applications/inetutils/inetutils-1.9.4/ifconfig/system/linux.c
++++ b/applications/inetutils/inetutils-1.9.4/ifconfig/system/linux.c
+@@ -50,6 +50,10 @@
+ #include "../ifconfig.h"
+ 
+ 
++#ifndef PATH_PROCNET_DEV
++  #define PATH_PROCNET_DEV "/proc/net/dev"
++#endif
++
+ /* ARPHRD stuff.  */
+ 
+ static void
