@@ -1,0 +1,5 @@
+#
+# inetutils inetd defaults
+#
+
+INETD_OPTS=

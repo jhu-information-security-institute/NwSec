@@ -1,0 +1,126 @@
+This text intends to be helpful in the verification of the
+utilities found within GNU Inetutils.  The source archive
+does contain a small set of test, but they are never able
+to test all desirable abilities, so this text is collected
+in the hope that an administrator or packager find hints on
+important steps to verify claimed abilities.  One upstream
+author found himself overlooking a serious fault, until
+rethinking procedures similar to the following.  This is
+all the more relevant since GNU Inetutils aims at portability
+to different operating systems, intending identical abilities
+for simplification in heterogeneous environments.
+
+Most executables delivered by GNU Inetutils depend on only
+a few, and immediately recognizable, settings or mechanisms.
+Others, like `ftpd', `telnetd', and `rlogind', depend on
+multiple configuration files, or depend on external programs
+that may differ slightly from system to system.  Executables
+in the latter class include all those with Kerberos abilities.
+
+Of particular importance, and difficulty to verify, is the
+server executable `ftpd'.  This will be discussed at length
+below, but let us start with some simpler cases.
+
+1. rlogind and telnetd
+
+The server executables `telnetd' and `rlogind' are the only
+ones depending on the system executable `/bin/login`, or
+sometimes `/usr/bin/login'.  This system program is heavily
+system dependent, and at present we are aware that login(1)
+of Solaris and of `util-linux', as found in Arch Linux, is
+not completely functional in all intended use cases.
+
+2. rcp and rsh
+
+The client programs `rcp' and `rsh', certainly when built
+with Kerberos support, need care since they delegate work
+via PATH_RSH and PATH_RLOGIN, respectively.  All testing
+efforts must be aware of this.  Both locations are settable
+at configuration time using `--with-path-rsh=...' and
+`--with-path-rlogin=...'.  Bear in mind that BSD systems
+assign values to those two macros by inspecting <paths.h>,
+and that these values are used unless overridden.
+
+3. syslogd
+
+The included test script for `syslogd' is in fact using
+command line switches to override the defaults for configu-
+ration file and ditto directory.  The mechanisms should
+work, but their default settings must be checked for use
+in prebuilt packages.  Again, `--with-path-logconf' and
+`--with-path-logconfd' are the way to go.
+
+The auto-build system Hydra, of NixOS' origin, is known
+to fail occasionally at reusing a logging file after
+receiving SIGHUP, but this has never happened during
+manual checks.  Ideas on resolving this matter are most
+welcome.  There could be some dead-lock involved here.
+
+4. ftpd
+
+As already stated, the server `ftpd' is particularly picky
+to verify reliably.  The main obstacle lies in its use of
+four different files for configuration, or in user inter-
+action.  The standard macros PATH_FTPUSERS, PATH_FTPCHROOT,
+and PATH_FTPWELCOME, PATH_FTPLOGINMESG are relevant here,
+where the first two are of critical concern for reasons of
+security.  In addition, also `/etc/shells' is referenced.
+
+Every packager and administrator _must_ check that the files
+`ftpusers' and `ftpchroot' are assigned the right locations:
+
+   $ strings ftpd/ftpd | grep '/etc'
+
+Let us sketch a limited set-up intended to uncover faults
+in `ftpd' while handling `ftpusers' and `ftpchroot'.  The
+file locations below are chosen for brevity, rather than
+best practice.
+
+   ### /etc/passwd
+   root:x:0:0::/root:/bin/sh
+   # Invalid interpreter
+   aaa:x:11111:101::/home/aaa:/bin/false
+   # To be denied access.
+   bbb:x:11112:101::/home/bbb:/bin/sh
+   ccc:x:11113:102::/home/ccc:/bin/sh
+   # To be chrooted.
+   ddd:x:11114:101::/home/ddd:/bin/sh
+   eee:x:11115:103::/home/eee:/bin/sh
+
+   ### /etc/group
+   passes:x:101:
+   banned:x:102:
+   chroot:x:103:
+
+   ### /etc/ftpusers
+   root
+   bbb
+   @banned
+
+   ### /etc/ftpchroot
+   ddd
+   @chroot
+
+With this set-up, the users `aaa' should be denied access
+due to an invalid shell, while `bbb' and `ccc' should be
+reject for being mentioned in `ftpusers', the latter though
+his group membership.  Furthermore, `ddd' and `eee' should
+be admitted access, but be confined within a chrooted subtree,
+recognizable by issuing `pwd' in an FTP-session.  Here, `eee'
+is to be chrooted based on its group membership.
+
+A final remark regarding the chrooted mode.  On GNU systems
+and Solaris systems, the above templates `/etc/passwd' and
+`/etc/group', positioned below the chroot directory,  would
+suffice to allow the list command `ls' to resolve numbers as
+group and user names in directory listings, but they do not
+suffice on BSD systems.  For those unices, `/etc/passwd' is
+completely irrelevant, and is to be replaced by `/etc/pwd.db'.
+Starting from a template for `master.passwd', BSD systems need
+to call pwd_mkdb(8) to generate a minimally usable `/etc/pwd.db'.
+A responsible BSD administrator is expected to master this!
+
+Ideally, the administrator should also check that expired
+accounts and expired passwords also lead to denied access.
+The tools vary widely, but usermod(8) and its variants
+are useful.

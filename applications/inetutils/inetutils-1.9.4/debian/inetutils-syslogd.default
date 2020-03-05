@@ -1,0 +1,7 @@
+#
+# inetutils syslogd defaults
+#
+
+# Internet connections are enabled if forwarding (which is the default).
+SYSLOGD_OPTS="--no-forward"
+

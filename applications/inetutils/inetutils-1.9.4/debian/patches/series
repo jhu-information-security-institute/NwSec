@@ -1,0 +1,4 @@
+99_typos.patch
+01_disable_useless_man_pages.patch
+22_syslogd_conf.patch
+62_inetd_change_ipv6_protocol_semantics.patch

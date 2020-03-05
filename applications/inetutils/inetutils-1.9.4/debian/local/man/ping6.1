@@ -1,0 +1,69 @@
+.TH PING6 "1" "2015-05-15" "GNU inetutils" "User Commands"
+.SH NAME
+ping6 \- Packets to network hosts
+.SH SYNOPSIS
+.B ping6
+[\fIOPTION\fR...] \fIHOST \fR...
+.SH DESCRIPTION
+Send ICMP ECHO_REQUEST packets to network hosts.
+.SS
+Options valid for all request types:
+.TP
+\fB\-c\fR, \fB\-\-count\fR=\fINUMBER\fR
+Stop after sending \fINUMBER\fP packets.
+.TP
+\fB\-d\fR, \fB\-\-debug\fR
+Set the SO_DEBUG option.
+.TP
+\fB\-\-hoplimit\fR=\fIN\fR
+Specify \fIN\fP as hop\-limit.
+.TP
+\fB\-i\fR, \fB\-\-interval\fR=\fINUMBER\fR
+Wait \fINUMBER\fP seconds between sending each packet.
+.TP
+\fB\-n\fR, \fB\-\-numeric\fR
+Do not resolve host addresses.
+.TP
+\fB\-r\fR, \fB\-\-ignore\-routing\fR
+Send directly to a host on an attached network.
+.TP
+\fB\-\-ttl\fR=\fIN\fR
+Synonym for \fB\-\-hoplimit\fR.
+.TP
+\fB\-T\fR, \fB\-\-tos\fR=\fIN\fR
+Set traffic class to \fIN\fP.
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+Verbose output.
+.TP
+\fB\-w\fR, \fB\-\-timeout\fR=\fIN\fR
+Stop after \fIN\fP seconds.
+.SS
+Options valid for \fB\-\-echo\fR requests:
+.TP
+\fB\-f\fR, \fB\-\-flood\fR
+Flood ping (root only).
+.TP
+\fB\-l\fR, \fB\-\-preload\fR=\fINUMBER\fR
+Send NUMBER packets as fast as possible before falling into normal mode
+of behavior (root only).
+.TP
+\fB\-p\fR, \fB\-\-pattern\fR=\fIPATTERN\fR
+Fill ICMP packet with given pattern (hex).
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Quiet output.
+.TP
+\fB\-s\fR, \fB\-\-size\fR=\fINUMBER\fR
+Send \fINUMBER\fP data octets.
+.TP
+\fB\-?\fP, \fB\-\-help\fR
+Give this help list.
+.TP
+\fB\-\-usage\fR
+give a short usage message.
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print program version.
+.PP
+Options marked with (root only) are available only to superuser.

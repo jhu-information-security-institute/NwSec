@@ -1,0 +1,185 @@
+* Before release
+
+Write documentation (NEWS and manual) for how IPv6/IPv4 gets mapped by
+inetd.
+
+* General
+
+broadcasted terminals: provide a client/daemon that broadcasts a users
+  terminal on a port.  Ideally, there should be a single port, with a
+  command to list all available broadcasts.
+
+supdup: A telnet client/daemon like program for the SUPDUP protocol;
+  there exists one already by it is ugly, and kinda a pain to get
+  running.  And I don't think there is an actual daemon program for
+  GNU systems at all (ITS has one though :-).
+
+Add framework for tests.  How can tests needing root priviliges
+be maintained, automated, or rewritten?
+
+Function for parsing [USER@]HOSTNAME[:PORT], that returns each value
+in a structure.  Handle IP (v4 and v6) numbers as well.  And make
+programs use it.
+
+Files without a copyright notice: README-hacking,
+TODO, confpaths.h.in, ifconfig/COMPATIBILITY, whois/as_del_list,
+whois/ip_del_list, whois/make_as_del.pl, whois/make_ip_del.pl,
+whois/make_tld_serv.pl, and whois/tld_serv_list.
+
+Add a better autoconf check for bison, it will succeed even though the
+generated files do not exist.
+
+Go through code and check what is clean, needs cleaning, etc.
+
+Document libraries, and their exported fucntions.
+
+Document code; in the end this should be as nice as coreutils!
+
+Allow daemons and clients to take a port number, and daemons started
+standalone so one can test things more easily.  Requires decent
+infrastructure for things.  Ben Asselstine might have ideas with his
+argp hacks...  Good candidate for this are rsh/rshd rlogin/rlogind,
+rcp (simple protocol, and simple programs).
+
+Add debugging output for client/daemon, suggested example of output:
+FROM-HOST -->: Received message
+<-- TO-HOST: Sent message
+<-- TO-HOST: Sent message
+FROM-HOST -->: Received message
+
+Add long options to programs libls/ls.c, rcp, rlogind, rlogin, rshd,
+telnetd, tftpd, especially the clients.  The conventions used by
+telnet & ftp should be followed.
+
+Merge the functionality of Noah [Friedman]'s ftp client into ftp
+(readline support, &c), and add readline to the distribution.
+
+Move the horrible mess of code from telnetd/sys_term.c into functions
+in libinetutils using the BSD libutil functionality (such that they
+can be elided if a system libutil exists); specifically:
+    login  -- Frob utmp &c for a new login process
+    logout -- Frob utmp &c for a newly logged out process
+    openpty -- Find a free pty, allocate and set it up, and return it
+    forkpty -- Calls openpty as well as forking a new process to use it
+and the following functions not in BSD:
+    cleanup_session -- More general cleanup for a newly logged out process
+			(calls logout and logwtmp, frobs tty perms)
+    setup_session -- More general setup for a new login process (calls login,
+			frobs tty perms, ...?)
+[logout and cleanup_session are written, but telnetd doesn't use them
+yet.]  Rlogind currently depends on having the BSD functions
+available, so it is cleaner, if less portable than telnetd; once this
+cleanup is done, then rlogind will more portable, and telnetd less
+messy.  This is already partially done, but care is needed as
+sys_term.c does lots of stuff that I'm not sure is needed, but might
+be.
+
+Make sure that both sgtty and termios/termio are supported equally
+well in all programs (currently only termios is really tested).
+
+Add support for sysv-style ptys, whatever that is.
+
+Supply versions of the rcmd functionality needed by the r* programs.
+
+Supply a version of the syslog function for systems that don't have
+it.
+
+Perhaps make ftp use no-uid support on the Hurd.
+
+More careful autoconfiscation -- many header files are included
+unconditionally in a lot of places, even if an autoconf test is
+already done for them, &c.
+
+Testing and debugging the encryption and authentication modes.
+Include all relevant options in the Texinfo source.
+
+Remove support for kerberos_v4. Make sure kerberos_v5 and shishi
+do not interfere when building on systems where both are present.
+
+Add more utilities:
+  Tcpdump
+  routed?
+  ruptime?
+  rusers?
+  ...
+[Already in other distributions: finger/fingerd, ntp]
+
+Add internationalization, read: gettext support, and provide
+translations, especially for the clients.
+
+2.0 will be a release that tries to put as much as possible into
+libraries (startup code, etc).  We would also like to try and write
+(or convince someone else to write) a gopher and gopherd pair.
+
+Make src/hostname.c handle missing 'sethostname' functions on
+platforms that doesn't have them (it could just print an error
+message).
+
+* libicmp
+
+Handle timestamp, router discovery and address packets.
+
+
+* ping/ping6
+
+Ability to send router discovery, address and maybe timestamp packets.
+
+Ability to ping multiple host in one go.
+
+* ifconfig
+
+** Implement flags support in changeif.c and options.c
+** Make sure it is a drop in replacement at least for the most
+   common options on Linux and BSD.
+
+** Some systems can provide more interfaces than
+  SIOCGIFCONF/if_nameindex, interfaces which are usually not UP but
+  registered nevertheless.  (linux: /prov/net/dev). Some support for
+  that?
+
+** Honour IFF_CANTCHANGE when working in flag setting in brdaddr,
+  dstaddr, etc.
+
+** We could put the option parsing (invocation of getopt_long) into a
+  function like parse_opt_rest, which could be used by
+  system_parse_opt_rest to continue parsing the options as usual after
+  processing a non-option.
+
+** Is it necessary to merge long/short options intelligently?
+  For example, if a system specific option shadows a normal option?
+  Allow this?
+
+* ftp, ftpd
+
+Implement libshishi support?
+
+* logger
+
+Solaris implements `/dev/log' as a character special device,
+communicating by the STREAMS protocol, not as a Unix socket.
+Consider supporting this variation.  Our local socket code
+is correct, but it cannot communicate with the native syslog
+service via `/dev/log', only via UDP.
+
+* whois
+
+What about rwhois?
+
+Should support the refer attribute of RIPE-189 objects.
+
+I need a procedure for looking up an IPv6 address in a list of
+prefixes.  Will anybody contribute it?
+
+Add Exodus rwhois server (e.g. 216.35.0.0/16).
+
+* rlogind, telnetd
+
+The Kerberized authentication is not passed on to login(1)
+on Solaris correctly, since its command line arguments are
+not understood properly from the manual page alone.  Do an
+analysis of the source code of login(1) from OpenSolaris to
+remedy this shortcoming.
+
+Local Variables:
+mode: outline
+End:

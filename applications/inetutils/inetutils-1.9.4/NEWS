@@ -1,0 +1,515 @@
+GNU inetutils NEWS -- history of user-visible changes.
+Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Free Software
+Foundation, Inc.  See the end of this file for license conditions.
+
+Please send inetutils bug reports to <bug-inetutils@gnu.org>.
+
+June 9, 2015
+Version 1.9.4:
+
+This is a minor bug release that fixes a regression in `ifconfig'.
+The issue was reported by Juergen Daubert in
+http://lists.gnu.org/archive/html/bug-inetutils/2015-05/msg00002.html
+
+May 12, 2015
+Version 1.9.3:
+
+* ftp
+
+An old inability to allow other names than the canonical name has
+been corrected.  This means that a machine entry in the .netrc file
+will now be used as expected.  Previously any alias name was replaced
+by the corresponding canonical name, before reading the .netrc file.
+
+The internal command `hash' accepts a suffixed letter to the size
+argument, like `12k', instead of 12288.  Made a minor change to the
+syntax of the command itself, allowing size changes independently
+of activation of hash markings.  After a transfer the summary gives
+the speed as `Mbytes/s', `kbytes/s', or `bytes/s'.
+
+The .netrc file can be overridden by the environment variable NETRC.
+Of even higher precedence is the new option `-N/--netrc'.  The access
+to the resulting file, whatever method, is now denied unless it is a
+regular file.
+
+* ifconfig
+
+Better command line parsing on BSD and Solaris systems.  Touch only
+changeable flags on all systems.
+
+* logger
+
+The ability to use numerical facilities is restored to full range.
+
+* ping, ping6
+
+The ability to specify a pattern as payload is corrected.
+
+* syslogd
+
+A new switch `-T/--local-time' makes the service ignore a time
+stamp passed on by the remote host, recording instead the local
+time at the moment the message was received.  As a short form of
+`--pidfile', the switch `-P' is new.
+
+In common with other syslogd implementations, rsyslogd and sysklogd,
+there has for a long time existed an attack vector based on large
+facility numbers, made public in CVE-2014-3684.  This is now mended
+in our code base.
+
+* telnetd
+
+The ability to autologin a client, without using authentication,
+is now functional in the expected manner, i.e., the prompt for a
+user name is suppressed in favour of an immediate password prompt.
+
+In a setting where the client is using a UTF-8 encoding, it was
+common to observe strange characters in most responses.  This was
+caused by the server daemon, due to incomplete purging of internal
+protocol data.  The issue should now be resolved.
+
+* whois
+
+Improved cooperation with servers like `whois.arin.net', `whois.eu',
+and `whois.ripe.net'.
+
+December 23, 2013
+Version 1.9.2:
+
+An advisory file CHECKLIST containing testing and verification advice
+has been added, pointing administrators to important properties and
+settings for built executables.
+
+* IDN -- International Domain Names
+
+The clients `ftp', `ping', `ping6', `talk', `telnet', `tftp', and
+`traceroute' are now capable of using libidn when resolving domain
+names with character sets richer than ASCII.
+
+Systems using the GNU C library achieve this ability by other means in
+the present code, so they do not need to link against libidn at all.
+
+* New tool 'dnsdomainname'.
+
+* ftp
+
+Called as `pftp', passive mode is preset.  New switch `-e/--no-edit'
+for compatibility with other implementations.  Can now be built
+without readline by passing `--disable-readline' to configure.  New
+command `lpwd' avoids a shell call for a common task.  The legacy
+limit for lengths of input lines (previously 200) has been removed.
+Now it is system dependent and is common with most other tools.
+
+* ifconfig
+
+Provides new support for BSD and improved support for Solaris.
+Argument handling has been corrected to avoid some segfaults.
+
+* ping
+
+New switches `--ip-timestamp', `--mask', `-T/--tos' and `--ttl'.  Can
+use file capabilities instead of suid-setting.
+
+* ping6
+
+New switches `--hoplimit/--ttl', `-T/--tos' and `-v/--verbose'.  File
+capabilities are sufficient.
+
+* rcp
+
+Supports IPv6 and Shishi.  New switches `-4/--ipv4', `-6/--ipv6',
+`-k/--realm', `-K/--kerberos', and `-x/--encrypt'.  A file capability
+like `cap_net_bind_service' can be applied instead of installing the
+binary setuid.
+
+* rexec
+
+Supports IPv6.  New switches `-4/--ipv4', `-6/--ipv6', `-a/--ipany'
+
+* rlogin, rsh
+
+Support IPv6.  New switches `-4/--ipv4', `-6/--ipv6'.  A file
+capability like `cap_net_bind_service' can be applied instead of
+installing the binary setuid.
+
+* syslogd
+
+Messages can be logged to specific files according to the name of the
+submitting program, on the tag attached to the message.  The mechanism
+is patterned after same feature used in on BSD.
+
+Support loading of multiple configuration files located in a single
+directory.  New switches `-D/--rcdir'.
+
+* telnet
+
+New switch `-k/--realm'.
+
+* traceroute
+
+Default mode is now UDP, for better conformity with Unices.  New
+switches `-f/--first-hop', `-g/--gateways', `-I/--icmp',
+`-m/--max-hop', `-t/--tos', and `-w/--wait'.  File capabilities
+suffice.
+
+* ftpd
+
+Full IPv6 support.  PAM support for Linux-PAM, OpenPAM, and Sun-PAM as
+service `ftp'.  Observe that the latter two implementations only
+affect non-anonymous access, since `pam_ftp.so' exists for Linux-PAM
+only, so the standard checks are enforced on `ftp/anonymous' as usual.
+The server now accepts the commands LPRT and LPSV.
+
+The parsing of `/etc/ftpusers' and `/etc/ftpchroot' now allows the
+specification of group names, simply by preceding the identifier with
+an at-sign `@'.  An isolated `@' acts as a wildcard and matches every
+user name.  In addition, the parser is more forgiving of spaces and
+tabs, thus achieving better portability of these two files when
+compared with other systems.
+
+The server will by default not disclose that the requested user name
+is invalid, but will instead proceed with a faked password dialogue.
+This is in accordance with RFC 2577.  The new option `--non-rfc2577'
+will now restore the legacy type responses, informing about
+non-existing users and also about expired accounts, or expired
+passwords.
+
+* inetd
+
+Service configuration now allows setting also the group.
+
+* rexecd
+
+Can be built with PAM support as service `rexec'.  New option
+`-l/--logging'.
+
+* rlogind
+
+Support for IPv6 and PAM as services `rlogin' and `krlogin'.
+Buildable with libwrap support for use in stand-alone daemon mode.
+New switches `-4/--ipv4', `-6/--ipv6', and `-S/--server-principal'.
+
+* rshd
+
+Now has support for IPv6, PAM, and Shishi, with PAM services `rsh' and
+`krsh'.  New switches `-k/--kerberos', `-r/--reverse-required',
+`-S/--server-principal', `-v/--vacuous', and `-x/--encrypt'.
+
+* talkd
+
+Has seen reworked ACL-mechanisms, believed to be functional!  New
+switches `-l/--logging', and `-S/--strict-policy'.
+
+* telnetd
+
+New switch `-S/--server-principal'.
+
+* tftpd
+
+New switches `-g/--group', `-s/--secure-dir', and `-u/--user'.
+
+* uucpd
+
+New switch `-u/--uucico'.
+
+January 6, 2012
+Version 1.9.1:
+
+* Don't install git-merge-changelog.
+
+December 31, 2011
+Version 1.9:
+
+* Security fixes
+
+This release fixes a security flaw in telnetd that could lead to
+remote access.
+
+* Solaris is now a supported platform
+
+Support is still new, so please report any bugs to
+<bug-inetutils@gnu.org>.
+
+* Many OpenBSD fixes.
+
+* ftp, tftp, tftpd
+
+Handle IPv6 connections.  ftpd is still IPv4-only until next release.
+
+* syslogd, logger
+
+Handle IPv6 connections.  The server can forward messages without
+using a listening INET socket.  It can also bind to a single
+INET/INET6 address.
+
+* rlogind, rshd
+
+This legacy code was vulnerable to an attack based on source routing.
+Whenever either of IPOPT_SSRR or IPOPT_LSRR is encountered, the newly
+initiated connection is now server-side aborted.  The advisory issued
+by Secure Networks, Inc., February 1997, was adapted.  It was found at
+http://www.citi.umich.edu/u/provos/papers/secnet-spoof.txt
+
+* ifconfig
+
+Now under GNU/Linux "ifconfig -a" shows also interfaces without an
+address.
+
+Adjusted output formating for "unix".
+
+* ping
+
+Now supports -W parameter to specify number of seconds to wait for
+response.
+
+* Various bugs fixes, internal improvements and clean ups.
+
+May 15, 2010
+Version 1.8:
+
+* ftp
+
+New options --active and --passive to enable/disable active transfer
+mode.  The short option for --prompt has been removed, and is instead
+now used to enable passive transfer mode.
+
+* ifconfig
+
+New commands (up and down) to bring up/down an interface using
+ifconfig.
+
+The short option for --address, -a, has been renamed to -A.  And --all
+now uses -a instead.
+
+New commands (multicast, allmulti) to set multicast flags.
+
+New option -s displays a short list of interfaces (similar to netstat
+-i).
+
+The --format option can be used to read format from a file.  To do so,
+prefix the file name with a '@' sign, e.g.:
+
+          ifconfig --format=@FILE
+
+The contents of this file is read literally, except that the lines
+beginning with a `#' sign are ignored (and can thus be used to
+introduce comments).
+
+To obtain a list of the available built-in output formats, use
+
+         ifconfig --format=help
+
+When used with the --verbose option, --format=help also displays
+format definitions.
+
+* Man pages for the daemons are now in section 8 instead of 1.
+
+* There is now a man page for ping6 too.
+
+December 16, 2009
+Version 1.7:
+
+* ping
+
+New option --timeout=N, stop sending packets after N seconds.
+
+* New logger implementation
+
+The `logger' utility has been rewritten from scratch.  The new
+implementation offers many new facilities.  In particular, it
+is able to send messages to system loggers on remote machines, and
+to supply the PID number to include in messages, instead of the
+PID of the `logger' process.
+
+* Restore the traditional behavior of ping without -c option.
+
+* The manual is now licensed under the GNU FDL version 1.3 or later.
+
+* rexec
+
+New program.
+
+* tftp
+
+Command line parsing now uses argp.
+
+* Man pages for all tools are generated using help2man.
+
+
+December 27, 2008
+Version 1.6:
+
+* Various bugs fixes and clean ups.
+
+* hostname, traceroute
+
+New programs.
+
+* ping and ping6 now exit after four packets instead of pinging forever.
+
+The previous behaviour can be enabled by passing `--count 0' to ping
+(or ping6).
+
+* telnet now delays initialization of Shishi until Kerberos is needed
+
+* inetd
+
+The configuration file syntax has been extended to allow for supplying
+local addresses `inetd' should use when listening for a given service.
+The addresses may be specified on a per-server basis as well as
+globally (affecting several services).
+
+It is possible to limit the number of service instances for `nowait'
+services.
+
+October 21, 2006
+Version 1.5:
+
+* Various bugs fixes and clean ups.
+
+* inetd
+
+** New option --environment enables passing client/server data via
+environment variables.
+
+** New option --resolve enables resolving IP addresses before passing
+them via environment.
+
+** Allows numeric port names as service names
+
+** inetd now creates a PID file
+
+* rcp now supports the -V option
+
+* rshd/rexecd now switches to the users home directory after
+  authentication.
+
+* rlogin now supports XON/XOFF without needing -8.
+
+* syslogd now can actually disable forwarding.
+
+* talk allows the use of 8-bit ASCII.
+
+* telnet not subject to certain DNS spoofing techniques that could
+  possibly foil Kerberos authentication.
+
+December 22, 2002
+Version 1.4.2:
+
+* Fix endianess problem in ftpd.
+
+* Various portability updates.
+
+* Security fix for rexecd/rshd.
+
+* Fix processing accumulated messages in syslogd
+
+September 02, 2002
+Version 1.4.1:
+
+* Fixes a build problem on Solaris
+
+* rsh now honours -V as well as --version
+
+* Fixed a security problem with rshd where new files were being
+  created as uid 0.
+
+* Fixed improper ping initialization.
+
+* The syntax of syslog.conf file has been extended. The new
+  wildcard facility specification, **, catches all messages with
+  a facility not specified explicitely in the configuration file.
+
+July 31, 2002
+Version 1.4.0:
+
+* It is now possible to specify whether to compile individual
+  utilities using arguments to configure.
+
+* The GNU networking utilities manual has been started.
+
+* If you have the GNU readline library installed, it will now be used
+  by the ftp client.
+
+* There is now a whois client.
+
+* Several security fixes and other bug fixes have been applied.
+
+* The inetd server can read configuration file snippets from
+  /etc/inetd.d/.
+
+* The talkd and telnetd servers have been essentially rewritten.
+
+* The ping program was added.
+
+* The syslogd server supports several new features in the
+  configuration file, like omitting file sync, piping messages into
+  programs etc.  It also supports several new options on the command
+  line.
+
+* Inetutils should generally compile on most platforms now.
+
+March, 13, 1998
+Version 1.3.2:
+
+ This release attempts to get the encryption/authentication options to
+ compile correctly; they appear to work on systems with the appropriate
+ libraries, but have not been well tested.
+
+September, 11, 1997
+Version 1.3.1:
+
+ This release fixes various small problems.
+
+ Telnet now won't force the stripping of 8-bit characters when not in binary
+ mode (it will leave the terminal in whatever state it was originally).
+
+February, 25, 1997
+Version 1.3:
+
+ More portable again than 1.2.  It is still very BSD-specific, but now
+ works on many popular systems, such as linux and sunos/solaris.
+
+ The talk program finally seems to work.
+
+ ftp now supports a --prompt option to force it to print a prompt, even
+ when not on a tty (this makes it possible to use ange-ftp with pipes).
+
+ rsh now supports long options.
+
+ Many security fixes have been made, so this release should be more secure
+ than previous ones.
+
+August, 21, 1996
+Version 1.2:
+
+ An attempt to be somewhat more portable, and reorganize the code to make
+ porting a bit easier; it is still very BSD-specific.
+
+ A major bug in ftpd bug that prevents most logins from succeeding is
+ fixed, as well as other, more minor, bugs.
+
+Version 1.1:
+
+ A minor release intended only for the GNU hurd.
+
+ This release adds checking for crypt at both compile and runtime (on
+ systems where weak refs are supported).
+
+----------------------------------------------------------------------
+Copyright information:
+
+Permission is granted to anyone to make or distribute verbatim copies
+of this document as received, in any medium, provided that the
+copyright notice and this permission notice are preserved, thus giving
+the recipient permission to redistribute in turn.
+
+Permission is granted to distribute modified versions of this
+document, or of portions of it, under the above conditions, provided
+also that they carry prominent notices stating who last changed them.
+
+Local variables:
+mode: outline
+paragraph-separate: "[	 ]*$"
+end:

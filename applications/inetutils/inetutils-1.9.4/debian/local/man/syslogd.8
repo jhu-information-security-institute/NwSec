@@ -1,0 +1,169 @@
+.\" Copyright (c) 1983, 1986, 1991, 1993
+.\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)syslogd.8	8.1 (Berkeley) 6/6/93
+.\"
+.Dd June 6, 1993
+.Dt SYSLOGD 8
+.Os "GNU inetutils"
+.Sh NAME
+.Nm syslogd
+.Nd log systems messages
+.Sh SYNOPSIS
+.Nm syslogd
+.Op Fl V
+.Op Fl a Ar socket
+.Op Fl d
+.Op Fl f Ar config_file
+.Op Fl h
+.Op Fl l Ar host_list
+.Op Fl m Ar mark_interval
+.Op Fl n
+.Op Fl p Ar log_socket
+.Op Fl r
+.Op Fl s Ar domain_list
+.Op Fl -no-klog
+.Op Fl -no-unixaf
+.Op Fl -no-forward
+.Sh DESCRIPTION
+.Nm Syslogd
+reads and logs messages to the system console, log files, other
+machines and/or users as specified by its configuration file.
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl V
+Print version number and exit.
+.It Fl -help
+Display help information and exit.
+.It Fl d
+Enter debug mode. syslogd does not put itself in the background, does
+not fork and shows debug information.
+.It Fl a
+Specify additional sockets from that syslogd has to listen to.
+This is needed if you are going to let some daemon run within
+a chroot()'ed environment. You can specify up to 19 additional
+sockets.
+.It \fB-f\fR, \fB--rcfile\fR=\fIFILE\fP
+Specify the pathname of an alternate configuration file;
+the default is system specific and displayed in the help output.
+.It \fB--rcdir\fR=\fIDIR\fP
+Specify the pathname of an alternate configuration directory;
+the default is system specific and displayed in the help output.
+.It \fB-h\fR, \fB--hop\fR
+Enable forwarding remote messages. By default syslogd will not
+forward messages it receives from remote hosts.
+.It Fl l
+A colon-seperated lists of hosts which should be considered local;
+they are logged by their hostnames instead by their FQDN.
+.It \fB-m\fR, \fB--mark\fR=\fIINTERVAL/fP
+Select the number of minutes between ``mark'' messages;
+the default is 20 minutes. Setting it to 0 disables timestamps.
+.It \fB-n\fR, \fB--no-detach\fR
+Suppress backgrounding and detachment of the daemon from its
+controlling terminal.
+.It \fB-p\fR, \fB--socket\fR=\fIPATH\fP
+Specify the pathname of an alternate log socket.
+The default is systemspecific and displayed in the help output.
+.It \fB-r\fR, \fB--inet\fR
+Enable to receive remote messages using an internet domain socket.
+The default is to not receive any messages from the network. Older
+version always accepted remote messages.
+.It Fl s
+A colon-seperated list of domainnames which should be stripped from
+the FQDNs of hosts when logging.
+.It Fl -no-klog
+Do not listen to the kernel log device. This is only supported on
+systems which define a kernel log device, on all others this is already
+the default, and the option will be silently ignored.
+.It Fl -no-unixaf
+Do not listen to any unix domain socket. This option overrides \-p and \-a.
+.It Fl -no-forward
+Do not forward any messages. This overrides \-h.
+.El
+.Pp
+.Nm Syslogd
+reads its configuration file when it starts up and whenever it
+receives a hangup signal.
+For information on the format of the configuration file,
+see
+.Xr syslog.conf 5 .
+.Pp
+.Nm Syslogd
+reads messages from the
+.Tn UNIX
+domain socket
+.Pa /dev/log ,
+from an Internet domain socket specified in
+.Pa /etc/services ,
+and from the one of the special devices
+.Pa /dev/klog
+or
+.Pa /proc/kmsg
+depending on the system (to read kernel messages). In a GNU/Linux system
+it will not parse the System.map and use it to annotate the kernel messages.
+.Pp
+.Nm Syslogd
+creates the file
+.Pa /var/run/syslog.pid ,
+and stores its process
+id there.
+This can be used to kill or reconfigure
+.Nm syslogd .
+.Pp
+The message sent to
+.Nm syslogd
+should consist of a single line.
+The message can contain a priority code, which should be a preceding
+decimal number in angle braces, for example,
+.Sq Aq 5.
+This priority code should map into the priorities defined in the
+include file
+.Aq Pa sys/syslog.h .
+.Sh FILES
+.Bl -tag -width /var/run/syslog.pid -compact
+.It Pa /etc/syslog.conf
+The configuration file.
+.It Pa /var/run/syslog.pid
+The process id of current
+.Nm syslogd .
+.It Pa /dev/log
+Name of the
+.Tn UNIX
+domain datagram log socket.
+.It Pa /dev/klog, /proc/kmsg
+The kernel log device.
+.El
+.Sh SEE ALSO
+.Xr logger 1 ,
+.Xr syslog 3 ,
+.Xr services 5 ,
+.Xr syslog.conf 5
+.Sh HISTORY
+The
+.Nm
+command appeared in
+.Bx 4.3 .

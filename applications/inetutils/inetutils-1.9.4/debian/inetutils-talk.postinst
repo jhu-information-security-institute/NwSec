@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+update-alternatives \
+  --install /usr/bin/talk talk /usr/bin/inetutils-talk 100 \
+  --slave /usr/share/man/man1/talk.1.gz talk.1.gz \
+          /usr/share/man/man1/inetutils-talk.1.gz
+
+#DEBHELPER#

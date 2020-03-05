@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+  if [ -x "$(which update-inetd)" ]; then
+    update-inetd --group BSD \
+      --add "#<off># ntalk\tdgram\tudp4\twait\troot\t/usr/sbin/tcpd\t/usr/sbin/talkd"
+  fi
+fi
+
+#DEBHELPER#
+
+exit 0

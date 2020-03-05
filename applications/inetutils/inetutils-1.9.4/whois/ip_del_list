@@ -1,0 +1,93 @@
+# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
+# 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Free Software
+# Foundation, Inc.
+#
+# This file is part of GNU Inetutils.
+#
+# GNU Inetutils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# GNU Inetutils is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see `http://www.gnu.org/licenses/'.
+
+24.192.0.0/14	apnic
+24.132.0.0/14	ripe
+61.0.0.0/8	apnic
+62.0.0.0/8	ripe
+63.208.0.0/13	rr.level3.net
+0.0.0.0/2	arin	# all other A classes are managed by ARIN
+## The B class space is a mess :-( - something could still be missing
+139.20.0.0/14	ripe
+139.24.0.0/14	ripe
+139.28.0.0/15	ripe
+141.0.0.0/10	ripe
+141.64.0.0/12	ripe
+141.80.0.0/14	ripe
+141.84.0.0/15	ripe
+145.224.0.0/12	ripe
+145.240.0.0/13	ripe
+145.248.0.0/14	ripe
+145.252.0.0/15	ripe
+145.254.0.0/16	ripe
+149.202.0.0/15	ripe
+149.204.0.0/16	ripe
+149.206.0.0/15	ripe
+149.208.0.0/12	ripe
+149.224.0.0/12	ripe
+149.240.0.0/13	ripe
+149.248.0.0/14	ripe
+150.254.0.0/16	ripe
+151.13.0.0/16	ripe
+151.14.0.0/15	ripe
+151.16.0.0/12	ripe
+151.32.0.0/11	ripe
+151.64.0.0/12	ripe
+151.80.0.0/15	ripe
+151.3.0.0/16	ripe
+151.4.0.0/15	ripe
+151.82.0.0/16	ripe
+151.91.0.0/16	ripe
+151.92.0.0/15	ripe
+151.95.0.0/16	ripe
+151.99.0.0/16	ripe	# interbusiness
+160.216.0.0/14	ripe
+160.220.0.0/16	ripe
+160.44.0.0/14	ripe
+160.48.0.0/12	ripe
+163.156.0.0/14	ripe
+163.160.0.0/12	ripe
+164.0.0.0/11	ripe
+164.32.0.0/13	ripe
+164.40.0.0/16	ripe
+164.128.0.0/12	ripe
+169.208.0.0/12	apnic
+171.16.0.0/12	ripe
+171.32.0.0/15	ripe
+## The C class space is cleanly delegated and the data here should be complete
+192.71.0.0/16	ripe
+192.72.0.0/16	whois.seed.net.tw	# NETBLK-SEED-NETS
+192.106.144.0/20 ripe
+192.106.196.0/23 ripe
+192.162.0.0/16	ripe
+192.164.0.0/14	ripe
+192.0.0.0/8	arin	# the swamp
+193.0.0.0/8	ripe
+194.0.0.0/7	ripe
+198.17.117.0/24	ripe
+196.0.0.0/6	arin
+200.0.0.0/7	arin
+203.0.0.0/10	aunic
+202.0.0.0/7	apnic
+204.0.0.0/6	arin
+208.0.0.0/7	arin
+210.0.0.0/7	apnic
+212.0.0.0/7	ripe
+214.0.0.0/7	arin	# DoD
+216.0.0.0/8	arin

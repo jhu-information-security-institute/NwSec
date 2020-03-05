@@ -1,0 +1,92 @@
+# Copyright (C) 2012, 2013, 2014, 2015 Free Software Foundation, Inc.
+#
+# This file is part of GNU Inetutils.
+#
+# GNU Inetutils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# GNU Inetutils is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see `http://www.gnu.org/licenses/'.
+
+# Helpers and supporting functionality for test scripts.
+
+GREP=${GREP:-@GREP@}
+SED=${SED:-@SED@}
+DD=${DD:-@DD@}
+MKTEMP=${MKTEMP:-@MKTEMP@}
+NETSTAT=${NETSTAT:-@NETSTAT@}
+TARGET=${TARGET:-@TARGET@}
+TARGET6=${TARGET6:-@TARGET6@}
+TEST_IPV6=${TEST_IPV6:-@TEST_IPV6@}
+
+# Variables for signalling presence of a utility:
+#
+#   need_toolname      Set to `false' if `toolname' is missing,
+#                      otherwise set to `:'.
+#
+#   exit_no_toolname   Function to exit with a message related to `toolname'.
+#
+# Suggested idiom:
+#
+#   $need_toolname || exit_no_toolname
+
+# `grep', `sed', and `uname' are used already by autoconfiguration,
+# so their existence is not tested for.
+
+need_id=false
+if id >/dev/null 2>&1; then
+	need_id=:
+fi
+
+exit_no_id () {
+    echo >&2 'No available id(1).  Skipping test.'
+    exit 77
+}
+
+need_dd=false
+if eval "$DD if=/dev/zero bs=5 count=1 >/dev/null 2>&1"; then
+	need_dd=:
+fi
+
+exit_no_dd () {
+    echo >&2 'No available dd(1).  Skipping test.'
+    exit 77
+}
+
+need_mktemp=false
+if eval "$MKTEMP -u temp.XXXXXX >/dev/null 2>&1"; then
+	need_mktemp=:
+fi
+
+exit_no_mktemp () {
+    echo >&2 'No available mktemp(1).  Skipping test.'
+    exit 77
+}
+
+need_netstat=false
+if eval "$NETSTAT -n >/dev/null 2>&1"; then
+	need_netstat=:
+fi
+
+exit_no_netstat () {
+    echo >&2 'No available netstat(1), used for diagnosis.  Skipping test.'
+    exit 77
+}
+
+# Some Solaris variants provide id(1) lacking `-u' switch.
+# Work around this by some computation.
+
+func_id_uid () {
+	id $1 2>&1 | $SED -n 's,.*uid=\([0-9]*\).*,\1,p'
+}
+
+func_id_user () {
+	id $1 2>&1 | $SED -n 's,.*uid=[0-9]*(\([^)]*\).*,\1,p'
+}

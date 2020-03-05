@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+update-alternatives \
+  --install /usr/bin/ftp ftp /usr/bin/inetutils-ftp 100 \
+  --slave /usr/bin/pftp pftp /usr/bin/inetutils-ftp \
+  --slave /usr/share/man/man1/ftp.1.gz ftp.1.gz \
+          /usr/share/man/man1/inetutils-ftp.1.gz \
+  --slave /usr/share/man/man1/pftp.1.gz pftp.1.gz \
+          /usr/share/man/man1/inetutils-ftp.1.gz \
+  --slave /usr/share/man/man5/netrc.5.gz netrc.5.gz \
+          /usr/share/man/man5/inetutils-netrc.5.gz
+
+#DEBHELPER#

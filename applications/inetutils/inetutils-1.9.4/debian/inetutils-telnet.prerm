@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+remove|deconfigure)
+  update-alternatives --remove telnet /usr/bin/inetutils-telnet
+  ;;
+*)
+esac
+
+#DEBHELPER#

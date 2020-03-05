@@ -1,0 +1,205 @@
+Source: inetutils
+Section: net
+Priority: optional
+Maintainer: Guillem Jover <guillem@debian.org>
+Vcs-Browser: https://git.hadrons.org/cgit/debian/pkgs/inetutils.git
+Vcs-Git: https://git.hadrons.org/git/debian/pkgs/inetutils.git
+Homepage: https://www.gnu.org/software/inetutils/
+Standards-Version: 4.1.1
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper (>= 10),
+# Used by the test suite:
+#  /etc/protocols and /etc/services
+ netbase,
+#  netstat(1)
+ net-tools,
+# Used by the build system:
+ autoconf,
+ automake,
+ bison,
+ texinfo,
+ libreadline-dev | libreadline6-dev | libreadline5-dev,
+ libncurses-dev,
+ libpam0g-dev,
+ libwrap0-dev,
+ libshishi-dev,
+Build-Conflicts:
+ autoconf2.13,
+ automake1.4,
+
+Package: inetutils-ftp
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ netbase,
+Description: File Transfer Protocol client
+ The ftp command is used to transfer files between hosts using the
+ FTP protocol.
+
+Package: inetutils-ftpd
+Architecture: any
+Provides:
+ ftp-server,
+Conflicts:
+ ftp-server,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ inetutils-syslogd | system-log-daemon,
+ netbase,
+Description: File Transfer Protocol server
+ Ftpd is the server that allows another host to connect with the ftp
+ command to transfer files using the FTP protocol.
+
+Package: inetutils-inetd
+Architecture: any
+Provides:
+ inet-superserver,
+ netkit-inetd,
+Conflicts:
+ inet-superserver,
+ netkit-inetd,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ inetutils-syslogd | system-log-daemon,
+ lsb-base,
+ tcpd,
+ update-inetd,
+Description: internet super server
+ Inetd is the daemon that listens on various TCP and UDP ports and spawns
+ programs that can't or won't do it for themselves.
+ .
+ This is the portable GNU implementation of inetd. The package supports
+ IPv6, tcpmux services and unlimited server arguments.
+
+Package: inetutils-ping
+Architecture: any
+Provides:
+ ping,
+Conflicts:
+ ping,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ netbase,
+Description: ICMP echo tool
+ Ping uses ICMP to send out echo requests, and uses the reply packets to
+ calculate latency between the sending and the destination hosts.
+ .
+ This is the portable GNU implementation of ping.
+
+Package: inetutils-traceroute
+Architecture: any
+Provides:
+ traceroute,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ netbase,
+Description: trace the IPv4 route to another host
+ The traceroute utility displays the route taken by IP packets on their
+ way to another host or another network.
+ .
+ Install this package if you need a tool to examine network connectivity
+ or to diagnose network problems.
+
+Package: inetutils-syslogd
+Architecture: any
+Provides:
+ ${syslogd:Provides},
+ system-log-daemon,
+Conflicts:
+ ${syslogd:Provides},
+ system-log-daemon,
+Replaces:
+ syslogd,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ lsb-base,
+ netbase,
+Description: system logging daemon
+ The syslog daemon is responsible for providing logging of messages
+ received from programs and facilities on the local host as well as
+ from remote hosts.
+
+Package: inetutils-talk
+Architecture: any
+Provides:
+ talk,
+Replaces:
+ talk-hurd,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ netbase,
+Description: talk to another user
+ Talk is a visual communication program which copies lines from your terminal
+ to that of another user.
+
+Package: inetutils-talkd
+Architecture: any
+Provides:
+ talkd,
+Conflicts:
+ talkd,
+Replaces:
+ talkd-hurd,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ inetutils-inetd | inet-superserver,
+ inetutils-syslogd | system-log-daemon,
+ netbase,
+Description: remote user communication server
+ Talkd is the server that notifies a user that someone else wants to initiate
+ a conversation. It acts a repository of invitations, responding to requests
+ by clients wishing to rendezvous to hold a conversation.
+
+Package: inetutils-telnet
+Architecture: any
+Provides:
+ telnet-client,
+Replaces:
+ telnet-hurd,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ netbase,
+Description: telnet client
+ The telnet command is used for interactive communication with another host
+ using the TELNET protocol.
+
+Package: inetutils-telnetd
+Architecture: any
+Provides:
+ telnet-server,
+Conflicts:
+ telnet-server,
+Replaces:
+ telnetd-hurd,
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ inetutils-inetd | inet-superserver,
+ inetutils-syslogd | system-log-daemon,
+ netbase,
+Description: telnet server
+ The in.telnetd program is a server which supports the DARPA telnet
+ interactive communication protocol.
+
+Package: inetutils-tools
+Architecture: any
+Provides:
+ ${tools:Provides},
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: base networking utilities (experimental package)
+ Base utilities for network administration (ifconfig, etc).
+ .
+ WARNING: The current ifconfig implementation provided is not fully
+ compatible with the net-tool's ifconfig version.

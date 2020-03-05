@@ -1,0 +1,21 @@
+Description: Fix typo in ping output
+Author: Guillem Jover <guillem@hadrons.org>
+Origin: vendor
+Forwarded: no
+
+
+---
+ ping/ping_echo.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/ping/ping_echo.c
++++ b/ping/ping_echo.c
+@@ -391,7 +391,7 @@ struct icmp_diag icmp_diag[] = {
+   {ICMP_SOURCE_QUENCH, "Source Quench", print_ip_data, NULL},
+   {ICMP_REDIRECT, NULL, print_icmp, "Redirect"},
+   {ICMP_ECHO, "Echo Request", NULL, NULL},
+-  {ICMP_ROUTERADV, "Router Advertisment", NULL, NULL},
++  {ICMP_ROUTERADV, "Router Advertisement", NULL, NULL},
+   {ICMP_ROUTERDISCOVERY, "Router Discovery", NULL, NULL},
+   {ICMP_TIME_EXCEEDED, NULL, print_icmp, "Time exceeded"},
+   {ICMP_PARAMETERPROB, NULL, print_parameterprob, NULL},

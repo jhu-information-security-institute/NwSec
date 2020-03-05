@@ -1,0 +1,5133 @@
+\input texinfo @c -*-texinfo-*-
+@c %**start of header
+@setfilename inetutils.info
+@settitle @sc{gnu} Inetutils
+@c %**end of header
+
+@include version.texi
+
+@c Define new indices for file names and options.
+@defcodeindex op
+@defcodeindex fl
+
+@c Put everything in one index (arbitrarily chosen to be the concept
+@c index).
+@syncodeindex fl cp
+@syncodeindex fn cp
+@syncodeindex ky cp
+@syncodeindex op cp
+@syncodeindex pg cp
+@syncodeindex vr cp
+
+@dircategory Basics
+@direntry
+* Inetutils: (inetutils).       GNU networking utilities.
+* Common options: (inetutils)Common options.      Common options.
+@end direntry
+
+@dircategory Individual utilities
+@direntry
+* dnsdomainname: (inetutils)dnsdomainname invocation.       Show DNS domain name.
+* ftp: (inetutils)ftp invocation.                 FTP client.
+* ftpd: (inetutils)ftpd invocation.               FTP Daemon.
+* hostname: (inetutils)hostname invocation.       Show or set system host name.
+* inetd: (inetutils)inetd invocation.             Internet super-server.
+* logger: (inetutils)logger invocation.           Send messages to the system log.
+* ping6: (inetutils)ping6 invocation.             Packets to IPv6 network hosts.
+* ping: (inetutils)ping invocation.               Packets to network hosts.
+* rcp: (inetutils)rcp invocation.                 Remote copy
+* rexec: (inetutils)rexec invocation.             Remote execution client.
+* rexecd: (inetutils)rexecd invocation.           Remote execution server.
+* rlogin: (inetutils)rlogin invocation.           Remote login.
+* rlogind: (inetutils)rlogind invocation.         Remote login server.
+* rsh: (inetutils)rsh invocation.                 Remote shell.
+* rshd: (inetutils)rshd invocation.               Remote shell server.
+* syslogd: (inetutils)syslogd invocation.         Syslog server.
+* talk: (inetutils)talk invocation.               Talk client.
+* talkd: (inetutils)talkd invocation.             Talk server.
+* telnet: (inetutils)telnet invocation.           User interface to TELNET.
+* telnetd: (inetutils)telnetd invocation.         Telnet server.
+* tftp: (inetutils)tftp invocation.               TFTP client.
+* tftpd: (inetutils)tftpd invocation.             TFTP server.
+* traceroute: (inetutils)traceroute invocation.   Trace the route to a host.
+* uucpd: (inetutils)uucpd invocation.             Unix to Unix Copy.
+* whois: (inetutils)whois invocation.             Whois user interface.
+@end direntry
+
+@copying
+This manual documents version @value{VERSION} of the @sc{gnu} networking
+utilities.
+
+Copyright @copyright{} 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Free Software Foundation, Inc.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License''.
+@end quotation
+@end copying
+
+@titlepage
+@title @sc{gnu} @code{inetutils}
+@subtitle GNU networking utilities
+@subtitle for version @value{VERSION}, @value{UPDATED}
+@author Alain Magloire et al.
+
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+@shortcontents
+@contents
+
+@ifnottex
+@node Top
+@top GNU Inetutils
+
+@insertcopying
+@end ifnottex
+
+@menu
+* Introduction::                       Caveats, overview, and authors.
+* Common options::                     Common options.
+
+Diagnostic programs
+
+* dnsdomainname invocation::           Show DNS domain name.
+* hostname invocation::                Show or set system host name.
+* logger invocation::                  Send messages to system log.
+* ping invocation::                    Packets to network hosts.
+* ping6 invocation::                   Packets to IPv6 network hosts.
+* traceroute invocation::              Trace the route to a host.
+* whois invocation::                   Whois user interface.
+
+Clients
+
+* ftp invocation::                     FTP client.
+* rcp invocation::                     Remote copy
+* rexec invocation::                   Remote execution client.
+* rlogin invocation::                  Remote login.
+* rsh invocation::                     Remote shell.
+* talk invocation::                    Talk client.
+* telnet invocation::                  User interface to TELNET.
+* tftp invocation::                    TFTP client.
+
+Daemons
+
+* inetd invocation::		       Internet super-server.
+* syslogd invocation::		       Syslog server.
+* ftpd invocation::		       FTP Daemon.
+* rexecd invocation::		       Remote execution server.
+* rlogind invocation::		       Remote login server.
+* rshd invocation::		       Remote shell server.
+* talkd invocation::		       Talk server.
+* telnetd invocation::		       Telnet server.
+* tftpd invocation::		       TFTP server.
+* uucpd invocation::		       Unix to Unix Copy.
+
+Appendix
+
+* GNU Free Documentation License::     The license for this manual.
+* Index::                              Index of manual.
+@end menu
+
+@c OK -- 2009-04-27
+@node Introduction
+@chapter Introduction
+@cindex introduction
+
+The GNU Network Utilities is a distribution of common networking
+utilities and servers, including for example ping, traceroute and ftp.
+
+This manual is a work in progress: many sections make no attempt to
+explain basic concepts in a way suitable for novices.  Thus, if you
+are interested, please get involved in improving this manual.  The
+entire @sc{gnu} community will benefit.
+
+@cindex bug, reporting
+Please report bugs to @email{bug-inetutils@@gnu.org}.  Remember to
+include the version number, machine architecture, input files, and any
+other information needed to reproduce the bug: your input, what you
+expected, what you got, and why it is wrong.  Diffs are welcome, but
+please include a description of the problem as well, since this is
+sometimes difficult to infer.
+
+The individual utilities were originally derived from the 4.4BSDLite2
+distribution, although some of them have more or less been rewritten.
+What you are reading now is the authoritative and complete
+documentation for these utilities; the man pages are now automatically
+generated.
+
+Many features were integrated from NetBSD, OpenBSD, FreeBSD and
+GNU/Linux, the merges were done by a group of dedicated hackers (in no
+particular order): Jeff Bailey, Marcus Brinkmann, Michael Vogt,
+Bernhard Rosenkraenzer, Kaveh R. Ghazi, NIIBE Yutaka, Nathan
+Neulinger, Jeff Smith, Dan Stromberg, David O'Shea, Frederic Goudal,
+Gerald Combs, Joachim Gabler, Marco D'Itri, Sergey Poznyakoff, and
+many more.
+
+@node Common options
+@chapter Common options
+@cindex common options
+
+Certain options are available in all these programs.  Rather than
+writing identical descriptions for each of the programs, they are
+described here.  (In fact, every @sc{gnu} program accepts, or should
+accept, these options.)
+
+Many of these programs take arbitrary strings as arguments.  In those
+cases, @option{--help} and @option{--version} are taken as these
+options only if there is one and exactly one command line argument.
+
+@table @option
+@item --help
+@opindex --help
+@cindex help, online
+Print a usage message, listing all available options, then exit
+successfully.
+
+@item --usage
+@opindex --usage
+@cindex usage, online
+Print a condensed usage message, displaying all available options
+formatted like a command line call, then exit successfully.
+
+@item --version
+@opindex --version
+@cindex version number, finding
+Print the version number, then exit successfully.
+
+@item --
+@opindex --
+@cindex option delimiter
+Delimit the option list.  Later arguments, if any, are treated as
+operands even if they begin with @samp{-}.
+@end table
+
+@menu
+* Exit status::                 Indicating program success or failure.
+@end menu
+
+@node Exit status
+@section Exit status
+
+@macro exitstatus
+An exit status of zero indicates success, and a nonzero value
+indicates failure.
+@end macro
+
+Nearly every command invocation yields an integral @dfn{exit status}
+that can be used to change how other commands work.  For the vast
+majority of commands, an exit status of zero indicates success.
+Failure is indicated by a nonzero value --- typically @samp{1}, though
+it may differ on unusual platforms, as POSIX requires only that it be
+nonzero.
+
+@node dnsdomainname invocation
+@chapter @command{dnsdomainname}: Show DNS domain name
+@pindex dnsdomainname
+
+@command{dnsdomainname} is a program to show the domain part of the
+system's fully qualified domain name.  For example, if the FQDN of the
+system is @code{name.example.org} the command will show
+@code{example.org}.
+The output is not necessarily related to the NIS/YP domain name.
+
+The tool uses gethostname to get the host name of the system and
+then getaddrinfo to resolve it into a canonical name.
+The domain part of the canonical name is shown, i.e., the part
+after the first period@tie{}(@code{.}) of the official name.
+
+@noindent
+Synopsis:
+
+@example
+dnsdomainname [@var{option}@dots{}]
+@end example
+
+@noindent
+There is no command specific option.
+
+@node hostname invocation
+@chapter @command{hostname}: Show or set system host name.
+@pindex hostname
+
+@command{hostname} is a program to show or to set the name of a
+host system.
+
+@noindent
+Synopsis:
+
+@example
+hostname [@var{option}@dots{}]
+hostname @var{name}
+@end example
+
+@noindent
+where @var{name} is the name to be used by the running host.
+
+@section Command line options
+@anchor{hostname options}
+
+@table @option
+@item -a
+@itemx --aliases
+@opindex -a
+@opindex --aliases
+Get alias names.
+
+@item -d
+@itemx --domain
+@opindex -d
+@opindex --domain
+Get DNS domain name.
+
+@item -f
+@itemx --fqdn
+@itemx --long
+@opindex -f
+@opindex --fqdn
+@opindex --long
+Get DNS host name or Fully Qualified Domain Name.
+
+@item -F @var{file}
+@itemx --file=@var{file}
+@opindex -F
+@opindex --file
+Set host name or NIS domain name from FILE.
+
+@item -i
+@itemx --ip-addresses
+@opindex -i
+@opindex --ip-addresses
+Get addresses for the host name.
+
+@item -s
+@itemx --short
+@opindex -s
+@opindex --short
+Get short host name.
+
+@item -y
+@itemx --yp
+@itemx --nis
+@opindex -y
+@opindex --yp
+@opindex --nis
+Get NIS/YP domain name.
+@end table
+
+@node logger invocation
+@chapter @command{logger}: Send messages to system log
+@pindex logger
+
+@command{logger} is a program to send entries to system log.  It
+provides a shell command interface similar to the system log module.
+For background information,
+@pxref{Syslog, , Syslog, libc, The GNU C Library Reference Manual}.
+
+@noindent
+Synopsis:
+
+@example
+logger [@var{option}@dots{}] [@var{message}]
+@end example
+
+@section Command line options
+@anchor{logger options}
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use IPv4 as transport when logging to a host.  The default behaviour
+is to use whatever IP version that matches the host.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use IPv6 as transport when logging to a host.  The option is present
+also on systems without support for IPv6, but will then issue a warning
+and then fall back to IPv4 when delivering the message.
+
+Both options are most influencial when the target host is named using
+a symbolic name, but numerical addresses for host or source must also
+match if either of @option{--ipv4} or @option{--ipv6} is stated.
+
+@item -f @var{file}
+@itemx --file=@var{file}
+@opindex -f
+@opindex --file
+Log the content of the specified file.  If @var{file} is @samp{-} then
+standard input is assumed.
+
+@item -h @var{host}
+@itemx --host=@var{host}
+@opindex -h
+@opindex --host
+Send messages to the given host or socket.  The @var{host} argument
+can be either a local UNIX socket name (containing a slash @samp{/}),
+or be of the form
+
+@example
+@var{host}[:@var{port}]
+@end example
+
+@noindent
+where @var{host} is the remote host name or IP address, and the
+optional @var{port} is a decimal port number or symbolic service
+name from @file{/etc/services}.  If @var{port} is not specified,
+the port number corresponding to the @samp{syslog} service is used.
+If a numerical IPv6 address is given without a port specification,
+then the address must be enclosed within brackets (like [::1]).
+
+@item -i[@var{pid}]
+@itemx --id=[@var{pid}]
+@opindex -i
+@opindex --id
+Add process ID to each message.  If @var{pid} is not supplied, use the
+process ID of the logger process with each line.  Notice, that
+@var{pid} is an optional argument.  When supplied to the @option{-i}
+option, it must follow the @samp{i} letter immediately, without any
+separating whitespace.  When supplied to the @option{--id} form, it
+must be separated from it by exactly one equals sign.
+
+@item -p @var{priority}
+@itemx --priority=@var{priority}
+@opindex -p
+@opindex --priority
+Enter the message with the specified priority.  The priority may be
+specified numerically or as a @samp{facility.level} pair.  For
+example, @option{-p local3.info} logs the message at the informational
+level in the @samp{local3} facility.  The default is
+@samp{user.notice}.
+
+The actual list of supported facilities and levels is system specific.
+
+@item -s
+@itemx --stderr
+@opindex -s
+@opindex --stderr
+Log the message to standard error, as well as to the system log.
+
+@item -S @var{addr}
+@itemx --source=@var{addr}
+@opindex -S
+@opindex --source
+Supply the source IP address for INET connections.  This option is
+useful in conjunction with @option{--host} (see above).  The kind of
+address specified here (IPv4 or IPv6) will propagate to influence
+the resolution of the host address, if it is a symbolic name.
+
+@item -t @var{tag}
+@itemx --tag=@var{tag}
+@opindex -t
+@opindex --tag
+Mark every line in the log with the specified tag.
+
+@item -u @var{socket}
+@itemx --unix=@var{socket}
+@opindex -h
+@opindex --host
+Send messages to the given local UNIX socket.  The @var{socket} argument
+can be either an absolute path (starting with a slash @samp{/}), or a relative
+path understood relative to the current working directory.
+@end table
+
+The options are followed by the message which should be written to the
+log.  If not specified, and the @option{-f} flag is not provided,
+standard input is logged.
+
+@section Examples
+@anchor{logger examples}
+
+The following examples illustrate the usage of the @command{logger}
+command:
+
+@enumerate 1
+@item Log the message @samp{System rebooted} to the local syslog.
+Use default facility and priority:
+
+@example
+logger System rebooted
+@end example
+
+@item Run command and send its error output to the channel
+@samp{local0.err}.  Mark each message with tag @samp{cmd}:
+
+@example
+command 2>&1 | logger -p local0.err -t cmd
+@end example
+
+@item Log each line from file @file{warnings} to channel
+@samp{daemon.warn} on host @samp{logger.runasimi.org},
+using the source IP @samp{10.10.10.1}:
+
+@example
+logger -p daemon.warn -h logger.runasimi.org -S 10.10.10.1  \
+@verb{|       |}--file warnings
+@end example
+@end enumerate
+
+@node ping invocation
+@chapter @command{ping}: Packets to network hosts
+@pindex ping
+
+@c FIXME: The text is far to detailed about the actual implementation
+@c of ping.  A user doesn't need to know that we are using TIMEVAL, or
+@c how things are padded.
+
+@command{ping} uses ICMP datagrams to provoke a response
+from the chosen destination host, mainly intending to probe
+whether it is alive.
+
+The used datagram, of type @code{ECHO_REQUEST}, contains some header
+information and some additional payload, usually a time stamp.
+By a suitable choice of payload, different host or router properties
+are detectable, as the emitted datagram travels to its destination.
+
+@ignore %* Too detailed for end user.
+@command{ping} uses the ICMP protocol's mandatory
+@code{ECHO_REQUEST} datagram to elicit an ICMP type @code{ECHO_REPLY}
+packet from a host or gateway.
+@code{ECHO_REQUEST} datagrams (@dfn{pings}) have an IP and
+an ICMP header, followed by a @dfn{struct timeval} and then
+an arbitrary number of @dfn{padding} bytes used to fill out the packet.
+@end ignore
+
+@noindent
+Synopsis:
+
+@example
+ping [@var{option}@dots{}] @var{host}
+@end example
+
+@noindent
+Sending echo requests is the standard use of @command{ping},
+but by far not the only use case.
+
+@menu
+* Ping options::
+* Fault isolation::
+* Duplicate and damaged packets::
+* Data patterns::
+* TTL details::
+* Further remarks::
+@end menu
+
+@node Ping options
+@section Command line options
+@anchor{ping options}
+
+@c Options controlling ICMP request types:
+@c       --address              Send ICMP_ADDRESS packets (root only)
+@c       --echo                 Send ICMP_ECHO packets (default)
+@c       --mask                 Same as --address
+@c       --timestamp            Send ICMP_TIMESTAMP packets
+@c   -t, --type=TYPE            Send TYPE packets
+
+Selection of packet type is handled by these first options:
+
+@table @option
+@item --address
+@opindex --address
+Send ICMP_ADDRESS packets, thus requesting the address netmask
+in use by the targetted host.
+
+@item --echo
+@opindex --echo
+Send ICMP_ECHO requests.
+This is the default action.
+
+@item --mask
+@opindex --mask
+Identical to @option{--address}.
+
+@item --timestamp
+@opindex --timestamp
+Send ICMP_TIMESTAMP packets, thereby requesting a timed response
+from the targetted host.
+
+In successful cases three time values are returned.
+All are expected to state the number of milliseconds since
+midnight@tie{}UTC.
+The first of these, @samp{icmp_otime}, contains the original
+time of sending the request.
+Then comes @samp{icmp_rtime}, the time of reception by the target,
+and finally, @samp{icmp_ttime}, the time of transmitting an answer
+back to the originator.
+
+@item -t @var{type}
+@itemx --type=@var{type}
+@opindex --type
+@opindex -t
+Send @var{type} packets.  Accepted values are @samp{address},
+@samp{echo}, @samp{mask}, and @samp{timestamp}.
+@end table
+
+@c Options valid for all request types:
+@c   -c, --count=NUMBER         Stop after sending NUMBER packets
+@c   -d, --debug                Set the SO_DEBUG option
+@c   -i, --interval=NUMBER      Wait NUMBER seconds between sending each packet
+@c   -n, --numeric              Do not resolve host addresses
+@c   -r, --ignore-routing       Send directly to a host on an attached network
+@c   -T, --tos=NUM              Set type-of-service to NUM
+@c       --ttl=NUMBER           Set specified time-to-live on packet
+
+@noindent
+The following options are available for all packet types:
+
+@table @option
+@item -c @var{n}
+@itemx --count=@var{n}
+@opindex -c
+@opindex --count
+Stop after sending and receiving answers to a total of
+@var{n} packets.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Set the SO_DEBUG option on the socket being used.
+
+@item -i @var{n}
+@itemx --interval=@var{n}
+@opindex -i
+@opindex --interval
+Wait @var{n} seconds until sending next packet.
+The default is to wait for one second between packets.
+This option is incompatible with the option @option{-f}.
+
+@item -n
+@itemx --numeric
+@opindex -n
+@opindex --numeric
+Numeric output only.  No attempt will be made to resolve
+symbolic names for host addresses.
+
+@item -r
+@itemx --ignore-routing
+@opindex -r
+@opindex --ignore-routing-log
+Bypass the normal routing tables and send directly to a host on an
+attached network.  If the host is not on a directly attached network,
+an error is returned.  This option can be used to ping a local host
+through an interface that has no route through it (e.g., after the
+interface was dropped by @command{routed}).
+
+@item -T @var{num}
+@itemx --tos=@var{num}
+@opindex -T
+@opindex --tos
+Set type-of-service, TOS field, to @var{num} on
+transmitted packets.
+
+@item --ttl=@var{n}
+@opindex --ttl
+Set the specified number @var{n} as value of time-to-live when
+transmitting packets.  Acceptable values are 1 to 255, inclusive.
+
+@item -v
+@itemx --verbose
+@opindex -v
+@opindex --verbose
+Produce more verbose output, giving more statistics.
+
+@item -w @var{n}
+@itemx --timeout=@var{n}
+@opindex -w
+@opindex --timeout
+Stop after @var{n} seconds.
+
+@item -W @var{n}
+@itemx --linger=@var{n}
+@opindex -W
+@opindex --linger
+Maximum number of seconds @var{n} to wait for a response.
+@end table
+
+@c Options valid for --echo requests:
+@c   -f, --flood                Flood ping (root only)
+@c       --ip-timestamp=FLAG    Timestamp IP option of types tsonly,
+@c                              tsaddr, or (not yet implemented) prespec.
+@c   -l, --preload=NUMBER       Send NUMBER packets as fast as possible before
+@c                              falling into normal mode of behavior (root only)
+@c   -p, --pattern=PATTERN      Fill ICMP packet with given pattern (hex)
+@c   -q, --quiet                no packet message
+@c   -R, --route                Record route IP option
+@c   -s, --size=NUMBER          Send NUMBER data octets
+
+Finally, these last options are relevant only for sending echo requests,
+allowing many variations in order to detect various peculiarities of
+the targeted host, or the intermediary routers for that matter.
+
+@table @option
+@item -f
+@itemx --flood
+@opindex -f
+@opindex --flood
+Flood ping.  Outputs packets as fast as they come back or one hundred
+times per second, whichever is more.  For every ECHO_REQUEST packet
+sent, a period @samp{.} is printed, while for every ECHO_REPLY
+received in reply, a backspace is printed.
+This provides a rapid display of how many packets are being dropped.
+Only the super-user may use this option.
+This can be very hard on a network and should be used with caution.
+
+@item --ip-timestamp=@var{flag}
+@opindex --ip-timestamp
+Include IP option Timestamp in transmitted packets.
+The value @var{flag} is either @samp{tsonly}, which only records up
+to nine time stamps, or @samp{tsaddr}, which records IP
+addresses as well as time stamps, but for at most four hosts.
+
+@item -l @var{n}
+@itemx --preload=@var{n}
+@opindex -l
+@opindex --preload
+If @var{n} is specified, ping sends that many packets as fast as
+possible before falling into its normal mode of operation.
+
+@item -p @var{pat}
+@itemx --pattern=@var{pat}
+@opindex -p
+@opindex --pattern
+You may specify up to 16 pad bytes to fill out the packet you send.
+This is useful for diagnosing data-dependent problems in a network.
+For example, @option{-p ff} will cause the sent packet to be filled
+with all ones.
+
+@item -q
+@itemx --quiet
+@opindex -q
+@opindex --quiet
+Do not print timing for each transmitted packet.
+@item -R
+@itemx --route
+@opindex -R
+@opindex --route
+Record route.  Includes the @code{RECORD_ROUTE} field in the
+ECHO_REQUEST packet and displays the route buffer on returned packets.
+Note that the IP header is only large enough for nine
+such routes.
+Many hosts ignore or discard this option.
+
+@item -s @var{n}
+@itemx --size=@var{n}
+@opindex -s
+@opindex --size
+Specifies the number of data bytes to be sent.  The default is 56,
+which translates into 64@tie{}ICMP data bytes, taking
+the 8@tie{}bytes of ICMP header data into account.
+@end table
+
+@node Fault isolation
+@section Using ping for network fault isolation
+
+When using @command{ping} for fault isolation, it should first be run
+on the local host, to verify that the local network interface is up
+and running.  Then, hosts and gateways further and further away should
+be pinged.  Round-trip times and packet loss statistics are computed.
+If duplicate packets are received, they are not included in the packet
+loss calculation, although the round trip time of these packets is
+used in calculating the minimum/average/maximum round-trip time
+numbers.  When the specified number of packets have been sent (and
+received) or if the program is terminated with a @samp{SIGINT}, a
+brief summary is displayed.
+
+This program is intended for use in network testing, measurement and
+management.  Because of the load it can impose on the network, it is
+unwise to use ping during normal operations or from automated scripts.
+
+@ignore
+@section ICMP Packet Details
+
+An IP header without options consists of 20 bytes.
+An ICMP type ECHO_REQUEST packet contains an additional
+8 bytes worth of ICMP header followed by an arbitrary
+amount of data.
+When a packet size is stated, that indicates
+the size of the extra piece of data (the default is 56).
+Thus the amount of data received as an IP packet
+with an ICMP type ECHO_REPLY, will always be 8 bytes larger
+than the requested data space (the ICMP header).
+
+If the data space is at least eight bytes large, ping uses the first
+eight bytes of this space to include a timestamp which it uses in the
+computation of round trip times.  If less than eight bytes of pad are
+specified, no round trip times are given.
+@end ignore
+
+@node Duplicate and damaged packets
+@section Duplicate and damaged packets
+
+Ping will report duplicate and damaged packets.  Duplicate packets
+should never occur, and seem to be caused by inappropriate link-level
+retransmissions.  Duplicates may occur in many situations and are
+rarely (if ever) a good sign, although the presence of low levels of
+duplicates may not always be cause for alarm.
+
+Damaged packets are obviously serious cause for alarm and often
+indicate broken hardware somewhere in the ping packet's path (in the
+network or in the hosts).
+
+@node Data patterns
+@section Trying different data patterns
+
+The (inter)network layer should never treat packets differently
+depending on the data contained in the data portion.  Unfortunately,
+data-dependent problems have been known to sneak into networks and
+remain undetected for long periods of time.  In many cases the
+particular pattern that will have problems is something that doesn't
+have sufficient ``transitions'', such as all ones or all zeros, or a
+pattern right at the edge, such as almost all zeros.  It isn't
+necessarily enough to specify a data pattern of all zeros (for
+example) on the command line because the pattern that is of interest
+is at the data link level, and the relationship between what you type
+and what the controllers transmit can be complicated.
+
+This means that if you have a data-dependent problem you will probably
+have to do a lot of testing to find it.  If you are lucky, you may
+manage to find a file that either can't be sent across your network or
+that takes much longer to transfer than other similar length files.
+You can then examine this file for repeated patterns that you can test
+using the @option{-p} option of ping.
+
+@node TTL details
+@section TTL details
+
+The TTL field, @dfn{Time To Live}, of an IP
+packet represents the maximum number of IP routers
+that the packet can go through before being discarded.
+In current practice you can expect each router on the
+Internet to decrement the TTL field by exactly one.
+
+The TCP/IP specification states that the TTL field
+of a new TCP packet should be set to 60,
+but many systems use smaller values (4.3BSD used 30
+and 4.2BSD used 15).
+
+The maximum possible value of this field is 255, and most UNIX systems
+set the TTL field of ICMP (type @code{ECHO_REQUEST})
+packets to 255.  This is why you will find you can ping some hosts,
+but not reach them with @command{telnet} or @command{ftp}.
+
+During normal operation, @command{ping} prints the TTL value
+for every packet it receives.
+When a remote system receives an ICMP packet,
+it can do one of three things to the TTL field
+in its response packet:
+
+@itemize @bullet
+@item
+Not to change it.  This is what Berkeley UNIX systems did before the
+4.3BSD-Tahoe release.  In this case the TTL value in the
+received packet will be 255 minus the number of routers in the
+round-trip path.
+
+@item
+Set it to 255.  This is what current Berkeley UNIX systems do.  In this
+case the TTL value in the received packet will be 255 minus the
+number of routers in the path from the remote system to the pinging
+host.
+
+@item
+Set it to some other value.  Some machines use the same value for
+ICMP packets that they use for TCP packets,
+for example either 30 or 60.
+Others may use completely arbitrary values.
+
+@end itemize
+
+@node Further remarks
+@section Further observations
+Many hosts and gateways ignore the @code{RECORD_ROUTE} field, since
+the maximum IP header length is far to small to hold all
+the routes.
+There is not much that can be done about this.
+
+Flood pinging is not recommended in general, and flood pinging the
+broadcast address should only be done under very controlled
+conditions.
+
+Some BSD variants offer a kernel setting to inhibit all replies
+to ICMP_MASKREQ packets, but in general, Unices are designed either
+to answer the request with a valid netmask, or to drop the request,
+causing @command{ping} to wait for a timeout condition.
+
+@node ping6 invocation
+@chapter @command{ping6}: Packets to IPv6 network hosts
+@pindex ping6
+
+@command{ping6} uses ICMPv6 datagrams to get a response
+from the chosen destination host.
+The most common use is to probe whether the remote
+system is responsive.
+Observe that this program only uses IPv6 datagrams.
+
+Each datagram, of type @code{ECHO_REQUEST}, carries some header
+information and some additional payload, usually a time stamp.
+Making a suitable choice of payload, it is possible to probe
+different host or router properties on the way as the emitted
+datagram travels to its destination.
+
+@noindent
+Synopsis:
+
+@example
+ping6 [@var{option}@dots{}] @var{host}
+@end example
+
+@noindent
+Sending simple, timed echo requests is the standard use
+of @command{ping6}, but is by far not the only use case.
+
+This command is a close parallel to @command{ping},
+except that it handles IPv6 and is thus not able
+to handle peculiarities of IPv4.
+
+@section Command line options
+@anchor{ping6 options}
+
+@table @option
+@item -c @var{n}
+@itemx --count=@var{n}
+@opindex -c
+@opindex --count
+Stop after sending and receiving answers to a total of
+@var{n} packets.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Set the SO_DEBUG option on the socket being used.
+
+@item -f
+@itemx --flood
+@opindex -f
+@opindex --flood
+Flood ping.
+Outputs packets as fast as they come back,
+or one hundred times per second, whichever is more.
+For every ECHO_REQUEST packet sent, a period @samp{.} is printed,
+while for every ECHO_REPLY received in reply, a backspace is printed.
+
+This provides a rapid display of how many packets are being dropped.
+Only the super-user may use this option.
+This mode can be very hard on a network.
+It should be used with caution!
+
+@item --hoplimit=@var{n}
+@opindex --hoplimit
+Limit maximal distance to @var{n}.
+Acceptable values are 1 to 255, inclusive.
+
+@item -i @var{n}
+@itemx --interval=@var{n}
+@opindex -i
+@opindex --interval
+Wait @var{n} seconds until sending next packet.
+The default is to wait for one second between packets.
+This option is incompatible with the option @option{-f}.
+
+@item -l @var{n}
+@itemx --preload=@var{n}
+@opindex -l
+@opindex --preload
+Sends @var{n} packets as fast as possible before falling
+back to the normal mode of operation.
+
+@item -n
+@itemx --numeric
+@opindex -n
+@opindex --numeric
+Numeric output only.
+No attempt will be made to resolve symbolic names for host addresses.
+
+@item -p @var{pattern}
+@itemx --pattern=@var{pattern}
+@opindex -p
+@opindex --pattern
+Up to 16 hexadecimal pad bytes are given as @var{pattern}.
+These are use for filling out the packets you send.
+This option is useful for diagnosing data-dependent problems
+within a network.
+As an example, @option{-p ff} will cause the sent packets
+to have payloads with every bit set to one.
+
+@item -q
+@itemx --quiet
+@opindex -q
+@opindex --quiet
+Do not print timing result of each transmitted packet.
+
+@item -r
+@itemx --ignore-routing
+@opindex -r
+@opindex --ignore-routing-log
+Bypass the normal routing tables and send directly
+to a host on an attached network.
+If the host is not on a directly attached network,
+an error is returned.
+This option can be used to ping a local host
+through an interface, for which there is no
+assigned route, such as when the interface
+was dropped by @command{routed}.
+
+@item -s @var{n}
+@itemx --size=@var{n}
+@opindex -s
+@opindex --size
+Specifies the number of data bytes to be sent.  The default is 56,
+which translates into 64@tie{}ICMP data bytes, taking
+the 8@tie{}bytes of ICMP header data into account.
+
+@item -T @var{num}
+@itemx --tos=@var{num}
+@opindex -T
+@opindex --tos
+Set the traffic class to @var{num} on transmitted packets.
+
+@item --ttl=@var{n}
+@opindex --ttl
+Synonym for @option{--hoplimit}.
+
+@item -v
+@itemx --verbose
+@opindex -v
+@opindex --verbose
+Produce more verbose output, giving more statistics.
+
+@item -w @var{n}
+@itemx --timeout=@var{n}
+@opindex -w
+@opindex --timeout
+Stop after @var{n} seconds.
+@end table
+
+The documentation of @command{ping} provides several
+pieces of information, and discussions, relevant to
+the use of @command{ping6}.
+Keep in mind, though, that the differing address family
+causes some discrepancy.
+@xref{ping invocation}.
+
+@node traceroute invocation
+@chapter @command{traceroute}: Trace the route to a host
+@pindex traceroute
+
+@command{traceroute} prints a trace of the route
+IP@tie{}packets are travelling to a remote host.
+
+@noindent
+Synopsis:
+
+@example
+traceroute [@var{option}@dots{}] @var{host}
+@end example
+
+@section Command line options
+@anchor{traceroute options}
+
+@table @option
+@item -f @var{num}
+@itemx --first-hop=@var{num}
+@opindex -f
+@opindex --first-hop
+Set the initial hop distance to @var{num}, instead of the default 1.
+This immediately allows probing packets to sense routing
+properties closer to the target host, skipping routers close
+to the local host.  Quicker analysis of problems known to lie
+at some routing distance is the outcome.
+
+@item -g @var{gates}
+@itemx --gateways=@var{gates}
+@opindex -g
+@opindex --gateways
+Set intermediary hosts used in loose source routing.
+The argument @var{gates} is a list of gateways,
+using spaces, commata, or semicola as separators.
+These hosts must be traversed in the given order
+before the intended host receives any datagram.
+At most eight host names or addresses may be specified.
+Multiple uses of @option{-g} produce a concatenated list.
+
+@item -I
+@itemx --icmp
+@opindex -I
+@opindex --icmp
+Use ICMP ECHO datagrams for probing the remote host.
+
+@item -m @var{num}
+@itemx --max-hop=@var{num}
+@opindex -m
+@opindex --max-hop
+Set the maximum time-to-live allowed for probing.
+In other words, stop probing when the hop distance
+is in excess of @var{num}.
+The default limit is 64.
+
+@item -M @var{method}
+@itemx --type=@var{method}
+@opindex -M
+@opindex --type
+Use @var{method} as carrier packets for traceroute operations.
+Supported choices are @samp{icmp} and @samp{udp}, where @samp{udp}
+is the default type.
+
+@item -p @var{port}
+@itemx --port=@var{port}
+@opindex -p
+@opindex --port
+Set destination port of target to @var{port}.
+The default value is 33434.
+
+@item -q @var{num}
+@itemx --tries=@var{num}
+@opindex -q
+@opindex --tries
+Send a total of @var{num} probe packets per hop, defaulting to 3.
+
+@item --resolve-hostnames
+@opindex --resolve-hostnames
+Attempt to resolve all addresses as hostnames.
+
+@item -t @var{num}
+@itemx --tos=@var{num}
+@opindex -t
+@opindex --tos
+Set type-of-service, TOS field, to @var{num} on
+transmitted packets.
+
+@item -w @var{num}
+@itemx --wait=@var{num}
+@opindex -w
+@opindex --wait
+Set timeout in seconds, within which a returning response
+packet is accepted as such.
+Default waiting time is three seconds.
+@end table
+
+@section Diagnostic tokens
+@anchor{traceroute printing}
+
+During execution, @command{traceroute} sends three datagrams
+for each value for the TTL field, printing a diagnostic line
+of output for these.  The TTL field is then steadily increased
+until the intended host responds, or some intermediary gateway
+returns a datagram to the effect that the target cannot be
+reached due to one reason or another.
+
+Each line of output displays a sequence number, followed by
+diagnostic annotation.  Any responding host has its address
+printed without repetition, together with a measured timing.
+In case there is no response within a time period of three seconds,
+an asterisque @samp{*} is printed.
+
+When an intermediate router responds with an exceptional state,
+the time elapsed since emitting the original datagram is printed,
+followed by an additional short hand hint of the reason:
+
+@table @samp
+@item !F
+Fragmentation needed by gateway.
+
+@item !H
+Host not reachable from gateway.
+
+@item !N
+Network not reachable from gateway.
+
+@item !P
+Protocol not usable at host, or within network.
+
+@item !S
+Source routing failed at gateway.
+
+@item !T
+Host or network not reachable for stated type of service, TOS.
+
+@item !U
+Isolated host, not reachable.
+
+@item !X
+Forbidden by remote administration.
+@end table
+
+@node whois invocation
+@chapter @command{whois}: User interface to WHOIS data bases.
+@pindex whois
+
+The functionality of a world wide Internet is dependent on
+stored node information of different kinds.
+Registrars keep much relevant material in WHOIS data bases.
+This utility @command{whois} is able to query those sources
+for general and for particular properties of most domains.
+
+For many domains there are names of suitable data base servers
+hard coded into @command{whois}, ready to query for domain
+relevant information.
+Since servers' names do change from time to time,
+this utility might occasionally need some guidance using
+a suitable command line option.
+
+@noindent
+Synopsis:
+
+@example
+whois [@var{OPTION}@dots{}] @var{OBJECT}@dots{}
+@end example
+
+@section Command line options
+@anchor{whois options}
+
+@table @option
+@item -a
+@opindex -a
+Search all data bases.
+
+@item -F
+@opindex -F
+Fast and raw output. Implies @option{-r}.
+
+@item -g @var{source}:@var{first}-@var{last}
+@opindex -g
+Find updates for an object from provider @var{source},
+starting from the version with serial key @var{first},
+and ending with serial key @var{last}.
+
+@item -h @var{host}
+@itemx --server=@var{host}
+@opindex -h
+@opindex --server
+Connect to server @var{host}.
+
+@item -H
+@opindex -H
+Hide legal disclaimers.
+
+@item -i @var{attr}[,@var{attr2}@dots{}]
+@opindex -i
+Do an inverse lookup for specified attributes.
+Use a comma separated list for multiple attributes.
+
+@item -l
+@opindex -l
+One level less specific lookup.
+Applies to RPSL only.
+
+@item -L
+@opindex -L
+Find all less specific matches.
+
+@item -m
+@opindex -m
+Find more specific matches, one level deeper.
+
+@item -M
+@opindex -M
+Find all more specific matches.
+
+@item -p @var{port}
+@opindex -p
+Connect to server port @var{port}.
+
+@item -q @{version|sources@}
+@opindex -q
+Query specified server info.
+Applies to RPSL only.
+
+@item -r
+@opindex -r
+Turn off recursive lookups.
+
+@item -R
+@opindex -R
+Force output to show local copy of the domain object,
+even if it contains a referral.
+
+@item -s @var{source}[,@var{source2}@dots{}]
+@opindex -s
+Search the data base at @var{source}.
+A comma separated list queries multiple providers.
+
+@item -S
+@opindex -S
+Tell server to refrain from syntactic sugar.
+
+@item -t @var{type}
+@opindex -t
+Request a template for objects of type @var{type}.
+Use the value @samp{all} for a list of possible types.
+
+@item -T @var{type}[,@var{type2}@dots{}]
+@opindex -T
+Search only for objects of type @var{type}.
+A comma separated list allows for multiple types.
+
+@item -V
+@itemx --verbose
+@opindex -V
+@opindex --verbose
+Verbosely explain all actions taken.
+
+@item -x
+@opindex -x
+Search only for exact matches.
+Applicable only to RPSL.
+@end table
+
+@section Environment variables
+@anchor{whois environment}
+
+@command{whois} holds an internal list of information servers
+and their assigned data bases.
+Queries are examined against this list to select the most
+plausible server, but the hint can always be overruled on
+the command line by use of the option @option{-h}.
+If neither of these have a say, then the default server to ask
+is @samp{whois.internic.net}, but this name is in turn overruled
+by a server name in the environment variable @env{WHOIS_SERVER}.
+
+@table @env
+@item LANG
+When the server @samp{whois.nic.ad.jp} is queried, and only then,
+any non-Japanese locale in @env{LANG} will ask the server to reply
+with English text, not Japanese.
+
+@item WHOIS_HIDE
+When set, the effect on @command{whois} is as if the
+option @option{-H} had been given.
+
+@item WHOIS_SERVER
+Data base server to query when internal hinting is inconclusive.
+When unset, @samp{whois.internic.net} is used as default server.
+
+@end table
+
+@node ftp invocation
+@chapter @command{ftp}: FTP client
+@pindex ftp
+
+@command{ftp} is the user interface to FTP,
+the File Transfer Protocol.
+The program allows a user to transfer files to and from a remote
+network site.
+
+@noindent
+Synopsis:
+
+@example
+ftp [@var{option}@dots{}] [@var{host} [@var{port}]]
+pftp [@var{option}@dots{}] [@var{host} [@var{port}]]
+@end example
+
+@noindent
+The alternate name @command{pftp} is starting in passive mode,
+but is otherwise identical to @command{ftp}.
+
+The client host with which @command{ftp} is to communicate may be
+specified on the command line.
+If this is done, @command{ftp} will immediately attempt to establish
+a connection to the FTP server running on that host.
+Otherwise, the program will start a command interpreter and will await
+further instructions from the user.
+Commands can either be entered interactively,
+or piped as a batched job read from standard input.
+@command{ftp} is able to distinguish between these two modes
+of operation.
+
+@menu
+* Ftp options::
+* Ftp commands::
+* Ftp environment::
+* Aborting a file transfer::
+* File naming conventions::
+* File transfer parameters::
+* The .netrc file::
+@end menu
+
+@node Ftp options
+@section Command line options
+@anchor{ftp options}
+
+Many command line options have counterparts among the
+commands handled by the internal interpreter.
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Initially set addressing to IPv4 only.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Initially set addressing to IPv6 only.
+
+@item -A
+@itemx --active
+@opindex -A
+@opindex --active
+Enable active mode transfer.  Default mode for @command{ftp}.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Enable debugging output and possibly also socket debugging.
+
+@item -e
+@itemx --no-edit
+@opindex -e
+@opindex --no-edit
+Disables the editing of commands.  This is default setting
+for batch mode, without a TTY.
+
+@item -g
+@itemx --no-glob
+@opindex -g
+@opindex --no-glob
+Disables file name globbing.
+
+@item -i
+@itemx --no-prompt
+@opindex -i
+@opindex --no-prompt
+Turns off interactive prompting during multiple file transfers.
+
+@item -N @var{netrc}
+@itemx --netrc=@var{netrc}
+@opindex -N
+@opindex --netrc
+Set a preferred location of the @file{.netrc} file,
+thus overriding any environment setting in @env{NETRC},
+as well as the default location @file{$HOME/.netrc},
+@pxref{The .netrc file}.
+
+@item -n
+@itemx --no-login
+@opindex -n
+@opindex --no-login
+Restrains @command{ftp} from attempting @dfn{auto-login} upon initial
+connection.  If auto-login is enabled, @command{ftp} will check the
+@file{.netrc} (@pxref{The .netrc file}) file in the user's home
+directory for an entry describing an account on the remote machine.
+If no entry exists, @command{ftp} will prompt for the remote machine
+login name (default is the user identity on the local machine), and,
+if necessary, prompt for a password and an account with which to
+login.
+
+@item -p
+@itemx --passive
+@opindex -p
+@opindex --passive
+Enable passive mode transfer.  Default mode when invoked
+as @command{pftp}.
+
+@item --prompt[=@var{prompt}]
+@opindex --prompt
+Print a command-line prompt, even if not on a tty.  If @var{prompt} is
+supplied, its value is used instead of the default @samp{ftp> }.
+Notice, that the argument is optional.
+
+@item -t
+@itemx --trace
+@opindex -t
+@opindex --trace
+Enable packet tracing (not implemented).
+
+@item -v
+@itemx --verbose
+@opindex -v
+@opindex --verbose
+Start in verbose mode, printing informational messages.
+This is default for interactive mode.
+@end table
+
+@node Ftp commands
+@section Commands interpreted by @command{ftp}
+
+When @command{ftp} is awaiting commands from the user,
+a prompt is displayed.
+The default string is @samp{ftp>}, but it can been
+changed with a command line option, perhaps to enhance
+uniqueness while recording a session.
+
+Be aware that correct execution of many commands depends upon
+a proper behavior of the remote server.
+The following commands are recognized by @command{ftp} itself.
+Command names can be abbreviated to the shortest unique
+string with identical beginning.
+
+@table @code
+@item ! [@var{command} [@var{args}]]
+Invoke an interactive shell on the local machine.  If there are
+arguments, the first is taken to be a command to execute directly,
+with the rest of the arguments as its arguments.
+
+@item $ @var{macro-name} [@var{args}]
+Execute the macro @var{macro-name} that was defined with the macdef
+command.  Arguments are passed to the macro unglobbed.
+
+@item account [@var{passwd}]
+Supply a supplemental password required by a remote system for access
+to resources, once a login has been successfully completed.  If no
+argument is included, the user will be prompted for an account
+password in non-echoing input mode.
+
+@item append @var{local-file} [@var{remote-file}]
+Append a local file to a file on the remote machine.  If
+@var{remote-file} is left unspecified, the local file name is used in
+naming the remote file after being altered by any @code{ntrans} or
+@code{nmap} setting.  File transfer uses the current settings for
+type, format, mode, and structure.
+
+@item ascii
+Set the file transfer type to network ASCII.  This is the default
+type, except when two unices are communicating.
+
+@item bell
+Arrange that a bell be sounded after each file transfer command is
+completed.
+
+@item binary
+Set the file transfer type to support binary image transfer.
+This transfer type is selected during initial handshake, should
+the client on a Unix system recognize that the server is also
+running on a Unix system.
+
+@item bye
+@itemx quit
+Terminate the FTP session with the remote server and exit
+@command{ftp}.  An end of file will also terminate the session and
+exit.
+
+@item case
+Toggle the remote computer's use of letter case mapping during
+@code{mget} commands.
+When @code{case} is @samp{on},
+a file name at the remote site whose every letter appear
+in upper case, will be renamed in such a way that all letters
+are changed to lower case for a local copy of the same file.
+The default setting is @samp{off},
+
+@item cd @var{remote-directory}
+Change the working directory on the remote machine to
+@var{remote-directory}.
+
+@item cdup
+Change the remote machine's working directory to the parent of the
+current working directory.
+
+@item chmod @var{mode} @var{file-name}
+Change the access permission of the file @var{file-name} on the remote
+system to @var{mode}.
+
+@item close
+@itemx disconnect
+Terminate the FTP session with the present remote server,
+and return to the command interpreter.
+Any defined macros are erased.
+
+@item cr
+Toggle carriage return stripping during ASCII type file retrieval.
+Records are denoted by a carriage return/linefeed sequence during
+ASCII type file transfer.  When @code{cr} is @samp{on} (the default),
+carriage returns are stripped from this sequence to conform with the
+UNIX single linefeed record delimiter.  Records on non-UNIX remote
+systems may contain single linefeeds; when an ASCII type transfer is
+made, these linefeeds may be distinguished from a record delimiter
+only when @code{cr} is @samp{off}.
+
+@item delete @var{remote-file}
+Delete the file @var{remote-file} on the remote machine.
+
+@item debug [@var{debug-value}]
+Toggle debugging mode.  If an optional @var{debug-value} is specified
+it is used to set the debugging level.  When debugging is on,
+@command{ftp} prints each command sent to the remote machine, preceded
+by the string @samp{-->}.
+
+@item dir [@var{remote-directory}] [@var{local-file}]
+Print a listing of the contents in the directory
+@var{remote-directory}, and, optionally, place the output in
+@var{local-file}.  If interactive prompting is set, @command{ftp} will
+prompt the user to verify that the last argument is the intended
+local file to receive output.  If no directory is specified,
+the current working directory on the remote machine is used.  If no
+local file is specified, or if @var{local-file} is a dash @samp{-},
+then output is displayed on the terminal.
+
+@item epsv4
+Toggle the use of EPSV/EPRT for IPv4 addressing.  Default is off.
+
+@item form @var{format}
+Set the file transfer form to @var{format}.  The only supported
+format is @samp{non-print}.
+
+@item get @var{remote-file} [@var{local-file}]
+@itemx recv @var{remote-file} [@var{local-file}]
+Retrieve the @var{remote-file} and store it on the local machine.
+If a local file name is not specified, the local copy is given the
+same name as is stated for the remote original, subject to alteration
+by the current @code{case}, @code{ntrans}, and @code{nmap} settings.
+The current settings for @code{type}, @code{form}, @code{mode},
+and @code{structure} are effective during file transfer.
+
+@item glob
+Toggle file name expansion for @code{mdelete}, @code{mget}, and
+@code{mput}.  If globbing is turned off with @code{glob}, the file
+name arguments are taken literally and are not expanded.  Globbing for
+@code{mput} is done as in @command{csh} syntax.
+For @code{mdelete} and
+@code{mget}, each remote file name is expanded separately on the
+remote machine and the lists are not merged.  Expansion of a directory
+name is likely to be different from expansion of the name of an
+ordinary file: the exact result depends on the remote operating
+system and on the FTP server, and can be previewed by
+issuing @samp{mls remote-files -}.
+
+Note: @code{mget} and @code{mput} are not meant to transfer entire
+directory subtrees of files.  That can be achieved by transferring
+an already created @command{tar} or @command{cpio} archive of the
+subtree, then making certain that @command{ftp} uses binary mode.
+
+@item hash [@var{size}]
+In the absence of an argument, toggle the state of hash-sign (@samp{#})
+printing after each transferred data block.
+The optional argument selects the size of data blocks,
+and unconditionally activates printing.
+The default size is 1024 bytes.
+For convenience, the size can be written with postfix multipliers
+'k', 'K', 'm', 'M', and 'g', 'G', to specify kilobytes, Megabytes,
+and Gigabytes, respectively.
+
+@item help [@var{command}]
+@itemx ? [@var{command}]
+Print an informative message about the meaning of command.  If no
+argument is given, @command{ftp} prints a list of the known commands.
+
+@item idle [@var{seconds}]
+Set the inactivity timer on the remote server to @var{seconds}
+seconds.  If seconds is omitted, the current inactivity timer is
+printed.
+
+@item ipv4
+Select IPv4 as the only addressing scheme.
+
+@item ipv6
+Select IPv6 as the only addressing scheme.
+
+@item ipany
+Allow IPv4 as well as IPv6 addressing.
+
+@item lcd [@var{directory}]
+Change the working directory on the local machine.  If no directory is
+specified, the user's home directory is used.
+
+@item lpwd
+Print the name of the current working directory on the local machine.
+
+@item ls [@var{remote-directory}] [@var{local-file}]
+Print a listing of the contents of a directory on the remote machine.
+The listing includes any system-dependent information that the server
+chooses to include; for example, most UNIX systems will produce output
+like the command @command{ls -l} does.
+Use @code{nlist} for a simple file listing.
+
+If @var{remote-directory} is left unspecified, the current working
+directory is used.  With interactive prompting set,
+@command{ftp} will prompt the user to verify that the
+last argument is indeed the intended local file for storing output.
+Should no local file be specified, or if @var{local-file} is a
+dash@tie{}@samp{-}, then output is sent to the terminal.
+
+@item macdef @var{macro-name}
+Define a macro called @var{macro-name}, with subsequent lines as the
+macro definition. A null line (consecutive newline characters in a
+file, or carriage returns at a terminal) terminates macro input
+mode.  There is a limit of 16 macros and a total of 4096 characters
+shared by all defined macros.  Only the first eight characters in
+@var{macro-name} are significant when determining which
+macro to execute.
+Macros remain defined until a close command is executed.
+
+The macro processor interprets @samp{$} and @samp{\} as
+special characters.  A @samp{$} followed by a number (one or more
+digits) is replaced by the corresponding argument on the macro's
+invocation command line.
+A @samp{$} followed by the letter @samp{i} tells the macro processor
+that the macro is to perform a loop.
+On the first pass, @samp{$i} is replaced by the first argument on
+the macro's invocation command line, while on the second pass it is
+replaced by the second argument, and so forth.
+Iteration proceeds until all arguments have been consumed.
+
+A backslash @samp{\} followed by any character is replaced by that
+character.  Use the backslash @samp{\} to prevent special treatment
+of the dollar sign @samp{$}, as was just explained.
+
+@item mdelete [@var{remote-files}]
+Delete all @var{remote-files} on the remote machine.
+
+@item mdir @var{remote-files} @var{local-file}
+Like @code{dir}, except multiple remote files may be specified.  If
+interactive prompting is on, @command{ftp} will prompt the user to
+verify that the last argument is indeed the intended local file for
+storing any output from @code{mdir}.
+
+@item mget @var{remote-files}
+Expand the @var{remote-files} on the remote machine and execute
+a @code{get} for each file name thus produced.
+Resulting file names will then be processed according to
+@code{case}, @code{ntrans}, and @code{nmap} settings.
+Files are transferred to the local working directory,
+which can be changed with @code{lcd directory}; new local directories
+can be created with @code{! mkdir directory}.
+
+@item mkdir @var{directory-name}
+Make a directory on the remote machine.
+
+@item mls @var{remote-files} @var{local-file}
+Like @code{nlist}, except multiple remote files may be specified, and
+the @var{local-file} must be specified.  If interactive prompting is
+on, @command{ftp} will prompt the user to verify that the last
+argument is the intended local file for storing output.
+A dash @samp{-} is accepted as last argument without check!
+
+@item mode [@var{mode-name}]
+Set the file transfer mode to @var{mode-name}.  The default mode is
+@samp{stream}, and it is also the only implemented mode.
+
+@item modtime @var{file-name}
+Show the last modification time of the file on the remote machine.
+
+@item mput @var{local-files}
+Consider the arguments to be local names and expand any wild card.
+Execute a @code{put} for each file in the resulting list.
+The remote file names are then computed by use of
+@code{ntrans} and @code{nmap} settings.
+
+@item newer @var{file-name}
+Get the file only if the modification time of the remote file is more
+recent than the file on the current system.  If the file does not
+exist on the current system, the remote file is considered newer.
+In other respects, this command is identical to @code{get}.
+
+@item nlist [@var{remote-directory}] [@var{local-file}]
+Print a list of the files in a directory on the remote machine.  If
+@var{remote-directory} is left unspecified, the current working
+directory is used.  If interactive prompting is on, @command{ftp} will
+prompt the user to verify that the last argument is the intended
+local file for storing output.  If no local file is specified,
+or if @var{local-file} is @samp{-}, the output is sent to the
+terminal.
+
+@item nmap [@var{inpattern} @var{outpattern}]
+Set or unset the file name mapping mechanism.  If no arguments are
+specified, the file name mapping mechanism is unset.
+Name mapping is applied during @code{mput} and
+@code{put} commands issued without a specified remote target filename.
+It as also applied to local file names during
+@code{mget} and @code{get} commands issued without
+local target file name.  This command is useful when
+connecting to a non-UNIX remote computer with different file naming
+conventions or practices.
+
+The mapping follows the pattern set by @var{inpattern} and
+@var{outpattern}.  The template @var{inpattern} is used on incoming
+filenames (which may have already been processed according to the
+@code{ntrans} and @code{case} settings).
+Variable templating is accomplished
+by including the sequences @samp{$1}, @samp{$2}, @dots{}, @samp{$9} in
+@var{inpattern}.  Use @samp{\} to prevent this special treatment of
+the character @samp{$}.  All other characters are treated literally,
+and must be matched in a file name for @var{inpattern}
+to bind substrings to variables.
+
+For example, take a pattern @samp{$1.$2} and a file name
+@file{mydata.data}.
+Then @samp{$1} would have the value @samp{mydata}, and
+@samp{$2} would be @samp{data}.
+
+@var{outpattern} determines the final file name.
+The sequences @samp{$1} to @samp{$9} are
+replaced by any values bound to them by @var{inpattern}.
+A special sequence @samp{$0} always contains the original filename.
+In addition, a bracketted sequence @samp{[@var{seq1},@var{seq2}]}
+expands to @var{seq1} if @var{seq1} contains a non-empty string,
+and expands to @var{seq2} otherwise.  For example, the command
+
+@example
+nmap $1.$2.$3 [$1,$2].[$2,file]
+@end example
+
+would yield the output file name @file{myfile.data} for input names
+@file{myfile.data} and @file{myfile.data.old},
+but produces @file{myfile.file} from the input @file{myfile},
+and @file{myfile.myfile} from @file{.myfile}.
+
+Spaces may be included in @var{outpattern}, but are easily removed:
+
+@example
+nmap $1 |sed "s/ *$//" > $1
+@end example
+
+Use a backslash @samp{\} to escape the characters
+@samp{$}, @samp{[}, @samp{]}, and @samp{,}.
+
+@item ntrans [@var{inchars} [@var{outchars}]]
+Set or unset the filename character translation mechanism.  If no
+arguments are specified, the filename character translation mechanism
+is unset.  If arguments are specified, characters in remote filenames
+are translated during @code{mput} commands and @code{put} commands
+issued without a specified remote target filename.  If arguments are
+specified, characters in local filenames are translated during
+@code{mget} commands and @code{get} commands issued without a
+specified local target filename.  This command is useful when
+connecting to a non-UNIX remote computer with different file naming
+conventions or practices.
+
+Characters in a filename matching a character in @var{inchars} are
+replaced with the corresponding character in @var{outchars}.  If the
+character's position in @var{inchars} is longer than the length of
+@var{outchars}, the character is deleted from the file name.
+
+@item open @var{host} [@var{port}]
+Establish a connection to the specified FTP server
+at @var{host}.  An optional port number may be supplied,
+in which case, @command{ftp} will attempt to contact the server
+at that specific TCP port.  If the @code{autologin} option
+is on (is so by default), @command{ftp} will also attempt to
+automatically log the user in to the FTP server.
+
+@item passive
+Toggle passive mode.  If passive mode is turned on (default is off),
+the @command{ftp} client will send a @code{PASV} command for all data
+connections instead of the usual @code{PORT} command.  The @code{PASV}
+command requests that the remote server open a port for the data
+connection and return the address of that port.  The remote server
+listens on that port and the client connects to it.  When using the
+more traditional @code{PORT} command, the client listens on a port and
+sends that address to the remote server, who connects back to it.
+Passive mode is useful when using @command{ftp} through a gateway
+router or host that controls the directionality of traffic.  (Note
+that though @command{ftp} servers are required to support the
+@code{PASV} command by RFC 1123, some do not.)  If @command{epsv4}
+has been set to on, the client will attempt @code{EPSV} before
+@code{PASV} for IPv4.  As a last resort @code{LPSV} is attempted.
+With IPv6 only @code{EPSV} and @code{LPSV} are possible.
+
+@item prompt
+Toggle interactive prompting.  Interactive prompting occurs during
+multiple file transfers to allow the user to selectively retrieve or
+store files.  If prompting is turned off (default is on), any
+@code{mget} or @code{mput} will transfer all files, and any
+@code{mdelete} will delete all files.
+
+@item proxy @var{ftp-command}
+Execute an @command{ftp} command on a secondary control connection.
+This command allows simultaneous connection to two remote FTP servers
+for transferring files between the two servers.  The first proxy
+command should be @code{open}, to establish the secondary control
+connection.  Enter the command @code{proxy ?} to see other
+commands usable for the secondary connection.  The following
+commands behave differently when prefaced by @code{proxy}: @code{open}
+will not define new macros during the auto-login process, @code{close}
+will not erase existing macro definitions, @code{get} and @code{mget}
+transfer files from the host on the primary control connection to the
+host on the secondary control connection, and @code{put}, @code{mput},
+and @code{append} transfer files from the host on the secondary
+control connection to the host on the primary control connection.
+
+Note that the protocol command @code{PASV} must be understood
+by the server on the secondary control connection for this kind
+of file transfer to succeed.
+
+@item put @var{local-file} [@var{remote-file}]
+@itemx send @var{local-file} [@var{remote-file}]
+Store a local file on the remote machine.  If @var{remote-file} is
+left unspecified, the local file name is used after processing
+according to any @code{ntrans} or @code{nmap} settings in naming the
+remote file.  File transfer uses the current settings for type,
+format, mode, and structure.
+
+@item pwd
+Print the name of the current working directory on the remote machine.
+
+@item quote @var{arg}@dots{}
+The arguments specified are sent, verbatim, to the remote FTP server.
+
+@item reget @var{remote-file} [@var{local-file}]
+@code{reget} acts like @code{get}, except that if @var{local-file}
+exists and is smaller than @var{remote-file}, then @var{local-file} is
+presumed to be a partially transferred copy of @var{remote-file} and
+the transfer is continued from the apparent point of failure.  This
+command is useful when transferring very large files over networks
+that are prone to dropping connections.
+
+@item rhelp [@var{command-name}]
+Request help from the remote FTP server.
+If @var{command-name} is specified it is passed to the server as well.
+
+@item rstatus [@var{file-name}]
+With no arguments, show status of remote machine.  If filename is
+specified, show status of @var{file-name} on remote machine.
+
+@item rename [@var{from}] [@var{to}]
+Rename the file @var{from} on the remote machine as @var{to}.
+Name mapping takes effect without @var{to}.
+
+@item reset
+Clear reply queue.  This command re-synchronizes command/reply
+sequencing with the remote FTP server.  Resynchronization may be
+necessary following a violation of the FTP protocol by the remote
+server.
+
+@item restart @var{marker}
+Restart the immediately following @code{get} or @code{put} at the
+indicated marker.  On UNIX systems, @code{marker} is usually
+a byte offset into the file.
+
+@item rmdir @var{directory-name}
+Delete a directory on the remote machine.
+
+@item runique
+Toggle the storing of files on the local system with unique filenames.
+If a file already exists with a name equal to the inteded local file
+name for a @code{get} or @code{mget} command,
+then a string @samp{.1} is appended to the name.
+If the resulting name matches another existing file,
+@samp{.2} is appended to the original name.  If this process continues
+up to @samp{.99}, an error message is printed, and the transfer does
+not take place.  The generated unique filename will be reported.  Note
+that @code{runique} will not affect local files generated from a shell
+command.  The default value is off.
+
+@item sendport
+Toggle the use of @code{PORT} commands.  By default, @command{ftp}
+will attempt to use a @code{PORT} command when establishing a
+connection for each data transfer.  The use of @code{PORT} commands
+can prevent delays when performing multiple file transfers.  If the
+@code{PORT} command fails, @command{ftp} will use the default data
+port.  When the use of @code{PORT} commands is disabled, no attempt
+will be made to use @code{PORT} commands for each data transfer.  This
+is useful for certain FTP implementations which do ignore @code{PORT}
+commands but, incorrectly, indicate they've been accepted.
+
+@item site @var{arg}@dots{}
+The arguments specified are sent, verbatim, to the remote FTP server
+as a @code{SITE} command.
+
+@item size @var{file-name}
+Return size of @var{file-name} on remote machine.
+
+@item status
+Show the current status of @command{ftp}.
+
+@item struct [@var{struct-name}]
+Set the file transfer structure to @var{struct-name}.  By default
+@samp{file} structure is used, which also is the only supported
+value.
+
+@item sunique
+Toggle storing of files on remote machine under unique file names.
+Remote FTP server must support FTP protocol @code{STOU} command for
+successful completion.  The remote server will report unique name.
+Default value is off.
+
+@item system
+Show the type of operating system running on the remote machine.
+
+@item tenex
+Set the file transfer type to that needed to talk to TENEX machines.
+
+@item trace
+Toggle packet tracing (feature is not implemented).
+
+@item type [@var{type-name}]
+Set the file transfer type to @var{type-name}.  If no type is
+specified, the current type is printed.
+The recognized type names are @samp{ascii}, @samp{binary},
+@samp{ebcdic}, @samp{image}, and @samp{tenex}.
+The default type is network ASCII.
+
+@item umask [@var{newmask}]
+Set the default umask on the remote server to @var{newmask}.  If
+@var{newmask} is omitted, the current umask is printed.
+
+@item user @var{user-name} [@var{password}] [@var{account}]
+Identify yourself to the remote FTP server.  If the password is not
+specified and the server requires it, @command{ftp} will prompt the
+user for it (after disabling local echo).  If an account field is not
+specified, and the FTP server requires it, the user will be prompted
+for it.  If an account field is specified, an account command will be
+relayed to the remote server after the login sequence is completed if
+the remote server did not require it for logging in.  Unless
+@command{ftp} is invoked with @code{auto-login} disabled, this process
+is done automatically on initial connection to the FTP server.
+
+@item verbose
+Toggle verbose mode.  In verbose mode, all responses from the FTP
+server are displayed to the user.  In addition, if verbose is on, when
+a file transfer completes, statistics regarding the efficiency of the
+transfer are reported.  By default, verbose is on.
+@end table
+
+Command arguments which have embedded spaces may be inclosed within
+citation characters @samp{"}.
+
+@node Ftp environment
+@section Environment variables in use
+
+@command{ftp} accesses the following environment variables.
+
+@table @env
+@item HOME
+Used for locating a @file{.netrc} file, if one exists.
+
+@item NETRC
+Alternate location of the @file{.netrc} file,
+taking precedence over the standard location.
+
+@item SHELL
+For determining the default shell interpreter.
+@end table
+
+@node Aborting a file transfer
+@section Aborting a file transfer
+
+To abort a file transfer, use the terminal interrupt key (usually
+@kbd{C-c}).  Sending transfers will be immediately halted.
+Receiving transfers will be halted by sending a FTP
+protocol command @code{ABOR} to the remote server,
+discarding any further data received.  The speed at
+which this is accomplished depends upon the remote server's support
+for @code{ABOR} processing.  If the remote server does not support the
+@code{ABOR} command, an @samp{ftp>} prompt will not appear until the
+remote server has completed sending the requested file.
+
+The terminal interrupt key sequence will be ignored when @command{ftp}
+has completed any local processing and is awaiting a reply from the
+remote server.  A long delay in this mode may result from the
+@code{ABOR} processing described above, or from unexpected behavior by
+the remote server, including violations of the FTP protocol.
+If the
+delay results from unexpected remote server behavior, the local
+@command{ftp} program must be killed by hand.
+
+@node File naming conventions
+@section File naming conventions
+
+Files specified as arguments to @command{ftp} commands are processed
+according to the following rules.
+
+@enumerate
+@item
+If the file name @samp{-} is specified, standard input (for reading)
+or standard output (for writing) is used.
+
+@item
+If the first character of the file name is @samp{|}, the remainder of
+the argument is interpreted as a shell command.  @command{ftp} then
+forks a shell, using @code{popen} with the argument supplied, and
+reads/writes from standard input/output.  If the shell command
+includes spaces, the argument must be quoted; e.g.  @samp{"ls -lt"}.
+
+A particularly useful example of this mechanism in action, is
+
+@example
+ftp> dir . |less
+@end example
+
+which allows the user to scroll through a long directory listing.
+
+@item
+Failing the above checks, if @dfn{globbing} is enabled, local file
+names are expanded according to the rules used by @command{csh};
+c.f. the @code{glob} command.  If the @command{ftp} command expects a
+single local file (e.g. @code{put}), only the first filename
+generated by the globbing operation is used.
+
+@item
+For the commands @code{mget} and @code{get} with unspecified
+local file name, the local file name is set to the remote file name,
+which may be altered by a @code{case}, @code{ntrans}, or @code{nmap}
+settings.
+The resulting file name may then be modified if @code{runique} is set.
+
+@item
+For the commands @code{mput} and @code{put} with unspecified
+remote file name, the remote file name is copied from the local
+file name, which may be altered by a @code{ntrans} or @code{nmap}
+settings.
+The resulting file name may also be modified by the remote server if
+@code{sunique} is set.
+@end enumerate
+
+@node File transfer parameters
+@section File transfer parameters
+
+The FTP specification includes many parameters which may affect a
+file transfer.  The type may be one of @samp{ascii}, @samp{image}
+(binary), @samp{ebcdic}, and @samp{local} byte size (for PDP-10's and
+PDP-20's mostly).  @command{ftp} supports the @samp{ascii} and
+@samp{image} types of file transfer, plus local byte size 8 for tenex
+mode transfers.
+
+@command{ftp} supports only the default values for the remaining file
+transfer parameters: @code{mode}, @code{form}, and @code{struct}.
+
+An error in the treatment of carriage returns in the 4.2BSD ascii-mode
+transfer code has been corrected by the present implementation.
+This correction may result in corrupt transfers of binary files
+to and from 4.2BSD servers, when done using the ascii type.
+Avoid this problem by using the binary image type.
+
+@node The .netrc file
+@section The @file{.netrc} file
+@flindex .netrc
+
+The @file{.netrc} file contains login and initialization information
+used by the auto-login process.  It generally resides in the user's
+home directory, but a location outside of the home directory
+can be set using the environment variable @env{NETRC}.
+Both locations are overridden by the command line option @option{-N}.
+The selected file must be a regular file, or access will be denied.
+
+The following tokens are recognized; they may be separated
+by spaces, tabs, or new-lines:
+
+@table @samp
+@item machine name
+Identify a remote machine name.  The auto-login process searches the
+@file{.netrc} file for a machine token that matches the remote machine
+specified on the @command{ftp} command line or as an open command
+argument.  Once a match is made, the subsequent @file{.netrc} tokens
+are processed, stopping when the end of file is reached or another
+machine or a default token is encountered.
+
+@item default
+This is the same as machine name except that default matches any name.
+There can be only one default token, and it must be after all machine
+tokens.  This is normally used as:
+
+@example
+default login anonymous password user@@site
+@end example
+
+thereby giving the user automatic anonymous ftp login to machines not
+specified in @file{.netrc}.  This can be overridden by using the
+@option{-n} flag to disable auto-login.
+
+@item login name
+Identify a user on the remote machine.  If this token is present, the
+auto-login process will initiate a login using the specified name.
+
+@item password string
+Supply a password.  If this token is present, the auto-login process
+will supply the specified string if the remote server requires a
+password as part of the login process.  Note that if this token is
+present in the @file{.netrc} file for any user other than anonymous,
+@command{ftp} will abort the auto-login process if the @file{.netrc}
+is readable by anyone besides the user.
+
+@item account string
+Supply an additional account password.  If this token is present, the
+auto-login process will supply the specified string if the remote
+server requires an additional account password, or the auto-login
+process will initiate an @code{ACCT} command if it does not.
+
+@item macdef name
+Define a macro.  This token functions like the @command{ftp}
+@code{macdef} command functions.  A macro is defined with the
+specified name; its contents begin with the next @file{.netrc} line
+and continue until a null line (consecutive new-line characters) is
+encountered.  If a macro named init is defined, it is automatically
+executed as the last step in the auto-login process.
+@end table
+
+@node rcp invocation
+@chapter @command{rcp}: Copy files between machines
+@pindex rcp
+
+@command{rcp} copies files between machines.  Each file or directory
+argument is either a remote file name of the form
+@samp{rname@@rhost:path}, or a local file name (containing no @samp{:}
+characters, or a @samp{/} before any @samp{:}s).
+
+@noindent
+Synopsis:
+
+@example
+rcp [@var{option}]@dots{} @var{old-file} @var{new-file}
+rcp [@var{option}]@dots{} @var{files}@dots{} @var{directory}
+@end example
+
+@section Command line options
+@anchor{rcp options}
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use only IPv4.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use only IPv6.
+
+@item -d @var{directory}
+@itemx --target-directory=@var{directory}
+@opindex -d
+@opindex --target-directory
+Copy all source arguments into @var{directory}.
+
+@item -f
+@itemx --from
+@opindex -f
+@opindex --from
+(Server mode only.) Copying from remote host.
+
+@item -k @var{realm}
+@itemx --realm=@var{realm}
+@opindex -k
+@opindex --realm
+The option requests rcp to obtain tickets for the remote host in
+realm @var{realm} instead of the remote host's realm.
+
+@item -K
+@itemx --kerberos
+@opindex -K
+@opindex --kerberos
+Turns off all Kerberos authentication.
+
+@item -p
+@itemx --preserve
+@opindex -p
+@opindex --preserve
+Causes @code{rcp} to attempt to preserve (duplicate) in its copies the
+modification times and modes of the source files, ignoring the umask.
+By default, the mode and owner of the target file are preserved
+if the target itself already exists; otherwise the mode of the source
+file is modified by the @code{umask} setting on the destination host.
+
+@item -r
+@itemx --recursive
+@opindex -r
+@opindex --recursive
+If any of the source files are directories, @command{rcp} copies each
+subtree rooted at that name; in this case the destination must be a
+directory.
+
+@item -t
+@itemx --to
+@opindex -t
+@opindex --to
+(Server mode only.) Copying to remote host.
+
+@item -x
+@itemx --encrypt
+@opindex -x
+@opindex --encrypt
+Turns on encryption for all data passed via the @command{rcp} session.
+This may impact response time and CPU utilization, but provides increased
+security.
+
+@end table
+
+@command{rcp} doesn't detect all cases where the target of a copy
+might be a file in cases where only a directory should be legal.
+
+@command{rcp} can be confused by any output generated by commands in a
+@file{.login}, @file{.profile}, or @file{.cshrc} file on the remote
+host.
+
+The destination user and hostname may have to be specified as
+@samp{rhost.rname} when the destination machine is running the 4.2BSD
+version of @command{rcp}.
+
+@node rexec invocation
+@chapter @command{rexec}: a remote execution program
+@pindex rexec
+
+@command{rexec} is a program that executes a program on another host.
+
+@noindent
+Synopsis:
+
+@example
+rexec --user=@var{login} --password=@var{pass} --host=@var{host}  \
+@verb{|      |}[OPTION] @var{command}
+@end example
+
+@section Command line options
+@anchor{rexec options}
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use only IPv4 connections as all times.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use only IPv6 connections.
+
+@item -a
+@itemx --ipany
+@opindex -a
+@opindex --ipany
+Allow any address family for connections.  This is the default.
+
+@item -e
+@itemx --error=@var{port}
+@opindex -e
+@opindex --error
+Specify the TCP port to use for stderr redirection, in case it is not
+specified a random port will be used.
+
+@item -h
+@item --host=@var{name}
+@opindex -h
+@opindex --host
+Specify the host with whom to connect: symbolic name or address.
+
+@item -n
+@itemx --noerr
+@opindex -n
+@opindex --noerr
+If specified, an error stream will not be created.
+
+@item -p
+@itemx --password=@var{passwd}
+@opindex -p
+@opindex --password
+Specify the password for logging-in.  The special value
+consisting of a single dash @samp{-} will make @command{rexec}
+read a single line from stdin.  This input is then used
+as password and is passed as such to the remote server.
+Thus it is possible to hide vital access information
+slightly better than the full disclosure implicit in
+the text of a command line option.
+
+@item -P
+@itemx --port=@var{num}
+@opindex -P
+@opindex --port
+Specify to which numerical port a connection shall be sought.
+If it is not specified, then use port 512/tcp by default.
+
+@item -u
+@itemx --user=@var{name}
+@opindex -u
+@opindex --user
+Specify the user with whom to log into the server.
+@end table
+
+@node rlogin invocation
+@chapter @command{rlogin}: Remote login
+@pindex rlogin
+
+The @command{rlogin} command starts a terminal session on the
+specified remote host, provided the required authentication
+is successful.  The remote terminal type is the same as that
+given in the @env{TERM} local environment variable.
+The terminal and the window size stay the same, if the remote
+host supports them, and any changes in size are transferred
+as need may be.
+
+When using the @command{rlogin} command, you can create a link
+in your path, using a host name as the link name.  For example:
+
+@example
+# ln -s /usr/bin/rlogin @var{hostname}
+# @var{hostname} -8
+@end example
+
+@noindent
+Afterwards, the use of @var{hostname} will automatically invoke
+@command{rlogin} to direct a log in request to the remote host
+named @var{hostname}.
+
+@command{rlogin} allows access to the remote host without the use of a
+password.  The prerequisite is a suitable specification in @file{~/.rhosts}.
+For details, @xref{rcmd, , rcmd, libc, The GNU C Library Reference Manual}.
+
+@section Command line options
+@anchor{rlogin options}
+
+The options are as follows :
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use only IPv4.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use only IPv6.
+
+@item -8
+@itemx --8-bit
+@opindex -8
+@opindex --8-bit
+Allows an eight-bit input data path at all times; otherwise parity
+bits are stripped except when the remote side's stop and start
+characters are other than @kbd{C-S}/@kbd{C-Q}.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Turns on socket debugging on the TCP sockets used for communication
+with the remote host.
+
+@item -e @var{char}
+@itemx --escape=@var{char}
+@opindex -e
+@opindex --escape
+Allows user specification of the escape character, which is @samp{~}
+by default.  This specification may be as a literal character, or as
+an octal value in the form @samp{\nnn}.
+
+@item -E
+@itemx --no-escape
+@opindex -E
+@opindex --no-escape
+Stops any character from being recognized as an escape character.
+When used with the @option{-8} option, this provides a completely
+transparent connection.
+
+@item -l @var{user}
+@itemx --user=@var{user}
+@opindex -l
+@opindex --user
+By default, the remote username is the same as the local username.
+This option, and the @samp{user@@host} format, allow the remote
+user name to be made explicit, or changed.
+@end table
+
+@noindent
+The next three options are available only if the program
+has been compiled with support for Kerberos authentication.
+
+@table @option
+@item -k @var{realm}
+@itemx --realm=@var{realm}
+@opindex -k
+@opindex --realm
+The option requests rlogin to obtain tickets for the remote host in
+realm @var{realm} instead of the remote host's realm.
+
+@item -K
+@itemx --kerberos
+@opindex -K
+@opindex --kerberos
+Turns off all Kerberos authentication.
+
+@item -x
+@itemx --encrypt
+@opindex -x
+@opindex --encrypt
+Turns on encryption for all data passed via the rlogin session.
+This may impact response time and CPU utilization, but provides
+increased security.
+@end table
+
+@section Escape characters and flow control
+
+As long as the connection stands, the client program @command{rsh}
+is observing the input stream in order to detect so called
+escape sequences, allowing the user to execute some local
+actions without having to tear down the remote connection.
+
+The sequences consist of two characters, the first of which
+always is the distinguished character @var{escape-char}.
+The following sequences are supported:
+
+@c An input line of the form of the two-character sequence
+@itemize @bullet
+@item
+@kbd{@var{escape-char} .} disconnects from the remote host.
+
+@item
+@kbd{@var{escape-char} C-d} does the same.
+(Termios character @samp{VEOF}.)
+
+@item
+@kbd{@var{escape-char} C-z} suspends the session, halting the
+remote process, but keeping it ready for resumed processing.
+The user is given access to a local shell.
+(Termios character @samp{VSUSP}.)
+
+@item
+@kbd{@var{escape-char} @var{delayed-suspend-char}} implements
+a half-way suspend, in the sense of stopping local input from
+reaching the remote side, but still displaying all output from
+the remote host on the local terminal.  The remote process is
+still running, but the local user is given a local shell until
+the resuming the original command.
+Normally, only BSD systems offer this mode.
+(Termios character @samp{VDSUSP}.)
+@end itemize
+
+@noindent
+By default, the character tilde @samp{~} is assigned to @var{escape-char},
+but it can be changed using the option @option{--escape}.
+The processing of escape sequences can even be disable using
+the option @option{--no-escape}.
+On BSD systems, @var{delayed-suspend-char} is usually set to @kbd{C-Y}.
+It displays as @samp{dsusp} using @command{stty}.
+
+All echoing takes place at the remote site, so that the @command{rlogin}
+is transparent except possibly for transmission delays.
+Flow control via @kbd{C-S} and @kbd{C-Q}, if at all supported,
+will stop and start the flow of data on the local terminal.
+Flushing of input and output on interrupts is also
+handled properly.
+
+On the server side the @code{iruserok} and @code{ruserok} functions
+are used to authenticate the connection request, unless Kerberised
+mode is in effect.  See the appropriate man pages for more information.
+
+@section Kerberos Authentication
+
+If @command{rlogin} was compiled with kerberos support, options
+@option{-x}, @option{-k}, @option{-K} are available.  Each user may
+have a private authorization list in the file @file{.k5login} in their
+home directory.  Each line in this file should contain a Kerberos
+principal name of the form @samp{principal/instance@@realm}.  If the
+originating user is authenticated to one of the principals named in
+@file{.k5login}, access is granted to the account.  The principal
+@samp{accountname@@localrealm} is granted access if there is no
+@file{.k5login} file.  Otherwise a login and password will be prompted
+for on the remote machine as in @command{login}.  To avoid certain
+security problems, the @file{.k5login} file must be owned by the remote
+user.  If Kerberos authentication fails, a warning message is printed
+and the standard Berkeley rlogin is used instead.
+
+@node rsh invocation
+@chapter @command{rsh}: Remote shell
+@pindex rsh
+
+@command{rsh} executes commands on a remote host and copies its local
+standard input to that of the remote command, as well as the remote
+standard output to the local standard output, and the remote standard
+error to the local standard error.  Locally raised interrupt, quit and
+terminate signals are all propagated to the remote command. Normally
+@command{rsh} terminates when the remote command does so.
+
+When using the @command{rsh} command, you can for convenience create
+a link in your path, using a host name as name of the link.  For example:
+
+@example
+# ln -s /usr/bin/rsh @var{hostname}
+# @var{hostname} ls
+@end example
+
+@noindent
+Afterwards, @var{hostname} will be passed to @command{rsh} as host name
+whenever the command @var{hostname} is issued.
+
+@command{rsh} allows access to the remote host without the use of a
+password.  The prerequisite is a suitable specification in @file{~/.rhosts}.
+For details, @xref{rcmd, , rcmd, libc, The GNU C Library Reference Manual}.
+
+If no command is specified for @command{rsh} ar argument following the
+host name, then you will be logged in on the remote host using @command{rlogin}.
+
+@section Command line options
+@anchor{rsh options}
+
+The options are as follows :
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use only IPv4.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use only IPv6.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Turns on socket debugging used for communication with the remote host.
+
+@item -l @var{user}
+@itemx --user=@var{user}
+@opindex -l
+@opindex --user
+By default, the remote username is the same as the local username.
+The @option{-l} option and the @samp{username@@host} format allow the
+remote user name to be specified.  Kerberos authentication is used,
+whenever available, and authorization is determined as in @command{rlogin}
+(@pxref{rlogin invocation}).
+
+@item -n
+@itemx --no-input
+@opindex -n
+@opindex --no-input
+Use @file{/dev/null} for all input, telling the server side that
+we send no material.  This can prevent the remote process from
+blocking, should it optionally accept more input.
+The option is void together with encryption.
+@end table
+
+@noindent
+The next three options are available only if the program
+has been compiled with support for Kerberos authentication.
+
+@table @option
+@item -k @var{realm}
+@itemx --realm=@var{realm}
+@opindex -k
+@opindex --realm
+The option requests rsh to obtain tickets for the remote host in
+realm @var{realm} instead of the remote host's realm.
+
+@item -K
+@itemx --kerberos
+@opindex -K
+@opindex --kerberos
+Turns off all Kerberos authentication.
+
+@item -x
+@itemx --encrypt
+@opindex -x
+@opindex --encrypt
+Turns on encryption for all data passed via the rsh session.  This
+may impact response time and CPU utilization, but provides increased
+security.
+@end table
+
+@noindent
+Finally, some compatibility options are present:
+
+@table @option
+@item -8
+@itemx --8-bit
+@itemx -e @var{char}
+@itemx --escape=@var{char}
+@itemx -E
+@itemx --no-escape
+Ignored during normal operation, but passed on to @command{rlogin}
+when @command{rsh} is invoked without a command argument.
+@end table
+
+@section Note on stream redirections
+
+Beware that non-quoted shell metacharacters are interpreted on the local
+machine, while quoted metacharacters are interpreted on the remote
+machine.  For example:
+
+@example
+rsh otherhost  cat remotefile >> localfile
+rsh otherhost  cat remotefile ">>" otherfile
+@end example
+
+@noindent
+The first command appends the contents of @file{remotefile}, as found
+on the remote host, to the file @file{localfile} on the local host,
+since the local shell will intercept the redirection and will thus
+receive whatever the remote process directs to stdout.
+
+In contrast, the second command will append the contents of the same
+file @file{remotefile} to a file named @file{otherfile} again, but this
+time the file is located on the remote host.  The effect of quoting
+the redirection operator is to execute the command
+
+@example
+cat remotefile >> localfile
+@end example
+
+@noindent
+entirely on the remote most, whence stdout at the remote host will
+have nothing to transmit to the listening local host!.
+
+@node talk invocation
+@chapter @command{talk}: a communication program
+@pindex talk
+
+@command{talk} is a visual communication program which copies lines
+from your terminal to that of another user.
+
+@noindent
+Synopsis:
+
+@example
+talk @var{person} [@var{ttyname}]
+@end example
+
+@section Invoking
+
+The command line arguments are as follows:
+
+@table @var
+@item person
+If you wish to talk to someone on your own machine, then @var{person}
+is just the other person's login name.
+If you wish to talk to a user on another host,
+then @var{person} is of the form @samp{user@@host}.
+
+@item ttyname
+If you wish to talk to a local user who is logged in more than once,
+the argument @var{ttyname} may be used to indicate the appropriate
+terminal name, where @var{ttyname} typically is of the form @samp{ttyXX},
+or @samp{pts/X}.
+@end table
+
+When first called, @command{talk} sends a message to
+the addressed user:
+
+@example
+Message from TalkDaemon@@his_machine@dots{}
+talk: connection requested by your_name@@your_machine.
+talk: respond with: talk your_name@@your_machine
+@end example
+
+@noindent
+At this point, the recipient of the message could elect
+to accept the call and to establish a connection by typing:
+
+@example
+talk @var{your_name}@@@var{your_machine}
+@end example
+
+It doesn't matter from which machine the recipient replies, as long as
+his login-name is the same.  Once communication is established, the
+two parties may type text simultaneously, with their output appearing
+in separate windows.
+Typing @kbd{C-L} will cause the screen to be
+reprinted, while erase, kill, and word kill characters will
+behave normally.
+In addition, @kbd{C-D} will cause both windows to be
+locally cleared of all text.
+This keystroke will appear as a simple @samp{^D} on the remote
+terminal, though.
+It signals to the other party that you yourself have just
+cleared your terminal of all text.
+
+To exit, just type an interrupt character @kbd{C-C};
+@command{talk} then moves the cursor to the bottom of the screen
+and restores the terminal to its previous state.
+
+The ability to talk may be enabled or disabled by use of the
+@command{mesg} command.  It is system dependent whether
+this message passing is enabled at the outset of a terminal session.
+Certain commands, in particular @command{nroff} and @command{pr},
+disable messages in order to prevent messy output.
+
+@node telnet invocation
+@chapter @command{telnet}: User interface to TELNET
+@pindex telnet
+
+Login to a remote system HOST, optionally using a (non-standard)
+service port PORT.
+
+@noindent
+Synopsis:
+
+@example
+telnet [@var{OPTION}...] [@var{HOST} [@var{PORT}]]
+@end example
+
+@section Command line options
+@anchor{telnet options}
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use only IPv4.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use only IPv6.
+
+@item -8
+@itemx --binary
+@opindex -8
+@opindex --binary
+Use an 8-bit data path.
+
+@item -a
+@itemx --login
+@opindex -a
+@opindex --login
+Attempt automatic login.
+
+@item -c
+@itemx --no-rc
+@opindex -c
+@opindex --no-rc
+Do not read the user's file @file{$HOME/.telnetrc}.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Turn on socket level debugging.
+
+@item -e @var{char}
+@itemx --escape=@var{char}
+@opindex -e
+@opindex --escape
+Use @var{char} as escape character.
+
+@item -E
+@itemx --no-escape
+@opindex -E
+@opindex --no-escape
+Do not use an escape character.
+
+@item -k @var{realm}
+@itemx --realm=@var{realm}
+@opindex -k
+@opindex --realm
+Request Kerberos realm @var{realm} instead of whatever is
+declared as default realm in the system's or user's settings.
+
+@item -K
+@itemx --no-login
+@opindex -K
+@opindex --no-login
+Do not automatically login to the remote system.
+
+@item -l @var{user}
+@itemx --user=@var{user}
+@opindex -l
+@opindex --user
+Attempt automatic login as @var{user}.
+
+@item -L
+@itemx --binary-output
+@opindex -L
+@opindex --binary-output
+Use an 8-bit data path for output only.
+
+@item -n @var{file}
+@itemx --trace=@var{file}
+@opindex -n
+@opindex --trace
+Record trace information into @var{file}.
+
+@item -r
+@itemx --rlogin
+@opindex -r
+@opindex --rlogin
+Display a user-interface similar to that of @command{rlogin}.
+
+@item -x
+@itemx --encrypt
+@opindex -x
+@opindex --encrypt
+If possible, encrypt the data stream.
+
+@item -X @var{atype}
+@itemx --disable-auth=@var{atype}
+@opindex -X
+@opindex --disable-auth
+Disable authentication of type @var{atype}.
+Use this option multiple times if more than one type
+is to be disabled.  Standard choices are @samp{null},
+@samp{kerberos_v4}, and @samp{kerberos_v5}.
+@end table
+
+@node tftp invocation
+@chapter @command{tftp}: TFTP client
+@pindex tftp
+
+@command{tftp} is the user interface to the Internet TFTP, Trivial
+File Transfer Protocol, which allows users to transfer files to and
+from a remote machine.  The remote host may be specified on the
+command line, in which case @command{tftp} uses host as the default
+host for future transfers.
+
+@noindent
+Synopsis:
+
+@example
+tftp [@var{option}]@dots{} @var{host}
+@end example
+
+@section Commands
+
+Once @command{tftp} is running, it issues the prompt and recognizes
+the following commands:
+
+@table @code
+@item ? @var{command-name}
+Print help information.
+
+@item ascii
+Shorthand for @code{mode ascii}
+
+@item binary
+Shorthand for @code{mode binary}
+
+@item connect @var{host-name} [@var{port}]
+Set the host (and optionally port) for transfers.  Note that the TFTP
+protocol, unlike the FTP protocol, does not maintain connections
+between transfers; thus, the connect command does not actually create
+a connection, but merely remembers what host is to be used for
+transfers.  You do not have to use the connect command; the remote
+host can be specified as part of the get or put commands.
+
+@item get @var{file-name}
+@itemx get @var{remotename} @var{localname}
+@itemx get @var{file}@dots{}
+Get a file, or a set of files, from the specified sources.  The source can
+be in one of two forms: a file name on the remote host, if the host has
+already been specified, or a string of the form @samp{host:filename}
+to specify both a host and file name at the same time.  If the latter
+form is used, the last hostname specified becomes the default for
+future transfers.  When specifying a numeric IPv6 address as host
+part, then this address must be enclosed between square brackets,
+since it contains colons and would interfere with the delimiter
+before the file name.  Brackets are optional for IPv4 addresses.
+
+@example
+tftp> get [2001:1234::12]:issue
+@end example
+
+@item mode @var{transfer-mode}
+Set the mode for transfers; @var{transfer-mode} may be one of
+@samp{ascii} or @samp{binary}.  The default is @samp{ascii}.
+
+@item put @var{file}
+@itemx put @var{localfile} @var{remotefile}
+@itemx put @var{file}@dots{} @var{remote-directory}
+Put a file or set of files to the specified remote file or directory.
+The destination can be in one of two forms: a filename on the remote
+host, if the host has already been specified, or a string of the form
+@samp{host:filename} to specify both a host and filename at the same
+time.  If the latter form is used, the hostname specified becomes the
+default for future transfers.  If the @file{remote-directory} form is
+used, the remote host is assumed to be a UNIX machine.  The same use
+of square brackets for enclosing numeric IPv6 addresses applies here,
+as was mentioned for the command @command{get}.
+
+@item quit
+Exit @command{tftp}.  An end of file also exits.
+
+@item rexmt @var{retransmission-timeout}
+Set the per-packet retransmission timeout, in seconds.
+
+@item status
+Show current status.
+
+@item timeout @var{total-transmission-timeout}
+Set the total transmission timeout, in seconds.
+
+@item trace
+Toggle packet tracing.
+
+@item verbose
+Toggle verbose mode.
+@end table
+
+Because there is no user-login or validation within the @command{tftp}
+protocol, the remote site will probably have some sort of file-access
+restrictions in place.  The exact methods are specific to each site
+and therefore difficult to document here.
+
+@node inetd invocation
+@chapter @command{inetd}: Internet super-server
+@pindex inetd
+
+@command{inetd} program should be run at boot time by /etc/rc.  It
+then listens for connections on certain internet sockets.  When a
+connection is found on one of its sockets, it decides what service the
+socket corresponds to, and invokes a program to service the request.
+The server program is invoked with the service socket as its standard
+input, output and error descriptors.  After the program is finished,
+inetd continues to listen on the socket (except in some cases which
+will be described below).  Essentially, inetd allows running one
+daemon to invoke several others, reducing load on the system.
+
+There are two types of services that inetd can start: standard and
+TCPMUX.  A standard service has a well-known port assigned to it; it
+may be a service that implements an official Internet standard or is a
+BSD-specific service.  As described in RFC 1078, TCPMUX services are
+nonstandard services that do not have a well-known port assigned to
+them.  They are invoked from inetd when a program connects to the
+``tcpmux'' well-known port and specifies the service name.  This
+feature is useful for adding locally-developed servers.
+
+@menu
+* Invocation::
+* Configuration file::
+* Built-in services::
+* TCPMUX::
+* Inetd Environment::
+* Error Messages::
+@end menu
+
+@node Invocation
+@section Invocation
+
+Normally, @command{inetd} is invoked without any arguments.  It does,
+however, support several command line options.  These are:
+
+@table @option
+@opindex -d
+@opindex --debug
+@item -d
+@itemx --debug
+Turns on debugging.  With this option, @command{inetd} stays in
+foreground and prints additional debugging information of stderr.
+
+@item --environment
+@opindex --environment
+Pass local and remote socket information in environment variables.
+@xref{Inetd Environment}.
+
+@item -p[@var{file}]
+@itemx --pidfile[=@var{file}]
+@opindex -p
+@opindex --pidfile
+Use @var{file} as location to store process ID of the running server
+process, thus overriding the default location.  Setting an empty
+argument will disable the use of a file for storing the process ID.
+
+@item --resolve
+@opindex --resolve
+Resolve IP addresses when setting environment variables.
+@xref{Inetd Environment}.
+
+@item -R @var{rate}
+@itemx --rate=@var{rate}
+@opindex --r
+@opindex --rate
+Specify the maximum number of times a service can be invoked in one
+minute; the default is 1000.
+@end table
+
+@node Configuration file
+@section Configuration file
+
+Upon execution, inetd reads its configuration information from
+configuration files and directories named on the command line.
+By default these are @file{/etc/inetd.conf} and @file{/etc/initd.d}.
+If the configuration pathname is a directory, all files in the
+directory are read and interpreted like a configuration file.
+All of the configuration files are read and the results are merged.
+
+There must be an entry for each field in the configuration file,
+with entries for each field separated by a tab or a space.
+Comments are denoted by a ``#'' at the beginning of a line.
+The available fields of the configuration file are summarized
+in the table below (optional parts are enclosed in square brackets):
+
+@table @asis
+@item [service node:]service name
+The service-name entry is the name of a valid service in the file
+@file{/etc/services}.  For ``internal'' services (@pxref{Built-in
+services}), the service name must be the official name of the service
+(that is, the first entry in @file{/etc/services}), or a numeric
+representation thereof.  For TCPMUX services, the value of the
+@samp{service name} field consists of the string @samp{tcpmux}
+followed by a slash and the locally-chosen service name
+(@pxref{TCPMUX}).
+
+An optional @samp{service node} prefix is allowed for internet services.
+When present, it supplies the local addresses @command{inetd} should
+use when listening for that service.  @samp{Service node} consists of
+a comma-separated list of addresses.  Both symbolic host names and
+numeric IP addresses are allowed.  Symbolic hostnames are looked up in
+DNS service.  If a hostname has multiple address mappings,
+@command{inetd} creates a socket to listen on each address.
+
+To avoid repeating an address that occurs frequently, a line with a
+host address specifier and colon, but no further fields is allowed,
+e.g.:
+
+@example
+127.0.0.1,192.168.0.5:
+@end example
+
+The address specifier from such a line is remembered and used for all
+further lines lacking an explicit host specifier.  Such a default
+address remains in effect until another such line or end of the
+configuration is encountered, whichever occurs first.
+
+A special hostname @samp{*} stands for the wildcard address.
+When used in a normal configuration line, it causes the default address
+specifier to be ignored for that line.  When used in a default address
+specification, e.g.:
+
+@example
+*:
+@end example
+
+it causes any previous default address specifier to be forgotten.
+
+@item socket type
+The socket type should be one of @samp{stream}, @samp{dgram},
+@samp{raw}, @samp{rdm}, or @samp{seqpacket}, depending on whether the
+socket is a stream, datagram, raw, reliably delivered message, or
+sequenced packet socket.  TCPMUX services must use @samp{stream}.
+
+@item protocol
+The protocol must be a valid protocol as given in
+@file{/etc/protocols}.  Examples might be @samp{tcp} or @samp{udp}.
+TCPMUX services must use @samp{tcp}.  If IPv6 support is enabled the
+sockets will accept both IPv4 and IPv6 connections if that is
+supported by the OS.  If inetd should only accept IPv4 or IPv6
+connections, add @samp{4} or @samp{6} to the protocol name.  For
+example @samp{tcp4} will only accept IPv4 tcp connections and
+@samp{udp6} will only accept IPv6 udp connections.
+
+@item wait/nowait[.max]
+The @samp{wait/nowait} entry specifies whether the server that is
+invoked by @command{inetd} will take over the socket associated with
+the service access point, and thus whether inetd should wait for the
+server to exit before listening for new service requests.  Datagram
+servers must use @samp{wait}, as they are always invoked with the
+original datagram socket bound to the specified service address.
+These servers must read at least one datagram from the socket before
+exiting.  If a datagram server connects to its peer, freeing the
+socket so inetd can received further messages on the socket, it is
+said to be a ``multi-threaded'' server; it should read one datagram
+from the socket and create a new socket connected to the peer.  It
+should fork, and the parent should then exit to allow inetd to check
+for new service requests to spawn new servers.  Datagram servers which
+process all incoming datagrams on a socket and eventually time out are
+said to be ``single-threaded''.  @command{comsat} and @command{talkd} are
+both examples of the latter type of datagram server.  @command{tftpd} is an
+example of a multi-threaded datagram server.
+
+Servers using stream sockets generally are multi-threaded and use the
+@samp{nowait} entry.  Connection requests for these services are
+accepted by inetd, and the server is given only the newly-accepted
+socket connected to a client of the service.  Most stream-based
+services and all TCPMUX services operate in this manner.  For such
+services, the number of running instances of the server can be
+limitied by specifying optional @samp{max} suffix (a decimal number),
+e.g.: @samp{nowait.15}.
+
+Stream-based servers that use @samp{wait} are started with the
+listening service socket, and must accept at least one connection
+request before exiting.  Such a server would normally accept and
+process incoming connection requests until a timeout.
+Other services must use @samp{nowait}.
+
+@item user
+The user entry should contain the user name of the user as whom the
+server should run.  This allows for servers to be given less
+permission than root.  An optional form includes also a group name
+as a suffix, separated from the user name by colon or a period, i.e.,
+@samp{user:group} or @samp{user.group}.
+
+@item server program
+The server-program entry should contain the pathname of the program
+which is to be executed by inetd when a request is found on its
+socket.  If inetd provides this service internally, this entry should
+be @samp{internal}.
+
+It is common usage to specify @file{/usr/sbin/tcpd} in this field.
+
+@item server program arguments
+The server program arguments should be just as arguments normally are,
+starting with @code{argv[0]}, which is the name of the program.  If
+the service is provided internally, this entry must contain the word
+@samp{internal}, or be empty.
+@end table
+
+@node Built-in services
+@section Built-in services
+
+The @command{inetd} program provides several ``trivial'' services
+internally by use of routines within itself.  All these services can
+operate both in @samp{stream} and in @samp{dgram} mode.  They are:
+
+@table @asis
+@item echo
+Send back to the originating source any data received from it.  This
+is a debugging and measurement tool.
+
+@item discard
+Silently throw away any data received.
+
+@item chargen
+This is a character generator service.  It can be operated as both
+stream or dgram service.  When operating in @samp{stream} mode, once a
+connection is established a stream of data is sent out the connection
+(and any data received is thrown away).  This continues until the
+calling user terminates the connection.  When operating in
+@samp{dgram} mode, @command{inetd} listens for UDP datagrams, and for
+each received datagram, answers with a datagram containing a random
+number (between 0 and 512) of characters.  Any data in the received
+datagram are ignored.
+
+@item daytime
+Send back the current date and time in a human readable form.  Any
+input is discarded.
+
+@item time
+Send back the current date and time as a 32-bit integer number,
+nrepresenting the number of seconds since midnight, January 1, 1900.
+@end table
+
+@node TCPMUX
+@section TCPMUX
+The TCPMUX protocol.
+
+@quotation
+A TCP client connects to a foreign host on TCP port 1.  It sends the
+service name followed by a carriage-return line-feed <CRLF>.  The
+service name is never case sensitive.  The server replies with a
+single character indicating positive (+) or negative (-)
+acknowledgment, immediately followed by an optional message of
+explanation, terminated with a <CRLF>.  If the reply was positive, the
+selected protocol begins; otherwise the connection is closed.''  The
+program is passed the TCP connection as file descriptors 0 and 1.
+@end quotation
+
+If the TCPMUX service name begins with a ``+'', @command{inetd}
+returns the positive reply for the program.  This allows you to invoke
+programs that use stdin/stdout without putting any special server code
+in them.
+
+The special service name @samp{help} causes inetd to list TCPMUX
+services in @file{inetd.conf}.
+
+To define TCPMUX services, the configuration file must contain a
+@samp{tcpmux internal} definition.
+
+Here are several example service entries for the various types of
+services:
+
+@example
+ftp           stream  tcp   nowait root  /usr/libexec/ftpd     ftpd -l
+ntalk         dgram   udp   wait   nobody:tty /usr/libexec/talkd talkd
+tcpmux        stream  tcp   nowait root  internal
+tcpmux/+date  stream  tcp   nowait guest /bin/date             date
+tcpmux/phonebook stream tcp nowait guest /usr/bin/phonebook    phonebook
+@end example
+
+@node Inetd Environment
+@section Inetd Environment
+
+If a connection is made with a streaming protocol (@samp{stream}) and
+if @option{--environment} option has been given, @command{inetd} will
+set the following environment variables before starting the program:
+
+@table @env
+@item PROTO
+Always @samp{TCP}.
+
+@item TCPLOCALIP
+Local IP address of the interface which accepted the connection.
+
+@item TCPLOCALPORT
+Port number on which the TCP connection was established.
+
+@item TCPREMOTEIP
+IP address of the remote client.
+
+@item TCPREMOTEPORT
+Port number on the client side of the TCP connection.
+@end table
+
+Additionally, if given the @option{--remote} option, @command{inetd}
+sets the following environment variables:
+
+@table @env
+@item TCPLOCALHOST
+DNS name of @env{TCPLOCALIP}.
+
+@item TCPREMOTEHOST
+DNS name of @env{TCPREMOTEIP}.
+@end table
+
+@node Error Messages
+@section Error Messages
+
+The inetd server logs error messages using syslog.  Important error
+messages and their explanations are:
+
+@table @samp
+@item service/protocol server failing (looping), service terminated.
+The number of requests for the specified service in the past minute
+exceeded the limit.  The limit exists to prevent a broken program or a
+malicious user from swamping the system.  This message may occur for
+several reasons:
+
+@enumerate 1
+@item there are lots of hosts requesting the service within a short time period,
+@item a ``broken'' client program is requesting the service too frequently,
+@item a malicious user is running a program to invoke the service in a ``denial of service'' attack,
+@item the invoked service program has an error that causes clients to retry quickly.
+@end enumerate
+
+Use the @option{-R} option, as described above, to change the rate
+limit.  Once the limit is reached, the service will be reenabled
+automatically in 10 minutes.
+
+@item service/protocol: No such user 'user', service ignored
+@itemx service/protocol: getpwnam: user: No such user
+No entry for user exists in the passwd file.  The first message occurs
+when inetd (re)reads the configuration file.  The second message
+occurs when the service is invoked.
+
+@item service/protocol: No such user 'user', service ignored
+@itemx service/protocol: getpwnam: user: No such user
+No entry for user exists in the passwd file.  The first message occurs
+when inetd (re)reads the configuration file.  The second message
+occurs when the service is invoked.
+
+@item service: can't set uid number
+@itemx service: can't set gid number
+The user or group ID for the entry's user is invalid.
+@end table
+
+@node syslogd invocation
+@chapter @command{syslogd}: system service logging faclity
+@pindex syslogd
+
+@command{syslogd} is a system service that provides error logging
+facility.  Messages are read from the UNIX domain socket
+@file{/dev/log}, from an Internet domain socket specified in
+@file{/etc/services}, and from the special device @file{/dev/klog} (to
+read kernel messages).
+
+@command{syslogd} creates the file @file{/var/run/syslog.pid}, and
+stores its process id there.  This can be used to kill or reconfigure
+@command{syslogd}.
+
+The message sent to @command{syslogd} should consist of a single line.
+The message can contain a priority code, which should be a preceding
+decimal number in angle braces, for example, @code{<5>}.  This
+priority code should map into the priorities defined in the include
+file @code{sys/syslog.h}.
+
+@example
+syslogd [@var{options}]@dots{}
+@end example
+
+@table @option
+@item -f @var{file}
+@itemx --rcfile=@var{file}
+@opindex -f
+@opindex --rcfile
+Override configuration (the default file is @file{/etc/syslog.conf}).
+
+@item -D @var{dir}
+@itemx --rcdir=@var{dir}
+@opindex -D
+@opindex --rcdir
+Override configuration directory (the default is @file{/etc/syslog.d}).
+
+@item -P @var{file}
+@itemx --pidfile=@var{file}
+@opindex -P
+@opindex --pidfile
+Override pidfile (the default file is @file{/var/run/syslogd.pid}).
+
+@item -n
+@itemx --no-detach
+@opindex -n
+@opindex --no-detach
+Do not enter daemon mode.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Print debug information (implies @option{-n}).
+
+@item -p @var{file}
+@itemx --socket=@var{file}
+@opindex -p
+@opindex --socket
+Override default UNIX domain socket @file{/dev/log}.
+
+@item -a @var{socket}
+Add UNIX socket to listen.  An unlimited number of sockets is allowed.
+
+@item -r
+@itemx --inet
+@opindex -r
+@opindex --inet
+Receive remote messages via Internet domain socket.
+Without this option no remote massages are received,
+since there is no listening socket. Yet sockets for
+forwarding are created on the fly as needed,
+which might cause performance issues on busy systems.
+
+@item -b @var{address}
+@itemx --bind=@var{address}
+@opindex -b
+@opindex --bind
+Restrict the listening Internet domain socket to a single address.
+The default (given the use of @option{-r}) is a wildcard address,
+implying that the server listens at every available address.
+Any name will be resolved, and the lookup result will depend
+on the options @option{-4}, @option{-6}, and @option{--ipany}.
+
+@item --no-unixaf
+@opindex --no-unixaf
+Do not listen on UNIX domain sockets (overrides @option{-a} and
+@option{-p}).
+
+@item --no-klog
+@opindex --no-klog
+Do not listen to the kernel log device @file{/dev/klog}.
+
+@item --ipany
+@opindex --ipany
+Allow both address families: IPv4 and IPv6.
+
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Use only IPv4 for Internet domain sockets.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Use only IPv6 for Internet domain sockets.
+
+@item --no-forward
+@opindex --no-forward
+Do not forward any messages (overrides @option{-h}).
+This disables even temporary creation of forwarding
+sockets, an ability which is otherwise active when
+the option @option{-r} is left out.
+
+@item -h
+@itemx --hop
+@opindex -h
+@opindex --hop
+Forward messages from remote hosts.
+
+@item -m @var{interval}
+@itemx --mark=@var{interval}
+@opindex -m
+@opindex --mark
+Specify timestamp interval expressed in minutes (0 for no timestamping).
+
+@item -l @var{hostlist}
+@opindex -l
+Log hosts in @var{hostlist} by their hostname.  Multiple lists are
+allowed.
+
+@item -s @var{domainlist}
+@opindex -s
+List of domains which should be stripped from the FQDN of hosts before
+logging their name.  Multiple lists are allowed.
+
+@item -T
+@itemx --local-time
+@opindex -T
+@opindex --local-time
+Ignore any time contained in a received message.
+In its stead, record the time of reception on the local
+system.  This circumvents problems caused by remote hosts
+with skewed clocks.
+@end table
+
+@section Configuration file
+
+@command{syslogd} reads its configuration file when it starts up and
+whenever it receives a hangup signal.  The @file{syslog.conf} file is
+the main configuration file for the @command{syslogd} program.
+In addition, the server looks below the directory @file{syslog.d/}
+for further configuration files, making it easy to arrange a common
+set of logging conventions in @file{syslog.conf}, augmented by
+system and service specific drop-in configuration in @file{syslog.d/}.
+
+Each configuration file consists of lines with two fields:
+a @dfn{selector} field which specifies the
+types of messages and priorities to which the line applies, and an
+@dfn{action} field which specifies the action to be taken if a message
+@command{syslogd} receives matches the selection criteria.  The
+selector field is separated from the action field by one or more tab
+or space characters.  A rule can be split in several lines if all
+lines except the last are terminated with a backslash @samp{\}.
+
+There are two exceptional forms of line content.
+The first is the @dfn{tagged selector}, and the second is a comment.
+The latter begins with an octothorp (@samp{#}), also called hash,
+and continues until end-of-line.
+
+A tagged selector commences with an exclamation mark,
+as in @samp{!name}, or with a shebang, like @samp{#! name},
+and continues with a program name, a @dfn{tag} in the sense
+used by @command{logger}.
+It has the effect of applying the following configuration rules
+only to messages submitted with the specified tag.
+This selection remains in effect until another tag is selected,
+or until it is reset by means of stating the program name as
+an asterisque @samp{*}.
+
+The selector fields are encoded as a facility, followed by
+a period (@samp{.}), and a level, with no intervening white-space.
+The facility as well as the level are case insensitive.
+
+The facility describes the part of the system generating the message,
+and is one of the following keywords: @samp{auth}, @samp{authpriv},
+@samp{cron}, @samp{daemon}, @samp{kern}, @samp{lpr}, @samp{mail},
+@samp{mark}, @samp{news}, @samp{syslog}, @samp{user}, @samp{uucp} and
+@samp{local0} through @samp{local7}.  These keywords (with the
+exception of @samp{mark}) correspond to the similar @samp{LOG_} values
+specified to the @samp{openlog} and @samp{syslog} library routines.
+@xref{Syslog, , Syslog, libc, The GNU C Library Reference Manual}, for
+details.
+
+The level describes the severity of the message, and is a keyword from
+the following ordered list (higher to lower): @samp{emerg},
+@samp{alert}, @samp{crit}, @samp{err, warning}, @samp{notice} and
+@samp{debug}.  These keywords correspond to the similar @samp{LOG_}
+values specified to the syslog library routine.
+
+@xref{syslog; vsyslog, , syslog and vsyslog, libc, The GNU C Library
+Reference Manual}, for a further descriptions of both the facility and
+level keywords and their significance.
+
+If a received message matches the specified facility and is of the
+specified level (or a higher level), the action specified in the
+action field will be taken.
+
+Multiple selectors may be specified for a single action by separating
+them with semicolon (@samp{;}) characters.  It is important to note,
+however, that each selector can modify the ones preceding it.
+
+Multiple facilities may be specified for a single level by separating
+them with comma (@samp{,}) characters.
+
+An asterisk (@samp{*}) can be used to specify all facilities or all
+levels.  Two asterisks (@samp{**}) specifie all facilities not named
+previously in the configuration file.
+
+By default, a level applies to all messages with the same or higher
+level.  The equal (@samp{=}) character can be prepended to a level to
+restrict this line of the configuration file to messages with the very
+same level.
+
+An exclamation mark (@samp{!}) prepended to a level or the asterisk
+means that this line of the configuration file does not apply to the
+specified level (and higher ones).  In conjunction with the equal
+sign, you can exclude single levels as well.
+
+The special facility @samp{mark} receives a message at priority
+@samp{info} every 20 minutes.  This is not enabled by a facility field
+containing an asterisk.
+
+The special level @samp{none} disables a particular facility.
+
+The action field of each line specifies the action to be taken when
+the selector field selects a message.  There are five forms:
+
+@itemize @bullet
+@item
+A pathname (beginning with a leading slash).  Selected messages are
+appended to the file.
+
+You may prepend a minus (@samp{-}) to the path to omit syncing the
+file after each message log.  This can cause data loss at system
+crashes, but increases performance for programs which use logging
+extensively.
+
+@item
+A named pipe, beginning with a vertical bar (@samp{|}) followed by a
+pathname.  The pipe must be created with @command{mkfifo} before
+@command{syslogd} reads its configuration file.  This feature is
+especially useful for debugging.
+
+@item
+A hostname (preceded by an at (@samp{@@}) sign).  Selected messages
+are forwarded to @command{syslogd} on the named host.
+
+@item
+A comma separated list of users.  Selected messages are written to
+those users if they are logged in.
+
+@item
+An asterisk.  Selected messages are written to all logged-in users.
+
+Blank lines and lines whose first non-blank character is a hash
+(@samp{#}) character are ignored.
+@end itemize
+
+A configuration file might appear as follows:
+
+@example
+# Log all kernel messages, authentication messages of
+# level notice or higher and anything of level err or
+# higher to the console.
+# Don't log private authentication messages!
+*.err;kern.*;auth.notice;authpriv.none  /dev/console
+
+# Log anything (except mail) of level info or higher.
+# Don't log private authentication messages!
+*.info;mail.none;authpriv.none          /var/log/messages
+
+# The authpriv file has restricted access.
+authpriv.*                              /var/log/secure
+
+# Log all the mail messages in one place.
+mail.*                                  /var/log/maillog
+
+# Everybody gets emergency messages, plus log them on another
+# machine.
+*.emerg                                 *
+*.emerg                                 @@arpa.berkeley.edu
+
+# Root and Eric get alert and higher messages.
+*.alert                                 root,eric
+
+# Simplify security auditing, by collecting sudo uses.
+! sudo
+*.info                                  /var/log/sudo
+
+# Collect time server reports.
+#! ntpd
+*.*                                     /var/log/ntpd
+
+# Stop selecting on message tags.
+!*
+
+# Save mail and news errors of level err and higher in a
+# special file.
+uucp,news.crit                          /var/log/spoolerr
+@end example
+
+The effects of multiple selectors are sometimes not intuitive.  For
+example @samp{mail.crit,*.err} will select the @samp{mail} facility
+messages at the level of @samp{err} or higher, not at the level of
+@samp{crit} or higher.
+
+@node ftpd invocation
+@chapter @command{ftpd}: FTP daemon
+@pindex ftpd
+
+@command{ftpd} is the Internet File Transfer Protocol server process.
+The server uses the TCP protocol and listens at the port specified in
+the @samp{ftp} service specification.
+
+@example
+ftpd [@var{option}]@dots{}
+@end example
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Daemon uses only IPv4 addressing.  Ignored in inetd mode.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Daemon uses only IPv6 addressing.  Ignored in inetd mode.
+
+@item -A
+@itemx --anonymous-only
+@opindex -A
+@opindex --anonymous-only
+Only anonymous login is allowed.
+
+@item -a @var{auth}
+@itemx --auth=@var{auth}
+@opindex -a
+@opindex --auth
+Specify what authentication mechanism to use for incoming connections.
+Possible values are: @samp{kerberos}, @samp{kerberos5}, @samp{opie},
+@samp{pam}, and @samp{default}.
+
+Anonymous logins will continue to work when this option is used,
+unless the user @samp{ftp} is removed from the system.
+
+@item  -D
+@itemx --daemon
+@opindex -D
+@opindex --daemon
+@command{ftpd} enters daemon-mode.  That allows @command{ftpd} to be
+run without @command{inetd}.
+
+@item -d
+@itemx --debug
+@opindex -d
+@opindex --debug
+Debugging information is written to the @code{syslog} using facility
+@samp{LOG_FTP}.
+
+@item -l
+@itemx --logging
+@opindex -l
+@opindex --logging
+Each successful and failed ftp session is logged using @code{syslog}
+with a facility of @samp{LOG_FTP}.  If this option is specified twice,
+the retrieve (@code{get}), store (@code{put}), append, delete, make
+directory, remove directory and rename operations and their filename
+arguments are also logged.
+
+@item --non-rfc2577
+@opindex --non-rfc2577
+Do not follow the suggestion of RFC 2577 to suppress messages
+that could help an attacker to conduct user name enumeration.
+This option allows the server to return with an error message
+immediately upon receipt of a user name.
+Such information includes non-existence claims and expiration claims.
+The ideal mode would otherwise be to fake the relevance of asking
+for a password, and only thereafter report an invalid login.
+
+@item -p @var{pidfile}
+@itemx --pidfile=@var{pidfile}
+@opindex -p
+@opindex --pidfile
+Change default location of @var{pidfile}.
+
+@item -q
+@itemx --no-version
+@opindex -q
+@opindex --no-version
+Quiet mode.  No information about the version of the @command{ftpd} is
+given to the client.
+
+@item -T
+@itemx --max-timeout
+@opindex -T
+@opindex --max-timeout
+A client may also request a different timeout period; the maximum
+period allowed may be set to timeout seconds with the @option{-T}
+option.  The default limit is 2 hours.
+
+@item -t @var{timeout}
+@itemx --timeout=@var{timeout}
+@opindex -t
+@opindex --timeout
+The inactivity timeout period is set to timeout seconds (the default
+is 15 minutes).
+
+@item -u @var{umask}
+@itemx --umask=@var{umask}
+@opindex -u
+@opindex --umask
+Set default umask, expressed in base 8.
+@end table
+
+The file @file{/etc/nologin} can be used to disable FTP access.  If
+the file exists, @command{ftpd} displays it and exits.  If the file
+@file{/etc/ftpwelcome} exists, @command{ftpd} prints it before issuing
+the @samp{ready} message.  If the file @file{/etc/motd} exists,
+@command{ftpd} prints it after a successful login.
+
+If this server was compiled with PAM support, then any non-anonymous
+connection request will also be checked for settings pertaining to
+the PAM service @samp{ftp}, before finally being accepted.
+
+Linux-PAM is particular in that it also provides a module
+@samp{pam_ftp.so} influencing even anonymous access.
+By convention the present server relies on the functionality
+in that module when built on relevant systems.
+However, the module is known to be partially broken since
+ten years back, when one compares the claims in its manual page,
+so not all claimed trickery is available!
+
+@section Standards
+@anchor{ftpd standards}
+
+The FTP server currently supports the following FTP requests.
+The letter case of any request is ignored.
+
+@multitable @columnfractions 0.3 0.7
+@headitem Request  @tab  Description
+@item ABOR         @tab  abort previous command
+@item ACCT         @tab  specify account (ignored)
+@item ALLO         @tab  allocate storage (vacuously)
+@item APPE         @tab  append to a file
+@item CDUP         @tab  change to parent of current working directory
+@item CWD          @tab  change working directory
+@item DELE         @tab  delete a file
+@item EPSV         @tab  extended passive transfer request
+@item EPRT         @tab  specify data connection port
+@item HELP         @tab  give help information
+@item LIST         @tab  give list files in a directory (``ls -lgA'')
+@item LPRT         @tab  specify data connection port
+@item LPSV         @tab  long passive transfer request
+@item MKD          @tab  make a directory
+@item MDTM         @tab  show last modification time of file
+@item MODE         @tab  specify data transfer mode
+@item NLST         @tab  give name list of files in directory
+@item NOOP         @tab  do nothing
+@item PASS         @tab  specify password
+@item PASV         @tab  prepare for server-to-server transfer
+@item PORT         @tab  specify data connection port
+@item PWD          @tab  print the current working directory
+@item QUIT         @tab  terminate session
+@item REST         @tab  restart incomplete transfer
+@item RETR         @tab  retrieve a file
+@item RMD          @tab  remove a directory
+@item RNFR         @tab  specify rename-from file name
+@item RNTO         @tab  specify rename-to file name
+@item SITE         @tab  non-standard commands
+@item SIZE         @tab  return size of file
+@item STAT         @tab  return status of server
+@item STOR         @tab  store a file
+@item STOU         @tab  store a file with a unique name
+@item STRU         @tab  specify data transfer structure
+@item SYST         @tab  show operating system type of server system
+@item TYPE         @tab  specify data transfer type
+@item USER         @tab  specify user name
+@item XCUP         @tab  change to parent of current working directory (deprecated)
+@item XCWD         @tab  change working directory (deprecated)
+@item XMKD         @tab  make a directory (deprecated)
+@item XPWD         @tab  print the current working directory (deprecated)
+@item XRMD         @tab  remove a directory (deprecated)
+@end multitable
+
+The following non-standard, or UNIX specific, commands are supported by
+the @code{SITE} request.
+
+@multitable @columnfractions 0.3 0.7
+@item Request      @tab  Description
+@item UMASK        @tab  change umask, e.g. @code{SITE UMASK 002}
+@item IDLE         @tab  set idle-timer, e.g. @code{SITE IDLE 60}
+@item CHMOD        @tab  change mode of a file, e.g. @code{SITE CHMOD0 0CHMOD1 1CHMOD2}
+@item HELP         @tab  give help information.
+@end multitable
+
+The remaining FTP requests specified in RFC 959 are recognized, but
+not implemented.  The extensions @code{MDTM}, @code{REST},
+and @code{SIZE} are specified in RFC 3659, while @code{EPRT}
+and @code{EPSV} appear in RFC 2428, @code{LPRT} and @code{LPSV}
+in RFC 1639.
+
+The ftp server will abort an active file transfer only when the
+@code{ABOR} command is preceded by a Telnet @samp{Interrupt Process}
+(IP) signal and a Telnet @samp{Synch} signal in the command Telnet
+stream, as described in Internet RFC 959.  If a @code{STAT} command is
+received during a data transfer, preceded by a Telnet IP and Synch,
+transfer status will be returned.
+
+@code{ftpd} interprets file names according to the globbing
+conventions used by @command{csh}.  This allows users to utilize the
+metacharacters @samp{*?[]@{@}~}.
+
+The server applies the suggestions in RFC 2577, but the legacy
+behaviour with informational content in denials can be restored
+using the option @option{--non-rfc2577}.
+
+@section Authentication
+@anchor{ftpd authentication}
+
+@command{ftpd} authenticates users according to four rules.
+
+@enumerate
+@item
+The login name must be in the password data base, @file{/etc/passwd},
+and must not have a null password.  In this case a password must be
+provided by the client before any file operations can be performed.
+
+@item
+The login name must not appear in the file @file{/etc/ftpusers}.
+
+@item
+The user must have a standard shell.
+
+@item
+If the user name is @samp{anonymous} or @samp{ftp}, an anonymous ftp
+account must be present in the password file (user @samp{ftp}).  In
+this case the user is allowed to log in by specifying any password (by
+convention an email address for the user should be used as the
+password).
+@end enumerate
+
+A further access mechanism is provided by the file
+@file{/etc/ftpchroot}.
+A user mentioned therein will have all access confined to the subtree
+rooted at the home directory specified in @file{/etc/passwd}.
+
+In the case of anonymous access, @command{ftpd} takes special measures
+to restrict the client's access privileges.  The server always performs
+a chroot to the home directory of the @samp{ftp} user.
+
+In order that system security is not breached,
+it is recommended that the @samp{ftp} subtree be
+constructed with care, following these rules:
+
+@table @file
+@item ~ftp
+Make the home directory owned by @samp{root} and not writable by anyone.
+
+@item ~ftp/bin
+Make this directory owned by @samp{root} and not writable by anyone
+(mode 555).  The program @command{ls} must be present to support the
+list command, unless the server was compiled with libls support.
+This program should be mode 111.
+
+@item ~ftp/etc
+Make this directory owned by @samp{root} and not writable by anyone
+(mode 555).  The files @file{passwd} and @file{group} must be present
+for the @command{ls} command to be able to produce owner names rather
+than numbers.  The password field in @file{passwd} is not used, and
+should not contain real passwords.  The file @file{motd}, if present,
+will be printed after a successful login.  These files should be mode
+444.
+
+@item ~ftp/pub
+Make this directory mode 777 and owned by @samp{ftp}.  Guests can then
+place files which are to be accessible via the anonymous account in
+this directory.
+@end table
+
+@section Configuration files
+@anchor{ftpd files}
+
+@table @samp
+@item @file{/etc/ftpchroot}
+List of users to enclose in a chrooted directory.
+The anonymous user @samp{ftp} is always considered
+to be a member of this list, explicit or not.
+
+@item @file{/etc/ftpusers}
+List of unwelcome/restricted users, always to be denied access.
+
+@item @file{/etc/ftpwelcome}
+Welcome notice printed before server identification
+and any authentication exchange.
+
+@item @file{/etc/motd}
+Welcome notice presented after completed login.
+
+@item @file{/etc/nologin}
+If present, the contents are displayed and all further
+access is refused.
+@end table
+
+@section File format of ftpusers and ftpchroot.
+@anchor{ftpusers file format}
+
+The files @file{/etc/ftpusers} and @file{/etc/ftpchroot}
+share a common file format.
+For better conformity with other implementations,
+each line is understood as consisting of fields separated
+by spaces, or by horizontal tabulators.
+Only the first non-empty field is examined at present.
+Both files are used for matching against a user name,
+desiring to use the FTP service.
+
+Whenever the first printable character is a hash @samp{#},
+the input line is taken as a comment, and is ignored.
+Lines lacking non-empty fields are likewise ignored.
+
+A field consisting of a single at-sign @samp{@@},
+is treated as a wildcard and matches every input.
+
+A field commencing with an at-sign @samp{@@} and then
+continuing with an identifier, is understood as giving
+the name of a group.
+Should this name exist in @file{/etc/groups}, and the
+user name be a member of this same group, then the user
+name matches.
+
+In all other cases, the field is taken as the identifier
+of a user, with which the requesting user is compared
+for verbatim match.
+
+It is worthwhile to observe from the above cases,
+that a single @samp{@@} on a line by itself in
+@file{/etc/ftpchroot}, will enforce chrooting
+upon every user allowed to access the FTP service.
+This gives a Draconian, protective configuration.
+
+@node rexecd invocation
+@chapter @command{rexecd}: server for @code{rexec}
+@pindex rexecd
+
+@command{rexecd} is the server for the @code{rexec} routine.  The
+server provides remote execution facilities with authentication based
+on user names and passwords.  It passes error messages and notices
+to the @code{syslog} facility @samp{LOG_DAEMON}.
+
+@example
+rexecd [@var{option}]@dots{}
+@end example
+
+@command{rexecd} listens for service requests at the port indicated in
+the @samp{exec} service specification.  When a service request is
+received the following protocol is initiated:
+
+@enumerate
+@item
+The server reads characters from the socket up to a NUL (@samp{\0})
+byte.  The resultant string is interpreted as an ASCII number, base
+10.
+
+@item
+If the number received in step 1 is non-zero, it is interpreted as the
+port number of a secondary stream to be used for the stderr.  A second
+connection is then created to the specified port on the client's
+machine.
+
+@item
+A NUL terminated user name of at most 16 characters is retrieved on
+the initial socket.
+
+@item
+A NUL terminated, unencrypted password of at most 16 characters is
+retrieved on the initial socket.
+
+@item
+A NUL terminated command to be passed to a shell is retrieved on the
+initial socket.  The length of the command is limited by the upper
+bound on the size of the system's argument list.
+
+@item
+@command{rexecd} then validates the user as is done at login time and,
+if the authentication was successful, changes to the user's home
+directory, and establishes the user and group protections of the user.
+If any of these steps fail the connection is aborted with a diagnostic
+message returned.
+
+@item
+A NUL byte is returned on the initial socket and the command line is
+passed to the normal login shell of the user.  The shell inherits the
+network connections established by rexecd.
+@end enumerate
+
+@section Invoking
+
+The only option is as follows:
+
+@table @option
+@item -l
+@itemx --logging
+@opindex -l
+@opindex --logging
+Raise logging level for this service; use more than once for
+increased verbosity.  The @code{syslog} facility in use is
+@samp{LOG_DAEMON}.
+
+@end table
+
+Should @command{rexecd} have been built with PAM support,
+it reads any setting specified for a service named @samp{rexec}.
+
+@section Diagnostics
+
+Except for the last one listed below, all diagnostic messages are
+returned on the initial socket, after which any network connections
+are closed.  An error is indicated by a leading byte with a value of 1
+(0 is returned in step 7 above upon successful completion of all the
+steps prior to the command execution).
+
+@table @samp
+@item username too long
+The name is longer than 16 characters.
+
+@item password too long
+The password is longer than 16 characters.
+
+@item command too long
+The command line passed exceeds the size of the argument list (as
+configured into the system).
+
+@item Login incorrect.
+No password file entry for the user name existed.
+
+@item Password incorrect.
+The wrong password was supplied.
+
+@item No remote directory.
+The chdir command to the home directory failed.
+
+@item Try again.
+A fork by the server failed.
+
+@item <shellname>: @dots{}
+The user's login shell could not be started.  This message is returned
+on the connection associated with the stderr, and is not ...
+@c FIXME: Fill this out.
+@end table
+
+@emph{Note}, that indicating @samp{Login incorrect} as opposed to
+@samp{Password incorrect} is a security breach which allows people to
+probe a system for users with null passwords.
+
+@node rlogind invocation
+@chapter @command{rlogind}: Remote login server
+@pindex rlogind
+
+@command{rlogind} is the server for the @command{rlogin} client program
+(@pxref{rlogin invocation}).  The server provides a remote login
+facility with authentication based on privileged port numbers from
+trusted hosts, or using authentication according to a Kerberos
+protocol.
+
+@command{rlogind} in daemon mode listens for service requests at the
+port indicated in the @samp{login} service specification.  A common
+alternative is to have the super-server @command{inetd} listen at
+the same port, which then invokes @command{rlogind} as demand arises.
+In Kerberised mode, the port is either @samp{eklogin}, or
+@samp{klogin}, depending on preset encryption, or none.
+
+The standard authentication procedure assumes the integrity of each
+client machine and of the connecting medium.  This is insecure, since
+it transmits credentials in clear text, but is useful in an ``open''
+environment.  This weakness is reduced when running the service
+in Kerberised version, at the price of a larger complexity of the
+supporting infrastructure.  Using an encrypting Kerberised service
+even avoids all clear text processing.
+
+@section Invoking
+
+The available options are as follows:
+
+@table @option
+@item -4
+@itemx --ipv4
+@opindex -4
+@opindex --ipv4
+Accept only IPv4 connections in daemon mode.
+
+@item -6
+@itemx --ipv6
+@opindex -6
+@opindex --ipv6
+Only IPv6 connections in daemon mode.
+
+@item -a
+@itemx --verify-hostname
+@opindex -a
+@opindex --verify-hostname
+Ask hostname for verification.
+
+@item -d[@var{max}]
+@itemx --daemon[=@var{max}]
+@opindex -d
+@opindex --daemon
+Run in background daemon mode, optionally setting the maximal
+number of simultaneously running client sessions.  The default
+limit is 10.
+
+@item -D[@var{level}]
+@itemx --debug[=@var{level}]
+@opindex -D
+@opindex -debug
+Set debug level, not implemented.
+
+@item -l
+@itemx --no-rhosts
+@opindex -l
+@opindex --no-rhosts
+Ignore client's @file{.rhosts} file.
+
+@item -L @var{name}
+@itemx --local-domain=@var{name}
+@opindex -L
+@opindex --local-domain
+Set local domain name, to which the server host belongs.  By default
+the domain is recovered from the canonical name of the host.
+
+@item -n
+@itemx --no-keepalive
+@opindex -n
+@opindex --no-keepalive
+Do not set SO_KEEPALIVE on sockets.  This decreases the ability
+to close lost connections to once active clients.
+
+@item -o
+@itemx --allow-root
+@opindex -o
+@opindex --allow-root
+Allow the root user to login, which is disallowed by default.
+
+@item -p @var{port}
+@itemx --port=@var{port}
+@opindex -p
+@opindex --port
+Listen on given port.  Applicable only in daemon mode.
+
+@item -r
+@itemx --reverse-required
+@opindex -r
+@opindex --reverse-required
+Require reverse resolvability of remote host's numerical IP.
+@end table
+
+For sites requiring improved authentication, Kerberos
+authentication is a viable decision, and possibly even
+with encryption for enhanced integrity.  Three additional
+options are available for an executable @command{rlogind}
+compiled with Kerberos support.
+
+@table @option
+@item -k
+@itemx --kerberos
+@opindex -k
+@opindex --kerberos
+Activate Kerberos authentication on all incoming requests.
+
+@item -S @var{name}
+@itemx --server-principal=@var{name}
+@opindex -S
+@opindex --server-principal
+Set Kerberos server name, overriding canonical hostname.
+
+@item -x
+@itemx --encrypt
+@opindex -x
+@opindex --encrypt
+Activate encryption of all data passed via the @command{rlogind} session.
+This may impact response time and CPU utilization, but provides
+increased security.  Only for Kerberised mode of operation.
+@end table
+
+Should @command{rlogind} have been built with PAM support,
+it reads any setting specified for a service named either
+@samp{rlogin} or @samp{krlogin}, the latter name for clients
+using Kerberised authentication.
+
+@section Kerberos specific details
+
+The option @option{-k} is mandatory for Kerberised operation mode,
+while addition of the option @option{-x} will also demand encryption
+of every request to this particular server.
+
+@command{rlogind} will, in Kerberised operation mode, as default
+instantiate itself using the principal name
+@samp{host/canonical_name@@DEFAULT_REALM}, a compound arranged
+from the running host's canonical name, and from the default realm
+configured for the system.  Either of these can be overridden
+using the option @option{--server-principal}, as follows:
+
+@example
+rlogind -k -S alias.server.our
+rlogind --kerberos --server-principal=@@NEW.REALM
+rlogind -k -x -S rlogin/backup.ex.org@@OUR.REALM
+@end example
+
+When overriding only the realm, with the option @option{-S},
+an initial at-sign is mandatory.
+
+@section Protocol details
+
+When a service request is received, in non-Kerberised mode,
+the following protocol is initiated:
+
+@enumerate
+@item
+The server checks the client's source port.  If the port is not in the
+range 512-1023, the server aborts the connection.
+
+@item
+The server next checks the client's source address and requests the
+corresponding host name.  If the hostname cannot be determined, the
+numerical representation of the host address is used.  If the
+hostname is in the same domain as the server (according to the last
+two components of the domain name), or if the option @option{-a} is
+in effect, the address for the hostname is requested, verifying that
+the name and address correspond.  Normal authentication is considered
+as failed, should this address verification fail.
+@end enumerate
+
+Once the source port and address have been checked, @command{rlogind}
+proceeds
+with the authentication process as described in @ref{rshd invocation}.
+The server
+then allocates a pseudo terminal, and manipulates file descriptors so
+that the slave half of the pseudo terminal becomes the stdin, stdout,
+and stderr for a login process.  The login process is an instance of
+the @command{login} program, invoked with the option @option{-f} if
+authentication had succeeded.  If automatic authentication had failed,
+the user is prompted to log in as if on a standard terminal line.
+
+The parent of the login process manipulates the master side of the
+pseudo terminal, operating as an intermediary between the login
+process and the client instance of the rlogin program.  In normal
+operation, the packet protocol described in @samp{PTY} is invoked to
+provide flow control using @kbd{C-S}/@kbd{C-Q}, and to propagate interrupt
+signals to the remote program.  The login process transmits the
+client terminal's baud rate, and its terminal type, as found in the
+environment variable @env{TERM}.  The screen or window size of the
+terminal is requested from the client, and any later window size changes
+at the client's side are propagated to the pseudo terminal as well.
+
+Transport-level keepalive messages are enabled unless the
+option @option{-n} was in effect when starting @code{rlogind}.
+The use of keepalive messages allows sessions to be timed out,
+should the client crash, or otherwise become unreachable.
+
+@xref{ruserok, , ruserok, libc, The GNU C Library Reference Manual},
+for details.
+
+@section Diagnostics
+
+The exchange protocol states that a negotiation reaches a successful
+completion as soon as the server @command{rlogind} transmits back to
+the client a single null byte, marking the completion of all
+information exchange.
+
+Error conditions are instead transmitted back to the client as
+a message containing an initial byte value 1, followed by a C-string
+indicating the cause of failure. All network connections are closed
+at the server side after this message.  Some common messages follow:
+
+@table @samp
+@item Permission denied.
+The client presented insufficient credentials,
+or the client's address is not sufficiently resolvable
+to pass the checks induced by options @option{-a} or @option{-r}.
+
+@item Try again.
+A fork by the server failed.
+@end table
+
+@node rshd invocation
+@chapter @command{rshd}: Remote shell server
+@pindex rshd
+
+The @command{rshd} server is the server for the @code{rcmd} routine
+and, consequently, for the @command{rsh} (@pxref{rsh invocation})
+program.  The server provides remote execution facilities with
+authentication based on privileged port numbers from trusted hosts.
+The @command{rshd} server listens for service requests at the port
+indicated in the @samp{cmd} service specification.  When a service
+request is received the following protocol is initiated:
+
+@enumerate
+@item
+The server checks the client's source port.  If the port is not in the
+range 512--1023, the server aborts the connection.  However, this
+condition is not applied for Kerberized service.
+
+@item
+The server reads characters from the socket up to a NUL (@samp{\0})
+byte.  The resultant string is interpreted as an ASCII number, base
+10.
+
+@item
+If the number received in step 2 is non-zero, it is interpreted as the
+port number of a secondary stream to be used for the stderr.  A second
+connection is then created to the specified port on the client's
+machine.  The source port of this second connection is also in the
+range 512--1023.
+
+@item
+The server checks the client's source address and requests the
+corresponding host name.  If the hostname cannot be determined, the
+dot-notation representation of the host address is used.  If the
+hostname is in the same domain as the server (according to the last
+two components of the domain name), or if the @option{-a} option is
+given, the addresses for the hostname are requested, verifying that
+the name and address correspond.  If address verification fails, the
+connection is aborted with the message, @samp{Host address mismatch.}
+
+@item
+A null terminated user name of at most 16 characters is retrieved on
+the initial socket.  This user name is interpreted as the user
+identity on the client's machine.
+
+@item
+A null terminated user name of at most 16 characters is retrieved on
+the initial socket.  This user name is interpreted as a user identity
+to use on the server's machine.
+
+@item
+A null terminated command to be passed to a shell is retrieved on the
+initial socket.  The length of the command is limited by the upper
+bound on the size of the system's argument list.
+
+@item
+Rshd then validates the user using @code{ruserok}, which uses the file
+@file{/etc/hosts.equiv} and the @file{.rhosts} file found in the
+user's home directory.  The @option{-l} option prevents @code{ruserok}
+from doing any validation based on the user's @file{.rhosts} file,
+unless the user is the superuser.
+
+@item
+If the file @file{/etc/nologin} exists and the user is not the
+superuser, the connection is closed.
+
+@item
+A null byte is returned on the initial socket and the command line is
+passed to the normal login shell of the user.  The shell inherits the
+network connections established by @command{rshd}.
+
+@item
+Transport-level keepalive messages are enabled unless the @option{-n}
+option is present.  The use of keepalive messages allows sessions to
+be timed out if the client crashes or becomes unreachable.
+
+@item
+The @option{-L} option causes all successful accesses to be logged to
+@command{syslogd} (@pxref{syslogd invocation}) as @samp{auth.info}
+messages.
+@end enumerate
+
+@xref{ruserok, , ruserok, libc, The GNU C Library Reference Manual},
+for details.
+
+@section Invoking
+
+The options are as follows:
+
+@table @option
+@item -a
+@itemx --verify-hostname
+@opindex -a
+@opindex --verify-hostname
+Ask hostname for verification.
+
+@c @item -d
+@c @itemx --daemon
+@c @opindex -d
+@c @opindex --daemon
+@c Daemon mode.
+
+@item -k
+@itemx --kerberos
+@opindex -k
+@opindex --kerberos
+Use Kerberos authentication.
+
+@item -l
+@itemx --no-rhosts
+@opindex -l
+@opindex --no-rhosts
+Ignore @file{.rhosts} file.
+
+@item -L
+@itemx --log-sessions
+@opindex -L
+@opindex --log-sessions
+Log successful logins.
+
+@item -n
+@itemx --no-keepalive
+@opindex -n
+@opindex --no-keepalive
+Do not set SO_KEEPALIVE.
+
+@item -S @var{name}
+@itemx --servername=@var{name}
+@opindex -S
+@opindex --servername
+Set Kerberos server name, overriding canonical hostname.
+
+@item -v
+@itemx --vacuous
+@opindex -v
+@opindex --vacuous
+Fail any call asking for non-Kerberos authentication.
+
+@c OBSOLETE?
+@c @item -x
+@c @itemx --encrypt
+@c @opindex -x
+@c @opindex --encrypt
+@c Turns on DES encryption for all data passed via the @command{rshd}
+@c session.  This may impact response time and CPU utilization, but
+@c provides increased security.
+
+@c @item -D[@var{level}]
+@c @itemx --debug[=@var{level}]
+@c @opindex -D
+@c @opindex -debug
+@c Set debug level, not implemented.
+
+@c @item -o
+@c @itemx --allow-root
+@c @opindex -o
+@c @opindex --allow-root
+@c Allow uid == 0 to login, disabled by default
+
+@c @item -p @var{port}
+@c @itemx --port=@var{port}
+@c @opindex -p
+@c @opindex --port
+@c Listen on given port (valid only in daemon mode).
+
+@item -r
+@itemx --reverse-required
+@opindex -r
+@opindex --reverse-required
+Demand that the client's IP address be resolvable
+as a host name.
+@end table
+
+Should @command{rshd} have been built with PAM support,
+it reads any setting specified for a service named either
+@samp{rsh} or @samp{krsh}, the latter name for clients
+seeking Kerberised authentication.
+
+@section Diagnostics
+
+Except for the last one listed below, all diagnostic messages are
+returned on the initial socket, after which any network connections
+are closed.  An error is indicated by a leading byte with a value of 1
+(0 is returned in step 10 above upon successful completion of all the
+steps prior to the execution of the login shell).
+
+@table @samp
+@item Locuser too long
+The name of the user on the client's machine is longer than 16
+characters.
+
+@item Ruser too long
+The name of the user on the remote machine is longer than 16
+characters.
+
+@item Command too long
+The command line passed exceeds the size of the argument list (as
+configured into the system).
+
+@item Login incorrect
+No password file entry for the user name existed.
+
+@item Remote directory
+The chdir command to the home directory failed.
+
+@item Permission denied
+The authentication procedure described above failed,
+or address resolution was insufficient.
+
+@item Can't make pipe.
+The pipe needed for the stderr, wasn't created.
+
+@item Can't fork; try again.
+A fork by the server failed.
+
+@item <shellname>: @dots{}
+The user's login shell could not be started.  This message is returned
+on the connection associated with the stderr, and is not preceded by a
+flag byte.
+@end table
+
+The authentication procedure used here assumes the integrity of each
+client machine and the connecting medium.  This is insecure, but is
+useful in an ``open'' environment.
+
+@node talkd invocation
+@chapter @command{talkd}: a server for communication between users
+@pindex talkd
+
+@command{talkd} is a server that notifies users that someone else
+wants to initiate a conversation.  It acts as a repository of
+invitations, responding to requests by clients wishing to rendezvous
+for a conversation.
+
+This implementation uses the newer protocol @samp{ntalk/udp},
+and is intended to be invoked by a super-server
+@command{inetd} at that datagram port.
+It is recommended that @command{inetd} launch @command{talkd}
+with ownership @samp{nobody:tty}, or with @samp{tty:tty}.
+However, this works with ACL only if @file{.talkrc} can be assumed
+to be world readable for all users.
+This failing, the process ownership will need to be @samp{root:tty}
+if the ACL-mechanism is to be usable and trustworthy.
+
+Keep in mind that this service is usable with IPv4 only,
+since the exchange protocol was conceived to handle only
+this particular address family.
+This fact is independent of the abilities of @command{inetd}.
+
+Observe also that the server @command{talkd} depends
+on the name returned by @command{hostname}, for establishing
+connections between interested parties.
+A server @command{talkd} running on a multi-homed host
+is not able to respond to invitations for a valid host name
+that differs from the name reported by @command{hostname}.
+
+The present implementation offers ACL-mechanisms for fine
+grained access control.
+
+@section Invoking
+
+The following switches and options are available.
+
+@table @option
+@item -a @var{file}
+@itemx --acl=@var{file}
+@opindex -a
+@opindex --acl
+Read site-wide ACLs from @var{file}.
+
+@item -d
+@itemx --debug
+@opindex --debug
+@opindex --d
+Enable debugging.
+
+@item -i @var{seconds}
+@itemx --idle-timeout=@var{seconds}
+@opindex -i
+@opindex --idle-timeout
+Set idle timeout length
+
+@item -l
+@itemx --logging
+@opindex -i
+@opindex --logging
+Enable a somewhat enhanced logging verbosity, reporting
+attempted and dropped connections, as well as
+some more unexpected events that might arise.
+
+@item -r @var{seconds}
+@itemx --request-ttl=@var{seconds}
+@opindex -r
+@opindex --request-ttl
+Set time-to-live length for requests.
+
+@item -S
+@itemx --strict-policy
+@opindex -S
+@opindex --strict-policy
+Apply strict ACL policy on this system. This means that
+the site-wide ACL must provide explicit @samp{allow}
+rules for admitting traffic at all.
+
+@item -t @var{seconds}
+@itemx --timeout=@var{seconds}
+@opindex -t
+@opindex --timeout
+Set timeout length.
+@end table
+
+@section Modus operandi
+
+In normal operation, a client, the caller, initiates a rendezvous by
+sending a @code{CTL_MSG} of type @samp{LOOK_UP} to the server (see
+@file{protocols/talkd.h}).  This causes the server to search its
+invitation tables to check whether an invitation currently exists for the
+caller (wanting to talk to the callee specified in the message).  If the
+lookup fails, the caller then sends an @samp{ANNOUNCE} message causing
+the server to broadcast an announcement on the callee's login ports
+requesting contact.  When the callee responds, the local server uses
+the recorded invitation to respond with the appropriate rendezvous
+address and the caller and callee client programs establish a stream
+connection through which the conversation takes place.
+
+This implementation offers an additional mechanism, whereby a site-wide
+access control list can be used to limit service access in general.
+For any local user, i.e., present on the server's system, a further user
+owned file @file{.talkrc} is parsed, if at all present, in order to even
+further fine tune access to this particular user.
+
+@section Access control in talkd
+
+The server can be run in a mode with additional access control,
+beyond the legacy capabilities of @command{ntalkd}.  This is activated
+using the option @option{-a}, or equivalently @option{--acl}.
+
+The format of this access control list is shared with the user specific
+file @file{.talkrc}.  Normally the site-wide setting operates with
+a default value @samp{allow}, but specifying the option @option{-S},
+or @option{--strict-policy}, changes this default action to @samp{deny}.
+In addition, the strict policy disables the possibility that an
+allowing action from the user specific ACL be able to override
+a denial resulting from the system-wide ACL setting.
+
+As is usual, indentation, empty lines, and lines whose first printable
+character is the hash character, are all ignored.
+The general line format is
+
+@example
+action user-exp [net-exp @dots{}]
+@end example
+
+@noindent
+Each active line must contain at least two fields:
+an @code{action} and a @code{user-exp}.
+
+The first field, @code{action}, must be either of @samp{allow} and @samp{deny}.
+Any other value will lead to the line being ignored,
+but reported in the system log.
+Of course, the two values represent admitting and rejecting
+interpretations for the resulting rule.
+
+The second field, @code{user-exp}, is a POSIX regular expression
+crafted to match user names.
+Remember that the regular expression would need anchors in order
+to test not only substrings.
+
+It is important to note that in a site-wide ACL, the file selected
+by the switch @option{-a}, the expression @code{user-exp} is matched
+against the requested local user name, that of the callee.
+
+While checking the callee's private ACL-file @file{.talkrc},
+the matching of @code{user-exp} is done against the remote
+caller's name.  Any other interpretation is plainly futile.
+
+Each line may be augmented by a net list, containing one or more
+expressions @code{net-exp}. Each of these is either the simple
+word @samp{any}, a numeric IPv4 address, or a full IPv4 address with
+an appended netmask.  The effect is to restrict the applicability
+of the rule to the specified address range, or to set an explicit
+wildcard match @samp{any}.
+The absence of a net list is equivalent to specifying
+a single @samp{any}.  The netmask can be specified as a CIDR mask
+length, or as an explicit address mask.
+
+The actual evaluation is made separately for the site-wide ACL,
+and for the requested local user ACL, contained in the callee's
+private file @file{.talkrc}.  This latter file must be a regular
+file and must be owned by the very same user, have his primary
+group ownership, and not be group or world writeable.  Should
+any of these prerequisites be violated, the user's ACL is replaced
+by a single deny-all rule.
+
+All rules in each set are evaluated, in the sense that whenever
+an expression @code{net-exp} matches the incoming IPv4 address,
+then the regular expression @code{user-exp} is tested for a match.
+That being the case, the corresponding action is recorded.  The last
+match in each set determines the outcome in its category.
+
+In the most common case, a system wide @samp{deny} is overridden
+if the local user has specified at least one valid and applicable rule,
+admitting access.
+In the contrary case, where no admitting user rule could be established
+at all, then a resulting @samp{deny}, from a system wide ACL,
+will be used as the final action.
+
+In strict policy mode, a site-wide @samp{deny} is always final,
+ignoring any user's desire.
+The administrator must explicitly arrange some admitting rule,
+with an action @samp{allow}, and some suitable net list.
+Still, the individual user can arrange his private file
+for an even narrower selection of friends.
+
+@node telnetd invocation
+@chapter @command{telnetd}: Telnet server
+@pindex telnetd
+
+@example
+telnetd [@var{option}]@dots{}
+@end example
+
+@table @option
+@item -a @var{authmode}
+@itemx --authmode=@var{authmode}
+@opindex -a
+@opindex --authmode
+Specify what mode to use for authentication.  Allowed values are:
+@samp{none}, @samp{other}, @samp{user}, @samp{valid}, and @samp{off}.
+
+@item -D[@var{list}]
+@itemx --debug=[@var{list}]
+@opindex -D
+@opindex --debug
+Set the debugging level.  The argument is a comma separated list of
+these categories: @samp{options}, @samp{report}, @samp{netdata},
+@samp{ptydata}, @samp{auth}, and @samp{encr}.
+All these may be used in the form @samp{name[=level]}.
+Omission of @samp{level} implies the maximal
+possible debugging level for that particular category.
+
+There is one additional category @samp{tcp}, which does not take
+an additional level indicator, but is instead equivalent to
+setting the socket option @samp{SO_DEBUG} for debugging the
+complete traffic.
+
+The output is written to the file @file{/tmp/telnet.debug},
+and any new data is incrementally added as time passes.
+
+@item -E @var{string}
+@itemx --exec-login=@var{string}
+@opindex -E
+@opindex --exec-login
+Set program to be executed instead of @command{/bin/login}.
+
+@item -h
+@itemx --no-hostinfo
+@opindex -h
+@opindex --no-hostinfo
+Do not print host information before login has been completed.
+
+@item -l[@var{mode}]
+@itemx --linemode=[@var{mode}]
+@opindex -l
+@opindex --linemode
+Set line mode.  An empty argument will force line read mode at all times.
+The only recognised value is otherwise @samp{nokludge}.
+
+@item -n
+@itemx --no-keepalive
+@opindex -n
+@opindex --no-keepalive
+Disable TCP keep-alives.
+
+@item -S @var{principal}
+@itemx --server-principal=@var{principal}
+@opindex -S
+@opindex --server-principal
+Set principal name for the server, to be used in Kerberos
+authentication.  The value @var{principal} can be set
+to provide full specification like @samp{srv.local@@REALM}
+and @samp{tnt/localhost@@REALM}, where the first uses the
+standard prefix `host/'. Or @var{principal} can override
+default settings in part only, like @samp{srv.local},
+@samp{tnt/srv.local}, or @samp{@@REALM}.
+
+@item -U
+@itemx --reverse-lookup
+@opindex -U
+@opindex --reverse-lookup
+Refuse connections from addresses that cannot be mapped back into a
+symbolic name.
+A client is accepted only if the IP address can be resolved as
+a host name, and the same name is resolvable to addresses among
+which the clients's address is included.
+
+@item -X @var{authtype}
+@itemx --disable-auth-type=@var{authtype}
+@opindex -X
+@opindex --disable-auth-type
+Disable the use of the given authentication type.
+Use this option multiple times if more than one type
+is to be disabled.  Standard choices are @samp{null},
+@samp{kerberos_v4}, and @samp{kerberos_v5}.
+@end table
+
+@section Crafting an execution string.
+
+The server @command{telnetd} contains a built-in execution string
+which invokes @command{login} with arguments suitable for the
+operating system at hand.  This preset choice corresponds to the
+standard use case of the service.  For specialized purposes
+this implementation also offers a command line option @option{-E},
+or @option{--exec-login}, to override the built-in execution of
+@command{login}, thus allowing almost any choice of handler.
+
+@noindent
+A custom execution string could look like
+
+@example
+telnetd -h -E '/usr/local/sbin/avrop  %t %U'
+@end example
+
+@noindent
+The execution string must as its first part provide an absolute
+path to an executable file.  After that may follow arbitrary
+additional arguments.
+For this latter part, @command{telnetd} offers some replacement
+tokens that dynamically are replaced by content.  All are of
+the form @code{%<var>}, where @samp{<var>} is a single letter
+from the following collection of selectors.
+A valid letter is called @dfn{variable}.
+The mark @emph{conditional}, appearing below, indicates that the
+corresponding variable is conditionally assigned a value.
+
+@table @code
+@item %a
+@opindex %a
+Returns @samp{ok} whenever authentication is complete. @emph{conditional}
+
+@item %d
+@opindex %d
+Produces a time and date string.
+
+@item %h
+@opindex %h
+Gives the remote host name in canonical form.
+
+@item %l
+@opindex %l
+States the local host name, also in canonical form.
+
+@item %L
+@opindex %L
+Returns the path of the pseudo terminal assigned to the client.
+
+@item %t
+@opindex %t
+Gives the terminal device stripped of the leading @samp{/dev/}.
+
+@item %T
+@opindex %T
+States the terminal type, like @samp{xterm}. @emph{conditional}
+
+@item %u
+@opindex %u
+Provides the authenticated user name. @emph{conditional}
+
+@item %U
+@opindex %U
+Returns the user name passed as an environment variable @env{USER}
+by the remote client software.  The value is empty, should the
+environment not provide a value.
+
+@end table
+
+In addition, a conditional construct is able to take one action
+in case a variable has an assigned value, and optionally to take
+another action in the opposite case.  The contruct is
+
+@example
+%?<var>@{true-stmt@}[@{false-stmt@}]
+@end example
+
+@noindent
+The braces are here mandatory, while the brackets enclose the optional
+else-clause and are not included in actual use.
+The initial, motivating example, could thus be expanded to read
+
+@example
+telnetd -h -E '/usr/local/sbin/avrop  %t %?a@{%u krb5@}@{%U@}'
+@end example
+
+@noindent
+In case authentication was completed as user @samp{sigge},
+the execution string would resolve to
+
+@example
+/usr/local/sbin/avrop  pts/1 sigge krb5
+@end example
+
+@noindent
+In all other cases the result would be
+
+@example
+/usr/local/sbin/avrop  pts/1 $USER
+@end example
+
+@noindent
+where @code{$USER} is the value of the corresponding environment
+variable and could possibly be empty.
+
+@node tftpd invocation
+@chapter @command{tftpd}: TFTP server
+@pindex tftpd
+
+@command{tftpd} is intended to be invoked via @command{inetd}
+at all times.
+
+@noindent
+Synopsis:
+
+@example
+tftpd [@var{options}] [@var{directory} @dots{}]
+@end example
+
+@table @option
+@item -g @var{group}
+@itemx --group=@var{group}
+@opindex -g
+@opindex --group
+Specify group membership of the process owner.
+This is used only along with the option @option{-s},
+and replaces the group membership that comes from
+the process owner himself.
+
+@item -l
+@itemx --logging
+@opindex -l
+@opindex --logging
+Enable logging.
+
+@item -n
+@itemx --nonexistent
+@opindex -n
+@opindex --nonexistent
+Supress negative acknowledgement of requests for nonexistent relative
+filenames.
+
+@item -s @var{dir}
+@itemx --secure-dir=@var{dir}
+@opindex -s
+@opindex --secure-dir
+Let the serving process change its root directory to @var{dir}
+before attending to any requests.
+This directory is not observable by any client, but improves
+server isolation, since servable contents must be located
+below this chrooted directory @var{dir}.
+
+@item -u @var{user}
+@itemx --user=@var{user}
+@opindex -u
+@opindex --user
+Specify the process owner for serving requests.
+Only relevant along with the option @option{-s}.
+The default name is @samp{nobody}.
+@end table
+
+@section Directory prefixes
+@anchor{tftpd validation}
+
+In addition to options, an invocation of @command{tftpd} can
+specify an optional list of directory prefixes.
+These are approved of according to two principles:
+
+@itemize @bullet
+@item
+Relative pathnames are ignored.
+
+@item
+At most twenty prefixes are approved, the rest is discarded.
+@end itemize
+
+@noindent
+A request for a file is decided upon as a consequence
+of evaluating these criteria:
+
+@itemize @bullet
+@item
+Every file request containing the substring @samp{/../} is denied,
+as is a file name beginning with @samp{../}.
+
+@item
+Write requests must specify absolute locations.
+
+@item
+A file request, if specified as an @emph{absolute} pathname,
+must begin with one of the approved directory prefixes,
+should at least one such prefix have been accepted.
+
+@item
+In the absence of a prefix collection, any absolute pathname is
+accepted, should the corresponding file exist.
+
+@item
+A file request, if specified as a @emph{relative} name,
+will only be searched for below the acceptable prefixes,
+should at least one such prefix have been approved.
+
+@item
+A request for a relatively named file, is denied in the absence
+of approved directory prefixes.
+
+@item
+The resulting file must be world readable, or world writable,
+for a read request, or a write request, to succeed.
+@end itemize
+
+@section Use cases
+@anchor{tftpd setup cases}
+
+The standard use case is an entry in @file{/etc/inetd.conf} like
+
+@example
+tftp dgram udp4 wait root /usr/sbin/tftpd \
+@verb{        } tftpd /tftpboot /altboot
+@end example
+
+@noindent
+This would allow the TFTP client to use any of
+
+@example
+get kernel
+get /tftpboot/kernel
+get kernel.alt
+get /altboot/kernel.alt
+get /etc/motd
+@end example
+
+@noindent
+given that @file{/tftpboot/kernel} and @file{/altboot/kernel.alt} exist.
+Observe that also @file{/etc/motd} is accessible, inspite there being
+no explicit mention of standard file locations.
+
+A stronger mode of running a TFTP server is to use the `secure mode',
+meaning that the serving process is running in a chrooted mode.
+Then a suitable configuration could be
+
+@example
+tftp dgram udp4 wait root /usr/sbin/tftpd \
+@verb{        } tftpd --secure-dir=/srv/tftp-root  /tftpboot /altboot
+@end example
+
+@noindent
+Supposing the files @file{kernel} and @file{kernel.alt} to exist
+in the common directory @file{/srv/tftp-root/altboot/},
+all the previously suggested client requests for a kernel would
+still be granted, but now any request for @file{/etc/motd}
+would be declined, and would get a reply `File not found' back.
+
+The chrooted setting is denying access outside of
+@file{/srv/tftp-root}, yet is not indicating this lock-in
+to the client, and is thus improving server isolation.
+Since neither of @option{-u} and @option{-g} were specified,
+the configuration reproduced above will in fact have the
+transmitting server process running with the default
+owner set to @samp{nobody:nogroup}.
+
+@node uucpd invocation
+@chapter @command{uucpd}: Unix to Unix Copy relay daemon.
+@pindex uucpd
+
+@command{uucpd} is a relay daemon responsible for accepting
+TCP transported connections for @command{uucico}.  It is started
+by @command{inetd}, conducts any authentication, and then hands
+acceptable requests over to @command{uucico}.
+
+@example
+uucpd [@var{option}]...
+@end example
+
+@section Options
+
+There is a single, specific option available:
+
+@table @option
+@item -u @var{location}
+@itemx --uucico=@var{location}
+@opindex -u
+@opindex --uucico
+Replace the hard coded location of @command{uucico} with the
+value specified as @var{location}.
+@end table
+
+@section Authentication steps.
+
+Invocation is expected to be conducted by a protocol described
+exchange of user name and password; unfortunately in clear text.
+If those agree with existing local entries, then @command{uucpd}
+verifies that the stated user also has user shell location
+identical to the full file system location of @command{uucico}.
+Should that not be the case, the request is declined.
+
+For this latter check, the option @option{--uucico} is useful
+when setting the configuration for @command{inetd}. It is
+recommended to wrap the invocation line of @command{uucpd}
+within a call to @command{tcpd} in the standard fashion.
+
+@node GNU Free Documentation License
+@appendix GNU Free Documentation License
+@include fdl-1.3.texi
+
+@page
+@node Index
+@unnumbered Index
+
+@printindex cp
+
+@bye

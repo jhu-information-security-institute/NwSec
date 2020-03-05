@@ -1,0 +1,48 @@
+.TH TRACEROUTE "1" "2015-05-15" "GNU inetutils" "User Commands"
+.SH NAME
+traceroute \- Trace the route to a host
+.SH SYNOPSIS
+.B traceroute
+[\fIOPTION\fR...] \fIHOST\fR
+.SH DESCRIPTION
+Print the route packets trace to network host.
+.TP
+\fB\-f\fR, \fB\-\-first\-hop\fR=\fINUM\fR
+Set initial hop distance, that is the time-to-live.
+.TP
+\fB\-g\fR, \fB\-\-gateways\fR=\fIGATES\fR
+List of gateways for loose source routing.
+.TP
+\fB\-I\fR, \fB\-\-icmp\fR
+Use ICMP ECHO as probe.
+.TP
+\fB\-m\fR, \fB\-\-max\-hop\fR=\fINUM\fR
+Set maximal hop count (default is \fB64\fP).
+.TP
+\fB\-M\fR, \fB\-\-type\fR=\fIMETHOD\fR
+Use METHOD (\fBicmp\fP or \fBudp\fP) for traceroute operations,
+defaulting to \fBudp\fP.
+.TP
+\fB\-p\fR, \fB\-\-port\fR=\fIPORT\fR
+Use destination PORT port (default is \fB33434\fP).
+.TP
+\fB\-q\fR, \fB\-\-tries\fR=\fINUM\fR
+Send NUM probe packets per hop (default is \fB3\fP).
+.TP
+\fB\-\-resolve\-hostnames\fR
+Resolve hostnames.
+.TP
+\fB\-t\fR, \fB\-\-tos\fR=\fINUM\fR
+Set type of service (TOS) to NUM.
+.TP
+\fB\-w\fR, \fB\-\-wait\fR=\fINUM\fR
+Wait NUM seconds for response (default is \fB3\fP).
+.TP
+\fB\-?\fP, \fB\-\-help\fR
+Give this help list.
+.TP
+\fB\-\-usage\fR
+Give a short usage message.
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print program version.

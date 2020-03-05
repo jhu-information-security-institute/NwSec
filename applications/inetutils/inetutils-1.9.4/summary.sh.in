@@ -1,0 +1,144 @@
+#!/bin/sh
+#
+# Copyright (C) 2013, 2014, 2015 Free Software Foundation, Inc.
+#
+# This file is part of GNU Inetutils.
+#
+# GNU Inetutils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# GNU Inetutils is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see `http://www.gnu.org/licenses/'.
+
+# Template for printing a summary of program configurations.
+
+enable_dnsdomainname=@enable_dnsdomainname@
+dnsdomainname_BUILD=@dnsdomainname_BUILD@
+dnsdomainname_PROPS="@dnsdomainname_PROPS@"
+enable_ftp=@enable_ftp@
+ftp_BUILD=@ftp_BUILD@
+ftp_PROPS="@ftp_PROPS@"
+enable_hostname=@enable_hostname@
+hostname_BUILD=@hostname_BUILD@
+hostname_PROPS="@hostname_PROPS@"
+enable_ifconfig=@enable_ifconfig@
+ifconfig_BUILD=@ifconfig_BUILD@
+ifconfig_PROPS="@ifconfig_PROPS@"
+enable_logger=@enable_logger@
+libls_BUILD=@libls_BUILD@
+libls_PROPS="@libls_PROPS@"
+enable_libls=@enable_libls@
+logger_BUILD=@logger_BUILD@
+logger_PROPS="@logger_PROPS@"
+enable_ping=@enable_ping@
+ping_BUILD=@ping_BUILD@
+ping_PROPS="@ping_PROPS@"
+enable_ping6=@enable_ping6@
+ping6_BUILD=@ping6_BUILD@
+ping6_PROPS=@ping6_PROPS@
+enable_rcp=@enable_rcp@
+rcp_BUILD=@rcp_BUILD@
+rcp_PROPS="@rcp_PROPS@"
+enable_rexec=@enable_rexec@
+rexec_BUILD=@rexec_BUILD@
+rexec_PROPS="@rexec_PROPS@"
+enable_rlogin=@enable_rlogin@
+rlogin_BUILD=@rlogin_BUILD@
+rlogin_PROPS="@rlogin_PROPS@"
+enable_rsh=@enable_rsh@
+rsh_BUILD=@rsh_BUILD@
+rsh_PROPS="@rsh_PROPS@"
+enable_talk=@enable_talk@
+talk_BUILD=@talk_BUILD@
+talk_PROPS="@talk_PROPS@"
+enable_telnet=@enable_telnet@
+telnet_BUILD=@telnet_BUILD@
+telnet_PROPS="@telnet_PROPS@"
+enable_tftp=@enable_tftp@
+tftp_BUILD=@tftp_BUILD@
+tftp_PROPS="@tftp_PROPS@"
+enable_traceroute=@enable_traceroute@
+traceroute_BUILD=@traceroute_BUILD@
+traceroute_PROPS="@traceroute_PROPS@"
+enable_whois=@enable_whois@
+whois_BUILD=@whois_BUILD@
+whois_PROPS="@whois_PROPS@"
+enable_ftpd=@enable_ftpd@
+ftpd_BUILD=@ftpd_BUILD@
+ftpd_PROPS="@ftpd_PROPS@"
+enable_inetd=@enable_inetd@
+inetd_BUILD=@inetd_BUILD@
+inetd_PROPS="@inetd_PROPS@"
+enable_rexecd=@enable_rexecd@
+rexecd_BUILD=@rexecd_BUILD@
+rexecd_PROPS="@rexecd_PROPS@"
+enable_rlogind=@enable_rlogind@
+rlogind_BUILD=@rlogind_BUILD@
+rlogind_PROPS="@rlogind_PROPS@"
+enable_rshd=@enable_rshd@
+rshd_BUILD=@rshd_BUILD@
+rshd_PROPS="@rshd_PROPS@"
+enable_syslogd=@enable_syslogd@
+syslogd_BUILD=@syslogd_BUILD@
+syslogd_PROPS="@syslogd_PROPS@"
+enable_talkd=@enable_talkd@
+talkd_BUILD=@talkd_BUILD@
+talkd_PROPS="@talkd_PROPS@"
+enable_telnetd=@enable_telnetd@
+telnetd_BUILD=@telnetd_BUILD@
+telnetd_PROPS="@telnetd_PROPS@"
+enable_tftpd=@enable_tftpd@
+tftpd_BUILD=@tftpd_BUILD@
+tftpd_PROPS="@tftpd_PROPS@"
+enable_uucpd=@enable_uucpd@
+uucpd_BUILD=@uucpd_BUILD@
+uucpd_PROPS="@uucpd_PROPS@"
+
+# Collect informational status.
+cat <<EOT
+Summary of build decisions:
+
+  Clients:
+
+    dnsdomainname  ${enable_dnsdomainname}
+    ftp            ${enable_ftp}${ftp_BUILD:+  $ftp_PROPS}
+    hostname       ${enable_hostname}
+    ifconfig       ${enable_ifconfig}
+    logger         ${enable_logger}
+    ping           ${enable_ping}${ping_BUILD:+  $ping_PROPS}
+    ping6          ${enable_ping6}${ping6_BUILD:+  $ping_PROPS}
+    rcp            ${enable_rcp}${rcp_BUILD:+  $rcp_PROPS}
+    rexec          ${enable_rexec}
+    rlogin         ${enable_rlogin}${rlogin_BUILD:+  $rlogin_PROPS}
+    rsh            ${enable_rsh}${rsh_BUILD:+  $rsh_PROPS}
+    talk           ${enable_talk}${talk_BUILD:+  $talk_PROPS}
+    telnet         ${enable_telnet}${telnet_BUILD:+  $telnet_PROPS}
+    tftp           ${enable_tftp}
+    traceroute     ${enable_traceroute}\
+${traceroute_BUILD:+  $traceroute_PROPS}
+    whois          ${enable_whois}
+
+  Servers:
+
+    ftpd           ${enable_ftpd}${ftpd_BUILD:+  $ftpd_PROPS}
+    inetd          ${enable_inetd}
+    rexecd         ${enable_rexecd}${rexecd_BUILD:+  $rexecd_PROPS}
+    rlogind        ${enable_rlogind}${rlogind_BUILD:+  $rlogind_PROPS}
+    rshd           ${enable_rshd}${rshd_BUILD:+  $rshd_PROPS}
+    syslogd        ${enable_syslogd}
+    talkd          ${enable_talkd}
+    telnetd        ${enable_telnetd}${telnetd_BUILD:+  $telnetd_PROPS}
+    tftpd          ${enable_tftpd}
+    uucpd          ${enable_uucpd}
+
+  Support:
+
+    libls          ${enable_libls}
+EOT

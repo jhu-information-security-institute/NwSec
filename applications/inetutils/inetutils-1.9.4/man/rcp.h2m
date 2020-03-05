@@ -1,0 +1,2 @@
+[NAME]
+rcp \- Remote copy

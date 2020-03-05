@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "remove" ]; then
+  if [ -x "$(which update-inetd)" ]; then
+    update-inetd --group STANDARD --remove telnet
+  fi
+fi
+
+#DEBHELPER#
+
+exit 0

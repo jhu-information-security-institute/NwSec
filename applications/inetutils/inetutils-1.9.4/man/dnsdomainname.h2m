@@ -1,0 +1,5 @@
+[NAME]
+dnsdomainname \- show DNS domain name
+
+[SEE ALSO]
+gethostname(2), getaddrinfo(3)

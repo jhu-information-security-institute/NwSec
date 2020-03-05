@@ -1,0 +1,1042 @@
+inetutils (2:1.9.4-3) unstable; urgency=medium
+
+  * Line-wrap dependency fields.
+  * Reindent shell scripts.
+  * Switch Section from extra to optional.
+  * Switch to debhelper compatibility level 10.
+  * Switch to debian/watch format version 4.
+  * Replace dh_autotools-dev_* commands with dh_update_autotools_config,
+    and remove explicit Build-Depends on autotools-dev.
+  * Bump Standards-Version to 4.1.1 (no changes needed).
+  * Do not pass unnecessary «-o root» in SUIDMODE to upstream install target.
+  * Set Rules-Requires-Root to no.
+  * Switch git repo URL in debian/tarball.sh from git: to https:.
+  * Use «--retry 5» on sysvinit stop actions. Remove now unnecessary sleep.
+  * Remove empty fallback in maintainer scripts argument handler.
+  * Remove long obsolete conffile rename handling.
+  * Remove long obsolete inetd talk entry fixup handling.
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 05 Nov 2017 20:27:51 +0100
+
+inetutils (2:1.9.4-2) unstable; urgency=low
+
+  * Add documentation header to patches:
+    - debian/patches/22_syslogd_conf.patch
+  * Mark telnet commands on lintian-overrides as not being spelling errors.
+  * Use https for hadrons.org URLs.
+  * Use log_action_msg onstead of log_warning_msg in inetd init script.
+  * Bump Standards-Version to 3.9.8 (no changes needed).
+  * Switch to the dpkg makefile fragments in debian/rules.
+  * Use DEB_CFLAGS_MAINT_PREPEND instead of DEB_CFLAGS_PREPEND.
+  * Enable all hardening flags.
+  * Fix typo in ping output, reported by lintian.
+  * Fix netrc(5) alternative installation. Closes: #805984
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 05 Jun 2016 12:47:48 +0200
+
+inetutils (2:1.9.4-1) unstable; urgency=low
+
+  * New upstream release.
+    - debian/patches/01_disable_useless_man_pages.patch: Refreshed.
+    - debian/patches/fts_alignment.patch: Remove, merged upstream.
+    - debian/patches/ping_linebuff.patch: Likewise.
+  * Add netbase to Build-Depends, used by the test suite.
+    Suggested by Mats Erik Andersson <mats.andersson@gisladisker.se>.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 11 Jun 2015 05:40:05 +0200
+
+inetutils (2:1.9.3-2) unstable; urgency=medium
+
+  * Pass VERBOSE=1 to «make check» call, to get testsuite details on failure.
+  * Fix misaligned memory access for stat struct in lstat() call. Fixes a
+    build failure on sparc.
+  * Build-Depend on net-tools for netstat, used by the test suite.
+  * Review and update of obsolete man pages. Addresses: #609934, covering:
+    - local/man/ftp.1
+    - local/man/inetd.8
+    - local/man/netrc.5
+    - local/man/ping6.1
+    - local/man/talk.1
+    - local/man/trceroute.1
+  * Drop ancient hurd Conflicts from inetutils-ping.
+  * Add LSB Description fields to inetd and syslogd init scripts.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 26 May 2015 16:57:46 +0200
+
+inetutils (2:1.9.3-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fix telnetd to handle all TIOCPKT control bytes. Closes: #779399
+    - Fix telnetd to allow autologin without authentication. Closes: #780884
+    - Fix ftp to allow alias names in netrc file. Closes: #780885
+  * Switch Vcs-Browser to a cgit URL.
+  * Fix build-arch target to not depend on debian/control, a leftover from
+    when debian/control was generated at release time.
+  * Pass build flags through configure with a single dpkg-buildflags call,
+    instead of on each make invocation.
+  * Run the testsuite during the build-arch target, and honor nocheck.
+  * Add slave alternatives for pftp, pftp.1.gz and netrc.5.gz in
+    inetutils-ftp. Closes: #781061
+  * Split inetutils-netrc.5 man page out from inetutils-ftp.1.
+  * Set man pages .TH source and .Os to "GNU inetutils".
+  * Set delaycompress for all syslogd logrotate files. Closes: #777661
+  * Always force ping and ping6 line buffering on stdout, so that programs
+    parsing their output have more timely responses. Closes: #782727
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 13 May 2015 02:32:03 +0200
+
+inetutils (2:1.9.2.39.3a460-3) unstable; urgency=low
+
+  * Do not bother setting different Priority field values on non-Linux ports
+    anymore, as the Debian archive does not currently support overrides that
+    differ per port anyway. This fixes a build failure due to dpkg-genchanges
+    not liking the debian/files and debian/control files disagreeing.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 28 Oct 2014 07:49:41 +0100
+
+inetutils (2:1.9.2.39.3a460-2) unstable; urgency=medium
+
+  * Fix typo in inetutils_priority variable name to avoid passing an empty
+    value to dpkg-gencontrol, which makes it error out on non-Linux systems.
+  * Switch debian/copyright to machine-readable format 1.0.
+  * Switch URLs in docs and code comments from http:// to https:// if the
+    latter is available.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 28 Oct 2014 04:15:59 +0100
+
+inetutils (2:1.9.2.39.3a460-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+    - Fix invalid priority values in syslogd. CVE-2014-3634
+  * Switch from «debian/upstream-signing-key.pgp» to
+    «debian/upstream/signing-key.asc», and export it using pgp-clean
+    (signing-party) to get rid of useless bloat.
+  * Do not set source compression to xz, it's now the default.
+  * Improve debian/tarball.sh to handle latest snapshots.
+  * Now using Standards-Version 3.9.6 (no changes needed).
+  * Add template man pages from help2man:
+    - local/man/ifconfig.1
+    - local/man/ping6.1
+    - local/man/traceroute.1
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 25 Oct 2014 22:50:03 +0200
+
+inetutils (2:1.9.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix typos in local man pages.
+  * Escape hyphens in local man pages.
+  * Add tar.xz as an alternative upstream extension in the watch file.
+  * Use dh_autotools-dev_updateconfig and dh_autotools-dev_restoreconfig
+    from autotools-dev to update the config.sub and config.guess files.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 16 Jan 2014 20:23:19 +0100
+
+inetutils (2:1.9.1.363-bbc1-1) unstable; urgency=low
+
+  * New upstream snapshot.
+  * Fix update-inetd --remove syntax for talkd and telnetd, later versions
+    of update-inetd do not support a regex matching the start of the line
+    (including the comment).
+  * Fix inetd entry for talkd. (Closes: #465987, #732633)
+  * Use tcpd in inetd entries for talkd and telnetd. (Closes: #412891)
+  * Now using Standards-Version 3.9.5 (no changes needed).
+  * Switch to debhelper compatibility level 9.
+  * Add signature checking support to debian/watch, and ship upstream signing
+    keys in debian/upstream-signing-key.pgp.
+  * Use xz for source Debian packaging.
+  * Use «which» instead of hard-coding update-inetd pathnames.
+  * Disable «set -e» in init scripts, just before the action case block.
+  * Update debian/copyright information with new years and switch to GFDL-1.3.
+  * Remove first packaging information from debian/copyright.
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 22 Dec 2013 05:42:05 +0100
+
+inetutils (2:1.9.1.306-0a482-1) unstable; urgency=high
+
+  * New upstream snapshot.
+    - Fix security issue, by enforcing again ‘/etc/ftpusers’ access checks in
+      ftpd. Regression introduced in 2:1.9.1.282-e8541-1.
+      Thanks to Mats Erik Andersson <gnu@gisladisker.se> for reporting.
+    - debian/patches/50_split_load_conffile.patch: Remove, merged upstream.
+    - debian/patches/51_add_load_confdir_support.patch: Likewise.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 20 Jun 2013 01:05:02 +0200
+
+inetutils (2:1.9.1.282-e8541-1) unstable; urgency=low
+
+  * New upstream snapshot.
+    - Fix FTBFS with newer glibc due to undefined gets. (Closes: #701399)
+    - Do not accept invalid port numbers in telnet. (Closes: #300281)
+    - Support <user>.<group> in inetd. (Closes: #342769)
+    - Fix talk to print error messages correctly. (Closes: #355588)
+    - debian/patches/0001-ping-CVE-2010-2529.patch: Remove, merged upstream.
+    - debian/patches/03_reduce_shared_lib_depends.patch: Likewise.
+    - debian/patches/30_ping-Abort-on-sendto-error.patch: Likewise.
+    - debian/patches/70_ftbfs_non-linux.patch: Likewise.
+    - debian/patches/71_ftbfs_format_security.patch: Likewise.
+    - debian/patches/01_disable_useless_man_pages.patch: Refresh.
+    - debian/patches/22_syslogd_conf.patch: Likewise.
+    - debian/patches/50_split_load_conffile.patch: Likewise.
+    - debian/patches/51_add_load_confdir_support.patch: Likewise.
+    - debian/patches/62_inetd_change_ipv6_protocol_semantics.patch: Likewise.
+  * Now using Standards-Version 3.9.4 (no changes needed).
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 11 May 2013 05:43:46 +0200
+
+inetutils (2:1.9-2) unstable; urgency=medium
+
+  * Fix DoS against inetutils-ping via a crafted echo response.
+    Patch cherry-picked from upstream. CVE-2010-2529
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 07 Feb 2013 03:35:08 +0100
+
+inetutils (2:1.9-1) unstable; urgency=low
+
+  * New upstream release.
+    - Implement “syslogd -b bindaddr”. (Closes: #207054)
+    - Implement “ping -W linger”. (Closes: #566845)
+    - debian/patches/99_CVE-2011-4862.patch: Remove, merged upstream.
+    - debian/patches/02_remove_unused_opie_check.patch: Likewise.
+    - debian/patches/60_inetd_support_argless_services.patch: Likewise.
+    - debian/patches/61_inetd_listen_on_tcpmux_ports.patch: Likewise.
+    - debian/patches/63_inetd_ipv6_sockaddrlen.patch: Likewise.
+    - debian/patches/64_telnetd_ipv6_sockaddrlen.patch: Likewise.
+    - debian/patches/72_traceroute_fix_setsockopt.patch: Likewise.
+    - debian/patches/01_disable_useless_man_pages.patch: Refreshed.
+    - debian/patches/03_reduce_shared_lib_depends.patch: Likewise.
+    - debian/patches/22_syslogd_conf.patch: Likewise.
+    - debian/patches/50_split_load_conffile.patch: Likewise.
+    - debian/patches/51_add_load_confdir_support.patch: Likewise.
+    - debian/patches/62_inetd_change_ipv6_protocol_semantics.patch: Likewise.
+    - debian/patches/70_ftbfs_non-linux.patch: Likewise.
+  * Pass “-Im4 -Iam” to autoreconf call in debian/rules.
+  * Use dpkg-buildflags to set build flags (enables default hardening flags).
+    Fix code to not fail on -Wformat-security. (Closes: #653436)
+  * Improve inetutils-inetd package Description. (Closes: #348915)
+  * Improve inetutils-ping package Description. (Closes: #524026)
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 01 Jan 2012 06:35:22 +0100
+
+inetutils (2:1.8-6) unstable; urgency=high
+
+  * Fix buffer overflow in telnetd allowing remote attackers to execute
+    arbitrary code via a long encryption key. Patch taken from FreeBSD.
+    CVE-2011-4862
+  * Abort on error from ping's sendto(2) call, instead of trying to continue
+    sending echo packets in vain. (Closes: #323165)
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 28 Dec 2011 02:53:53 +0100
+
+inetutils (2:1.8-5) unstable; urgency=low
+
+  * Move man pages from patches to actual files under debian/local/man/ to
+    ease their modification, given that upstream has rejected including
+    useful man pages there.
+  * Add a new inetutils-traceroute package providing a portable traceroute
+    implementation for GNU/Hurd and GNU/kFreeBSD. (Closes: #610437)
+    Thanks to Mats Erik Andersson <mats.andersson@gisladisker.se>.
+  * Do not link against unused shared libraries. This removes the following
+    dependencies from binaries:
+    - inetutils-inetd, inetutils-syslogd → libshishi0
+    - inetutils-telnet, inetutils-telnetd → libncurses5
+    - inetutils-ftp → libncurses5, libtinfo5
+  * Disable silent rules to get useful build logs.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 05 Nov 2011 05:10:10 +0100
+
+inetutils (2:1.8-4) unstable; urgency=low
+
+  * Add new inetutils-inetd default configuration file for the init script,
+    allowing to pass INETD_OPTS to it on start. (Closes: #606954)
+  * Use dh_lintian instead of manually installing the overrides.
+  * Override upstream SUIDMODE at make time, instead of patching the source.
+  * Do not change inetutils-syslogd Section to base on non-Linux architectures
+    as that section does not exist any longer, just inherit it from the
+    source stanza.
+  * Add build-indep and build-arch targets (rename build to build-arch).
+  * Add libncurses-dev to Build-Depends, although only libtinfo-dev is
+    really needed (but that does not ship term.h). (Closes: #646143)
+  * Now using Standards-Version 3.9.2 (no changes needed).
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 30 Oct 2011 07:52:19 +0100
+
+inetutils (2:1.8-3) unstable; urgency=low
+
+  * Revert wrong hunk from the tcpmux services fix.
+    Thanks to Mats Erik Andersson.
+  * Fix IPv6 support in inetd and telnetd on GNU/kFreeBSD by passing
+    the correct struct sockaddr length to socket functions depending on
+    the address family, instead of always passing the size of struct
+    sockaddr_storage. Thanks to Mats Erik Andersson and Simon Josefsson.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 18 Nov 2010 05:54:25 +0100
+
+inetutils (2:1.8-2) experimental; urgency=low
+
+  * Fix FTBFS on GNU/Hurd and GNU/kFreeBSD systems. (Closes: #596638)
+    - Use IFF_ flags conditionally.
+    - Do not include <stropts.h> to get ioctl declaration as we get it from
+      the wrapped <sys/ioctl.h>, otherwise we get conflicting symbols.
+    - Include <sys/types.h> in ifconfig/flags.h for size_t.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 22 Sep 2010 06:43:52 +0200
+
+inetutils (2:1.8-1) experimental; urgency=low
+
+  * New upstream release.
+    - Implement “ping -w timeout”. (Closes: #565137)
+    - debian/patches/01_no_link_extralibs.patch: Remove, merged upstream.
+    - debian/patches/07_dev_test_e.patch: Likewise.
+    - debian/patches/52_sigalarm.patch: Likewise.
+    - debian/patches/99_acinclude_del_dnl.patch: Likewise.
+    - debian/patches/99_ping_default_inf_count.patch: Likewise.
+    - debian/patches/10_syslog_klog_doc.patch: Refreshed.
+    - debian/patches/22_syslogd_conf.patch: Likewise.
+    - debian/patches/30_ping_suid_perms.patch: Likewise.
+    - debian/patches/50_split_load_conffile.patch: Likewise.
+    - debian/patches/51_add_load_confdir_support.patch: Likewise.
+    - debian/patches/53_man_inetd_max_conn.patch: Likewise.
+  * Upstream switched to generate man pages from --help output, which is
+    a regression from previous man pages inherited from BSD. Revert the
+    removal and disable help2man logic.
+    - debian/patches/01_revert_manpage_removal.patch: New file.
+  * Install man pages for inetutils-ifconfig and ping6.
+  * Fix man page warnings.
+  * Switch to source format “3.0 (quilt)”:
+    - Remove quilt from Build-Depends.
+    - Remove quilt.make include from debian/rules.
+    - Remove patch and unpatch targets from debian/rules.
+    - Remove now unneeded quilt references in debian/README.source.
+  * Remove Marcus Brinkmann and Jeff Bailey from Uploaders field, thanks for
+    your previous work! (Closes: #503567)
+  * Switch Vcs fields to the new git repositories.
+  * Explicitly include BSD licenses into debian/copyright, instead of
+    referencing generic and non-matching file from common-licenses.
+  * Now using Standards-Version 3.9.1.
+  * Remove obsolete and unused libopie-dev Build-Depends.
+  * Do not segfault in inetd when a service does not have any argument.
+    (Closes: #515070, #590128)
+  * Make inetd listen on ports when enabling tcpmux services.
+  * Change inetd “tcp” and “udp” service protocol semantics to default them
+    to IPv4 only connections. Change “tcp6” and “udp6” to accept IPv4 mapped
+    addresses. And add “tcp6only” and “udp6only” for IPv6 only connections.
+    (Closes: #404760, #519316, #594422)
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 12 Sep 2010 16:00:53 +0200
+
+inetutils (2:1.6-3) unstable; urgency=low
+
+  * Fix init script dependency information: (Closes: #547513)
+    - Provide a unique service name.
+    - Require $remote_fs instead of $local_fs, as we use stuff from /usr.
+    Thanks to Petter Reinholdtsen <pere@hungry.com>.
+  * Move libreadline-dev to be the first Build-Depends alternative, and add
+    libreadline6-dev for compatibility purposes.
+
+ -- Guillem Jover <guillem@debian.org>  Mon, 05 Oct 2009 12:27:34 +0200
+
+inetutils (2:1.6-2) unstable; urgency=low
+
+  * Use $(filter ...) instead of $(findstring ...) to extract space separated
+    options from DEB_BUILD_OPTIONS in debian/rules.
+  * Add support for LSB status action on init scripts.
+  * Use a variable instead of hardcoding the pid file path in inetutils-inetd
+    init script.
+  * Restore the traditional behavior of ping without -c option.
+    Stolen from upstream. (Closes: #524011)
+  * Fix build failure due to an m4 comment eating a new line.
+    Stolen from upstream. (Closes: #541775)
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 18 Aug 2009 05:51:23 +0200
+
+inetutils (2:1.6-1) unstable; urgency=low
+
+  * New upstream release.
+    - The documentation is free now, add texinfo back to Build-Depends.
+    - The non-free RFC got removed upstream.
+    - debian/patches/00_build_dfsg.patch: Remove.
+    - debian/tarball.sh: No need to strip documentation anymore.
+    - debian/patches/02_missing_config.rpath.patch: Remove, fixed upstream.
+    - debian/patches/03_ifreq_typo.patch: Likewise.
+    - debian/patches/04_shishi_telnet.patch: Likewise.
+    - debian/patches/05_shishi_delayed_init.patch: Likewise.
+    - debian/patches/40_ftpd_LOGCMD_NULL.patch: Likewise.
+    - debian/patches/41_gethostbyname_segfault.patch: Likewise.
+    - debian/patches/42_syslogd_leaks.patch: Likewise.
+    - debian/patches/43_ret_converted_to_int.patch: Likewise.
+    - debian/patches/50_split_load_conffile.patch: Refresh.
+    - debian/patches/51_add_load_confdir_support.patch: Likewise.
+    - debian/patches/52_sigalarm.patch: Likewise.
+    - debian/patches/99_inetd_max_conn.patch: Refresh, and rename to ...
+    - debian/patches/53_man_inetd_max_conn.patch: ... this.
+  * Update debian/copyright file:
+    - Update download URL.
+    - Reword debianized by comment, and update Marcus' mail address.
+    - Remove references to old copyright holders, now being held by the FSF.
+    - Change references from GPL-2 to GPL-3.
+    - Remove comments about no longer stripped out non-free documentation.
+    - Add reference to GFDL-1.2.
+  * Update debian/tarball.sh:
+    - Use git instead of CVS to get new snapshots.
+    - Use lower case variable names.
+    - Make snapshot argument handle both cloning and updating.
+    - Add a new tarball argument.
+    - Add code to bootstrap from gnulib.
+    - Refactor version detection into a function and use it when needed.
+  * Update documentation about debian/tarball.sh in debian/README.source.
+  * Switch to debhelper compatibility level 7.
+  * Use dh_prep instead of “dh_clean -k”.
+  * Remove RCS keywords from packaging files.
+  * Add misc:Depends substvar to all binary package Depends fields.
+  * Do not pass the --force option to autoreconf, and thus stop unneedingly
+    removing INSTALL and build-aux.
+  * Switch the unpatch make call inside the clean target to its dependency.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 17 Feb 2009 04:27:33 +0200
+
+inetutils (2:1.5.dfsg.1-9) unstable; urgency=low
+
+  * Install ping6 suid root by using “cp -a”. (Closes: #501910)
+  * Improve package descriptions:
+    - Remove wrong acronym for ping. (Closes: #496441)
+    - Decapitalize short descriptions.
+  * Make the inetutils-inetd init.d script provide inetutils-inetd instead of
+    inetd, to not conflict with other inetd implementations. (Closes: #507121)
+    Thanks to Petter Reinholdtsen <petter.reinholdtsen@usit.uio.no>.
+  * Call “set -e” in maintainer scripts to guarantee a correct exit status.
+  * Do not fail to start inetutils-inetd when there are services enabled in
+    files under /etc/inetd.d/. (Closes: #500729)
+  * Create a new /etc/inetd.conf on install if there was none. Template file
+    stolen from openbsd-inetd.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 20 Dec 2008 09:36:28 +0200
+
+inetutils (2:1.5.dfsg.1-8) unstable; urgency=low
+
+  * Support max option on wait/nowait.max on inetd.conf. (Closes: #451478)
+    Thanks to Sergey Poznyakoff <gray@gnu.org.ua> for the patch.
+    Man page update taken from openbsd-inetd.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 26 Jul 2008 22:22:21 +0300
+
+inetutils (2:1.5.dfsg.1-7) unstable; urgency=low
+
+  * Add a debian/README.source file.
+  * Now using Standards-Version 3.8.0.
+  * Refresh patches with -pab. (Closes: #484949)
+  * Remove DPATCHLEVEL variable from patches.
+  * Use http instead of ftp for the watch file URL.
+  * Mangle the Debian version in the watch file.
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 22 Jun 2008 09:45:53 +0300
+
+inetutils (2:1.5.dfsg.1-6) unstable; urgency=low
+
+  * Use 'test -e' instead of 'test -r' to check for device files, which might
+    be only readable by root. This should enable reading from /dev/klog in
+    GNU/Hurd. (Closes: #482779)
+    - debian/patches/07_dev_test_e.patch: New file.
+    Thanks to Samuel Thibault <samuel.thibault@ens-lyon.org>.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 29 May 2008 05:24:12 +0300
+
+inetutils (2:1.5.dfsg.1-5) unstable; urgency=low
+
+  * Remove Tag fields, those are better maintained outside the package,
+    as a side effect there's not typo to fix anymore. (Closes: #418539)
+  * Now using Standards-Version 3.7.3 (no changes needed).
+  * Call configure with autotools-dev recommended --build and --host options.
+  * Add Vcs-Browser and Vcs-Svn fields.
+  * Add Homepage field.
+  * Fix parallel FTBFS in debian/rules by moving 'patch' dependency from
+    the build to a new setup-source target thar serializes configureation.
+  * Do not ignore make errors on clean or install in debian/rules.
+  * Switch Build-Depends from automake1.9 to automake.
+  * Do not install a duplicated syslogd under /etc/default/, just
+    inetutils-syslogd. Take care of removing the obsolete conffile if not
+    modified, and move it to the new name otherwise. (Closes: #435049)
+  * Do not start inetd if there's no services enabled (stolen from
+    openbsd-inetd).
+  * Complete copyright information in debian/copyright file.
+  * Remove packaging svn information from debian/copyright.
+  * Fix FTBFS if built twice in a row: (Closes: #424419)
+    - Call distclean instead of clean.
+    - Move the unpatch step from the clean dependency to the body, after
+      the distclean call.
+    - Remove all files that autoreconf might have modified.
+  * Add dependency on 'inetutils-inetd | inet-superserver' to inetutils-talkd
+    and inetutils-telnetd as they use update-inetd.
+  * Add support for syslogd configuration files under /etc/syslog.d/.
+    (Closes: #370349, #462739)
+    - debian/patches/51_add_load_confdir_support.patch: New file
+    - debian/patches/50_split_load_conffile.patch: Likewise.
+  * Fix a race condition when setting the SIGALRM signal in syslogd parent
+    when starting the daemon, causing it to exit with a non-zero status.
+    - debian/patches/52_sigalarm.patch: New file.
+  * Delay initialization of Shishi until telnet knows Kerberos is needed.
+    Reducing the output when creating the directory has been fixed in
+    shishi itself. (Closes: #423944)
+    - debian/patches/05_shishi_delayed_init.patch: New file.
+    Thanks to Simon Josefsson <simon@josefsson.org>.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 11 Apr 2008 08:20:23 +0300
+
+inetutils (2:1.5.dfsg.1-4) unstable; urgency=medium
+
+  * Fix Kerberos 5 authentication support in telnet via Shishi to make it
+    actually work. (Closes: #414735)
+    - debian/patches/04_shishi_telnet.patch: New file.
+    Thanks to Simon Josefsson <simon@josefsson.org>.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 15 Mar 2007 03:34:46 +0200
+
+inetutils (2:1.5.dfsg.1-3) unstable; urgency=low
+
+  * Fix typo for ifreq member check in configure.ac which was making the
+    package to FTBFS on GNU/kFreeBSD. (Closes: #403708)
+    - debian/patches/03_ifreq_typo.patch: New file.
+    Thanks to Petr Salinger <Petr.Salinger@seznam.cz>.
+  * Make inetutils-tools Provide net-tools only on GNU/Hurd.
+    Thanks to Petr Salinger <Petr.Salinger@seznam.cz>.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 20 Feb 2007 04:52:36 +0200
+
+inetutils (2:1.5.dfsg.1-2) unstable; urgency=low
+
+  * Add a Depends on tcpd in inetutils-inetd.
+  * Fix FTBFS with automake >= 1.10 by adding the missing file config.rpath.
+    - debian/patches/02_missing_config.rpath.patch: New file
+  * Install a pam file for inetutils-ftpd.
+  * Fix possible segfaults (from the Coverity reports).
+    - debian/patches/40_ftpd_LOGCMD_NULL.patch: New file.
+    - debian/patches/41_gethostbyname_segfault.patch: Likewise.
+  * Fix file descriptor leaks (from the Coverity reports).
+    - debian/patches/42_syslogd_leaks.patch: New file.
+  * Fix implicit conversions to int for return value making the code segfault
+    on 64 bit architectures. (Closes: #395216, #395218)
+    - debian/patches/43_ret_converted_to_int.patch: New file.
+    Thanks to Dann Frazier <dannf@debian.org>.
+  * Support adding and removing the inetd talk service, disabled by default.
+    (Closes: #316193)
+    - debian/inetutils-talkd.postinst: New file.
+    - debian/inetutils-talkd.postrm: Likewise.
+  * Support adding and removing the inetd telnet service, disabled by default.
+    (Closes: #325868)
+    - debian/inetutils-telnetd.postinst: New file.
+    - debian/inetutils-telnetd.postrm: Likewise.
+
+ -- Guillem Jover <guillem@debian.org>  Tue,  7 Nov 2006 02:45:47 +0200
+
+inetutils (2:1.5.dfsg.1-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Remove non-free RFC and GFDL documentation. Explain the situation
+      in debian/copyright and modify debian/tarball.sh accordingly.
+      (Closes: #393376) (Urgeny medium due to RC fix)
+    - debian/patches/00_build_dfsg.patch: New file. Disable the doc/ dir.
+    - debian/patches/00_no_link_extralibs.patch: Renamed to ...
+    - debian/patches/01_no_link_extralibs.patch: ... this. Partially merged
+      upstream.
+    - debian/patches/11_inetd_doc.patch: Remove. Merged upstream.
+  * Do not Build-Depend on texinfo, there's no info docs anymore.
+  * Enable Shishi support for telnet authentication. (Closes: #300282)
+  * Disable syslogd forwarding by default, which was enabling inet
+    connections.
+  * Make the binary target in debian/rules idempotent by cp'ing instead of
+    mv'ing ping6.
+  * Fix Jeff Bailey's email address.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 25 Oct 2006 06:12:50 +0300
+
+inetutils (2:1.4.3+20060719-3) unstable; urgency=low
+
+  * Switched to quilt:
+    - Add new debian/patches/series file.
+    - Add Build-Depends on 'quilt (>= 0.40)'.
+    - Include quilt.make from debian/rules.
+    - Remove now unused debian/patch.mk.
+  * Add a Tag: field to all binary packages, using the data from debtags.
+  * Do not link against uneeded libz, remove Build-Depends.
+    - debian/patches/00_no_link_libbsd.patch: Renamed to ...
+    - debian/patches/00_no_link_extralibs.patch: ... this.
+  * Update inetutils-inetd to match new changes in netbase:
+    - Change Provides and Conflicts on inetd to inet-superserver.
+    - Add a Depends on update-inetd.
+  * Add a Build-Depends on libwrap0-dev.
+  * Enable PAM and libwrap in the configure options.
+  * Fix typos in inetutils-inetd manpage. (Closes: #389124)
+    - debian/patches/11_inetd_doc.patch: New file.
+    Thanks to Stephen Liebbe <sliebbe@gmail.com>.
+  * Add LSB dependency information to the init scripts for inetutils-inetd
+    and inetutils-syslogd, and remove invalid comments.
+  * Add an empty /etc/inetd.d/ directory to the inetutils-inetd package.
+
+ -- Guillem Jover <guillem@debian.org>  Wed,  4 Oct 2006 06:05:45 +0300
+
+inetutils (2:1.4.3+20060719-2) unstable; urgency=low
+
+  * Avoid linking against libbsd for now.
+    - debian/patches/00_no_link_libbsd.patch: New file.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 21 Jul 2006 10:59:44 +0300
+
+inetutils (2:1.4.3+20060719-1) unstable; urgency=low
+
+  * New upstream snapshot.
+    - debian/patches/00_link_gnulib.patch: Integrated upstrem. Remove.
+    - debian/patches/01_klog.patch: Likewise.
+    - debian/patches/23_ifconfig_enable.patch: Likewise.
+    - debian/patches/30_inetd_busy_wait.patch: Likewise.
+    - debian/patches/41_ptr_to_int_cast.patch: Likewise.
+  * Reindent debian/copyright.
+  * Now using Standards-Version 3.7.2 (no changes needed).
+  * Move myself from Uploaders to Maintainer.
+  * Fix ping and ping6 perms to 4755.
+    - debian/patches/30_ping_suid_perms.patch: New file.
+    - debian/inetutils-ping.overrides: Match overrides.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 19 Jul 2006 09:24:47 +0300
+
+inetutils (2:1.4.3+20051212-4) unstable; urgency=low
+
+  * Make syslogd really read /dev/klog on the Hurd. (Closes: #348184)
+    - debian/patches/01_klog.patch: New file.
+    Thanks to Samuel Thibault <samuel.thibault@ens-lyon.org>.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 23 Feb 2006 23:59:22 +0200
+
+inetutils (2:1.4.3+20051212-3) unstable; urgency=low
+
+  * Fix busy waiting in inetd when there are no sockets to listen.
+    - debian/patches/30_inetd_busy_wait.patch: New file.
+  * Restore a patch hunk that got lost when syncing with latest upstream
+    release, which would otherwise make the code segfault on 64 bit arches.
+    Although the code is not used by any produced package. (Closes: #347313)
+    Thanks to Dann Frazier <dannf@hp.com>.
+  * Add automake1.4 to Build-Conflicts. (Closes: #347312)
+  * Swap where inetutils-tools Provides net-tools, from linux to !linux.
+    Thanks to Aurelien Jarno <aurel32@debian.org>.
+  * Enable installation of logrotate conffiles again.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 11 Jan 2006 23:12:06 +0200
+
+inetutils (2:1.4.3+20051212-2) unstable; urgency=low
+
+  * Add texinfo to Build-Depends.
+  * Use LSB init script output functions, thus Depend on lsb-base.
+  * Specify localstatedir so pidfiles can be written. Thus allowing the
+    daemons to work properly. (Closes: #240576, #266654, #207752, #268178)
+
+ -- Guillem Jover <guillem@debian.org>  Mon,  9 Jan 2006 20:32:26 +0200
+
+inetutils (2:1.4.3+20051212-1) unstable; urgency=low
+
+  * New upstream snapshot.
+    - debian/tarball.sh: New file.
+    - debian/patches/00_link_gnulib.patch: Likewise.
+    - debian/patches/20_inetd_pidfile.patch: Integrated upstrem. Remove.
+    - debian/patches/24_ftp_overflow.patch: Likewise.
+    - debian/patches/25_fix_net_fwd.patch: Likewise.
+    - debian/patches/30_ipv6.patch: Likewise.
+    - debian/patches/40_gcc-4.0.patch: Likewise.
+    - debian/patches/22_syslogd_conf.patch: Sync.
+    - debian/patches/23_ifconfig_enable.patch: Likewise.
+    - debian/patches/41_ptr_to_int_cast.patch: Likewise.
+    - Fix ftp segfaulting when doing dir. (Closes: #336194)
+    - Fix write out of bounds in ftpd. (Closes: #287560)
+    - Update NEWS file. (Closes: #287567)
+  * Switch back to plain debhelper.
+    - Remove cdbs workaround for not being able to set per package specific
+      rc.d priority.
+  * Remove workarounds for old packaging bugs.
+    - inetutils-inetd.prerm: Remove.
+    - inetutils-syslogd.prerm: Likewise.
+    - inetutils-syslogd.postinst: Likewise.
+  * Make inetutils-syslogd on linux Provide and Conflict on
+    linux-kernel-log-daemon. (Closes: #269813)
+  * Document the use of /proc/kmsg by inetutils-syslogd on some systems.
+    And the absence of System.map address resolving support.
+    (Closes: #212168, #212169)
+  * Upgrade to debhelper compat version 5.
+  * Upgrade Build-Depends from automake1.8 to automake1.9.
+  * Add lintian overrides for ping and ping6 being suid root.
+  * Wrap lines in debian/control fields (knowingly breaking policy).
+
+ -- Guillem Jover <guillem@debian.org>  Mon,  9 Jan 2006 07:53:50 +0200
+
+inetutils (2:1.4.2+20040207-6) unstable; urgency=low
+
+  * Change Build-Depends to 'libreadline5-dev | libreadline-dev' from
+    'libreadline4-dev'. (Closes: #326343)
+  * Fix FSF address in debian/copyright.
+  * Fix invalid cast from pointer to int. That will cause problems on
+    64-bit architectures. (Closes: #318752)
+    Thanks to Dann Frazier <dannf@hp.com>.
+  * Fix bashisms.
+    - inetutils-syslogd.prerm: Fix improper use of -a in test.
+    - inetutils-inetd.prerm: Likewise.
+    - inetutils-syslogd.postinst: Likewise.
+
+ -- Guillem Jover <guillem@debian.org>  Mon, 12 Sep 2005 07:41:53 +0300
+
+inetutils (2:1.4.2+20040207-5) unstable; urgency=low
+
+  * Fix the Subversion repository URL.
+  * Set Maintainer to pkg-inetutils, move Jeff Bailey to Uploaders
+    and remove Robert Millan now that he has retired.
+  * Add a watch file.
+  * Now using Standards-Version 3.6.2 (no changes needed).
+  * Use new DEB_HOST_ARCH_OS variable.
+  * Fix FTBFS with gcc-4.0. (Closes: #300080)
+    - debian/patches/40_gcc-4.0.patch: New file.
+    Thanks to Andreas Jochens <aj@andaco.de>.
+  * Change source and Linux binary packages Priority to extra.
+    (Closes: #205487, #249440, #266666, #290700)
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 17 Jul 2005 09:18:15 +0300
+
+inetutils (2:1.4.2+20040207-4) unstable; urgency=low
+
+  [ Robert Millan ]
+  * Unify priority as 'optional' for source package (since there's only one),
+    and override it in the binary packages.
+    - control.in
+  * Use standard autotools.mk, since my patch was merged in cdbs.
+    - control.in (Build-Depends): Set cdbs (>= 0.4.15)
+    - autotools.mk: Nuked.
+    - rules
+  * Make inetutils-tools provide net-tools on non-Linux. (Closes: #262189)
+    - control.in
+    - rules
+
+  [ Guillem Jover ]
+  * Do not install ping6 on systems not supporting IPv6. (Closes: #273962)
+    - debian/inetutils-ping.install: Do not install ping6, that is handled ...
+    - debian/rules: ... here. If ping6 is found install it to /bin.
+  * Clean the net-tools Provides generation.
+    - debian/control.in: Delete the line instead of replacing with a token to
+      be greped out later.
+  * Exclude /bin/ping6 from dh_fixperms so it remains suid root.
+  * Only use one sed(1) per invokation.
+  * Make references to Debian, system neutral.
+  * Declare DEB_AUTO_UPDATE_ACLOCAL.
+  * Make inetutils-telnet provide telnet-client instead of telnet.
+
+ -- Guillem Jover <guillem@debian.org>  Fri,  1 Oct 2004 14:15:35 +0200
+
+inetutils (2:1.4.2+20040207-3) unstable; urgency=low
+
+  * Fix syslogd startup warnings.
+    - debian/inetutils-syslogd.dirs: New file. Create /var/log/news.
+    - debian/inetutils-syslogd.init: Create /dev/xconsole.
+  * Policy does not allow multiline Build-Depends:
+    - debian/control (Build-Depends): Merge lines.
+  * Add IPv6 support. (Closes: #205695)
+    - debian/patches/30_ipv6.patch: New file.
+    - As a side effect allow port numbers on inetd.conf. (Closes: #236942)
+    - And fix telnet resolving to 0.0.0.0 when trying to connect to a non
+      existent hostname. (Closes: #234718)
+    Thanks to Jeroen Dekkers <jeroen@dekkers.cx>.
+  * Fix syslogd not forwarding to remote hosts. (Closes: #215922)
+    - debian/patches/25_fix_net_fwd.patch: New file.
+    Thanks to Anthony Awtrey <tony@idealcorp.com>.
+  * debian/control (inetutils-ping): Stop providing netkit-ping.
+    (Closes: #255824)
+  * debian/copyright: Added Subversion repo address. Cleaning.
+  * debian/control: Add dependencies to syslogd. (Closes: #255867)
+  * Fix Section and Priority for Linux based systems.
+    (Closes: #249440, #205487)
+  * Now using Standards-Version 3.6.1 (no changes needed).
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 13 Aug 2004 11:10:36 +0200
+
+inetutils (2:1.4.2+20040207-2) unstable; urgency=low
+
+  * control (Build-Depends): Add bison and zlib1g-dev. (Closes: #232051)
+
+ -- Robert Millan <rmh@debian.org>  Wed, 11 Feb 2004 00:32:56 +0100
+
+inetutils (2:1.4.2+20040207-1) unstable; urgency=low
+
+  * New upstream snapshot.
+    - Upgraded to use autoconf 2.58. (Closes: #223706)
+    - Fixes ping paquet size bug. (Closes: #216696)
+    - Synced patches against latest upstream source.
+  * Fixes buffer overflow problem in ftp. (Closes: #212612) [guillem]
+    - debian/patches/024_ftp_overflow.patch: New file.
+      Thanks to John Hasler <john@dhh.gt.org>.
+  * Now use current gcc: [rmh]
+    - debian/control (Build-Depends): Nuked gcc-3.2.
+    - debian/rules: Nuked CC=gcc-3.2 hack.
+  * Fix lame FTBFS bug. (Closes: #219105, #219365, #221048, #221682)
+    - debian/control (Build-Depends): Add automake1.8. New upstream required
+      automake 1.8.
+    - debian/rules (DEB_AUTO_UPDATE_AUTOMAKE): Likewise. [guillem]
+    - debian/control (Build-Depends): Add autoconf.
+    - debian/control (Build-Conflicts): Add autoconf2.13. [rmh]
+  * Fix the ifconfig mess: (Closes: #219280, #219904, #222348)
+    - debian/rules: Renamed the ifconfig binary to not collide with net-tool's
+      ifconfig. [guillem]
+    - debian/control (inetutils-tools): Temporarily disable net-tools Provides,
+      untill we have a working ifconfig/route. [rmh]
+      Change the package description to note that it is an experimental
+      package. [guillem]
+  * debian/control (Uploaders): Put it on one line as some tools cannot cope
+    with multi-line declarations. [guillem]
+  * debian/control (Build-Depends): Added a missing coma. [guillem]
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 10 Feb 2004 03:32:03 +0100
+
+inetutils (2:1.4.2+20031022-1) unstable; urgency=low
+
+  * New upstream snapshot.
+    - patches/21_syslogd.c.patch: Nuked (merged upstream).
+  * Merged simple-patchsys.mk into cdbs.
+    - simple-patchsys-modified.mk: Nuked.
+    - rules: Replace debian/simple-patchsys-modified.mk with
+      /usr/share/cdbs/1/rules/simple-patchsys.mk.
+    - control (Build-Depends): Set cdbs (>= 0.4.13).
+  * Using cdbs auto-update feature for autothings.
+    - patches/99_autothings_regen.patch: Nuked.
+    - rules: Declare DEB_AUTO_UPDATE_{AUTOMAKE,AUTOCONF}.
+    - autotools.mk: New. Incorporate feature from bug #217131 (untill merged).
+    - rules: Replace /usr/share/cdbs/1/class/autotools.mk with
+      debian/autotools.mk.
+  * New package, inetutils-tools.
+    - patches/23_ifconfig_enable.patch: New. Enable ifconfig in Makefile.am.
+    - inetutils-tools.install: New. Install ifconfig.
+    - control: Sort packages alphabeticaly (I'm picky sometimes).
+    - control: Add inetutils-tools.
+  * Workaround cpp-3.3 breakness in ifconfig/options.c.
+    - control (Build-Depends): Add gcc-3.2.
+    - rules: Set CC = gcc-3.2.
+  * Fix weird FTBFS. CDBS wanted to run the install/foo :: rules _before_
+    actualy running the generic install rule in $(DEB_SRCDIR)/Makefile.
+    - rules: Move all the install/foo :: rules to be placed after the CDBS
+    included headers.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 23 Oct 2003 06:36:17 +0200
+
+inetutils (2:1.4.2+20030703-8) unstable; urgency=low
+
+  * debian/patches/inetd_pidfile.patch: Renamed to ...
+  * debian/patches/20_inetd_pidfile.patch: ... this. (Closes: #208595)
+    - The PATH_INETDPID macro was not correctly expanded.
+    - Append PATHDEF_INETDPID to INCLUDES so the code can see it.
+      Thanks Chris McRaven <cpmcraven@ou.edu>.
+  * debian/patches/syslogd.c.patch: Renamed to ...
+  * debian/patches/21_syslogd.c.patch: ... this.
+  * debian/patches/22_syslogd_conf.patch: Added a configuration file.
+    (Closes: #208336)
+  * debian/inetutils-syslogd.install: Added conffile.
+  * debian/patches/99_authothings_regen.patch: Regenerate all autothings
+    because patches 20 and 22 modify some Makefile.am.
+
+  * debian/control:
+    - Added myself to Uploaders.
+    - Removed Jeff Bailey redundant entry in Uploaders.
+    - Beautification of some descriptions.
+  * debian/rules:
+    - Move tarball.mk to the beginning so config.status is not rebuilt for
+      no reason (Closes: #207751). Thanks Julian Gilbey <jdg@debian.org>.
+    - Renamed inetd binary to inetutils-inetd to cope with removed but not
+      purged netkit-inetd init.d script.
+      (Closes: #210258, #207561, #210266)
+  * debian/inetutils-inetd.install: Renamed inetd binary.
+  * debian/inetutils-{inetd,syslogd}.init:
+    - Adapted comments remaining from skeleton scripts (Closes: #212166).
+    - Added reload support (Closes: #212167).
+    - Added --oknodo options to start, stop and restart (Closes: #212163).
+  * debian/inetutils-inetd.prerm:
+    - Stop inetd using the misplaced pid file from buggy revisions -4 to -7.
+    - Conditionally remove /PATH_INETDPID pid file.
+  * debian/inetutils-syslogd.postinst: Fix wrong priority for init script.
+    (Closes: #207105). Thanks Julian Gilbey <jdg@debian.org>.
+  * debian/inetutils-syslogd.logrotate: Added log rotation facilities,
+    stolen from syslog-ng (Closes: #206573, #212237).
+
+  * Added ftp, telnet and talk alternatives:
+    (Closes: #205493, #205495, #210683)
+    - debian/control: Removed Conflicts on inetutils-telnet.
+    - debian/rules: Renamed the binaries and manpages inserting inetutils-
+      to the file names.
+    - debian/inetutils-{ftp,telnet,talk}.manpages: Likewise.
+    - debian/inetutils-{ftp,telnet,talk}.install: Likewise.
+    - debian/inetutils-{ftp,telnet,talk}.{postinst,prerm}: Added call
+      to update-alternatives.
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 19 Oct 2003 21:02:39 +0200
+
+inetutils (2:1.4.2+20030703-7) unstable; urgency=low
+
+  * debian/patches/inetd_pidfile.patch: Misc fixes.
+  * debian/inetutils-inetd.prerm:
+    - s/syslogd/inetd/g fix in comment.
+    - kill stale /usr/sbin/inetd processes (due to bug #207066).
+    - exit safely instead of replacing /etc/init.d/inetutils-inetd.
+      (Closes: #207066)
+
+ -- Robert Millan <rmh@debian.org>  Fri, 29 Aug 2003 13:37:18 +0000
+
+inetutils (2:1.4.2+20030703-6) unstable; urgency=low
+
+  * debian/control: inetutils-ftpd: Provides and Conflicts with ftp-server.
+    (Closes: #207427)
+  * debian/patches/inetd_pidfile.patch: New. Create pidfile. (Closes: #207209)
+  * debian/inetutils-syslogd.{postinst,prerm}: New. Forgot to add these in
+    last upload. (Closes: #207292)
+  * debian/control: inetutils-telnetd: Provides and Conflicts with
+    telnet-server. (Closes: #207496)
+  * debian/inetutils-inetd.prerm: New. Add kludge to workaround bug #207209 so
+    that inetutils-inetd will upgrade without failure.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 28 Aug 2003 16:50:28 +0000
+
+inetutils (2:1.4.2+20030703-5) unstable; urgency=low
+
+  * debian/control: Bumped debhelper to >= 4.1.0 (needed by debhelper.mk).
+  * debian/rules: Install ping in /bin with 4755 perms. (Closes: #206584)
+  * debian/inetutils-ftp{d,}.manpages: New. Do the obvious. (Closes: #206951)
+  * Below changes by Julian Gilbey:
+  * debian/inetutils-syslogd.init: Fixed wrong pidfile location.
+    (Closes: #206754)
+  * debian/inetutils-syslogd.{postinst,prerm}: New. Add kludge to workaround
+    bug #206754 so that inetutils-syslogd will upgrade without failure.
+  * debian/patches/syslogd.c.patch: Fix whitespace parsing in syslogd.
+    (Closes: #206740)
+  * debian/rules: Added patch system (simple-patchsys.mk).
+  * debian/simple-patchsys-modified.mk: New. Fix a bug in the file from
+    cdbs (keep untill merged).
+  * debian/control: Set versioned depends to avoid a bug in older cdbs.
+    (Closes: #206731)
+
+ -- Robert Millan <rmh@debian.org>  Sun, 24 Aug 2003 17:50:02 +0000
+
+inetutils (2:1.4.2+20030703-4) unstable; urgency=low
+
+  * debian/control:
+    - inetutils-talkd Conflicts with talkd. (Closes: #205723)
+    - inetutils-ftp Conflicts with ftp. (Doesn't really fix #205493)
+    - inetutils-telnet Conflicts with telnet. (Doesn't really fix #205495)
+  * debian/inetutils-inetd.init: Added. (Closes: #206566)
+  * debian/inetutils-syslogd.init: Added. (Reduces #206573 to wishlist)
+
+ -- Robert Millan <rmh@debian.org>  Thu, 21 Aug 2003 18:41:23 +0000
+
+inetutils (2:1.4.2+20030703-3) unstable; urgency=low
+
+  * Fixed all that "Conflicts" mess. (Closes: #205488)
+    - Not providing /usr/bin/logger for now (dh_install rename to glogger?).
+    - inetutils-syslogd: Provides and Conflicts with system-log-daemon.
+    - inetutils-ping: Provides and Conflicts with ping.
+    - inetutils-inetd: Provides inetd, Conflicts with inetd, netkit-inetd.
+  * inetutils-ping: (hack) temporarily provide netkit-ping to work around
+    hardcoded dependency in netbase. Revert this ASAP.
+  * inetutils-inetd: (hack) temporarily provide netkit-inetd to work around
+    hardcoded dependency in netbase. Revert this ASAP.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 20 Aug 2003 19:10:30 +0200
+
+inetutils (2:1.4.2+20030703-2) unstable; urgency=low
+
+  * Dummy upload to force autobuilders take it.
+
+ -- Robert Millan <rmh@debian.org>  Thu, 14 Aug 2003 16:46:46 +0200
+
+inetutils (2:1.4.2+20030703-1) unstable; urgency=low
+
+  * Add myself to Uploaders.
+  * New upstream snapshot. (Closes: #194458)
+  * Bump package version to include the release number.
+  * Removed "inetutils-whois" package, already in debian.
+  * Fixed in previous, non-uploaded entries. (Closes: #194456, #153457)
+
+ -- Robert Millan <rmh@debian.org>  Thu,  3 Jul 2003 02:17:23 +0200
+
+inetutils (1:20030701-1) unstable; urgency=low
+
+  * Convert to cdbs.
+
+  * Man files go in share/man (Closes: #153457)
+    Thanks to Guillem Jover <guillem.jover@menta.net>
+
+  * Update to Standards-version 3.5.10 (No changes needed)
+
+ -- Jeff Bailey <jbailey@nisa.net>  Tue,  1 Jul 2003 10:30:01 -0400
+
+inetutils (1:20020821-1) unstable; urgency=low
+
+  * New maintainer
+  * Packaging converted to dbs, updated to debhelper 4
+
+ -- Jeff Bailey <jbailey@nisa.net>  Wed, 21 Aug 2002 23:24:33 -0400
+
+inetutils (1:20010817-2) unstable; urgency=low
+
+  * Massive redo of Debian file.
+  * New maintainer
+
+ -- Jeff Bailey <jbailey@nisa.net>  Tue, 02 Oct 2001 11:19:28 -0400
+
+inetutils (1:20010817) unstable; urgency=low
+
+  * New upstream version, snapshot from CVS.
+  * Add Provides/Conflicts/Replaces whois, because it contains now a whois
+    program.
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Fri, 17 Aug 2001 16:41:49 +0200
+
+inetutils (1.3.2-8) unstable; urgency=low
+
+  * Recompiled to fix ncurses compat issue.
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Fri,  8 Oct 1999 00:45:37 +0200
+
+inetutils (1.3.2-7) unstable; urgency=low
+
+  * debian/tcp_wrappers: Remove directory.
+  * debian/rules (inetutils): Remove tcp_wrappers.
+  * debian/control (inetutils): Depend on tcpd.
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Sun,  5 Sep 1999 15:29:28 +0200
+
+inetutils (1.3.2-6) unstable; urgency=low
+
+  * syslogd/syslogd.conf: A lot of changes. See upstream changelog for
+    details. The config file format is now compatible to the Linux version.
+  * debian/talkd/postinst: s/nobody.tty/nobody/. Our inetd does not
+    understand the user.group notation.
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Fri,  6 Aug 1999 04:34:11 +0200
+
+inetutils (1.3.2-5) unstable; urgency=low
+
+  * debian/rules: Add directory $(PREFIX)include to inetutils.
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Sun, 16 May 1999 20:56:43 +0200
+
+inetutils (1.3.2-4) unstable; urgency=low
+
+  * debian/inetutils/prerm: Fix syntax error (reported by Roland McGrath).
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Sun, 16 May 1999 19:17:43 +0200
+
+inetutils (1.3.2-3) unstable; urgency=low
+
+  * debian/tcp_wrappers: New directory.
+  * debian/rules: Add tcp_wrappers to inetutils package.
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Sun, 16 May 1999 16:17:43 +0200
+
+inetutils (1.3.2-2) unstable; urgency=low
+
+  * inetutils: Add a simple tcpd dummy (reported by Roland McGrath).
+
+ -- Marcus Brinkmann <brinkmd@debian.org>  Sun, 16 May 1999 00:52:03 +0200
+
+inetutils (1.3.2-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Marcus Brinkmann <Marcus.Brinkmann@ruhr-uni-bochum.de>  Wed,  3 Feb 1999 15:53:32 +0100

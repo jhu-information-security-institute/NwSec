@@ -1,0 +1,13 @@
+# Standard behaviour for ftpd(8).
+auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed
+
+# This line is required by ftpd(8).
+auth	sufficient	pam_ftp.so
+
+# Standard blurb.
+@include common-account
+@include common-session
+
+@include common-auth
+auth	required	pam_shells.so
+

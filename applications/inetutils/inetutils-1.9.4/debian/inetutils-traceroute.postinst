@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+update-alternatives \
+  --install /usr/bin/traceroute traceroute /usr/bin/inetutils-traceroute 100 \
+  --slave /usr/share/man/man1/traceroute.1.gz traceroute.1.gz \
+          /usr/share/man/man1/inetutils-traceroute.1.gz
+
+#DEBHELPER#

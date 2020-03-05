@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+  if [ -x "$(which update-inetd)" ]; then
+    update-inetd --group STANDARD \
+      --add "#<off># telnet\tstream\ttcp\tnowait\troot\t/usr/sbin/tcpd\t/usr/sbin/telnetd"
+  fi
+fi
+
+#DEBHELPER#
+
+exit 0

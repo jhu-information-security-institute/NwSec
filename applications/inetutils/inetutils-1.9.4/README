@@ -1,0 +1,112 @@
+GNU inetutils - The GNU Networking Utilities
+
+The GNU Networking Utilities are the common networking utilities,
+clients and servers of the GNU Operating System.
+
+The individual utilities were originally derived from the 4.4BSDLite2
+distribution.  Many features were integrated from NetBSD, OpenBSD,
+FreeBSD and GNU/Linux.
+
+The file `paths' contains a list of all paths used by programs in this
+distribution, and rules to find values for them.  To change a path
+PATH_FOO, you may either tell configure, by using
+`--with-path-foo=VALUE' (where VALUE may contain references to make
+variables such as `$(bindir)'), or edit the `paths' file.  See further
+below for some important cases.
+
+If you wish to build only the clients or only the servers, you may
+wish to use the --disable-servers or --disable-clients options when
+invoking `configure'.  You can also use --enable-<program> or
+--disable-<program> to control whether to build individual programs;
+if you explicitly specify whether to build a program, that will
+override the values specified by --disable-clients or
+--disable-servers.
+
+The GNU whois client reads a whois-servers file to figure out which
+whois server to use.  It won't always pick the best server;
+whois.internic.net seems to know something about nic.ddn.mil, but the
+GNU whois client will use nic.ddn.mil to look up nic.ddn.mil if you
+use the configuration file we supply.  Our configuration file probably
+also does not have a complete list of whois servers; feel free to send
+information about additional whois servers to the bug reporting
+address.
+
+Notes on setuid-executables:
+
+ - All of the r* client commands, 'rcp', 'rlogin', 'rsh', used to need
+   to be installed as setuid root to work correctly, since they use
+   privileged ports for communication.  However, some modern operating
+   systems now offer capabilities that avoid the need for setuid
+   settings, and this is accounted for in our present code.
+   CAP_NET_BIND_SERVICE and PRIV_NET_PRIVADDR are relevant for the
+   above three programs.
+
+ - Similarly, 'ping', 'ping6', and 'traceroute', used to depend on
+   setuid installation, but also these are now content with
+   capabilities like CAP_NET_RAW, PRIV_NET_ICMPACCESS, and
+   PRIV_NET_RAWACCESS.
+
+Notes on hard-coded file locations:
+
+ - Some of the buildable executables depend critically on hard-coded
+   file locations for correct execution.  The most important, where
+   care is needed, are highlighted below.
+
+ - `ftpd' needs access to several configuration files, in order that
+   all use cases be covered.  Both of PATH_FTPCHROOT and
+   PATH_FTPWELCOME are normally positioned correctly in sysconfdir by
+   default, whereas PATH_FTPUSERS usually is desired to state
+   `/etc/ftpusers', but not all systems manage this.  Particular care
+   should be given to PATH_FTPLOGINMESG, since it defaults to
+   `/etc/motd', which cannot be claimed as universally ideal.  A
+   sensible counter measure could be
+
+     ./configure --with-path-ftploginmesg='$(sysconfdir)/ftpmotd'
+
+   This would, however, complicate matter for chrooted users, so a
+   minor variation on the default could be preferable:
+
+     ./configure --with-path-ftploginmesg=/etc/ftpmotd
+
+   Finally, the fall-back value `/etc/nologin' for PATH_NOLOGIN is in
+   effect for every systems lacking <paths.h>, but this sets the most
+   plausible location in any case.
+
+ - `rcp' relies on PATH_RSH for proper hand-over.  Use the
+   configuration switch `--with-path-rsh=VALUE' for overriding the
+   detected value.  It should point to the intended location of `rsh',
+   particularly when built with Kerberos support.
+
+ - Similarily, `rsh' needs PATH_RLOGIN to locate `rlogin' for correct
+   delegation.  The switch `--with-path-rlogin=VALUE' may come handy
+   to ensure that `rsh' as well as `rlogin' offer identical Kerberos
+   support.
+
+Some known deficiencies:
+
+ - Non-Shishi Kerberos support does not build.  Patches welcome.
+
+ - Shishi Kerberos support is only implemented for 'rcp', 'rlogin',
+   'rlogind', 'rsh', 'rshd', 'telnet', and 'telnetd'.
+
+ - Not all utilities are Kerberized even when built with Kerberos
+   libraries, including 'rcp' for non-Shishi Kerberos.
+
+ - InetUtils does not build on HP-UX 11.00, Cygwin, Minix, MinGW,
+   MSCV, BeOS, Haiki (and probably other systems as well).  Patches
+   welcome.
+
+See the file INSTALL for installation instructions.
+
+Please send all bug reports to <bug-inetutils@gnu.org>.
+
+========================================================================
+
+Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Free Software
+Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without any warranty.
