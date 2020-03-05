@@ -1,5 +1,5 @@
 # Description:
-#   This Dockerfile creates a container with a minimal Ubuntu server
+#   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and telnetd server
 # Usage:
 #   From this directory, run $ sudo docker build -t tsystemdubuntuserverenv .
 # By default, runs as root
