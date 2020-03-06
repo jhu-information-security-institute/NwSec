@@ -50,7 +50,7 @@ The steps here outline the sequence needed for obtaining, building, and running 
 1. `$ make`
 
 # setup cross-build environment (VM running Kali OS)
-1. Download [gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu](https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu) and install in `/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu`
+1. Download [gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu](https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu) and install in `/opt/gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu` (note: this version is closest to the gcc binary installed on the RPI4B, Ubuntu/Linaro 7.4.0-1ubuntu1~18.04.1)
 1. from top-level git folder, `$ git apply applications/inetutils/inetutils-1.9.4-PATH_PROCNET_DEV.patch`
 1. then, from same folder, `$ git ls-files -z applications/inetutils/inetutils-1.9.4 | xargs -0 tar -cvf inetutils-1.9.4.tar`
 1. cd into applications/inetutils/KaliVM
