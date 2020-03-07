@@ -14,6 +14,9 @@ RUN echo -e "ubuntu\nubuntu" | passwd
 
 #enable source package repos
 RUN sed -i 's/# deb/deb/g' /etc/apt/sources.list
+# add a # to recomment this line in /etc/apt/sources.list to avoid a warning (W: Skipping acquire of configured file 'stable/source/Sources' as repository 'https://download.docker.com/linux/ubuntu bionic InRelease' does not seem to provide it (sources.list entry misspelt?)
+):
+# deb-src [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
 
 #update and upgrade
 RUN apt-get update
