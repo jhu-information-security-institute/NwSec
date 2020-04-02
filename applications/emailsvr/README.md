@@ -148,3 +148,8 @@ Connection closed by foreign host.
 1. Restart the server using: `# systemctl restart citadel`
 1. Check the server status (there should be no errors) using: `# systemctl status citadel`
 1. Query the configuration using: `# /usr/lib/citadel-server/sendcommand conf listval`
+
+# Useful websites
+* http://www.citadel.org/doku.php?id=installation:debian
+* http://www.citadel.org/doku.php?id=documentation:system_administration_manual
+* http://www.citadel.org/doku.php?id=faq:favoriteclient:general_configuring
