@@ -147,3 +147,4 @@ Connection closed by foreign host.
 1. Set the time zone using: `# /usr/lib/citadel-server/sendcommand "CONF PUTVAL|c_default_cal_zone|America/New York"`
 1. Restart the server using: `# systemctl restart citadel`
 1. Check the server status (there should be no errors) using: `# systemctl status citadel`
+1. Query the configuration using: `# /usr/lib/citadel-server/sendcommand conf listval`
