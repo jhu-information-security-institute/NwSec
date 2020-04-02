@@ -14,10 +14,10 @@ Escape character is '^]'.
     220 ubuntu.MHI ESMTP Citadel server ready.
 HELO reubenjohnston.com
     250 Hello reubenjohnston.com (kali.MHI [192.168.50.31])
-MAIL FROM:<reuben@reubenjohnston.com>
+MAIL FROM:&ltreuben@reubenjohnston.com&gt
     250 Sender ok
-RCPT TO:<admin@ubuntu.mhi>
-    250 RCPT ok <admin@ubuntu.mhi>
+RCPT TO:&ltadmin@ubuntu.mhi&gt
+    250 RCPT ok &ltadmin@ubuntu.mhi&gt
 DATA
     354 Transmit message now - terminate with '.' by itself
 Subject: sample message
