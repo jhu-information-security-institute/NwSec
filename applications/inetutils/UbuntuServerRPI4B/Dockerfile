@@ -24,7 +24,7 @@ RUN apt-get upgrade -y
 
 #install utilities and dependencies
 RUN apt-get install apt-utils dpkg-dev net-tools iputils-ping -y
-RUN apt-get install build-essential vim help2man autotools-dev autoconf -y
+RUN apt-get install sudo build-essential vim help2man autotools-dev autoconf -y
 RUN apt-get install inetutils-inetd inetutils-telnetd -y
 RUN apt-get install systemd systemd-sysv -y
 
