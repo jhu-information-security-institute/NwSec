@@ -1,5 +1,5 @@
 # Description:
-#   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and telnetd server
+#   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and citadel mail server
 # Usage:
 #   From this directory, run $ sudo docker build -t temailsvr .
 # By default, runs as root
