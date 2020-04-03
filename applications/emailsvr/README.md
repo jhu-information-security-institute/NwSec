@@ -12,7 +12,7 @@ It's also extremely scalable. Not only can a well-equipped Citadel server suppor
 Our application sets up the citadel email server on the RPI4B in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Remote access to the server over SMTP is possible, but port 25 must be enabled through any firewalls.
 
 ## Server (on RPI4B)
-The email server on the RPI4B runs in a docker container.   The RPI4B is using Ubuntu Server OS, version 18.04.  The email server handles in-bound and out-bound mails over SMTP and additionally includes an http server for configuration and remote access.
+The email server on the RPI4B runs in a docker container.   The RPI4B is using Ubuntu Server OS, version 18.04.  Citadel handles in-bound and out-bound mails over SMTP and additionally includes an http server for configuration and remote access.
 
 ## Client (on VM)
 The client that communicates with the email server is any remote SMTP server.  One can also directly interface by manually applying direct SMTP commands using telnet over port 25.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
