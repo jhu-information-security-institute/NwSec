@@ -21,6 +21,12 @@ RUN apt-get install systemd systemd-sysv -y
 #install all the things (web server)
 RUN apt-get install nginx -y
 
+#create the example site
+RUN mkdir -p /var/www/nwsec
+COPY index.html /var/www/nwsec/.
+COPY nwsec /etc/nginx/sites-available/.
+RUN ln -s /etc/nginx/sites-available/nwsec /etc/nginx/sites-enabled/nwsec
+
 VOLUME [ "/sys/fs/cgroup" ]
 
 # Finished!

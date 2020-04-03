@@ -1,8 +1,18 @@
 # Application overview
-Citadel-Suite is easy, versatile, and powerful, thanks to its exclusive "rooms" based architecture and is a plaform packed with various operations that includes the feature in focus, _email_. Our application sets up the citadel email server on the RPI4B in a docker container and allows local interfacing with the server using a browser or ssh from the same LAN.  Remote access to the server over SMTP is possible, but port 25 must be enabled through any firewalls.
+Citadel is a complete and feature-rich open source groupware platform.
+* Email, calendaring/scheduling, address books
+* Bulletin boards, mailing list server, instant messaging
+* Multiple domain support
+* An intuitive, attractive AJAX-style web interface
+
+The Citadel system is extremely versatile. It provides numerous front ends to present to users, such as a text-based interface, an AJAX-style web interface, and many popular PIM clients using SMTP/POP/IMAP. All of these can be used simultaneously.
+
+It's also extremely scalable. Not only can a well-equipped Citadel server support a large number of concurrent users, but you can also build a distributed network of Citadel nodes that share rooms and their content.
+
+Our application sets up the citadel email server on the RPI4B in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Remote access to the server over SMTP is possible, but port 25 must be enabled through any firewalls.
 
 ## Server (on RPI4B)
-The server on the RPI4B in a docker container. The server is an email server, which we have chose to be Citadel server, and it handles in-bound and out-bound mails.  There is an http server for configuration.
+The server on the RPI4B runs in a docker container. The server is an email server, which we have chose to be Citadel server, and it handles in-bound and out-bound mails.  There is an http server for configuration.
 
 ## Client (on VM)
 The client that communicates with the email server is any remote SMTP server.  One can also directly interface by manually applying direct SMTP commands using telnet over port 25.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
