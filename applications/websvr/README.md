@@ -4,7 +4,7 @@ NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as
 Our application sets up the nginx web server on the RPI4B in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Remote access to the server over http is possible, but ports must be enabled through any firewalls (e.g., ports 80 and 81).
 
 ## Server (on RPI4B)
-The web server on the RPI4B runs in a docker container. 
+The web server on the RPI4B runs in a docker container.  The RPI4B is using Ubuntu Server OS, version 18.04.
 
 ## Client (on VM)
 The client that communicates with the web server is any remote browser.  One can also directly interface by manually applying direct http commands using telnet over port 81.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
