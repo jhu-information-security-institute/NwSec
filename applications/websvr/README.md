@@ -33,6 +33,8 @@ Connection closed by foreign host.
 1. Build the Docker container using: `$ sudo docker build -t twebsvr .`
 1. Start the Docker container using: `$ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host twebsvr:latest`
 1. Log in to the running container using: `$ sudo docker exec -it websvr bash`
+1. Restart the server using: `# systemctl restart nginx`
+1. Check the server status (there should be no errors) using: `# systemctl status nginx`
 
 # Useful websites
 * https://www.nginx.com/resources/wiki
