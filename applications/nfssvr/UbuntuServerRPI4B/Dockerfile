@@ -22,12 +22,14 @@ RUN apt-get install systemd systemd-sysv -y
 RUN apt-get install nfs-kernel-server -y
 
 #create the export directory
-RUN mkdir -p /export/home
+RUN mkdir -p /export/nfsshare
 
 VOLUME [ "/sys/fs/cgroup" ]
+VOLUME [ "/export/nfsshare" ]
+VOLUME [ "/nfsshare" ]
 
 # Finished!
-RUN echo 'Container is ready, run it using $ sudo docker run -d --name nfssvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host tnfssvr:latest'
+RUN echo 'Container is ready, run it using $ sudo docker run -d --name nfssvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /export/nfsshare:/export/nfsshare:rw -v /nvsshare:/nfsshare:rw --network host tnfssvr:latest'
 RUN echo 'Then attach to it using $ sudo docker exec -it nfssvr bash'
 
 CMD ["/lib/systemd/systemd"]
