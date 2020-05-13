@@ -30,3 +30,4 @@
 
 # Useful links
 * https://ubuntu.com/server/docs/service-kerberos
+* https://help.ubuntu.com/community/NFSv4Howto
