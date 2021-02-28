@@ -1,0 +1,18 @@
+# 
+
+#deb cdrom:[Kali GNU/Linux 2020.1b _Kali-last-snapshot_ - Official amd64 DVD Binary-1 with firmware 20200316-17:52]/ kali-rolling contrib main non-free
+
+#deb cdrom:[Kali GNU/Linux 2020.1b _Kali-last-snapshot_ - Official amd64 DVD Binary-1 with firmware 20200316-17:52]/ kali-rolling contrib main non-free
+
+# deb http://http.kali.org/kali kali-rolling main non-free contrib
+# deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+
+# deb http://http.kali.org/kali kali-last-snapshot main non-free contrib
+deb [trusted=yes] http://old.kali.org/kali 2020.3 main non-free contrib
+# deb-src http://http.kali.org/kali kali-last-snapshot main non-free contrib
+
+# This system was installed using small removable media
+# (e.g. netinst, live or single CD). The matching "deb cdrom"
+# entries were disabled at the end of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.
