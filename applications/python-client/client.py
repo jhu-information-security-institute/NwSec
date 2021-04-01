@@ -10,6 +10,8 @@ telnetconn=None
 detectctrlc=None
 
 #https://pythonspot.com/ftp-client-in-python/
+#https://docs.python.org/3/library/ftplib.html
+#https://docs.python.org/3/library/telnetlib.html
 
 def ftp_connect(server,username,password):
     global ftpconn,detectctrlc
@@ -22,7 +24,9 @@ def ftp_connect(server,username,password):
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
-        pass          
+        raise
+    except:
+        raise       
 
 def telnet_connect(server,username,password):
     global telnetconn,detectctrlc
@@ -41,8 +45,10 @@ def telnet_connect(server,username,password):
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
-        pass     
-
+        raise     
+    except:
+        raise
+    
 def ftp_disconnect():
     global ftpconn,detectctrlc
 
@@ -54,7 +60,9 @@ def ftp_disconnect():
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
-        pass       
+        raise       
+    except:
+        raise
       
 def telnet_disconnect():
     global telnetconn,detectctrlc
@@ -67,7 +75,9 @@ def telnet_disconnect():
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
-        pass         
+        raise         
+    except:
+        raise
 
 def ftp_listdir():
     global ftpconn,detectctrlc
@@ -82,7 +92,9 @@ def ftp_listdir():
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
-        pass            
+        raise            
+    except:
+        raise
 
 def telnet_listdir():
     global telnetconn,detectctrlc
@@ -95,8 +107,10 @@ def telnet_listdir():
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
-        pass       
-        
+        raise       
+    except:
+        raise
+            
 def usage():
     """ Script Usage """
     print("Usage: python3 client.py OPTIONS")
@@ -140,7 +154,11 @@ def main():
         except KeyboardInterrupt:
             print('CTRL-C detected!')
             detectctrlc=True
-            pass         
+            pass
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            time.sleep(5)
+            pass        
     
     print('Quitting!')    
     ftp_disconnect()
