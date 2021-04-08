@@ -1,0 +1,16 @@
+# Place in /etc/nginx/sites-available
+# Create symbolic link in /etc/nginx/sites-enabled (e.g., # ln -s /etc/nginx/sites-available/nwsec /etc/nginx/sites-enabled/nwsec)
+
+server {
+       listen 81;
+       #listen [::]:81; #if ipv6 is enabled, you can uncomment this
+
+       server_name nwsec.jhuisi.edu;
+
+       root /var/www/nwsec;
+       index index.html;
+
+       location / {
+               try_files $uri $uri/ =404;
+       }
+}
