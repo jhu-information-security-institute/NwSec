@@ -144,10 +144,12 @@ def main():
             # Do nothing and hog CPU forever until SIGINT received.
             time.sleep(5)
             ftp_connect(args.server,"anonymous","")
+            time.sleep(1)
             ftp_listdir()
             ftp_disconnect()
             time.sleep(5)
             telnet_connect(args.server,args.user,password)
+            time.sleep(1)
             telnet_listdir()
             telnet_disconnect()            
             pass

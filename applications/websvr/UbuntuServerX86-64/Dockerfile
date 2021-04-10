@@ -30,7 +30,7 @@ RUN ln -s /etc/nginx/sites-available/nwsec /etc/nginx/sites-enabled/nwsec
 VOLUME [ "/sys/fs/cgroup" ]
 
 # Finished!
-RUN echo 'Container is ready, run it using $ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network bridge twebsvr:latest'
+RUN echo 'Container is ready, run it using $ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host twebsvr:latest'
 RUN echo 'Then attach to it using $ sudo docker exec -it websvr bash'
 RUN echo 'nginx status is available using $ sudo systemctl status nginx'
 RUN echo 'nginx can be stopped and started as well using systemctl'
