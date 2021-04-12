@@ -30,4 +30,4 @@ RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
 COPY suricata.yaml /etc/suricata/suricata.yaml
 
 RUN echo 'Container is ready, run it interactively using $ sudo docker run --name suricata --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host -ti tsuricata:latest bash'
-RUN echo 'Then, inside the container, start suricata using # suricata -c /etc/suricata/suricata.yaml -i ens39
+RUN echo 'Then, inside the container, start suricata using # suricata -c /etc/suricata/suricata.yaml -i ens39'
