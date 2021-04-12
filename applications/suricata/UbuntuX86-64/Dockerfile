@@ -29,5 +29,8 @@ RUN rm emerging.rules.tar.gz
 RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
 COPY suricata.yaml /etc/suricata/suricata.yaml
 
+RUN echo 'Setup bridge br0 by running $ sudo ./create-bridge.sh'
+RUN echo 'Remove redundant routes by running $ sudo ./setup-routes.sh'
 RUN echo 'Container is ready, run it interactively using $ sudo docker run --name suricata --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host -ti tsuricata:latest bash'
-RUN echo 'Then, inside the container, start suricata using # suricata -c /etc/suricata/suricata.yaml -i ens39'
+RUN echo 'Then, inside the container, start suricata using # suricata -c /etc/suricata/suricata.yaml -i br0'
+
