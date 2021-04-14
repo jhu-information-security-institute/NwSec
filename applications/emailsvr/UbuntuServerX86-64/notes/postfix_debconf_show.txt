@@ -1,0 +1,27 @@
+# debconf-show postfix
+  postfix/mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+  postfix/not_configured:
+  postfix/relayhost:
+  postfix/lmtp_retired_warning: true
+* postfix/main_mailer_type: 'Internet Site' 
+  postfix/mydomain_warning:
+  postfix/newaliases: false
+  postfix/recipient_delim: +
+  postfix/retry_upgrade_warning:
+  postfix/main_cf_conversion_warning: true
+  postfix/root_address:
+  postfix/bad_recipient_delimiter:
+  postfix/rfc1035_violation: false
+* postfix/mailname: '5ae95f2270bb.netsec.isi.jhu.edu'
+  postfix/destinations: '5ae95f2270bb.netsec.isi.jhu.edu', $myhostname, 2f42f1314051, localhost.localdomain, localhost
+  postfix/mailbox_limit: 0
+  postfix/tlsmgr_upgrade_warning:
+  postfix/kernel_version_warning:
+  postfix/sqlite_warning:
+  postfix/relay_restrictions_warning:
+  postfix/procmail: false
+  postfix/dynamicmaps_conversion_warning:
+  postfix/protocols: ipv4
+  postfix/chattr: false
+  postfix/compat_conversion_warning: true
+

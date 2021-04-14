@@ -1,0 +1,32 @@
+# debconf-show phpmyadmin
+  phpmyadmin/password-confirm: (password omitted)
+  phpmyadmin/mysql/app-pass: (password omitted)
+  phpmyadmin/app-password-confirm: (password omitted)
+  phpmyadmin/mysql/admin-pass: (password omitted)
+  phpmyadmin/dbconfig-upgrade: true
+  phpmyadmin/remove-error: abort
+  phpmyadmin/install-error: abort
+* phpmyadmin/mysql/admin-user: root
+  phpmyadmin/mysql/method: Unix socket
+  phpmyadmin/internal/skip-preseed: false
+  phpmyadmin/passwords-do-not-match:
+  phpmyadmin/missing-db-package-error: abort
+  phpmyadmin/db/app-user: phpmyadmin@localhost
+  phpmyadmin/dbconfig-remove: true
+  phpmyadmin/remote/port:
+  phpmyadmin/upgrade-backup: true
+  phpmyadmin/remote/host: localhost
+  phpmyadmin/database-type: mysql
+  phpmyadmin/remote/newhost:
+  phpmyadmin/internal/reconfiguring: false
+* phpmyadmin/reconfigure-webserver:
+  phpmyadmin/purge: false
+  phpmyadmin/upgrade-error: abort
+  phpmyadmin/dbconfig-reinstall: false
+  phpmyadmin/db/dbname: phpmyadmin
+  phpmyadmin/mysql/authplugin: default
+* phpmyadmin/dbconfig-install: true
+
+Configure database for phpmyadmin with dbconfig-common? [yes/no]
+MySQL application password for phpmyadmin: 
+
