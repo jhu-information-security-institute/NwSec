@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 # Must be run as root
 # e.g., # ./setup-routes.sh -d ens38 -m 192.168.25.0/24
+# e.g., # ./setup-routes.sh -d ens39 -m 192.168.25.0/24
 
 while getopts ":hd:m:" opt; do
 	case ${opt} in

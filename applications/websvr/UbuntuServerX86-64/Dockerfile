@@ -6,6 +6,10 @@
 
 FROM ubuntu:20.04
 
+#https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
+ENV TZ=US/Eastern
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 #avoid question/dialog during apt-get installs
 ARG DEBIAN_FRONTEND noninteractive
 

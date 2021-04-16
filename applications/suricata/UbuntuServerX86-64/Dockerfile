@@ -41,7 +41,9 @@ RUN apt-get install -y suricata jq
 
 #configure suricata and install some rules
 RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
+RUN mv /etc/default/suricata /etc/default/suricata.orig
 COPY suricata.yaml /etc/suricata/suricata.yaml
+COPY etc_default_suricata /etc/default/suricata
 RUN suricata-update
 COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.rules
 
