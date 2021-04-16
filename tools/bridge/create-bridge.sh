@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Requires installing bridge-utils: $ sudo apt-get install bridge-utils
 # Must be run as root
-# e.g., # ./create-bridge.sh -name br0 -dev ens38 -gwcidr 192.168.25.1/24
+# e.g., # ./create-bridge.sh -n br0 -d ens38 -g 192.168.25.1/24
 
 while getopts ":hn:d:g:" opt; do
 	case ${opt} in

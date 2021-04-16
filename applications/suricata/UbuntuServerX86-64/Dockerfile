@@ -2,8 +2,8 @@
 #   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and suricata
 # Usage:
 #   From this directory, run $ sudo docker build -t tsuricata .
-#   Before running, should have already setup bridge br0 by running $ sudo ./create-bridge.sh
-#   Also before running, remove redundant routes by running $ sudo ./setup-routes.sh
+#   Before running, should have already setup bridge br0, e.g., by running $ sudo ../../../tools/bridge/create-bridge.sh -n br0 -d ens38 -g 192.168.25.1/24
+#   Also before running, remove redundant routes by running $ sudo ../../../tools/bridge/setup-routes.sh -d ens38 -m 192.168.25.0/24
 #   By default, runs as root
 #   https://suricata-ids.org
 
@@ -39,14 +39,10 @@ RUN add-apt-repository ppa:oisf/suricata-stable
 RUN apt-get update
 RUN apt-get install -y suricata jq
 
-#install some rules and configure suricata
-RUN wget http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
-RUN tar -xvzf emerging.rules.tar.gz
-RUN mkdir /var/lib/suricata/
-RUN mv rules /var/lib/suricata
-RUN rm emerging.rules.tar.gz
+#configure suricata and install some rules
 RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
 COPY suricata.yaml /etc/suricata/suricata.yaml
+RUN suricata-update
 
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
