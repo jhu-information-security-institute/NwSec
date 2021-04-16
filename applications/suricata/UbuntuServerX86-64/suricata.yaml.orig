@@ -12,7 +12,7 @@
 vars:
   # more specific is better for alert accuracy and performance
   address-groups:
-    HOME_NET: "[192.168.25.0/24,10.0.0.0/8,172.16.0.0/12]"
+    HOME_NET: "[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]"
     #HOME_NET: "[192.168.0.0/16]"
     #HOME_NET: "[10.0.0.0/8]"
     #HOME_NET: "[172.16.0.0/12]"
@@ -78,7 +78,7 @@ outputs:
       enabled: yes
       filename: fast.log
       append: yes
-      filetype: regular # 'regular', 'unix_stream' or 'unix_dgram'
+      #filetype: regular # 'regular', 'unix_stream' or 'unix_dgram'
 
   # Extensible Event Format (nicknamed EVE) event log in JSON format
   - eve-log:
@@ -394,10 +394,10 @@ outputs:
   # a full alert log containing much information for signature writers
   # or for investigating suspected false positives.
   - alert-debug:
-      enabled: yes
+      enabled: no
       filename: alert-debug.log
       append: yes
-      filetype: regular # 'regular', 'unix_stream' or 'unix_dgram'
+      #filetype: regular # 'regular', 'unix_stream' or 'unix_dgram'
 
   # alert output to prelude (https://www.prelude-siem.org/) only
   # available if Suricata has been compiled with --enable-prelude
@@ -1864,8 +1864,7 @@ napatech:
 default-rule-path: /var/lib/suricata/rules
 
 rule-files:
-##  - suricata.rules
-  - test-ddos.rules	
+  - suricata.rules
 
 ##
 ## Auxiliary configuration files.

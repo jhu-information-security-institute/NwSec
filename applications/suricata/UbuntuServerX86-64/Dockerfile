@@ -43,6 +43,7 @@ RUN apt-get install -y suricata jq
 RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
 COPY suricata.yaml /etc/suricata/suricata.yaml
 RUN suricata-update
+COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.rules
 
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
