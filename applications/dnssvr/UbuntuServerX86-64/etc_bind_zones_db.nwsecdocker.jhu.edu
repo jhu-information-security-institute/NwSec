@@ -1,0 +1,27 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	ns.nwsecdocker.jhu.edu. root.nwsecdocker.jhu.edu (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+; name servers - NS records
+	IN	NS	ns.nwsecdocker.jhu.edu.
+
+; name servers - A records
+ns.nwsecdocker.jhu.edu.	IN	A	192.168.25.10
+
+; hosts
+suricata.nwsecdocker.jhu.edu.	IN	A	192.168.25.100
+auth.nwsecdocker.jhu.edu.		IN	A	192.168.25.101
+proxy.nwsecdocker.jhu.edu.		IN	A	192.168.25.102
+selks.nwsecdocker.jhu.edu.		IN	A	192.168.25.103
+nginx.nwsecdocker.jhu.edu.		IN	A	192.168.25.104
+mail.nwsecdocker.jhu.edu.		IN	A	192.168.25.105
+nfs.nwsecdocker.jhu.edu.		IN	A	192.168.25.106
+telnet.nwsecdocker.jhu.edu.		IN	A	192.168.25.107
+ftp.nwsecdocker.jhu.edu.		IN	A	192.168.25.108
