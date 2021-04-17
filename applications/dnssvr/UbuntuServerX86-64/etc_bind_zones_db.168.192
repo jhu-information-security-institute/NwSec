@@ -1,0 +1,25 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	ns.docker.netsec.edu. root.docker.netsec.edu. (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+; name servers - NS records
+	IN	NS	ns.docker.netsec.edu.
+
+; PTR records
+10.25	IN	PTR	ns.docker.netsec.edu.		; 192.168.25.10
+100.25	IN	PTR	suricata.docker.netsec.edu.	; 192.168.25.100
+101.25	IN	PTR	auth.docker.netsec.edu.		; 192.168.25.101
+102.25	IN	PTR	proxy.docker.netsec.edu.	; 192.168.25.102
+103.25	IN	PTR	selks.docker.netsec.edu.	; 192.168.25.103
+104.25	IN	PTR	nginx.docker.netsec.edu.	; 192.168.25.104
+105.25	IN	PTR	mail.docker.netsec.edu.		; 192.168.25.105
+106.25	IN	PTR	nfs.docker.netsec.edu.		; 192.168.25.106
+107.25	IN	PTR	telnet.docker.netsec.edu.	; 192.168.25.107
+108.25	IN	PTR	ftp.docker.netsec.edu.		; 192.168.25.108
