@@ -14,6 +14,7 @@ $TTL	604800
 
 ; PTR records
 10.25	IN	PTR	ns.nwsecdocker.jhu.edu.			; 192.168.25.10
+100.25	IN	PTR	dhcp.nwsecdocker.jhu.edu.		; 192.168.25.5
 100.25	IN	PTR	suricata.nwsecdocker.jhu.edu.	; 192.168.25.100
 101.25	IN	PTR	auth.nwsecdocker.jhu.edu.		; 192.168.25.101
 102.25	IN	PTR	proxy.nwsecdocker.jhu.edu.		; 192.168.25.102

@@ -30,6 +30,12 @@ RUN apt-get install systemd systemd-sysv -y
 #install all the things (web server)
 RUN apt-get install bind9 -y
 
+RUN mkdir -p /etc/bind/zones
+COPY etc_bind_named.conf.options /etc/bind/named.conf.options
+COPY etc_bind_named.conf.local /etc/bind/named.conf.local
+COPY etc_bind_zones_db.nwsecdocker.jhu.edu /etc/bind/zones/db.nwsecdocker.jhu.edu
+COPY etc_bind_zones_db.25.168.192 /etc/bind/zones/db.25.168.192
+
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
