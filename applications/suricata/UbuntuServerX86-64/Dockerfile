@@ -2,8 +2,6 @@
 #   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and suricata
 # Usage:
 #   From this directory, run $ sudo docker build -t tsuricata .
-#   Before running, should have already setup bridge br0, e.g., by running $ sudo ../../../tools/bridge/create-bridge.sh -n br0 -d ens38 -g 192.168.25.1/24
-#   Also before running, remove redundant routes by running $ sudo ../../../tools/bridge/setup-routes.sh -d ens38 -m 192.168.25.0/24
 #   By default, runs as root
 #   https://suricata-ids.org
 
