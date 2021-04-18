@@ -83,6 +83,20 @@ CMD ["/lib/systemd/systemd"]
 # Finished!
 RUN echo 'Container is ready, run it using $ docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest'
 RUN echo 'Then attach to it using $ docker exec -it emailsvr bash'
+RUN echo 'Stop nginx # systemctl stop nginx
 RUN echo 'Then run # hostnamectl set-hostname mail.nwsecdocker.jhu.edu'
-RUN echo 'Then run # dpkg-reconfigure postfixadmin'
+RUN echo 'Start nginx # systemctl start nginx'
+RUN echo 'Then run (use the notes in the bottom of the Dockerfile) # dpkg-reconfigure postfixadmin'
+RUN echo 'Edit /etc/dbconfig.inc.php and change $dbtype line to $dbtype=\'mysqli\';'
+RUN echo 'Log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/setup.php using 
 RUN echo 'Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
+
+#Specify these values when prompted:
+#  Configure database for postfixadmin with dbconfig-common? [yes/no] yes
+#  Connection method for MySQL database of postfixadmin: 1
+#  Authentication plugin for MySQL database: 1
+#  MySQL database name for postfixadmin: postfixadmin
+#  MySQL username for postfixadmin: postfixadmin@localhost
+#  MySQL application password for postfixadmin: <PASSWORD> 
+#  Password confirmation: <PASSWORD> 
+#  Name of the database's administrative user: root
