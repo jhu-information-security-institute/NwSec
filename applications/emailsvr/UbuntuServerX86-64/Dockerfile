@@ -3,6 +3,10 @@
 # Usage:
 #   From this directory, run $ sudo docker build -t temailsvr .
 #   By default, runs as root
+#   https://www.dovecot.org
+#   http://www.postfix.org
+#   http://postfixadmin.sourceforge.net
+#   https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
 
 FROM ubuntu:20.04
 
@@ -55,19 +59,23 @@ COPY etc_dovecot_conf.d_15-mailboxes.conf /etc/dovecot/conf.d/15-mailboxes.conf
 #install all the things (web server, MariaDB database server, PHP7.4, phpMyAdmin)
 RUN apt-get install nginx mariadb-server mariadb-client -y
 RUN apt-get install php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl -y
-COPY phpmyadmin_install.sh /root/phpmyadmin_install.sh
-RUN /root/phpmyadmin_install.sh
-RUN apt-get install phpmyadmin -y
 
-#test
-#COPY default /etc/nginx/sites-available/default
-#COPY info.php /usr/share/nginx/html/info.php
+#COPY postfixadmin_install.sh /root/postfixadmin_install.sh
+#RUN /root/postfixadmin_install.sh
+
+RUN apt-get install dbconfig-no-thanks -y
+RUN apt-get install postfixadmin -y
+RUN apt-get remove dbconfig-no-thanks -y
 
 #remove the default site
 RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
-COPY phpmyadmin.conf /etc/nginx/conf.d/phpmyadmin.conf
-COPY dovecot.conf /etc/dovecot/dovecot.conf
+COPY etc_nginx_conf.d_postfixadmin.conf /etc/nginx/conf.d/postfixadmin.conf
+RUN mkdir -p /usr/share/postfixadmin/templates_c
+RUN chown -R www-data /usr/share/postfixadmin/templates_c
+COPY usr_share_postfixadmin_config.local.php /usr/share/postfixadmin/config.local.php
+
+RUN ln -s /usr/share/postfixadmin/public /usr/share/nginx/html/postfixadmin
 
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
@@ -75,5 +83,6 @@ CMD ["/lib/systemd/systemd"]
 # Finished!
 RUN echo 'Container is ready, run it using $ docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest'
 RUN echo 'Then attach to it using $ docker exec -it emailsvr bash'
-RUN echo 'Then run # hostnamectl set-hostname mymail.netsec.isi.jhu.edu'
-RUN echo 'Open a browser and go to http://localhost, phpMyAdmin login is root, password'
+RUN echo 'Then run # hostnamectl set-hostname mail.nwsecdocker.jhu.edu'
+RUN echo 'Then run # dpkg-reconfigure postfixadmin'
+RUN echo 'Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'

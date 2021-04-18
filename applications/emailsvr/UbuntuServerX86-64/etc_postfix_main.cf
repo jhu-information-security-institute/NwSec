@@ -33,7 +33,7 @@ smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 #smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
 smtpd_relay_restrictions = permit_mynetworks, defer_if_permit, permit
-myhostname = 5ae95f2270bb.netsec.isi.jhu.edu
+myhostname = mail.nwsecdocker.jhu.edu
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 mydestination = $myhostname, 5ae95f2270bb, localhost.localdomain, , localhost
