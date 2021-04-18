@@ -30,6 +30,8 @@ RUN apt-get install systemd systemd-sysv -y
 #install all the things (web server)
 RUN apt-get install isc-dhcp-server -y
 
+COPY etc_dhcp_dhcpd.conf /etc/dhcp/dhcpd.conf
+
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
