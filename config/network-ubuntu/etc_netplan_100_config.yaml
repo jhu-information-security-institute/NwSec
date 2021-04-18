@@ -10,43 +10,28 @@ network:
                         nameservers:
                                 addresses: [192.168.50.1]
                                 search: [MHI]
-                #static routes, do not add gateway4 or gateway6 so that netplan does not add default route
-                #dns
                 ens38:
-                        dhcp4: no
-                        addresses: [192.168.25.10/24]
+                        dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #dhcp
+                                search: [nwsecdocker.jhu.edu]                        
                 ens39:
-                        dhcp4: no
-                        addresses: [192.168.25.5/24]
+                        dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #suricata
+                                search: [nwsecdocker.jhu.edu]      
                 ens40:
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #auth
+                                search: [nwsecdocker.jhu.edu]      
                 ens41:
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #proxy
+                                search: [nwsecdocker.jhu.edu]      
                 ens42:
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #selks
-                ens43:
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-
+                                search: [nwsecdocker.jhu.edu]      
