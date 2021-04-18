@@ -1,8 +1,10 @@
+#/etc/netplan/99_config.yaml
+#netplan configuration file for Ubuntu Server 2: dns, dhcp, suricata, auth, proxy, selks, etc.
 network:
         version: 2
         renderer: networkd
         ethernets:
-                #dhcp route adds default                
+        		#internet via host
                 ens33:
                         dhcp4: true
                         dhcp4-overrides:
@@ -10,7 +12,6 @@ network:
                         nameservers:
                                 addresses: [192.168.50.1]
                                 search: [MHI]
-                #static routes, do not add gateway4 or gateway6 so that netplan does not add default route
                 #dns
                 ens38:
                         dhcp4: no

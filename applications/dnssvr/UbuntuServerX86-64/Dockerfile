@@ -3,6 +3,7 @@
 # Usage:
 #   From this directory, run $ sudo docker build -t tdnssvr .
 #   By default, runs as root
+#   https://www.isc.org/bind/
 
 FROM ubuntu:20.04
 

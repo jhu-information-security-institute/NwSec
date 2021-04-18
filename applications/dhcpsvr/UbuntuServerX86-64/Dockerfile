@@ -3,6 +3,7 @@
 # Usage:
 #   From this directory, run $ sudo docker build -t tdhcpsvr .
 #   By default, runs as root
+#   https://www.isc.org/dhcp/
 
 FROM ubuntu:20.04
 
