@@ -1,0 +1,61 @@
+network:
+        version: 2
+        renderer: networkd
+        ethernets:
+                #dhcp route adds default                
+                ens33:
+                        dhcp4: true
+                        dhcp4-overrides:
+                                use-dns: false
+                        nameservers:
+                                addresses: [192.168.50.1]
+                                search: [MHI]
+                #static routes, do not add gateway4 or gateway6 so that netplan does not add default route
+                ens38:
+                        addresses:
+                                - 192.168.25.10/24
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+                ens39:
+                        addresses:
+                                - 192.168.25.5/24
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+                ens40:
+                        addresses:
+                                - 192.168.25.100/24
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+                ens41:
+                        addresses:
+                                - 192.168.25.101/24
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+                ens42:
+                        addresses:
+                                - 192.168.25.102/24
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+                ens43:
+                        addresses:
+                                - 192.168.25.103/24
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+#        bridges:
+#                #static routes, do not add gateway4 or gateway6 so that netplan does not add default route
+#                br0:
+#                        dhcp4: no
+#                        dhcp6: no
+#                        interfaces:
+#                                - ens38
+#                                - ens39
+#                                - ens40
+#                                - ens41
+#                                - ens42
+#                                - ens43
