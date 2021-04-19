@@ -78,7 +78,7 @@ connect = host=localhost dbname=postfixadmin user=postfixadmin password=nwsec123
 # List of supported schemes is in
 # http://wiki2.dovecot.org/Authentication/PasswordSchemes
 #
-default_pass_scheme = ARGON2I
+default_pass_scheme = CRYPT
 
 password_query = SELECT username AS user,password FROM mailbox WHERE username = '%u' AND active='1'
 

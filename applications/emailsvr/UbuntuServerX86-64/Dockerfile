@@ -60,7 +60,7 @@ RUN chown vmail:vmail /var/vmail/ -R
 RUN postfix upgrade-configuration
 
 #install dovecot
-RUN apt-get install dovecot-core dovecot-imapd dovecot-pop3d -y
+RUN apt-get install dovecot-core dovecot-imapd dovecot-pop3d dovecot-mysql -y
 
 #configure dovecot
 COPY dovecot/etc_dovecot_dovecot.conf /etc/dovecot/dovecot.conf
