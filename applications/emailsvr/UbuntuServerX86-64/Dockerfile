@@ -58,6 +58,7 @@ RUN adduser vmail --system --group --uid 2000 --disabled-login --no-create-home
 RUN mkdir /var/vmail
 RUN chown vmail:vmail /var/vmail/ -R
 RUN postfix upgrade-configuration
+RUN postconf maillog_file=/var/log/postfix.log
 
 #install dovecot
 RUN apt-get install dovecot-core dovecot-imapd dovecot-pop3d dovecot-mysql -y
@@ -100,11 +101,13 @@ RUN echo 'Stop nginx # systemctl stop nginx'
 RUN echo 'Then run # hostnamectl set-hostname mail.nwsecdocker.jhu.edu'
 RUN echo 'Start nginx # systemctl start nginx'
 RUN echo 'Then run (use the notes in the bottom of the Dockerfile) # dpkg-reconfigure postfixadmin'
-RUN echo 'Edit /etc/dbconfig.inc.php and change value of line with $dbtype to mysqli'
+RUN echo 'Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype to mysqli'
 RUN echo 'Log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/setup.php'
-RUN echo 'Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php'
-RUN echo 'Then, create a superadmin account Admin postfixadmin@mail.nwsecdocker.jhu.edu and specify its password'
+RUN echo '    * Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php'
+RUN echo '    * Then, create a superadmin account Admin postfixadmin@nwsecdocker.jhu.edu and specify its password'
 RUN echo 'Now, use that account to log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/login.php'
+RUN echo '    * Create a new nwsecdocker.jhu.edu domain using postfix.admin'
+RUN echo '    * Create new email accounts in the nwsecdocker.jhu.edu domain'
 RUN echo 'Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
 
 #Specify these values when prompted:
