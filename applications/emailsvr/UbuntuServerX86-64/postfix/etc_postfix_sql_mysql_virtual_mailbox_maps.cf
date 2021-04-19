@@ -1,0 +1,6 @@
+user = postfixadmin
+password = nwsec123
+hosts = localhost
+dbname = postfixadmin
+query = SELECT maildir FROM mailbox WHERE username='%s' AND active = '1'
+#expansion_limit = 100

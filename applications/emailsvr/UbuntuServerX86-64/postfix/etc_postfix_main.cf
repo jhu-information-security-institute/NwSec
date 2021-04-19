@@ -36,7 +36,7 @@ smtpd_relay_restrictions = permit_mynetworks, defer_if_permit, permit
 myhostname = mail.nwsecdocker.jhu.edu
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = $myhostname, 5ae95f2270bb, localhost.localdomain, , localhost
+mydestination = $myhostname, localhost.\$mydomain, localhost
 relayhost = 
 #mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mynetworks = 0.0.0.0/0 [::]/0
@@ -44,3 +44,19 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
+
+virtual_mailbox_domains = proxy:mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf
+virtual_mailbox_maps =
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_mailbox_maps.cf,
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf
+virtual_alias_maps =
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_maps.cf,
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_maps.cf,
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf
+   
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+
+virtual_mailbox_base = /var/vmail
+virtual_minimum_uid = 2000
+virtual_uid_maps = static:2000
+virtual_gid_maps = static:2000
