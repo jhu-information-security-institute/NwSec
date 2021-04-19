@@ -1,0 +1,3 @@
+<?php
+$CONF['configured'] = true;
+?>

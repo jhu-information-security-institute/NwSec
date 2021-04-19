@@ -24,9 +24,9 @@ ENV container docker
 RUN apt-get update
 
 #install utilities
-RUN apt-get install apt-utils dpkg-dev -y
+RUN apt-get install apt-utils dpkg-dev debconf -y
 RUN apt-get install net-tools iputils-ping iptables wget -y
-RUN apt-get install vim -y
+RUN apt-get install vim acl -y
 
 #install dependencies
 RUN apt-get install systemd systemd-sysv -y
@@ -37,43 +37,56 @@ RUN apt-get install libxext6 libxtst6 libxi6 dbus-x11 xauth -y
 #install gnome-terminal
 RUN apt-get install --no-install-recommends gnome-terminal -y
 
-#install all the things (email)
-RUN apt-get install debconf -y
-COPY postfix_install.sh /root/postfix_install.sh
+#install all the things (postfix)
+COPY postfix/postfix_install.sh /root/postfix_install.sh
 RUN /root/postfix_install.sh
 RUN apt-get install postfix -y
+
+# configure postfix
+COPY postfix/etc_postfix_main.cf /etc/postfix/main.cf
+COPY postfix/etc_postfix_master.cf /etc/postfix/master.cf
+RUN mkdir /etc/postfix/sql
+RUN chown postfix:postfix /etc/postfix/sql
+COPY postfix/etc_postfix_sql_mysql_virtual_alias_domain_catchall_maps.cf /etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf
+COPY postfix/etc_postfix_sql_mysql_virtual_alias_domain_mailbox_maps.cf /etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf
+COPY postfix/etc_postfix_sql_mysql_virtual_alias_domain_maps.cf /etc/postfix/sql/mysql_virtual_alias_domain_maps.cf
+COPY postfix/etc_postfix_sql_mysql_virtual_alias_maps.cf /etc/postfix/sql/mysql_virtual_alias_maps.cf
+COPY postfix/etc_postfix_sql_mysql_virtual_domains_maps.cf /etc/postfix/sql/mysql_virtual_domains_maps.cf
+COPY postfix/etc_postfix_sql_mysql_virtual_mailbox_maps.cf /etc/postfix/sql/mysql_virtual_mailbox_maps.cf
+RUN postconf maillog file=/var/log/postfix.log
+RUN adduser vmail --system --group --uid 2000 --disabled-login --no-create-home
+RUN mkdir /var/vmail
+RUN chown vmail:vmail /var/vmail/ -R
+RUN postfix upgrade-configuration
+
+#install dovecot
 RUN apt-get install dovecot-core dovecot-imapd dovecot-pop3d -y
 
+#configure dovecot
+COPY dovecot/etc_dovecot_dovecot.conf /etc/dovecot/dovecot.conf
+COPY dovecot/etc_dovecot_dovecot-sql.conf.ext /etc/dovecot/dovecot-sql.conf.ext
+COPY dovecot/etc_dovecot_conf.d_10-auth.conf /etc/dovecot/conf.d/10-auth.conf
+COPY dovecot/etc_dovecot_conf.d_10-mail.conf /etc/dovecot/conf.d/10-mail.conf
+COPY dovecot/etc_dovecot_conf.d_10-master.conf /etc/dovecot/conf.d/10-master.conf
+COPY dovecot/etc_dovecot_conf.d_15-mailboxes.conf /etc/dovecot/conf.d/15-mailboxes.conf
 #create dovecot and mail users
 RUN adduser dovecot mail
 
-# configure postfix and dovecot
-COPY etc_postfix_main.cf /etc/postfix/main.cf
-COPY etc_postfix_master.cf /etc/postfix/master.cf
-COPY etc_dovecot_dovecot.conf /etc/dovecot/dovecot.conf
-COPY etc_dovecot_conf.d_10-auth.conf /etc/dovecot/conf.d/10-auth.conf
-COPY etc_dovecot_conf.d_10-mail.conf /etc/dovecot/conf.d/10-mail.conf
-COPY etc_dovecot_conf.d_10-master.conf /etc/dovecot/conf.d/10-master.conf
-COPY etc_dovecot_conf.d_15-mailboxes.conf /etc/dovecot/conf.d/15-mailboxes.conf
-
-#install all the things (web server, MariaDB database server, PHP7.4, phpMyAdmin)
+#install all the things (web server, MariaDB database server, PHP7.4, postfixadmin)
 RUN apt-get install nginx mariadb-server mariadb-client -y
 RUN apt-get install php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl -y
 
-#COPY postfixadmin_install.sh /root/postfixadmin_install.sh
-#RUN /root/postfixadmin_install.sh
+#remove the default nginx site
+RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
 RUN apt-get install dbconfig-no-thanks -y
 RUN apt-get install postfixadmin -y
 RUN apt-get remove dbconfig-no-thanks -y
 
-#remove the default site
-RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
-
-COPY etc_nginx_conf.d_postfixadmin.conf /etc/nginx/conf.d/postfixadmin.conf
+COPY postfixadmin/etc_nginx_conf.d_postfixadmin.conf /etc/nginx/conf.d/postfixadmin.conf
 RUN mkdir -p /usr/share/postfixadmin/templates_c
 RUN chown -R www-data /usr/share/postfixadmin/templates_c
-COPY usr_share_postfixadmin_config.local.php /usr/share/postfixadmin/config.local.php
+COPY postfixadmin/usr_share_postfixadmin_config.local.php /usr/share/postfixadmin/config.local.php
 
 RUN ln -s /usr/share/postfixadmin/public /usr/share/nginx/html/postfixadmin
 
@@ -83,12 +96,15 @@ CMD ["/lib/systemd/systemd"]
 # Finished!
 RUN echo 'Container is ready, run it using $ docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest'
 RUN echo 'Then attach to it using $ docker exec -it emailsvr bash'
-RUN echo 'Stop nginx # systemctl stop nginx
+RUN echo 'Stop nginx # systemctl stop nginx'
 RUN echo 'Then run # hostnamectl set-hostname mail.nwsecdocker.jhu.edu'
 RUN echo 'Start nginx # systemctl start nginx'
 RUN echo 'Then run (use the notes in the bottom of the Dockerfile) # dpkg-reconfigure postfixadmin'
-RUN echo 'Edit /etc/dbconfig.inc.php and change $dbtype line to $dbtype=\'mysqli\';'
-RUN echo 'Log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/setup.php using 
+RUN echo 'Edit /etc/dbconfig.inc.php and change value of line with $dbtype to mysqli'
+RUN echo 'Log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/setup.php'
+RUN echo 'Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php'
+RUN echo 'Then, create a superadmin account Admin postfixadmin@mail.nwsecdocker.jhu.edu and specify its password'
+RUN echo 'Now, use that account to log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/login.php'
 RUN echo 'Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
 
 #Specify these values when prompted:

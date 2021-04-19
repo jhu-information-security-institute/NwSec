@@ -1,9 +1,10 @@
 ;
 ; BIND data file for local loopback interface
 ;
-$TTL	604800
+$TTL	86400			;default TTL for this zone (1 day)
+$ORIGIN nwsecdocker.jhu.edu.	;base domain name
 @	IN	SOA	ns.nwsecdocker.jhu.edu. root.nwsecdocker.jhu.edu (
-			      3		; Serial
+			      4		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
