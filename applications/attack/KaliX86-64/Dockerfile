@@ -1,0 +1,42 @@
+# Description:
+#   This runtime environment example Dockerfile creates a container for attacking and demonstrations
+# Usage:
+#   From this directory, run $ sudo docker build -t tattack .
+#   By default, runs as root
+# https://docs.docker.com/network/macvlan
+# http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker
+
+FROM kalilinux/kali:latest
+
+#avoid question/dialog during apt-get installs
+ARG DEBIAN_FRONTEND noninteractive
+
+# Setup container's ENV for systemd
+ENV container docker
+
+#update
+RUN apt-get update
+
+#set the root password
+#RUN echo -e "root\ntoor" | passwd
+
+#install utilities
+RUN apt-get install apt-utils dpkg-dev debconf -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap -y
+RUN apt-get install vim acl sudo -y
+
+RUN apt-get install thunderbird -y
+
+RUN useradd -m rjohn177
+RUN usermod -aG sudo rjohn177
+RUN echo 'rjohn177 ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/rjohn177
+
+USER rjohn177
+ENV HOME /home/rjohn177
+
+# Finished!
+RUN echo $'\n\
+* Container is ready, prep the bridge network using $ docker network create --driver macvlan --subnet=192.168.25.0/24 -o parent=eth1 macvlan \n\
+* run it using $ docker run --name attack --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.128 -ti tattack:latest bash'
+
+

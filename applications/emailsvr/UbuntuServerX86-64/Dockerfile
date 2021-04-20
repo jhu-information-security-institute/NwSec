@@ -61,7 +61,7 @@ RUN postfix upgrade-configuration
 RUN postconf maillog_file=/var/log/postfix.log
 
 #install dovecot
-RUN apt-get install dovecot-core dovecot-imapd dovecot-pop3d dovecot-mysql -y
+RUN apt-get install dovecot-core dovecot-imapd dovecot-pop3d dovecot-mysql dovecot-lmtpd -y
 
 #configure dovecot
 COPY dovecot/etc_dovecot_dovecot.conf /etc/dovecot/dovecot.conf
@@ -95,27 +95,31 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 # Finished!
-RUN echo 'Container is ready, run it using $ docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest'
-RUN echo 'Then attach to it using $ docker exec -it emailsvr bash'
-RUN echo 'Stop nginx # systemctl stop nginx'
-RUN echo 'Then run # hostnamectl set-hostname mail.nwsecdocker.jhu.edu'
-RUN echo 'Start nginx # systemctl start nginx'
-RUN echo 'Then run (use the notes in the bottom of the Dockerfile) # dpkg-reconfigure postfixadmin'
-RUN echo 'Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype to mysqli'
-RUN echo 'Log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/setup.php'
-RUN echo '    * Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php'
-RUN echo '    * Then, create a superadmin account Admin postfixadmin@nwsecdocker.jhu.edu and specify its password'
-RUN echo 'Now, use that account to log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/login.php'
-RUN echo '    * Create a new nwsecdocker.jhu.edu domain using postfix.admin'
-RUN echo '    * Create new email accounts in the nwsecdocker.jhu.edu domain'
-RUN echo 'Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
+RUN echo $'\n\
+* Container is ready, run it using $ docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest \n\
+* Attach to it using $ docker exec -it emailsvr bash \n\
+* Set the hostname for the container \n\
+    * Stop nginx # systemctl stop nginx \n\
+    * Set the hostname # hostnamectl set-hostname mail.nwsecdocker.jhu.edu \n\
+    * Start nginx # systemctl start nginx \n\
+* Build the postfixadmin mysql database # dpkg-reconfigure postfixadmin \n\
+    * Specify these values when prompted: \n\
+        * Configure database for postfixadmin with dbconfig-common? [yes/no] yes \n\
+        * Connection method for MySQL database of postfixadmin: 1 \n\
+        * Authentication plugin for MySQL database: 1 \n\
+        * MySQL database name for postfixadmin: postfixadmin \n\
+        * MySQL username for postfixadmin: postfixadmin@localhost \n\
+        * MySQL application password for postfixadmin: <PASSWORD> \n\
+        * Password confirmation: <PASSWORD> \n\
+        * Name of the databases administrative user: root \n\
+* Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype to mysqli \n\
+* Log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/setup.php \n\
+    * Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php \n\
+    * Then, create a superadmin account Admin postfixadmin@nwsecdocker.jhu.edu and specify its password \n\
+* Use that account to log in to http://mail.nwsecdocker.jhu.edu/postfixadmin/login.php \n\
+    * Create a new nwsecdocker.jhu.edu domain using postfix.admin \n\
+    * Create new email accounts in the nwsecdocker.jhu.edu domain \n\
+    * Note, you will need to create an email account for superadmin user \n\
+* Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
 
-#Specify these values when prompted:
-#  Configure database for postfixadmin with dbconfig-common? [yes/no] yes
-#  Connection method for MySQL database of postfixadmin: 1
-#  Authentication plugin for MySQL database: 1
-#  MySQL database name for postfixadmin: postfixadmin
-#  MySQL username for postfixadmin: postfixadmin@localhost
-#  MySQL application password for postfixadmin: <PASSWORD> 
-#  Password confirmation: <PASSWORD> 
-#  Name of the database's administrative user: root
+

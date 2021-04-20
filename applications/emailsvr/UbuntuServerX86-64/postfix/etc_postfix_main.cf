@@ -27,6 +27,7 @@ smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
 smtpd_use_tls=no
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtpd_tls_auth_only = no
 
 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
 # information on enabling SSL in the smtp client.
@@ -39,11 +40,12 @@ alias_database = hash:/etc/aliases
 mydestination = $myhostname, localhost.\$mydomain, localhost
 relayhost = 
 #mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
-mynetworks = 0.0.0.0/0 [::]/0
+#mynetworks = 0.0.0.0/0 [::]/0
+mynetworks = 127.0.0.0/8 192.168.25.0/24
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
-inet_protocols = all
+inet_protocols = ipv4
 
 virtual_mailbox_domains = proxy:mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf
 virtual_mailbox_maps =
@@ -60,3 +62,4 @@ virtual_mailbox_base = /var/vmail
 virtual_minimum_uid = 2000
 virtual_uid_maps = static:2000
 virtual_gid_maps = static:2000
+maillog_file = /var/log/postfix.log
