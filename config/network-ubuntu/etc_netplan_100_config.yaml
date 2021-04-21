@@ -6,6 +6,7 @@ network:
         ethernets:
                 #internet via host
                 ens33:
+                        #dhcp route adds default
                         dhcp4: true
                         dhcp4-overrides:
                                 use-dns: false
@@ -14,30 +15,35 @@ network:
                                 search: [MHI]
                 #nginx
                 ens38:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]                        
                 #mail
                 ens39:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
                 #nfs
                 ens40:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
                 #telnet
                 ens41:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
                 #ftp
                 ens42:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]

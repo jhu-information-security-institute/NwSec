@@ -6,6 +6,7 @@ network:
         ethernets:
         		#internet via host
                 ens33:
+                        #dhcp route adds default
                         dhcp4: true
                         dhcp4-overrides:
                                 use-dns: false
@@ -14,6 +15,7 @@ network:
                                 search: [MHI]
                 #dns
                 ens38:
+                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: no
                         addresses: [192.168.25.10/24]
                         nameservers:
@@ -21,6 +23,7 @@ network:
                                 search: [nwsecdocker.jhu.edu]
                 #dhcp
                 ens39:
+                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: no
                         addresses: [192.168.25.5/24]
                         nameservers:
@@ -28,24 +31,28 @@ network:
                                 search: [nwsecdocker.jhu.edu]
                 #suricata
                 ens40:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]
                 #auth
                 ens41:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]
                 #proxy
                 ens42:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]
                 #selks
                 ens43:
+                        #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]

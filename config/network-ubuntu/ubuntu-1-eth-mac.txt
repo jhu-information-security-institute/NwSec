@@ -1,0 +1,30 @@
+Generated using nmcli on Ubuntu server 1
+
+ens38: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:FE, hw, mtu 1500
+
+ens39: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:08, hw, mtu 1500
+
+ens40: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:12, hw, mtu 1500
+
+ens41: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:1C, hw, mtu 1500
+
+ens42: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:26, hw, mtu 1500
+
+ens43: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:30, hw, mtu 1500
+
+ens44: unmanaged
+        "Intel 82545EM"
+        ethernet (e1000), 00:0C:29:57:67:3A, hw, mtu 1500
+
