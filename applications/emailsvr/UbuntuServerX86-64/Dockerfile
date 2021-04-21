@@ -25,8 +25,8 @@ RUN apt-get update
 
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf -y
-RUN apt-get install net-tools iputils-ping iptables wget -y
-RUN apt-get install vim acl -y
+RUN apt-get install net-tools iputils-ping iptables wget nmap -y
+RUN apt-get install vim acl sudo -y
 
 #install dependencies
 RUN apt-get install systemd systemd-sysv -y

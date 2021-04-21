@@ -3,7 +3,7 @@
 # Usage:
 #   From this directory, run $ sudo docker build -t tdhcpsvr .
 #   By default, runs as root
-#   https://www.isc.org/dhcp/
+#   https://www.isc.org/dhcp
 
 FROM ubuntu:20.04
 
@@ -37,7 +37,8 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 # Finished!
-RUN echo 'Container is ready, run it using $ sudo docker run -d --name dhcpsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdhcpsvr:latest'
-RUN echo 'Then attach to it using $ sudo docker exec -it dhcpsvr bash'
-RUN echo 'isc-dhcp-server status is available using $ sudo systemctl status isc-dhcp-server'
-RUN echo 'isc-dhcp-server can be stopped and started as well using systemctl'
+RUN echo $'\n\
+* Container is ready, run it using $ sudo docker run -d --name dhcpsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdhcpsvr:latest \n\
+* Attach to it using $ sudo docker exec -it dhcpsvr bash \n\
+* isc-dhcp-server status is available using $ sudo systemctl status isc-dhcp-server \n\
+* isc-dhcp-server can be stopped and started as well using systemctl'

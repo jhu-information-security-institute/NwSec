@@ -22,10 +22,11 @@ RUN apt-get update
 
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf -y
-RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap -y
-RUN apt-get install vim acl sudo -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils inetutils-traceroute netcat -y
+RUN apt-get install vim acl sudo telnet ssh -y
+RUN apt-get install hping3 -y
 
-RUN apt-get install thunderbird -y
+RUN apt-get install thunderbird firefox-esr sendmail -y
 
 RUN useradd -m rjohn177
 RUN usermod -aG sudo rjohn177
@@ -37,6 +38,10 @@ ENV HOME /home/rjohn177
 # Finished!
 RUN echo $'\n\
 * Container is ready, prep the bridge network using $ docker network create --driver macvlan --subnet=192.168.25.0/24 -o parent=eth1 macvlan \n\
-* run it using $ docker run --name attack --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.128 -ti tattack:latest bash'
+* run it using $ docker run --name attack --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.128 -ti tattack:latest bash \n\
+* setup default route using \n\
+    * $ sudo ip route del default \n\
+    * $ sudo ip route add default via 192.168.25.128 dev eth0 \n\
+* attack!'
 
 

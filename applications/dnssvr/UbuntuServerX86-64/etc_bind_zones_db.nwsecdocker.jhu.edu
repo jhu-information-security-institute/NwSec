@@ -17,11 +17,13 @@ $ORIGIN nwsecdocker.jhu.edu.	;base domain name
 ns.nwsecdocker.jhu.edu.	IN	A	192.168.25.10
 
 ; hosts
+; Ubuntu 2
 dhcp.nwsecdocker.jhu.edu.		IN	A	192.168.25.5
 suricata.nwsecdocker.jhu.edu.	IN	A	192.168.25.100
 auth.nwsecdocker.jhu.edu.		IN	A	192.168.25.101
 proxy.nwsecdocker.jhu.edu.		IN	A	192.168.25.102
 selks.nwsecdocker.jhu.edu.		IN	A	192.168.25.103
+; Ubuntu 1
 nginx.nwsecdocker.jhu.edu.		IN	A	192.168.25.104
 mail.nwsecdocker.jhu.edu.		IN	A	192.168.25.105
 nfs.nwsecdocker.jhu.edu.		IN	A	192.168.25.106

@@ -3,7 +3,7 @@
 # Usage:
 #   From this directory, run $ sudo docker build -t twebsvr .
 #   By default, runs as root
-#   https://nginx.org/en/
+#   https://nginx.org/en
 
 FROM ubuntu:20.04
 
@@ -46,7 +46,8 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 # Finished!
-RUN echo 'Container is ready, run it using $ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" twebsvr:latest'
-RUN echo 'Then attach to it using $ sudo docker exec -it websvr bash'
-RUN echo 'nginx status is available using $ sudo systemctl status nginx'
-RUN echo 'nginx can be stopped and started as well using systemctl'
+RUN echo $'\n\
+* Container is ready, run it using $ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" twebsvr:latest \n\
+* Attach to it using $ sudo docker exec -it websvr bash \n\
+* nginx status is available using $ sudo systemctl status nginx \n\
+* nginx can be stopped and started as well using systemctl'

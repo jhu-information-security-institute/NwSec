@@ -48,7 +48,8 @@ COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.ru
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
-RUN echo 'Container is ready, run it using $ sudo docker run -d --name suricata --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="2" tsuricata:latest'
-RUN echo 'Then attach to it using $ sudo docker exec -it suricata bash'
-RUN echo 'suricata status is available using $ sudo systemctl status suricata'
-RUN echo 'suricata can be stopped and started as well using systemctl'
+RUN echo $'\n\
+* Container is ready, run it using $ sudo docker run -d --name suricata --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="2" tsuricata:latest \n\
+* Attach to it using $ sudo docker exec -it suricata bash \n\
+* suricata status is available using $ sudo systemctl status suricata \n\
+* suricata can be stopped and started as well using systemctl'
