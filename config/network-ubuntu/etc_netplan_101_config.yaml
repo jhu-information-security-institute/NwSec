@@ -1,0 +1,50 @@
+#/etc/netplan/101_config.yaml
+#netplan configuration file for Ubuntu Server 1: nginx, mail, nfs, telnet, ftp, etc.
+network:
+        version: 2
+        renderer: networkd
+        ethernets:
+                #internet via host
+                ens33:
+                        #dhcp route adds default
+                        dhcp4: true
+                        dhcp4-overrides:
+                                use-dns: false
+                        nameservers:
+                                addresses: [192.168.50.1]
+                                search: [MHI]
+                #nginx
+                ens38:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]                        
+                #mail
+                ens39:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]      
+                #nfs
+                ens40:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]      
+                #telnet
+                ens41:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]      
+                #ftp
+                ens42:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]      

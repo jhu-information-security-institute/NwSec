@@ -1,10 +1,10 @@
 #/etc/netplan/99_config.yaml
-#netplan configuration file for Ubuntu Server 2: dns, dhcp, suricata, auth, proxy, selks, etc.
+#netplan configuration file 1 for Ubuntu Server 2: internet, dns, dhcp
 network:
         version: 2
         renderer: networkd
         ethernets:
-        		#internet via host
+                #internet via host
                 ens33:
                         #dhcp route adds default
                         dhcp4: true
@@ -29,32 +29,3 @@ network:
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]
-                #suricata
-                ens40:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #auth
-                ens41:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #proxy
-                ens42:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #selks
-                ens43:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-
