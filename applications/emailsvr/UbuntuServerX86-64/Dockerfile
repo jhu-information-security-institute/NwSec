@@ -1,7 +1,7 @@
 # Description:
 #   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and postfix+dovecot+postfixadmin+lemp stack mail server environment
 # Usage:
-#   From this directory, run $ sudo docker build -t temailsvr .
+#   From this directory, run $ docker build -t temailsvr .
 #   By default, runs as root
 #   https://www.dovecot.org
 #   http://www.postfix.org
@@ -19,6 +19,7 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
+ENV HOSTNAME mail.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -91,17 +92,15 @@ COPY postfixadmin/usr_share_postfixadmin_config.local.php /usr/share/postfixadmi
 
 RUN ln -s /usr/share/postfixadmin/public /usr/share/nginx/html/postfixadmin
 
+RUN echo "mail" >> /etc/hostname
+
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name emailsvr --hostname mail.nwsecdocker.jhu.edu --add-host mail.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest \n\
 * Attach to it using $ docker exec -it emailsvr bash \n\
-* Set the hostname for the container \n\
-    * Stop nginx # systemctl stop nginx \n\
-    * Set the hostname # hostnamectl set-hostname mail.nwsecdocker.jhu.edu \n\
-    * Start nginx # systemctl start nginx \n\
 * Build the postfixadmin mysql database # dpkg-reconfigure postfixadmin \n\
     * Specify these values when prompted: \n\
         * Configure database for postfixadmin with dbconfig-common? [yes/no] yes \n\

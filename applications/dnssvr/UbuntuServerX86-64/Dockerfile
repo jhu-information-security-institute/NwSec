@@ -1,7 +1,7 @@
 # Description:
 #   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and a caching only dns server
 # Usage:
-#   From this directory, run $ sudo docker build -t tdnssvr .
+#   From this directory, run $ docker build -t tdnssvr .
 #   By default, runs as root
 #   https://www.isc.org/bind
 
@@ -16,6 +16,7 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
+ENV HOSTNAME ns.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -42,7 +43,7 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ sudo docker run -d --name dnssvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdnssvr:latest \n\
-* Attach to it using $ sudo docker exec -it dnssvr bash \n\
-* bind9 status is available using $ sudo systemctl status bind9 \n\
+* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns.nwsecdocker.jhu.edu --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdnssvr:latest \n\
+* Attach to it using $ docker exec -it dnssvr bash \n\
+* bind9 status is available using # systemctl status bind9 \n\
 * bind9 can be stopped and started as well using systemctl'

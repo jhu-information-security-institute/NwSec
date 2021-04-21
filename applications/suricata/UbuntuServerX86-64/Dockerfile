@@ -1,7 +1,7 @@
 # Description:
 #   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and suricata
 # Usage:
-#   From this directory, run $ sudo docker build -t tsuricata .
+#   From this directory, run $ docker build -t tsuricata .
 #   By default, runs as root
 #   https://suricata-ids.org
 
@@ -16,6 +16,7 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
+ENV HOSTNAME suricata.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -49,7 +50,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 RUN echo $'\n\
-* Container is ready, run it using $ sudo docker run -d --name suricata --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="2" tsuricata:latest \n\
-* Attach to it using $ sudo docker exec -it suricata bash \n\
-* suricata status is available using $ sudo systemctl status suricata \n\
+* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="2" tsuricata:latest \n\
+* Attach to it using $ docker exec -it suricata bash \n\
+* suricata status is available using # systemctl status suricata \n\
 * suricata can be stopped and started as well using systemctl'

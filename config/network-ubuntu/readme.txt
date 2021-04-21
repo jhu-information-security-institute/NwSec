@@ -11,8 +11,13 @@
 
 Boot order:
 * Boot Ubuntu server 2
-    * Start dnssvr
-    * Start dhcpsvr
+    * Start dnssvr (uses ens38, static ip)
+    * Start dhcpsvr (uses ens39, static ip)
+    * Configure dhcp assigned addresses by running the following commands
+        * # dhclient -v ens40
+        * # dhclient -v ens41
+        * # dhclient -v ens42
+        * # dhclient -v ens43
     * Start other containers
 * Boot Ubuntu server 1
     * Start desired containers

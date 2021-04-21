@@ -1,7 +1,7 @@
 # Description:
 #   This runtime environment example Dockerfile creates a container for attacking and demonstrations
 # Usage:
-#   From this directory, run $ sudo docker build -t tattack .
+#   From this directory, run $ docker build -t tattack .
 #   By default, runs as root
 # https://docs.docker.com/network/macvlan
 # http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker
@@ -13,6 +13,7 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
+ENV HOSTNAME attack
 
 #update
 RUN apt-get update
@@ -38,10 +39,7 @@ ENV HOME /home/rjohn177
 # Finished!
 RUN echo $'\n\
 * Container is ready, prep the bridge network using $ docker network create --driver macvlan --subnet=192.168.25.0/24 -o parent=eth1 macvlan \n\
-* run it using $ docker run --name attack --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.128 -ti tattack:latest bash \n\
-* setup default route using \n\
-    * $ sudo ip route del default \n\
-    * $ sudo ip route add default via 192.168.25.128 dev eth0 \n\
+* run it using $ docker run --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.128 -ti tattack:latest bash \n\
 * attack!'
 
 
