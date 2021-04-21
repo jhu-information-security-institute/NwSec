@@ -22,9 +22,9 @@ ENV HOSTNAME nginx.nwsecdocker.jhu.edu
 RUN apt-get update
 
 #install utilities
-RUN apt-get install apt-utils dpkg-dev -y
-RUN apt-get install net-tools iputils-ping iptables wget -y
-RUN apt-get install vim -y
+RUN apt-get install apt-utils dpkg-dev debconf -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute netcat -y
+RUN apt-get install vim acl sudo telnet ssh -y
 
 #install dependencies
 RUN apt-get install systemd systemd-sysv -y

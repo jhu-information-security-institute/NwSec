@@ -23,7 +23,7 @@ RUN apt-get update
 
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf -y
-RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils inetutils-traceroute netcat -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute netcat -y
 RUN apt-get install vim acl sudo telnet ssh -y
 RUN apt-get install hping3 -y
 
