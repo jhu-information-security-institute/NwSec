@@ -30,13 +30,13 @@ RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dns
 RUN apt-get install vim acl sudo telnet ssh -y
 
 #install dependencies
-RUN apt-get install systemd systemd-sysv -y
+RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
 #install X11 dependencies
-RUN apt-get install libxext6 libxtst6 libxi6 dbus-x11 xauth -y
+#RUN apt-get install libxext6 libxtst6 libxi6 dbus-x11 xauth -y
 
 #install gnome-terminal
-RUN apt-get install --no-install-recommends gnome-terminal -y
+#RUN apt-get install --no-install-recommends gnome-terminal -y
 
 #install all the things (postfix)
 COPY postfix/postfix_install.sh /root/postfix_install.sh
@@ -47,18 +47,17 @@ RUN apt-get install postfix -y
 COPY postfix/etc_postfix_main.cf /etc/postfix/main.cf
 COPY postfix/etc_postfix_master.cf /etc/postfix/master.cf
 RUN mkdir /etc/postfix/sql
-RUN chown postfix:postfix /etc/postfix/sql
 COPY postfix/etc_postfix_sql_mysql_virtual_alias_domain_catchall_maps.cf /etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf
 COPY postfix/etc_postfix_sql_mysql_virtual_alias_domain_mailbox_maps.cf /etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf
 COPY postfix/etc_postfix_sql_mysql_virtual_alias_domain_maps.cf /etc/postfix/sql/mysql_virtual_alias_domain_maps.cf
 COPY postfix/etc_postfix_sql_mysql_virtual_alias_maps.cf /etc/postfix/sql/mysql_virtual_alias_maps.cf
 COPY postfix/etc_postfix_sql_mysql_virtual_domains_maps.cf /etc/postfix/sql/mysql_virtual_domains_maps.cf
 COPY postfix/etc_postfix_sql_mysql_virtual_mailbox_maps.cf /etc/postfix/sql/mysql_virtual_mailbox_maps.cf
-RUN postconf maillog file=/var/log/postfix.log
+RUN chown -R root:postfix /etc/postfix/sql
+RUN chmod -R go-w /etc/postfix/sql/*.cf /etc/postfix/*.cf /etc/postfix/makedefs.out
 RUN adduser vmail --system --group --uid 2000 --disabled-login --no-create-home
 RUN mkdir /var/vmail
 RUN chown vmail:vmail /var/vmail/ -R
-RUN postfix upgrade-configuration
 RUN postconf maillog_file=/var/log/postfix.log
 
 #install dovecot
@@ -99,7 +98,7 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name emailsvr --hostname mail.nwsecdocker.jhu.edu --add-host mail.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name emailsvr --hostname mail --add-host mail.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest \n\
 * Attach to it using $ docker exec -it emailsvr bash \n\
 * Build the postfixadmin mysql database # dpkg-reconfigure postfixadmin \n\
     * Specify these values when prompted: \n\
@@ -120,5 +119,3 @@ RUN echo $'\n\
     * Create new email accounts in the nwsecdocker.jhu.edu domain \n\
     * Note, you will need to create an email account for superadmin user \n\
 * Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
-
-

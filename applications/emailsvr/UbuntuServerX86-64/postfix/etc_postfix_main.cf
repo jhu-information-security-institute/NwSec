@@ -32,20 +32,21 @@ smtpd_tls_auth_only = no
 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
 # information on enabling SSL in the smtp client.
 
-#smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-smtpd_relay_restrictions = permit_mynetworks, defer_if_permit, permit
-myhostname = mail.nwsecdocker.jhu.edu
+mynetworks = 0.0.0.0/0 127.0.0.0/8 192.168.25.0/24
+smtpd_relay_restrictions = permit_mynetworks, reject_unauth_destination
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
+relay_domains = *
+myhostname = localhost
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = $myhostname, localhost.\$mydomain, localhost
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 relayhost = 
-#mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
-#mynetworks = 0.0.0.0/0 [::]/0
-mynetworks = 127.0.0.0/8 192.168.25.0/24
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = ipv4
+
+
 
 virtual_mailbox_domains = proxy:mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf
 virtual_mailbox_maps =
@@ -57,7 +58,7 @@ virtual_alias_maps =
    proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf
    
 virtual_transport = lmtp:unix:private/dovecot-lmtp
-#smtputf8_enable = no
+smtputf8_enable = no
 
 virtual_mailbox_base = /var/vmail
 virtual_minimum_uid = 2000
