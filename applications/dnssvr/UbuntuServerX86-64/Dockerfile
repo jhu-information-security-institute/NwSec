@@ -27,12 +27,13 @@ RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dns
 RUN apt-get install vim acl sudo telnet ssh -y
 
 #install dependencies
-RUN apt-get install systemd systemd-sysv -y
+RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
 #install all the things (web server)
 RUN apt-get install bind9 -y
 
 RUN mkdir -p /etc/bind/zones
+COPY etc_default_named /etc/default/named
 COPY etc_bind_named.conf.options /etc/bind/named.conf.options
 COPY etc_bind_named.conf.local /etc/bind/named.conf.local
 COPY etc_bind_zones_db.nwsecdocker.jhu.edu /etc/bind/zones/db.nwsecdocker.jhu.edu
@@ -43,7 +44,7 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns.nwsecdocker.jhu.edu --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdnssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdnssvr:latest \n\
 * Attach to it using $ docker exec -it dnssvr bash \n\
 * bind9 status is available using # systemctl status bind9 \n\
 * bind9 can be stopped and started as well using systemctl'
