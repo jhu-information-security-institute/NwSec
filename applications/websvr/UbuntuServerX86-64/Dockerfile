@@ -27,7 +27,7 @@ RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dns
 RUN apt-get install vim acl sudo telnet ssh -y
 
 #install dependencies
-RUN apt-get install systemd systemd-sysv -y
+RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
 #install all the things (web server)
 RUN apt-get install nginx -y
