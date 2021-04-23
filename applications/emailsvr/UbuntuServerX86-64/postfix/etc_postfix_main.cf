@@ -33,6 +33,7 @@ smtpd_tls_auth_only = no
 # information on enabling SSL in the smtp client.
 
 mynetworks = 0.0.0.0/0 127.0.0.0/8 192.168.25.0/24
+smtpd_client_restrictions = permit_mynetworks, reject_unauth_destination
 smtpd_relay_restrictions = permit_mynetworks, reject_unauth_destination
 smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
 relay_domains = *
