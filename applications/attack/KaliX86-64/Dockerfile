@@ -23,9 +23,10 @@ RUN apt-get update
 
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf -y
-RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute netcat -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute netcat telnet -y
 RUN apt-get install vim acl sudo telnet ssh -y
 RUN apt-get install hping3 -y
+RUN apt-get install hydra hydra-gtk ismtp set -y
 
 RUN apt-get install thunderbird firefox-esr sendmail -y
 
@@ -35,6 +36,9 @@ RUN echo 'rjohn177 ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/rjohn177
 
 USER rjohn177
 ENV HOME /home/rjohn177
+
+RUN cp ~/Downloads/johntheripper.zip /home/rjohn177/.
+RUN cp ../email_common_roots.txt /home/rjohn177/.
 
 # Finished!
 RUN echo $'\n\
