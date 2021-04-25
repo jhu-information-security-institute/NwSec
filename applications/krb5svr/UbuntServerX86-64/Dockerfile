@@ -48,11 +48,11 @@ RUN echo $'\n\
 * krb5-kdc status is available using # systemctl status krb5-kdc \n\
 * krb5-admin-server status is available using # systemctl status krb5-admin-server \n\
 * krb5-kdc and krb5-admin-server can be stopped and started as well using systemctl \n\
-* Create a kerberos realm using $ krb5_newrealm \n\
+* Create a kerberos realm using # krb5_newrealm \n\
     * set the master key password when prompted \n\
-* Log in to kadmin using $ sudo kadmin.local \n\
+* Log in to kadmin using # kadmin.local \n\
     * create your administrative pricipal user using: kadmin.local: addprinc ubuntu/admin \n\
         * set the password when prompted \n\
     * quit kadmin using: kadmin.local: quit \n\
 * Restart the server to reload the new ACL using: $ sudo systemctl restart krb5-admin-server.service \n\
-* Test the principle user using $ kinit ubuntu/admin'
+* Test the principle user using # kinit ubuntu/admin'

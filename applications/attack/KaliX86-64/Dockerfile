@@ -13,7 +13,7 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
-ENV HOSTNAME attack
+ENV HOSTNAME attack.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -22,9 +22,9 @@ RUN apt-get update
 #RUN echo -e "root\ntoor" | passwd
 
 #install utilities
-RUN apt-get install apt-utils dpkg-dev debconf -y
-RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute netcat telnet -y
-RUN apt-get install vim acl sudo telnet ssh -y
+RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute -y
+RUN apt-get install vim acl sudo telnet ssh netcat -y
 RUN apt-get install hping3 -y
 RUN apt-get install hydra hydra-gtk ismtp set -y
 

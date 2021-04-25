@@ -22,7 +22,7 @@ ENV HOSTNAME wireshark.nwsecdocker.jhu.edu
 RUN apt-get update
 
 #install utilities
-RUN apt-get install apt-utils dpkg-dev debconf -y
+RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute -y
 RUN apt-get install vim acl sudo telnet ssh netcat -y
 
