@@ -22,7 +22,7 @@ RUN apt-get update
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute -y
-RUN apt-get install vim acl sudo telnet ssh netcat -y
+RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
 #install dependencies
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
@@ -32,8 +32,12 @@ RUN apt-get install nfs-kernel-server -y
 
 #create the export directory
 RUN mkdir -p /export/nfsshare
+RUN touch /export/nfsshare/reubwashere
 RUN chown -R nobody:nogroup /export/nfsshare
 RUN chmod 777 /export/nfsshare
+
+COPY etc_exports /etc/exports
+COPY etc_fstab /etc/fstab
 
 VOLUME [ "/sys/fs/cgroup" ]
 VOLUME [ "/export/nfsshare" ]

@@ -24,7 +24,7 @@ RUN apt-get update
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute -y
-RUN apt-get install vim acl sudo telnet ssh netcat -y
+RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
 RUN echo 'Install dependencies'
 RUN apt-get install systemd systemd-sysv -y

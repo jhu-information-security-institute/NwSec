@@ -24,7 +24,7 @@ RUN apt-get update
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute -y
-RUN apt-get install vim acl sudo telnet ssh netcat -y
+RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 RUN apt-get install hping3 -y
 RUN apt-get install hydra hydra-gtk ismtp set -y
 
@@ -39,6 +39,7 @@ ENV HOME /home/rjohn177
 
 RUN cp ~/Downloads/johntheripper.zip /home/rjohn177/.
 RUN cp ../email_common_roots.txt /home/rjohn177/.
+RUN mkdir /mnt/nfs
 
 # Finished!
 RUN echo $'\n\

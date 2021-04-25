@@ -30,5 +30,5 @@ selks.nwsecdocker.jhu.edu.		IN	A	192.168.25.103
 nginx.nwsecdocker.jhu.edu.		IN	A	192.168.25.104
 mail.nwsecdocker.jhu.edu.		IN	A	192.168.25.105
 nfs.nwsecdocker.jhu.edu.		IN	A	192.168.25.106
-telnet.nwsecdocker.jhu.edu.		IN	A	192.168.25.107
+term.nwsecdocker.jhu.edu.		IN	A	192.168.25.107
 ftp.nwsecdocker.jhu.edu.		IN	A	192.168.25.108

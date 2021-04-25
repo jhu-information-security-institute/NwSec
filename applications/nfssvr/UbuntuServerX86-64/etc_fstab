@@ -1,0 +1,2 @@
+# UNCONFIGURED FSTAB FOR BASE SYSTEM
+/nfsshare    /export/nfsshare   none    bind  0  0
