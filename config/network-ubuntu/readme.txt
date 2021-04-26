@@ -23,3 +23,7 @@ Boot order:
     * Start desired containers
 * Before shutting down Ubuntu server 2, run
     * # ~/netplan/prepshutdown_netplan.sh
+    
+Notes:
+* If you lose dns in your Ubuntu VMs for internet sites, it is likely that your /etc/resolv.conf needs updating
+    * Add your router's IP address as an additional nameserver on a new line in /etc/resolv.conf

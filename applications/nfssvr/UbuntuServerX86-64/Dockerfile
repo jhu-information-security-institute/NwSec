@@ -2,7 +2,9 @@
 #   This runtime environment example Dockerfile creates a container with a minimal Ubuntu server and nfs server
 # Usage:
 #   From this directory, run $ docker build -t tnfssvr .
-# By default, runs as root
+#   By default, runs as root
+# https://help.ubuntu.com/community/SettingUpNFSHowTo
+
 FROM ubuntu:20.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
