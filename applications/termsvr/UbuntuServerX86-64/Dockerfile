@@ -33,7 +33,7 @@ RUN apt-get install systemd systemd-sysv -y
 #install all the things (inetutils-telnetd, openssh-server)
 RUN apt-get install inetutils-telnetd openssh-server -y
 
-RUN echo -e "nwsec123\nnwsec123" | passwd
+RUN echo "nwsec123\nnwsec123" | passwd
 
 COPY etc_pam.d_login /etc/pam.d/login
 COPY etc_inetd.conf /etc/inetd.conf
@@ -49,5 +49,5 @@ RUN echo $'\n\
 * openssh-server status is available using # systemctl status sshd \n\
 * inetutils-inetd can be stopped and started as well using systemctl \n\
 * openssh-server can be stopped and started as well using systemctl \n\
-* telnet into the server by running $ telnet root@term.nwsecdocker.jhu.edu -p 10022 \n\
+* telnet into the server by running $ telnet term.nwsecdocker.jhu.edu \n\
 * ssh into the server by running $ ssh root@term.nwsecdocker.jhu.edu -p 10022'
