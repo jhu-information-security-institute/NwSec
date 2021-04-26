@@ -30,25 +30,27 @@ RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-
 #install all the things (nfs server)
 RUN apt-get install nfs-kernel-server -y
 
-#create the export directory
-RUN mkdir -p /export/nfsshare
-RUN touch /export/nfsshare/reubwashere
-RUN chown -R nobody:nogroup /export/nfsshare
-RUN chmod 777 /export/nfsshare
+#create the directory that will be shared
+RUN mkdir -p /nfsshare
+RUN touch /nfsshare/reubwashere
 
+#update configuration files
 COPY etc_exports /etc/exports
 COPY etc_fstab /etc/fstab
 
 VOLUME [ "/sys/fs/cgroup" ]
+#in docker containers, it is necessary to specify volumes for exported nfs directories
 VOLUME [ "/export/nfsshare" ]
 VOLUME [ "/nfsshare" ]
 
-# Finished!
+CMD ["/lib/systemd/systemd"]
+
 # Finished!
 RUN echo $'\n\
+* Make sure that you have created the /export/nfsshare and /nfsshare directories on the VM itself prior to running the container \n\    
 * Container is ready, run it using $ docker run -d --name nfssvr --hostname nfs.nwsecdocker.jhu.edu --add-host nfs.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /export/nfsshare:/export/nfsshare:rw -v /nvsshare:/nfsshare:rw --network host --cpus="1" tnfssvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr bash \n\
 * nfs-kernel-server status is available using # systemctl status nfs-kernel-server \n\
 * nfs-kernel-server can be stopped and started as well using systemctl'
 
-CMD ["/lib/systemd/systemd"]
+

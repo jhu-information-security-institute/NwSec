@@ -30,6 +30,11 @@ RUN apt-get install hydra hydra-gtk ismtp set -y
 
 RUN apt-get install thunderbird firefox-esr sendmail -y
 
+#install dependencies
+RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
+
+RUN mkdir -p /mnt/nfs
+
 RUN useradd -m rjohn177
 RUN usermod -aG sudo rjohn177
 RUN echo 'rjohn177 ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/rjohn177
@@ -37,14 +42,19 @@ RUN echo 'rjohn177 ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/rjohn177
 USER rjohn177
 ENV HOME /home/rjohn177
 
-RUN cp ~/Downloads/johntheripper.zip /home/rjohn177/.
-RUN cp ../email_common_roots.txt /home/rjohn177/.
-RUN mkdir /mnt/nfs
+COPY lame.txt /home/rjohn177/.
+COPY email_common_roots.txt /home/rjohn177/.
+
+USER root
+VOLUME [ "/sys/fs/cgroup" ]
+CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
 * Container is ready, prep the bridge network using $ docker network create --driver macvlan --subnet=192.168.25.0/24 -o parent=eth1 macvlan \n\
-* run it using $ docker run --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.50 -ti tattack:latest bash \n\
+* run it using $ docker run -d --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.50 tattack:latest \n\
+* Attach to it using $ docker exec -it attack bash \n\
+* Change to your user via $ su rjohn177
 * attack!'
 
 
