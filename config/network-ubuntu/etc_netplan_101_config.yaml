@@ -34,7 +34,7 @@ network:
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
-                #telnet
+                #term
                 ens41:
                         #dhcp route adds default
                         dhcp4: true

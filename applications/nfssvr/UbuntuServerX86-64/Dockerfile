@@ -4,6 +4,7 @@
 #   From this directory, run $ docker build -t tnfssvr .
 #   By default, runs as root
 # https://help.ubuntu.com/community/SettingUpNFSHowTo
+# https://help.ubuntu.com/community/NFSv4Howto
 
 FROM ubuntu:20.04
 
@@ -23,7 +24,7 @@ RUN apt-get update
 
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
-RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute -y
+RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute isc-dhcp-common -y
 RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
 #install dependencies
