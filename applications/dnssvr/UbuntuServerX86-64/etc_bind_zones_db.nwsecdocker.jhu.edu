@@ -22,13 +22,16 @@ nwsecdocker.jhu.edu.		IN	MX	0	mail.nwsecdocker.jhu.edu.
 ; hosts
 ; Ubuntu 2
 dhcp.nwsecdocker.jhu.edu.		IN	A	192.168.25.5
-suricata.nwsecdocker.jhu.edu.		IN	A	192.168.25.100
+suricata.nwsecdocker.jhu.edu.	IN	A	192.168.25.100
 auth.nwsecdocker.jhu.edu.		IN	A	192.168.25.101
 proxy.nwsecdocker.jhu.edu.		IN	A	192.168.25.102
-selks.nwsecdocker.jhu.edu.		IN	A	192.168.25.103
+
+; Selks
+selks.nwsecdocker.jhu.edu.		IN	A	192.168.25.110
+
 ; Ubuntu 1
-nginx.nwsecdocker.jhu.edu.		IN	A	192.168.25.104
-mail.nwsecdocker.jhu.edu.		IN	A	192.168.25.105
-nfs.nwsecdocker.jhu.edu.		IN	A	192.168.25.106
-term.nwsecdocker.jhu.edu.		IN	A	192.168.25.107
-ftp.nwsecdocker.jhu.edu.		IN	A	192.168.25.108
+nginx.nwsecdocker.jhu.edu.		IN	A	192.168.25.120
+mail.nwsecdocker.jhu.edu.		IN	A	192.168.25.121
+nfs.nwsecdocker.jhu.edu.		IN	A	192.168.25.122
+term.nwsecdocker.jhu.edu.		IN	A	192.168.25.123
+ftp.nwsecdocker.jhu.edu.		IN	A	192.168.25.124

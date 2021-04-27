@@ -33,17 +33,16 @@ RUN apt-get install thunderbird firefox-esr sendmail -y
 #install dependencies
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-RUN mkdir -p /mnt/nfs
+RUN useradd -m student
+RUN echo 'student:nwsec' | chpasswd
+RUN usermod -aG sudo student
+RUN echo 'student ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/student
 
-RUN useradd -m rjohn177
-RUN usermod -aG sudo rjohn177
-RUN echo 'rjohn177 ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/rjohn177
+USER student
+ENV HOME /home/student
 
-USER rjohn177
-ENV HOME /home/rjohn177
-
-COPY lame.txt /home/rjohn177/.
-COPY email_common_roots.txt /home/rjohn177/.
+COPY lame.txt /home/student/.
+COPY email_common_roots.txt /home/student/.
 
 USER root
 VOLUME [ "/sys/fs/cgroup" ]
@@ -54,7 +53,7 @@ RUN echo $'\n\
 * Container is ready, prep the bridge network using $ docker network create --driver macvlan --subnet=192.168.25.0/24 -o parent=eth1 macvlan \n\
 * run it using $ docker run -d --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.50 tattack:latest \n\
 * Attach to it using $ docker exec -it attack bash \n\
-* Change to your user via $ su rjohn177
+* Change to your user via $ su student \n\
 * attack!'
 
 

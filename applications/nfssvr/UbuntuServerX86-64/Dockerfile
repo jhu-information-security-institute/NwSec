@@ -34,27 +34,25 @@ RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-
 RUN apt-get install nfs-kernel-server -y
 
 #create the directory that will be shared
-RUN mkdir -p /nfsshare
-RUN touch /nfsshare/reubwashere
+#RUN mkdir -p /nfsshare
+#RUN touch /nfsshare/reubwashere
 
 #update configuration files
 COPY etc_exports /etc/exports
 COPY etc_fstab /etc/fstab
 
 VOLUME [ "/sys/fs/cgroup" ]
-#in docker containers, it is necessary to specify volumes for exported nfs directories
-VOLUME [ "/export/nfsshare" ]
+#shared folder on the VM
 VOLUME [ "/nfsshare" ]
 
 CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Make sure that you have created the /export/nfsshare and /nfsshare directories on the VM itself prior to running the container \n\    
-* Container is ready, run it using $ docker run -d --name nfssvr --hostname nfs.nwsecdocker.jhu.edu --add-host nfs.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /export/nfsshare:/export/nfsshare:rw -v /nvsshare:/nfsshare:rw --network host --cpus="1" tnfssvr:latest \n\
+* Make sure that you have created the /nfsshare directory on the VM itself prior to running the container \n\    
+* Container is ready, run it using $ docker run -d --name nfssvr --hostname nfs.nwsecdocker.jhu.edu --add-host nfs.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus="1" tnfssvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr bash \n\
 * nfs-kernel-server status is available using # systemctl status nfs-kernel-server \n\
 * nfs-kernel-server can be stopped and started as well using systemctl \n\
 * On the client, create /mnt/nfs and mount using $ mount -vvvv -t nfs -o proto=tcp,port=2049 nfs.nwsecdocker.jhu.edu:/nfsshare /mnt/nfs'
-
 

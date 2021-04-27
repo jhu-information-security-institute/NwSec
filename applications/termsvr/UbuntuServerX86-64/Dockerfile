@@ -33,17 +33,29 @@ RUN apt-get install systemd systemd-sysv -y
 #install all the things (inetutils-telnetd, openssh-server)
 RUN apt-get install inetutils-telnetd openssh-server -y
 
-RUN echo "nwsec123\nnwsec123" | passwd
-
 COPY etc_pam.d_login /etc/pam.d/login
 COPY etc_inetd.conf /etc/inetd.conf
+
+#create a few easy to guess users and passwords
+RUN useradd -m student
+RUN echo 'student:nwsec' | chpasswd
+RUN useradd -m john
+RUN echo 'john:password' | chpasswd
+RUN useradd -m jane
+RUN echo 'jane:password' | chpasswd
+
+#create a goldenkeyfile
+RUN echo 'reubwashere' > /root/goldenkey
+
+#shared folder on the VM
+VOLUME [ "/nfsshare" ]
 
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" ttermsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus="1" ttermsvr:latest \n\
 * Attach to it using $ docker exec -it termsvr bash \n\
 * inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
 * openssh-server status is available using # systemctl status sshd \n\
