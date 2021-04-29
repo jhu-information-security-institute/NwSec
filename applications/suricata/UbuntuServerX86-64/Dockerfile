@@ -50,7 +50,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
 
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="2" tsuricata:latest \n\
+* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
 * Attach to it using $ docker exec -it suricata bash \n\
 * suricata status is available using # systemctl status suricata \n\
 * suricata can be stopped and started as well using systemctl'

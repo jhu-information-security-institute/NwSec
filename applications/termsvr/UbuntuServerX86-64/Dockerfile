@@ -17,7 +17,7 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
-ENV HOSTNAME dhcp.nwsecdocker.jhu.edu
+ENV HOSTNAME term.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -55,11 +55,11 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus="1" ttermsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus=1 ttermsvr:latest \n\
 * Attach to it using $ docker exec -it termsvr bash \n\
 * inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
 * openssh-server status is available using # systemctl status sshd \n\
 * inetutils-inetd can be stopped and started as well using systemctl \n\
 * openssh-server can be stopped and started as well using systemctl \n\
 * telnet into the server by running $ telnet term.nwsecdocker.jhu.edu \n\
-* ssh into the server by running $ ssh root@term.nwsecdocker.jhu.edu -p 10022'
+* ssh into the server by running $ ssh userterm.nwsecdocker.jhu.edu -p 10022'

@@ -44,7 +44,7 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tdnssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdnssvr:latest \n\
 * Attach to it using $ docker exec -it dnssvr bash \n\
 * bind9 status is available using # systemctl status bind9 \n\
 * bind9 can be stopped and started as well using systemctl'

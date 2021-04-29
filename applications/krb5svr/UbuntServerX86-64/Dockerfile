@@ -43,7 +43,7 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name krb5svr --hostname auth.nwsecdocker.jhu.edu --add-host auth.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" tkrb5svr:latest \n\
+* Container is ready, run it using $ docker run -d --name krb5svr --hostname auth.nwsecdocker.jhu.edu --add-host auth.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tkrb5svr:latest \n\
 * Attach to it using $ docker exec -it krb5svr bash \n\
 * krb5-kdc status is available using # systemctl status krb5-kdc \n\
 * krb5-admin-server status is available using # systemctl status krb5-admin-server \n\

@@ -48,7 +48,7 @@ CMD ["/lib/systemd/systemd"]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name websvr --hostname nginx.nwsecdocker.jhu.edu --add-host nginx.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus="1" twebsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name websvr --hostname nginx.nwsecdocker.jhu.edu --add-host nginx.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 twebsvr:latest \n\
 * Attach to it using $ docker exec -it websvr bash \n\
 * nginx status is available using # systemctl status nginx \n\
 * nginx can be stopped and started as well using systemctl'
