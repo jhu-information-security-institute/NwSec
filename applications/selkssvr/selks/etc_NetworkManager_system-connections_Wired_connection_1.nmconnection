@@ -1,0 +1,18 @@
+[connection]
+id=Wired connection 1
+uuid=de8c92e7-171e-4e4e-b3f5-9c248b41b439
+type=ethernet
+interface-name=ens33
+permissions=
+timestamp=1619637967
+
+[ethernet]
+mac-address=00:0C:29:0A:5C:8F
+mac-address-blacklist=
+
+[ipv4]
+method=auto
+dns=systemd-resolved;
+
+[ipv6]
+method=disabled
