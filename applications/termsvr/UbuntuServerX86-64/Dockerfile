@@ -33,6 +33,7 @@ RUN apt-get install systemd systemd-sysv -y
 #install all the things (inetutils-telnetd, openssh-server)
 RUN apt-get install inetutils-telnetd openssh-server -y
 
+COPY etc_ssh_sshd_config /etc/ssh/sshd_config
 COPY etc_pam.d_login /etc/pam.d/login
 COPY etc_inetd.conf /etc/inetd.conf
 
@@ -49,6 +50,10 @@ RUN echo 'reubwashere' > /root/goldenkey
 
 #shared folder on the VM
 VOLUME [ "/nfsshare" ]
+
+#Build and place the goroot executable in this folder
+#COPY goroot /nfsshare/.
+#RUN setcap CAP_SETUID+ep /nfsshare/goroot
 
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
