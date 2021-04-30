@@ -223,7 +223,7 @@ processors:
           fields: [host]
     else:
       - add_host_metadata: ~
-  - add_cloud_metadata: ~
+#  - add_cloud_metadata: ~
   - add_docker_metadata: ~
   - detect_mime_type:
       field: http.request.body.content

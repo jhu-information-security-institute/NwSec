@@ -29,9 +29,6 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-#for systemd, need to replicate /sys/fs/cgroup
-VOLUME [ "/sys/fs/cgroup" ]
-
 #start systemd
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
@@ -53,10 +50,10 @@ RUN echo 'jane:password' | chpasswd
 # Finished!
 RUN echo $'\n\
 * Make sure that you have created the /nfsshare directory on the VM itself prior to running the container \n\    
-* Container is ready, run it using $ docker run -d --name nfssvr --hostname nfs.nwsecdocker.jhu.edu --add-host nfs.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /nfsshare:/nfsshare:rw --network host --cpus=1 tnfssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name nfssvr --hostname nfs.nwsecdocker.jhu.edu --add-host nfs.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus=1 tnfssvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr bash \n\
 * nfs-kernel-server status is available using # systemctl status nfs-kernel-server \n\
 * nfs-kernel-server can be stopped and started as well using systemctl \n\
 * On the VM hosting this nfs server, create the /nfsshared directory for the volume shared with the container \n\
-* On the client, create /mnt/nfs and mount using $ mount -vvvv -t nfs -o proto=tcp,port=2049 nfs.nwsecdocker.jhu.edu:/nfsshare /mnt/nfs'
+* On the client, create /mnt/nfs and mount using $ sudo mount -vvvv -t nfs -o proto=tcp,port=2049 nfs.nwsecdocker.jhu.edu:/nfsshare /mnt/nfs'
 

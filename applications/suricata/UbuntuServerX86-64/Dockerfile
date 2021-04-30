@@ -28,9 +28,6 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-#for systemd, need to replicate /sys/fs/cgroup
-VOLUME [ "/sys/fs/cgroup" ]
-
 #start systemd
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
@@ -54,7 +51,7 @@ RUN suricata-update
 COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.rules
 
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged --network host --cpus=1 tsuricata:latest \n\
+* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
 * Attach to it using $ docker exec -it suricata bash \n\
 * suricata status is available using # systemctl status suricata \n\
 * suricata can be stopped and started as well using systemctl'

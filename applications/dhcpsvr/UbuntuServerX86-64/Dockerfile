@@ -28,9 +28,6 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-#for systemd, need to replicate /sys/fs/cgroup
-VOLUME [ "/sys/fs/cgroup" ]
-
 #start systemd
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
@@ -41,7 +38,7 @@ COPY etc_dhcp_dhcpd.conf /etc/dhcp/dhcpd.conf
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dhcpsvr --hostname dhcp.nwsecdocker.jhu.edu --add-host dhcp.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged --network host --cpus=1 tdhcpsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dhcpsvr --hostname dhcp.nwsecdocker.jhu.edu --add-host dhcp.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdhcpsvr:latest \n\
 * Attach to it using $ docker exec -it dhcpsvr bash \n\
 * isc-dhcp-server status is available using # systemctl status isc-dhcp-server \n\
 * isc-dhcp-server can be stopped and started as well using systemctl'

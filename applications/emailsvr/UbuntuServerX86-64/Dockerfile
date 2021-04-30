@@ -31,9 +31,6 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-#for systemd, need to replicate /sys/fs/cgroup
-VOLUME [ "/sys/fs/cgroup" ]
-
 #start systemd
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
@@ -94,7 +91,7 @@ RUN echo "mail" >> /etc/hostname
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name emailsvr --hostname mail --add-host mail.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged --network host --cpus=1 temailsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name emailsvr --hostname mail --add-host mail.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 temailsvr:latest \n\
 * Attach to it using $ docker exec -it emailsvr bash \n\
 * Build the postfixadmin mysql database # dpkg-reconfigure postfixadmin \n\
     * Specify these values when prompted: \n\

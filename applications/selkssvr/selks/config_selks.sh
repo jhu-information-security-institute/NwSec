@@ -36,7 +36,7 @@ else
 	exit 0
 fi
 
-echo "proceed to run configure elasticsearch, kibana, and logstash (yes/no)? "
+echo "proceed to run configure elasticsearch, kibana, logstash, and scirius (yes/no)? "
 read PROCEED
 if [[ $PROCEED == "yes" ]]; then
 	#setup SELKS
@@ -54,6 +54,9 @@ if [[ $PROCEED == "yes" ]]; then
 	cp etc_logstash_logstash.yml /etc/logstash/logstash.yml
 	cp etc_logstash_conf.d_logstash.conf /etc/logstash/conf.d/logstash.conf
 	cd /usr/share/logstash && bin/logstash --setup --path.settings /etc/logstash -e
+	mkdir -p ~/backup/scirius
+	mv /etc/scirius/local_settings.py ~/backup/scirius/.
+	cp etc_scirius_local_settings.py /etc/scirius/local_settings.py
 	
 	#reenable SELKS services
 	systemctl daemon-reload

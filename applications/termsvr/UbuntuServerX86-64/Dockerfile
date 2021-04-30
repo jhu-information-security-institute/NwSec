@@ -29,9 +29,6 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-#for systemd, need to replicate /sys/fs/cgroup
-VOLUME [ "/sys/fs/cgroup" ]
-
 #start systemd
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
@@ -55,7 +52,7 @@ RUN echo 'reubwashere' > /root/goldenkey
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /nfsshare:/nfsshare:rw --network host --cpus=1 ttermsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus=1 ttermsvr:latest \n\
 * Attach to it using $ docker exec -it termsvr bash \n\
 * inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
 * openssh-server status is available using # systemctl status sshd \n\
