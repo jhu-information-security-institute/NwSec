@@ -16,7 +16,6 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
-ENV HOSTNAME ns.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -26,8 +25,14 @@ RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute isc-dhcp-common -y
 RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
-#install dependencies
+#install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
+
+#for systemd, need to replicate /sys/fs/cgroup
+VOLUME [ "/sys/fs/cgroup" ]
+
+#start systemd
+CMD ["/usr/lib/systemd/systemd", "--system"]
 
 #install all the things (web server)
 RUN apt-get install bind9 -y
@@ -39,12 +44,9 @@ COPY etc_bind_named.conf.local /etc/bind/named.conf.local
 COPY etc_bind_zones_db.nwsecdocker.jhu.edu /etc/bind/zones/db.nwsecdocker.jhu.edu
 COPY etc_bind_zones_db.25.168.192 /etc/bind/zones/db.25.168.192
 
-VOLUME [ "/sys/fs/cgroup" ]
-CMD ["/lib/systemd/systemd"]
-
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdnssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns --add-host ns.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged --network host --cpus=1 tdnssvr:latest \n\
 * Attach to it using $ docker exec -it dnssvr bash \n\
 * bind9 status is available using # systemctl status bind9 \n\
 * bind9 can be stopped and started as well using systemctl'

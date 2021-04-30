@@ -16,7 +16,6 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
-ENV HOSTNAME auth.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -26,8 +25,14 @@ RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute isc-dhcp-common -y
 RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
-#install dependencies
+#install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
+
+#for systemd, need to replicate /sys/fs/cgroup
+VOLUME [ "/sys/fs/cgroup" ]
+
+#start systemd
+CMD ["/usr/lib/systemd/systemd", "--system"]
 
 #install all the things (kdc and admin server)
 RUN echo "krb5-config krb5-config/default_realm string NWSECDOCKER.JHU.EDU" | sudo debconf-set-selections
@@ -38,12 +43,9 @@ RUN apt-get install krb5-kdc krb5-admin-server -y
 COPY etc_krb5.conf /etc/krb5.conf
 COPY etc_krb5kdc_kdc.conf /etc/krb5kdc/kdc.conf
 
-VOLUME [ "/sys/fs/cgroup" ]
-CMD ["/lib/systemd/systemd"]
-
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name krb5svr --hostname auth.nwsecdocker.jhu.edu --add-host auth.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tkrb5svr:latest \n\
+* Container is ready, run it using $ docker run -d --name krb5svr --hostname auth.nwsecdocker.jhu.edu --add-host auth.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged --network host --cpus=1 tkrb5svr:latest \n\
 * Attach to it using $ docker exec -it krb5svr bash \n\
 * krb5-kdc status is available using # systemctl status krb5-kdc \n\
 * krb5-admin-server status is available using # systemctl status krb5-admin-server \n\

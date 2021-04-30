@@ -6,6 +6,9 @@
 * Copy etc_netplan_101_config.yaml to /etc/netplan/101_config.yaml on Ubuntu server 1
 * Copy etc_netplan_99_config.yaml to /etc/netplan/99_config.yaml on Ubuntu server 2
 * Install the netplan scripts on Ubuntu server 2 (i.e., run install.sh)
+* Ensure that /etc/NetworkManager/NetworkManager.conf has the lines below
+[ifupdown]
+managed=false
 * Use nmcli to query the ethernet mac addresses of Ubuntu server 1 and Ubuntu server 2
 * Update etc_dhcp_dhcpd.conf in the dhcpsvr project based on your ethernet mac addresses from above
 * Create docker containers for dnssvr and dhcpsvr on Ubuntu server 2

@@ -1,5 +1,6 @@
 # Description:
-#   This runtime environment example Dockerfile creates a container for attacking and demonstrations
+#   This runtime environment example Dockerfile creates a container for attacking and demonstrations.  It
+#   can run X11 applications from within the container.
 # Usage:
 #   From this directory, run $ docker build -t tattack .
 #   By default, runs as root
@@ -11,15 +12,10 @@ FROM kalilinux/kali:latest
 #avoid question/dialog during apt-get installs
 ARG DEBIAN_FRONTEND noninteractive
 
-# Setup container's ENV for systemd
-ENV container docker
-ENV HOSTNAME attack.nwsecdocker.jhu.edu
-
 #update
 RUN apt-get update
 
-#set the root password
-#RUN echo -e "root\ntoor" | passwd
+RUN apt-get install xauth -y
 
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
@@ -30,13 +26,23 @@ RUN apt-get install hydra hydra-gtk ismtp set -y
 
 RUN apt-get install thunderbird firefox-esr sendmail -y
 
+#Must create a directory for any host VM users you intend to also use in the container
+RUN mkdir -p $HOME
+COPY setup_user.sh /root/setup_user.sh
+
+#For convenience, replicate /etc/sudoers.d on VM to this container \n\ 
+#First remove the default one from the container
+RUN rm -R /etc/sudoers.d
+#Then replicate from host
+VOLUME "/etc/sudoers.d"
+
 # Finished!
 RUN echo $'\n\
-* Container is ready, prep the bridge network using $ docker network create --driver macvlan --subnet=192.168.25.0/24 -o parent=eth1 macvlan \n\
-* Prep the host by running $ xhost + \n\
-* run it using $ docker run -ti --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --network macvlan --ip 192.168.25.50 tattack:latest bash \n\
-* Attach to it using $ docker exec -it attack bash \n\
-* Change to your user via $ su student \n\
-* attack!'
+* For X11 forwarding to work via /tmp/.X11-unix, mount same folder and /home/$USER/.Xauthority as rw volumes and also use --network host \n\
+* For convenience, bind mount (ro) /etc/group, /etc/passwd, /etc/shadow on VM to this container \n\ 
+* Run and attach to it using $ docker run -it --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro -v /etc/shadow:/etc/shadow:ro -v /home/$USER/.Xauthority:/home/$USER/.Xauthority:rw --network host tattack:latest bash \n\
+* Finish setup of your <USER> by running # /root/setup_user.sh -u <USER> -H <HOME> \n\
+* After the container is exited, you can restart and relogin to it using $ docker start -i attack \n\
+* Attack!'
 
 

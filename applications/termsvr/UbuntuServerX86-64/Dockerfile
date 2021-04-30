@@ -17,7 +17,6 @@ ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
 ENV container docker
-ENV HOSTNAME term.nwsecdocker.jhu.edu
 
 #update
 RUN apt-get update
@@ -27,8 +26,14 @@ RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute openssh-server isc-dhcp-common -y
 RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
-#install dependencies
-RUN apt-get install systemd systemd-sysv -y
+#install dependencies for systemd and syslog
+RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
+
+#for systemd, need to replicate /sys/fs/cgroup
+VOLUME [ "/sys/fs/cgroup" ]
+
+#start systemd
+CMD ["/usr/lib/systemd/systemd", "--system"]
 
 #install all the things (inetutils-telnetd, openssh-server)
 RUN apt-get install inetutils-telnetd openssh-server -y
@@ -48,23 +53,15 @@ RUN echo 'jane:password' | chpasswd
 #create a goldenkeyfile
 RUN echo 'reubwashere' > /root/goldenkey
 
-#shared folder on the VM
-VOLUME [ "/nfsshare" ]
-
-#Build and place the goroot executable in this folder
-#COPY goroot /nfsshare/.
-#RUN setcap CAP_SETUID+ep /nfsshare/goroot
-
-VOLUME [ "/sys/fs/cgroup" ]
-CMD ["/lib/systemd/systemd"]
-
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus=1 ttermsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /nfsshare:/nfsshare:rw --network host --cpus=1 ttermsvr:latest \n\
 * Attach to it using $ docker exec -it termsvr bash \n\
 * inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
 * openssh-server status is available using # systemctl status sshd \n\
 * inetutils-inetd can be stopped and started as well using systemctl \n\
 * openssh-server can be stopped and started as well using systemctl \n\
 * telnet into the server by running $ telnet term.nwsecdocker.jhu.edu \n\
-* ssh into the server by running $ ssh userterm.nwsecdocker.jhu.edu -p 10022'
+* ssh into the server by running $ ssh userterm.nwsecdocker.jhu.edu -p 10022 \n\
+* Build the goroot executable and set its capabilities using # setcap CAP_SETUID+ep goroot \n\
+* Then upload goroot to the nfsshare'
