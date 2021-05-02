@@ -32,7 +32,7 @@ KIBANA_PROXY = True
 #SURICATA_UNIX_SOCKET = "/var/run/suricata/suricata-command.socket"
 
 USE_EVEBOX = True
-EVEBOX_ADDRESS = "localhost:5636"
+EVEBOX_ADDRESS = "selks.nwsecdocker.jhu.edu:5636"
 
 USE_SURICATA_STATS = True
 USE_LOGSTASH_STATS = True

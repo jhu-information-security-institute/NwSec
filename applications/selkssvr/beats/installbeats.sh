@@ -59,7 +59,6 @@ if [[ $FILEBEAT -eq 1 ]]; then
 	docker exec -it $CONTAINER bash -c "chmod go-w /etc/filebeat/filebeat.yml" 
 	docker exec -it $CONTAINER bash -c "systemctl enable filebeat"
 	docker exec -it $CONTAINER bash -c "systemctl start filebeat"
-	
 fi
 
 if [[ $HEARTBEAT -eq 1 ]]; then
