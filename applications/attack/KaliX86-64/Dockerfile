@@ -49,7 +49,6 @@ RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name attack --hostname attack --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -e DISPLAY=$DISPLAY -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro -v /etc/shadow:/etc/shadow:ro -v /home/$USER/.Xauthority:/home/$USER/.Xauthority:rw --network host tattack:latest \n\
 * Attach to it using $ docker exec -it attack bash \n\
 * Finish setup of your <USER> by running # /root/setup_user.sh -u <USER> -H <HOME> \n\
-* After the container is exited, you can restart and relogin to it using $ docker start -i attack \n\
 * Attack!'
 
 
