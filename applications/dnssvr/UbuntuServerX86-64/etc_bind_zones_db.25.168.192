@@ -29,3 +29,5 @@ $TTL	604800
 122.25	IN	PTR	nfs.nwsecdocker.jhu.edu.		; 192.168.25.122
 123.25	IN	PTR	term.nwsecdocker.jhu.edu.		; 192.168.25.123
 124.25	IN	PTR	ftp.nwsecdocker.jhu.edu.		; 192.168.25.124
+125.25	IN	PTR honey.nwsecdocker.jhu.edu.		; 192.168.25.125
+126.25	IN	PTR	tar.nwsecdocker.jhu.edu.		; 192.168.25.126

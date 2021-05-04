@@ -35,3 +35,6 @@ mail.nwsecdocker.jhu.edu.		IN	A	192.168.25.121
 nfs.nwsecdocker.jhu.edu.		IN	A	192.168.25.122
 term.nwsecdocker.jhu.edu.		IN	A	192.168.25.123
 ftp.nwsecdocker.jhu.edu.		IN	A	192.168.25.124
+honey.nwsecdocker.jhu.edu.		IN	A	192.168.25.125
+tar.nwsecdocker.jhu.edu.		IN	A	192.168.25.126
+

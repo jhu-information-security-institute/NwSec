@@ -47,4 +47,20 @@ network:
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]      
+                                search: [nwsecdocker.jhu.edu]    
+                                
+                #honey
+                ens43:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]     
+                                
+                #tar
+                ens44:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]    
