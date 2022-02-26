@@ -1,0 +1,2 @@
+alert icmp 192.168.25.150 any -> 192.168.25.100 any (msg: "ICMP Packet found";sid:1;)
+alert icmp 192.168.25.150 any -> 192.168.25.100 any (msg: "ICMP Packet found";sid:1;)
