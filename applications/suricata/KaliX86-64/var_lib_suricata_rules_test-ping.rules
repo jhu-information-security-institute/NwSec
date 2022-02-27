@@ -1,2 +1,2 @@
-alert icmp 127.0.0.1 any -> 172.16.0.5 any (msg: "ICMP Packet found";sid:1;)
-alert icmp 172.16.0.5 any -> 127.0.0.1 any (msg: "ICMP Packet found";sid:2;)
+alert icmp 172.16.0.150 any -> 172.16.0.5 any (msg: "ICMP Packet found";sid:1;)
+alert icmp 172.16.0.5 any -> 172.16.0.150 any (msg: "ICMP Packet found";sid:2;)
