@@ -6,11 +6,8 @@
 
 # By default, runs as root
 
-# List of containers for kali are here:
-# https://gitlab.com/kalilinux/build-scripts/kali-docker/container_registry
-
-# Pull kali-rolling:latest
-FROM registry.gitlab.com/kalilinux/build-scripts/kali-docker/kali-rolling:latest
+# Pull kali-last-release:latest
+FROM kalilinux/kali-last-release:latest
 
 # arguments:
 ARG CONTMNTSCRIPTS
@@ -19,8 +16,6 @@ ARG CONTMNTSHARED
 #e.g., /mnt/hgfs/shared
 ARG CONTMNTSANDBOX
 #e.g., /mnt/hgfs/sandbox
-ARG CONTMNTMEDIA
-#e.g., /media/MATHWORKS_R2019B
 
 # Mount the shared directories
 RUN mkdir -p $CONTMNTSCRIPTS
