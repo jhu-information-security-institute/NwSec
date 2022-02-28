@@ -19,7 +19,8 @@ display-runtime.sh -x xauthtoken`
         * Web Servers/proxies->nginx
         * Routing and Redirection->ip-full
         * Ip addresses and Names->isc-dhcp-client-ipv4, isc-dhcp-client-ipv6
-        * SSH-openssh-client, openssh-keygen, openssh-server, wpa-cli, wpa-supplicant
+        * SSH-openssh-client, openssh-keygen, openssh-server
+        * WirelessAPD-wpa-cli, wpa-supplicant
         * iw-full, iputils-ping, iputils-ping6
     	* deselect ppp
     * Administration->
@@ -31,13 +32,12 @@ display-runtime.sh -x xauthtoken`
     		* deselect kmod-e1000, kmod-e1000e
         * Filesystems-kmod-fs-exfat, kmod-fs-ext4, kmod-fuse, kmod-fs-msdos
         * Input modules->kmod-hid, kmod-hid-generic
-        * LED modules->kmod-leds-apu2, kmod-leds-gpio
+        * LED modules->kmod-leds-gpio
         * Network support->kmod-vxlan, kmod-tun
         * Sound support->kmod-sound-core, kmod-pcspkr
         * USB support->kmod-usb-core, kmod-usb-ohci, kmod-usb2, kmod-usb3, kmod-usb-storage, kmod-usb-storage-extras
-        * Other modules->kmod-sp5100_tco, kmod-gpio-nct5104d,  kmod-gpio-button-hotplug
+        * Other modules->kmod-sp5100_tco, kmod-gpio-nct5104d,  kmod-gpio-button-hotplug, kmod-pcengines-apuv2
         * Cryptographic API modules->kmod-crypto-hw-ccp
-    	* deselect Network Support->kmod-ppp
     * Firmware->
 	    * ath10k-firmware-qca988x
         * amd64-microcode
@@ -48,7 +48,6 @@ display-runtime.sh -x xauthtoken`
     * Luci->
         * Collections->luci-nginx
         * Applications->luci-app-openvpn
-    * deselect toolchain building because compiling it is slow and it is unnecessary as we won't be performing native builds (binutils, nasm, gdb, gcc initial/final, fortify-headers, kernel-headers,  musl) CONFIG_NASM, CONFIG_GDB
 1. `$ make -j4 V=s`
     * Note: to clean up after a failed build, run `$ make dirclean && make clean`
 
