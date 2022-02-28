@@ -24,11 +24,13 @@ RUN mkdir -p $CONTMNTSANDBOX
 
 RUN apt-get update
 
-# Get the dependencies for openwrt
-RUN apt-get install subversion g++ zlib1g-dev build-essential git python3 \
-libncurses5-dev gawk gettext unzip file libssl-dev wget \
-libelf-dev ecj fastjar java-propose-classpath rsync \
-libncursesw5-dev -y
+# Get the dependencies for openwrt (see https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem)
+RUN apt-get install build-essential ccache ecj fastjar file g++ gawk \
+gettext git java-propose-classpath libelf-dev libncurses5-dev \
+libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+python3-distutils python3-setuptools python3-dev rsync subversion \
+swig time xsltproc zlib1g-dev -y
+
 
 # Get useful utilities
 RUN apt-get install apt-utils net-tools iputils-ping openssh-server terminator vim binutils -y
@@ -46,5 +48,4 @@ RUN echo 'Create your user by running $ /mnt/hgfs/scripts/create_user.sh'
 RUN echo 'Switch to your user by running $ su <USERNAME>'
 RUN echo 'Run the build script via $ /mnt/hgfs/scripts/build.sh'
 RUN echo 'Follow the notes from the markdown on the configuration settings for menuconfig'
-RUN echo 'cd into the openwrt directory'
-RUN echo 'build openwrt by running $ make -j4 V=s'
+RUN echo 'Binary will be located in /mnt/hgfs/scripts/openwrt/bin/targets/x86/64'
