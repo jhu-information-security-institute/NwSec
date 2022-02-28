@@ -176,3 +176,15 @@ display-runtime.sh -x xauthtoken`
 * Embedded router board [PC Engines apu4](https://pcengines.ch/apu4d4.htm)
 * 802.11ac miniPCI express radio [COMPEX wle600vx](https://www.pcengines.ch/wle600vx.htm)
 * https://openwrt.org/toh/pcengines/apu2
+* https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem
+
+# Notes
+* Create a diffconfig file based on the current .config and its differences from defconfig
+    ```
+    ./scripts/diffconfig.sh > diffconfig
+    ```
+* Use the diffconfig in a built
+    ```
+    cp diffconfig .config
+    make defconfig
+    ```
