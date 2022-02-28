@@ -13,12 +13,13 @@ display-runtime.sh -x xauthtoken`
     * Target system->x86, Subtarget->x86_64 (x86-64, x4 AMD GX-412TC SOC)
     * Base system->
         * deselect dnsmasq
+        * deselect logd
     * Network->
         * SSH->openssh-server
         * VPN->openvpn-openssl
         * Web Servers/proxies->nginx
         * Routing and Redirection->ip-full
-        * Ip addresses and Names->isc-dhcp-client-ipv4, isc-dhcp-client-ipv6
+        * Ip addresses and Names->isc-dhcp-client-ipv6
         * SSH-openssh-client, openssh-keygen, openssh-server
         * WirelessAPD-wpa-cli, wpa-supplicant
         * iw-full, iputils-ping, iputils-ping6
