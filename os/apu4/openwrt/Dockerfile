@@ -25,9 +25,9 @@ RUN mkdir -p $CONTMNTSANDBOX
 RUN apt-get update
 
 # Get the dependencies for openwrt
-RUN apt-get install subversion g++ zlib1g-dev build-essential git python python3 \
+RUN apt-get install subversion g++ zlib1g-dev build-essential git python3 \
 libncurses5-dev gawk gettext unzip file libssl-dev wget \
-libelf-dev ecj fastjar java-propose-classpath \
+libelf-dev ecj fastjar java-propose-classpath rsync \
 libncursesw5-dev -y
 
 # Get useful utilities
@@ -36,9 +36,15 @@ RUN apt-get install apt-utils net-tools iputils-ping openssh-server terminator v
 # Install X dependencies
 RUN apt-get install libxext6 libxtst6 libxi6 xauth -y
 
+COPY scripts/build.sh $CONTMNTSCRIPTS/.
+COPY scripts/create_user.sh $CONTMNTSCRIPTS/.
+
 # Finished!
-RUN echo 'Container is ready, run it using $ docker run -d --name openwrtapu4buildenv -v /mnt/hgfs/scripts:/mnt/hgfs/scripts -v /mnt/hgfs/shared:/mnt/hgfs/shared -v /mnt/hgfs/sandbox:/mnt/hgfs/sandbox -t t_openwrtapu4buildenv:latest'
-#cd /mnt/hgfs/scripts
-#run create-user.sh
-#su username
-#run display-runtime.sh
+RUN echo 'Container is ready, run it using $ docker run -d --name openwrtapu4buildenv -v scripts:/mnt/hgfs/scripts -v /mnt/hgfs/shared:/mnt/hgfs/shared -v /mnt/hgfs/sandbox:/mnt/hgfs/sandbox -t t_openwrtapu4buildenv:latest'
+RUN echo 'Attach to the container by running $ docker exec -it openwrtapu4buildenv bash'
+RUN echo 'Create your user by running $ /mnt/hgfs/scripts/create_user.sh'
+RUN echo 'Switch to your user by running $ su <USERNAME>'
+RUN echo 'Run the build script via $ /mnt/hgfs/scripts/build.sh'
+RUN echo 'Follow the notes from the markdown on the configuration settings for menuconfig'
+RUN echo 'cd into the openwrt directory'
+RUN echo 'build openwrt by running $ make -j4 V=s'

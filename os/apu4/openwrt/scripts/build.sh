@@ -5,7 +5,7 @@ git clone https://github.com/openwrt/openwrt.git
 
 cd openwrt
 
-git checkout tags/v19.07.2
+git checkout tags/v21.02.2
 
 #https://openwrt.org/docs/guide-developer/feeds
 ./scripts/feeds update -a
