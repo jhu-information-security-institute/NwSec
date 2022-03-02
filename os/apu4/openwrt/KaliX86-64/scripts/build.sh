@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-cd /mnt/hgfs/sandbox
+cd /mnt/docker/sandbox
 
 git clone https://github.com/openwrt/openwrt.git
+
+#Copy diffconfig into the container build directory for openwrt
+cp diffconfig openwrt/.
 
 cd openwrt
 
@@ -23,8 +26,9 @@ git checkout tags/v21.02.2
 #    - s: stdout+stderr (equal to the old V=99)
 #    - c: commands (for build systems that suppress commands by default, e.g. kbuild, cmake)
 #    - w: warnings/errors only (equal to the old V=1)
-echo 'Create a default based on diffconfig by running $ cp /mnt/hgfs/scripts/diffconfig .config'
-echo 'Then expand to a full config by running $ make defconfig'
-echo 'Customize config by running $ make menuconfig'
-echo 'Customize kernel config by running $ make kernel_menuconfig'
-echo 'Build by running $ make -j $nproc) V=sc download clean world'
+echo 'Change directory into /mnt/docker/sandbox/openwrt'
+echo 'Create a default based on diffconfig by running $ cp diffconfig .config'
+echo 'Then expand to a full config by running $ make -j4 V=sc defconfig'
+echo 'Customize config by running $ make -j4 V=sc menuconfig'
+echo 'Customize kernel config by running $ make -j4 V=sc kernel_menuconfig'
+echo 'Build by running $ make -j4 V=sc download clean world'
