@@ -161,13 +161,6 @@ display-runtime.sh -x xauthtoken`
 1. setup the router manually or load a previous configuration
 
 # Networking setup
-1. setup details for 192.168.1.1 LAN communication
-1. network interfaces: LAN (eth0), WAN and WAN6 (eth1)
-    * eth0-00:0D:B9:54:C9:88
-	* eth1-00:0D:B9:54:C9:89
-	* eth2-00:0D:B9:54:C9:8A
-	* eth3-00:0D:B9:54:C9:8B
-	* wlan0-04:F0:21:85:30:53
 1. ssh root@192.168.1.1
 
 
