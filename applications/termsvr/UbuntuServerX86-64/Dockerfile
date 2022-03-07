@@ -47,13 +47,6 @@ RUN apt-get install openssh-server -y
 COPY etc_ssh_sshd_config /etc/ssh/sshd_config
 COPY etc_inetd.conf /etc/inetd.conf
 
-#reload the configuration
-RUN systemctl daemon-reload
-
-#enable the services
-RUN systemctl enable inetutils-telnetd
-RUN systemctl enable ssh
-
 #create a user student with password nwsec
 RUN useradd -m student
 RUN echo 'student:nwsec' | chpasswd
@@ -62,6 +55,8 @@ RUN echo 'student:nwsec' | chpasswd
 RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name termsvr --hostname jhedid-termsvr.netsec.isi.jhu.edu --add-host jhedid-termsvr.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network bridge --cpus=1 ttermsvr:latest \n\
 * Attach to it using $ docker exec -it termsvr bash \n\
+* Enable the telnet service using # systemctl enable inetutils-inetd \n\
+* Enable the ssh service using # systemctl enable ssh \n\
 * inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
 * openssh-server status is available using # systemctl status ssh \n\
 * inetutils-inetd can be stopped and started as well using systemctl \n\
