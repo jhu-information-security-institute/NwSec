@@ -23,7 +23,6 @@ git config core.sparseCheckout true
 echo 'applications/termsvr/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'applications/termsvr/UbuntuServerX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/termsvr/UbuntuServerX86-64/etc_inetd.conf' >> .git/info/sparse-checkout
-echo 'applications/termsvr/UbuntuServerX86-64/etc_pam.d_login' >> .git/info/sparse-checkout
 echo 'applications/termsvr/UbuntuServerX86-64/etc_ssh_sshd_config' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
