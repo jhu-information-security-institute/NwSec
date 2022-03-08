@@ -28,7 +28,7 @@ echo 'applications/websvr/UbuntuServerX86-64/etc_nginx_sites-available-nwsec' >>
 ## Download with pull, not clone
 git pull origin master
 
-echo 'cd into termsvr/applications/websvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
+echo 'cd into websvr/applications/websvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
 # References:
 #   https://terminalroot.com/how-to-clone-only-a-subdirectory-with-git-or-svn
