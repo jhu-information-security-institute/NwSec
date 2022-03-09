@@ -20,7 +20,7 @@ Boot order:
     * Start dnssvr (uses ens38, static ip)
     * Start dhcpsvr (uses ens39, static ip)
     * Configure dhcp assigned addresses by running the following commands
-	* # ~/netplan/warmstart_netplan.sh -c ~/100_config.yaml
+	* # ~/netplan/warmstart_netplan.sh -c ~/netplan/100_config.yaml
     * Start other containers
 * Boot Ubuntu server 1
     * Start desired containers
