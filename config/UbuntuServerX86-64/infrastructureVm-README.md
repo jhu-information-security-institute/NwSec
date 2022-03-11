@@ -31,11 +31,9 @@
     * Start dhcpsvr (uses ens39, static ip) container
     * Configure dhcp assigned addresses by running `$ sudo ~/netplan/warmstart_netplan.sh -c ~/netplan/100_config.yaml`
     * Start other containers (e.g., suricata or kerberos)
-* Boot UbuntuX86-64-target
-    * Start desired containers (e.g., nginxsvr or mailsvr)
 
-# Startup
-* Always shut down UbuntuX86-64-target prior to UbuntuX86-64-infrastructure
+# Shutdown
+* Always shut down UbuntuX86-64-target prior to shutdown of UbuntuX86-64-infrastructure
 * Before shutting down UbuntuX86-64-infrastructure, run `$ sudo ~/netplan/prepshutdown_netplan.sh`
     
 # Notes
