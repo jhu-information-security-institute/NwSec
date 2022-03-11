@@ -1,5 +1,5 @@
 # Application overview
-isc-dhcp-server
+ISC DHCP offers a complete open source solution for implementing DHCP servers, relay agents, and clients. ISC DHCP supports both IPv4 and IPv6, and is suitable for use in high-volume and high-reliability applications.
 
 # Runtime environment setup
 ## Server
