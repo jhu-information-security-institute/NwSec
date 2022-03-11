@@ -10,18 +10,18 @@ network:
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
+                                search: [netsec-docker.isi.jhu.edu]
                 #container4
                 ens41:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
+                                search: [netsec-docker.isi.jhu.edu]
                 #container5
                 ens42:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
+                                search: [netsec-docker.isi.jhu.edu]
