@@ -23,7 +23,7 @@ The Suricata instance on Ubuntu runs in a docker container.
 1. Build, run, attach to container
     ```
     $ docker build -t tsuricata .
-    $ docker run -d --name suricata --hostname jhedid-suricata.netsec.isi.jhu.edu --add-host jhedid-suricata.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest \n\
+    $ docker run -d --name suricata --hostname jhedid-suricata.netsec.isi.jhu.edu --add-host jhedid-suricata.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest
     $ docker exec -it suricata bash 
     ```
 1. Edit `/var/lib/suricata/rules/test-ping.rules` and update IP addresseses appropriately
@@ -40,7 +40,7 @@ The Suricata instance on Ubuntu runs in a docker container.
 1. Build, run, attach to container
     ```
     $ docker build -t tsuricata .
-    $ docker run -d --name suricata --hostname jhedid-suricata.netsec.isi.jhu.edu --add-host jhedid-suricata.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest \n\
+    $ docker run -d --name suricata --hostname jhedid-suricata.netsec.isi.jhu.edu --add-host jhedid-suricata.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest
     $ docker exec -it suricata bash 
     ```
 1. Edit `/var/lib/suricata/rules/test-ping.rules` and update IP addresseses appropriately
