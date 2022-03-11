@@ -1,41 +1,29 @@
 # Application overview
-NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.
+Versatile, classic, complete name server software
 
-Our application sets up the nginx web server on the RPI4B in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Remote access to the server over http is possible, but ports must be enabled through any firewalls (e.g., ports 80 and 81).
-
-## Server (on RPI4B)
-The web server on the RPI4B runs in a docker container.  The RPI4B is using Ubuntu Server OS, version 18.04.  Nginx handles all incoming HTTP requests that come in over the enabled ports and generates appropriate HTTP responses for them.
-
-## Client (on VM)
-The client that communicates with the web server is any remote browser.  One can also directly interface by manually applying direct http commands using telnet over port 81.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
-<pre><code>
-$ # telnet 192.168.50.46 81
-Trying 192.168.50.46...
-Connected to 192.168.50.46.
-Escape character is '^]'.
-GET /
-    &lt!doctype html&gt
-    &lthtml&gt
-    &lthead&gt
-        &ltmeta charset="utf-8"&gt
-        &lttitle&gtHello, Students!&lt/title&gt
-    &lt/head&gt
-    &ltbody&gt
-        &lth1&gtHello, EN.650.624 Network Security Students!&lt/h1&gt
-        &ltp&gtWe have just configured our Nginx web server on Ubuntu Server!&lt/p&gt
-    &lt/body&gt
-    &lt/html&gt
-Connection closed by foreign host.
-</code></pre>
+BIND 9 has evolved to be a very flexible, full-featured DNS system. Whatever your application is, BIND 9 probably has the required features. As the first, oldest, and most commonly deployed solution, there are more network engineers who are already familiar with BIND 9 than with any other system.
 
 # Runtime environment setup
-## Server (on RPI4B)
-1. Build the Docker container using: `$ sudo docker build -t twebsvr .`
-1. Start the Docker container using: `$ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host twebsvr:latest`
-1. Log in to the running container using: `$ sudo docker exec -it websvr bash`
-1. Restart the server using: `# systemctl restart nginx`
-1. Check the server status (there should be no errors) using: `# systemctl status nginx`
+1. Download files to build container
+    ```
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/dnssvr/dnssvr-UbuntuServerX86-64.sh`
+    $ chmod +x dnssvr-UbuntuServerX86-64.sh
+    $ ./dnssvr-UbuntuServerX86-64.sh
+    ```
+1. Build, run, attach to container
+    ```
+    $ docker build -t tdnssvr .
+    $ docker run -d --name dnssvr --hostname ns --add-host ns.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdnssvr:latest
+    $ sudo docker exec -it dnssvr bash 
+    ```
+1. Enable the server using: `$ sudo systemctl enable bind9`
+1. Restart the server using: `$ sudo systemctl restart isc-dhcp-server`
+
+## Notes
+* Restart the server using: `$ sudo systemctl restart bind9`
+* Check the server status (there should be no errors) using: `$ sudo systemctl status bind9`
+* View the server log: `$ sudo journalctl -u bind9`
+* Configure the server by editing `/etc/bind/zones/db.25.168.192` and `/etc/bind/zones/db.netsec-docker.isi.jhu.edu`
 
 # Useful websites
-* https://www.nginx.com/resources/wiki
-* https://ubuntu.com/tutorials/install-and-configure-nginx
+* https://www.isc.org/bind
