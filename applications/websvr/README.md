@@ -1,13 +1,13 @@
 # Application overview
 NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.
 
-The web server runs in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Nginx handles all incoming HTTP requests that come in over the enabled ports and generates appropriate HTTP responses for them.  Remote access to the NGINX server over http is possible, but ports must be enabled through any firewalls (e.g., ports 80 and 81).
+The web server runs in a Docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Nginx handles all incoming HTTP requests that come in over the enabled ports and generates appropriate HTTP responses for them.  Remote access to the NGINX server over http is possible, but ports must be enabled through any firewalls (e.g., ports 80 and 81).
 
 ## Server (on RPI4B)
 The RPI4B is using Ubuntu Server OS, version 18.04.
 
-## Server (on VM)
-The VM is using Ubuntu Server OS, version 20.04.
+## Server (on UbuntuServerx86-64-target VM)
+The VM is using Ubuntu Server OS, version 20.04.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetVm-README.md).
 
 ## Client
 The client that communicates with the web server is any remote browser.  One can also directly interface by manually applying direct http commands using telnet over port 81.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
