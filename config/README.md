@@ -1,5 +1,5 @@
-# UbuntuX86-64-target VM
-* See [Target-UbuntuServerX86-64 VM README.md](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetREADME.md)
+# targetVm-UbuntuX86-64
+* See [targetVm-README.md](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetVm-README.md)
  
-# UbuntuX86-64-infrastructure VM
-* See [Infrastructure-UbuntuServerX86-64 VM README.md](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/infrastructureREADME.md)
+# infrastructureVm-UbuntuX86-64
+* See [infrastructureVm-README.md](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/infrastructureVm-README.md)
