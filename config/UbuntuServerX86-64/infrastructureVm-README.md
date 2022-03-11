@@ -27,16 +27,14 @@
 * After booting UbuntuX86-64-infrastructure
     * Start dnssvr (uses ens38, static ip) container
     * Start dhcpsvr (uses ens39, static ip) container
-    * Configure dhcp assigned addresses by running the following commands
-	* # ~/netplan/warmstart_netplan.sh -c ~/netplan/100_config.yaml
+    * Configure dhcp assigned addresses by running `# ~/netplan/warmstart_netplan.sh -c ~/netplan/100_config.yaml`
     * Start other containers (e.g., suricata or kerberos)
 * Boot UbuntuX86-64-target
     * Start desired containers (e.g., nginxsvr or mailsvr)
 
 # Startup
 * Always shut down UbuntuX86-64-target prior to UbuntuX86-64-infrastructure
-* Before shutting down UbuntuX86-64-infrastructure, run
-    * # ~/netplan/prepshutdown_netplan.sh
+* Before shutting down UbuntuX86-64-infrastructure, run `# ~/netplan/prepshutdown_netplan.sh`
     
 # Notes
 * If you lose dns for internet sites, it is likely that your `/etc/resolv.conf` needs updating
