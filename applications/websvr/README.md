@@ -1,12 +1,15 @@
 # Application overview
 NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.
 
-Our application sets up the nginx web server on the RPI4B in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Remote access to the server over http is possible, but ports must be enabled through any firewalls (e.g., ports 80 and 81).
+The web server runs in a docker container and allows local interfacing with the server using a browser or telnet from the same LAN.  Nginx handles all incoming HTTP requests that come in over the enabled ports and generates appropriate HTTP responses for them.  Remote access to the NGINX server over http is possible, but ports must be enabled through any firewalls (e.g., ports 80 and 81).
 
 ## Server (on RPI4B)
-The web server on the RPI4B runs in a docker container.  The RPI4B is using Ubuntu Server OS, version 18.04.  Nginx handles all incoming HTTP requests that come in over the enabled ports and generates appropriate HTTP responses for them.
+The RPI4B is using Ubuntu Server OS, version 18.04.
 
-## Client (on VM)
+## Server (on VM)
+The VM is using Ubuntu Server OS, version 20.04.
+
+## Client
 The client that communicates with the web server is any remote browser.  One can also directly interface by manually applying direct http commands using telnet over port 81.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
 <pre><code>
 $ # telnet 192.168.50.46 81
@@ -35,6 +38,27 @@ Connection closed by foreign host.
 1. Log in to the running container using: `$ sudo docker exec -it websvr bash`
 1. Restart the server using: `# systemctl restart nginx`
 1. Check the server status (there should be no errors) using: `# systemctl status nginx`
+
+## Server (on VM)
+1. Download files to build container
+    ```
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/websvr/websvr-UbuntuServerX86-64.sh`
+    $ chmod +x websvr-UbuntuServerX86-64.sh
+    $ ./websvr-UbuntuServerX86-64.sh
+    ```
+1. Build, run, attach to container
+    ```
+    $ docker build -t twebsvr .
+    $ docker run -d --name websvr --hostname nginx --add-host nginx.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdnssvr:latest
+    $ sudo docker exec -it websvr bash 
+    ```
+1. Enable the server using: `$ sudo systemctl enable nginx`
+
+# Notes
+* Restart the server using: `$ sudo systemctl restart nginx`
+* Check the server status (there should be no errors) using: `$ sudo systemctl status nginx`
+* View the server log: `$ sudo journalctl -u nginx`
+* Configure the server by editing `???`
 
 # Useful websites
 * https://www.nginx.com/resources/wiki
