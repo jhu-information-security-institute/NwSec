@@ -1,4 +1,4 @@
-#/etc/netplan/101_config.yaml
+#/etc/netplan/101-config.yaml
 #netplan configuration file UbuntuServerX86-64-target VM: nginx, mail, nfs, telnet, ftp, etc.
 network:
         version: 2
