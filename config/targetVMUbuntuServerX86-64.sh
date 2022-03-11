@@ -23,6 +23,7 @@ git config core.sparseCheckout true
 echo 'config/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/targetREADME.md' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/targetvm_install.yaml' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/remove.sh' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/etc_netplan_100_config.yaml' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/etc_netplan_101_config.yaml' >> .git/info/sparse-checkout
 
