@@ -53,13 +53,19 @@ Connection closed by foreign host.
     $ sudo docker exec -it websvr bash 
     ```
 1. Enable the server using: `$ sudo systemctl enable nginx`
+1. Ensure that you have at least one server entry located in `/etc/nginx/sites-available`
+1. Ensure that your server entries have symbolic links located in `/etc/nginx/sites-available`
+1. Reload the configuration by running `$ sudo systemctl daemon-reload`
+1. Restart the server by running `$ sudo systemctl start nginx`
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart nginx`
 * Check the server status (there should be no errors) using: `$ sudo systemctl status nginx`
 * View the server log: `$ sudo journalctl -u nginx`
-* Configure the server by editing `???`
+* Configure the server by editing server entries located in `/etc/nginx/sites-available`
+* Enable sites by adding symbolic links in `/etc/nginx/sites-available` that link back to server entry counterparts in `/etc/nginx/sites-available`
 
 # Useful websites
+* https://www.nginx.com
 * https://www.nginx.com/resources/wiki
 * https://ubuntu.com/tutorials/install-and-configure-nginx
