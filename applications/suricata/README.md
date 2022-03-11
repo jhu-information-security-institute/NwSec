@@ -1,11 +1,11 @@
 # Application overview
 Suricata is the leading independent open source threat detection engine. By combining intrusion detection (IDS), intrusion prevention (IPS), network security monitoring (NSM) and PCAP processing, Suricata can quickly identify, stop, and assess even the most sophisticated attacks.
 
-## KaliX86-64 VM
-The Suricata instance on Kali runs in a Docker container.  
+## KaliX86-64-attack VM
+The Suricata instance on Kali runs in a Docker container in our KaliX86-64-attack VM.  
 
 ## UbuntuServerX86-64-target VM
-The Suricata instance on Ubuntu runs in a Docker container.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetVm-README.md).
+The Suricata instance on Ubuntu runs in a Docker container in our [UbuntuServerX86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetVm-README.md).
 
 # Runtime environment setup
 ## Kali
