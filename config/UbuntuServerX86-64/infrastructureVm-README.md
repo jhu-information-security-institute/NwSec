@@ -22,9 +22,10 @@
 * Use nmcli to query the ethernet mac addresses the VMNet1 virtual network adapters on UbuntuX86-64-infrastructure
 * Update `/etc/dhcp/dhcpd.conf` in the dhcpsvr project based on your ethernet mac addresses from above
 * Reload and restart isc-server-dhcp in your container
+* Shutdown UbuntuServerX86-64-target and take a snapshot
 
 # Startup
-* UbuntuX86-64-infrastructure should always boot first (before UbuntuX86-64-target) because it provide DHCP and DNS to VMNet1
+* UbuntuX86-64-infrastructure should always boot first (before UbuntuX86-64-target) because it provides DHCP and DNS to VMNet1
 * After booting UbuntuX86-64-infrastructure
     * Start dnssvr (uses ens38, static ip) container
     * Start dhcpsvr (uses ens39, static ip) container
