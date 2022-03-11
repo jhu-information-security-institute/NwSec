@@ -5,4 +5,4 @@ echo 'Backup files in /etc/netplan'
 mkdir -p /etc/netplan/backup
 mv /etc/netplan/* /etc/netplan/backup
 echo 'Copying netplan configuration files to /etc/netplan'
-cp etc_netplan_101_config.yaml /etc/netplan/101_config.yaml
+cp etc_netplan_101-config.yaml /etc/netplan/101-config.yaml
