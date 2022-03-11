@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Must be run as root
-# e.g., # ./prepshutdown-netplan.sh -c 100_config.yaml
+# e.g., # ./prepshutdown-netplan.sh -c 100-config.yaml
 
 while getopts ":hc:" opt; do
         case ${opt} in
