@@ -2,7 +2,7 @@
 # running a minimal Ubuntu server image
 
 # Create a directory, so Git doesn't get messy, and enter it
-mkdir infrastructurevm && cd infrastructurevm
+mkdir infrastructureVm && cd infrastructureVm
 
 # Start a Git repository
 git init
@@ -32,7 +32,7 @@ echo 'config/UbuntuServerX86-64/etc_netplan_100_config.yaml' >> .git/info/sparse
 ## Download with pull, not clone
 git pull origin master
 
-echo 'cd into infrastructurevm/config/UbuntuServerX86-64 and view details in infrastructureREADME.md'
+echo 'cd into infrastructureVm/config/UbuntuServerX86-64 and view details in infrastructureREADME.md'
 
 # References:
 #   https://terminalroot.com/how-to-clone-only-a-subdirectory-with-git-or-svn
