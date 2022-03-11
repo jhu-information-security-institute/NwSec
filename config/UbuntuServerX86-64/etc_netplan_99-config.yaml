@@ -1,4 +1,4 @@
-#/etc/netplan/99_config.yaml
+#/etc/netplan/99-config.yaml
 #netplan configuration file 1 for UbuntuServerX86-64-infrastructure VM: internet, dns, dhcp
 network:
         version: 2
