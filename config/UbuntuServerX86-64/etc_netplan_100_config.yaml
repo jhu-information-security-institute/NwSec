@@ -1,5 +1,5 @@
 #/etc/netplan/100_config.yaml
-#netplan configuration file 2 for Ubuntu Server 2: suricata, auth, proxy, etc.
+#netplan configuration file 2 for UbuntuServerX86-64-infrastructure VM: suricata, auth, etc.
 network:
         version: 2
         renderer: networkd
@@ -18,11 +18,3 @@ network:
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]
-                #proxy
-                ens42:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-
