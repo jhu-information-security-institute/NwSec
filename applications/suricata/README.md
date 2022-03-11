@@ -1,10 +1,5 @@
 # Application overview
-Suricata
-
-* Signature files located in `/var/lib/suricata/rules`
-* Alerts located in `/var/log/suricata` directory
-* Reload rules using `$ suricata-update`
-* Restart Suricata service using `$ sudo systemctl restart suricata`
+Suricata is the leading independent open source threat detection engine. By combining intrusion detection (IDS), intrusion prevention (IPS), network security monitoring (NSM) and PCAP processing, Suricata can quickly identify, stop, and assess even the most sophisticated attacks.
 
 ## Kali
 The Suricata instance on Kali runs in a docker container.  
@@ -47,5 +42,11 @@ The Suricata instance on Ubuntu runs in a docker container.
 1. Reload rules
 1. Restart Suricata
 
-# Useful websites
+# Notes
+* Signature files located in `/var/lib/suricata/rules`
+* Alerts located in `/var/log/suricata` directory
+* Reload rules using `$ suricata-update`
+* Restart Suricata service using `$ sudo systemctl restart suricata`
 
+# Useful websites
+* https://suricata.io
