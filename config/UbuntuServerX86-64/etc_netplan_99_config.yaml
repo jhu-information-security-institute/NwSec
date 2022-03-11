@@ -1,5 +1,5 @@
 #/etc/netplan/99_config.yaml
-#netplan configuration file 1 for Ubuntu Server 2: internet, dns, dhcp
+#netplan configuration file 1 for UbuntuServerX86-64-infrastructure VM: internet, dns, dhcp
 network:
         version: 2
         renderer: networkd
