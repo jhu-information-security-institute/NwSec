@@ -4,15 +4,22 @@ network:
         version: 2
         renderer: networkd
         ethernets:
-                #suricata
+                #container3
                 ens40:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]
-                #auth
+                #container4
                 ens41:
+                        #dhcp route adds default
+                        dhcp4: true
+                        nameservers:
+                                addresses: [192.168.25.10]
+                                search: [nwsecdocker.jhu.edu]
+                #container5
+                ens42:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
