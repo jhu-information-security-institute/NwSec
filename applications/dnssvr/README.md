@@ -27,3 +27,6 @@ BIND 9 has evolved to be a very flexible, full-featured DNS system. Whatever you
 
 # Useful websites
 * https://www.isc.org/bind
+* https://netbeez.net/blog/linux-how-to-resolve-a-host-and-test-dns-servers/
+* https://linuxconfig.org/how-to-view-and-clear-bind-dns-server-s-cache-on-linux
+* https://bind9.readthedocs.io/en/latest/introduction.html
