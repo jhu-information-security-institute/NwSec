@@ -11,7 +11,7 @@
     ```
 * Change into the downloaded `infrastructureVm/config/UbuntuServerX86-64` directory
 * Run the installer using: `$ sudo ./infrastructureVm-install.sh`
-* Edit nameserver IP address and domain name in nameserver section of `ens33` portion within `/etc/netplan/99_config.yaml` to values for your internet router
+* Edit nameserver IP address and domain name in nameserver section of `ens33` portion within `/etc/netplan/99-config.yaml` to values for your internet router
 * Ensure that /etc/NetworkManager/NetworkManager.conf has the lines below
     ```
     [ifupdown]
@@ -29,12 +29,12 @@
 * After booting UbuntuX86-64-infrastructure
     * Start dnssvr (uses ens38, static ip) container
     * Start dhcpsvr (uses ens39, static ip) container
-    * Configure dhcp assigned addresses by running `$ sudo ~/netplan/warmstart_netplan.sh -c ~/netplan/100_config.yaml`
+    * Configure dhcp assigned addresses by running `$ sudo ~/netplan/warmstart_netplan.sh -c ~/netplan/100-config.yaml`
     * Start other containers (e.g., suricata or kerberos)
 
 # Shutdown
 * Always shut down UbuntuX86-64-target prior to shutdown of UbuntuX86-64-infrastructure
-* Before shutting down UbuntuX86-64-infrastructure, run `$ sudo ~/netplan/prepshutdown_netplan.sh`
+* Before shutting down UbuntuX86-64-infrastructure, run `$ sudo ~/netplan/prepshutdown-netplan.sh`
     
 # Notes
 * If you lose dns for internet sites, it is likely that your `/etc/resolv.conf` needs updating
