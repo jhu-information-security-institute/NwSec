@@ -11,21 +11,21 @@ network:
                         dhcp4-overrides:
                                 use-dns: false
                         nameservers:
-                                addresses: [192.168.50.1]
-                                search: [MHI]
-                #dns
+                                addresses: [192.168.50.1]  #customize this with your own internet router IP address
+                                search: [MHI] #customize this with your own internet router domain name
+                #dns docker
                 ens38:
                         #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: no
                         addresses: [192.168.25.10/24]
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
-                #dhcp
+                                search: [netsec-docker.isi.jhu.edu]
+                #dhcp docker
                 ens39:
                         #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: no
                         addresses: [192.168.25.5/24]
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]
+                                search: [netsec-docker.isi.jhu.edu]
