@@ -34,7 +34,7 @@
 
 # Shutdown
 * Always shut down UbuntuX86-64-target prior to shutdown of UbuntuX86-64-infrastructure
-* Before shutting down UbuntuX86-64-infrastructure, run `$ sudo ~/netplan/prepshutdown-netplan.sh`
+* Before shutting down UbuntuX86-64-infrastructure, run `$ sudo ~/netplan/prepshutdown-netplan.sh -c /etc/netplan/100-config.yaml`
     
 # Notes
 * If you lose dns for internet sites, it is likely that your `/etc/resolv.conf` needs updating
