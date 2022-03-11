@@ -11,6 +11,7 @@
     ```
 * Change into the downloaded `infrastructureVm/config/UbuntuServerX86-64` directory
 * Run the installer using: `$ sudo ./infrastructureVm-install.sh`
+* Edit nameserver IP address and domain name in nameserver section of `ens33` portion within `/etc/netplan/99_config.yaml` to values for your internet router
 * Ensure that /etc/NetworkManager/NetworkManager.conf has the lines below
     ```
     [ifupdown]
