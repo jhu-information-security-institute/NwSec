@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 #Must be run as root!
+#Backs up /etc/netplan and copies over configuration files and scripts into /etc/netplan
 echo 'Backup files in /etc/netplan'
 mkdir -p /etc/netplan/backup
 mv /etc/netplan/* /etc/netplan/backup
