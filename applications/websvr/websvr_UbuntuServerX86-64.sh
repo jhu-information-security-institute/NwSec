@@ -23,7 +23,7 @@ git config core.sparseCheckout true
 echo 'applications/websvr/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'applications/websvr/UbuntuServerX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/websvr/UbuntuServerX86-64/index.html' >> .git/info/sparse-checkout
-echo 'applications/websvr/UbuntuServerX86-64/etc_nginx_sites-available-nwsec' >> .git/info/sparse-checkout
+echo 'applications/websvr/UbuntuServerX86-64/etc_nginx_sites-available_nwsec' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
