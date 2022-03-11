@@ -17,7 +17,6 @@ BIND 9 has evolved to be a very flexible, full-featured DNS system. Whatever you
     $ sudo docker exec -it dnssvr bash 
     ```
 1. Enable the server using: `$ sudo systemctl enable bind9`
-1. Restart the server using: `$ sudo systemctl restart isc-dhcp-server`
 
 ## Notes
 * Restart the server using: `$ sudo systemctl restart bind9`
