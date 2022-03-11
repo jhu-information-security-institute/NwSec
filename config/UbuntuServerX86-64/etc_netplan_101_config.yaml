@@ -1,5 +1,5 @@
 #/etc/netplan/101_config.yaml
-#netplan configuration file for Ubuntu Server 1: nginx, mail, nfs, telnet, ftp, etc.
+#netplan configuration file UbuntuServerX86-64-target VM: nginx, mail, nfs, telnet, ftp, etc.
 network:
         version: 2
         renderer: networkd
@@ -13,54 +13,38 @@ network:
                         nameservers:
                                 addresses: [192.168.50.1]
                                 search: [MHI]
-                #nginx
+                #container 1
                 ens38:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]                        
-                #mail
+                #container 2
                 ens39:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
-                #nfs
+                #container 3
                 ens40:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
-                #term
+                #container 4
                 ens41:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [nwsecdocker.jhu.edu]      
-                #ftp
+                #container 5
                 ens42:
                         #dhcp route adds default
                         dhcp4: true
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]    
-                                
-                #honey
-                ens43:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]     
-                                
-                #tar
-                ens44:
-                        #dhcp route adds default
-                        dhcp4: true
-                        nameservers:
-                                addresses: [192.168.25.10]
-                                search: [nwsecdocker.jhu.edu]    
+                                search: [nwsecdocker.jhu.edu]
