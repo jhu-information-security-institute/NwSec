@@ -66,13 +66,18 @@ Connection closed by foreign host.
     $ docker run -d --name emailsvr --hostname mail --add-host mail.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 temailsvr:latest
     $ docker exec -it emailsvr bash 
     ```
-1. Enable the server using: `$ sudo systemctl enable ???`
-1. Start the server by running `$ sudo systemctl start ???`
+1. Enable the server using: `$ sudo systemctl enable postfix`
+1. Start the server by running `$ sudo systemctl start postfix`
+1. Enable the server using: `$ sudo systemctl enable dovecot`
+1. Start the server by running `$ sudo systemctl start dovecot`
 
 # Notes
-* Restart the server using: `$ sudo systemctl restart ???`
-* Check the server status (there should be no errors) using: `$ sudo systemctl status ???`
-* View the server log: `$ sudo journalctl -u ???`
+* Restart the server using: `$ sudo systemctl restart postfix`
+* Restart the server using: `$ sudo systemctl restart dovecot`
+* Check the server status (there should be no errors) using: `$ sudo systemctl status postfix`
+* Check the server status (there should be no errors) using: `$ sudo systemctl status dovecot`
+* View the server log: `$ sudo journalctl -u postfix`
+* View the server log: `$ sudo journalctl -u dovecot`
 
 # Useful websites
 * http://www.postfix.org
