@@ -10,3 +10,4 @@ cp etc_netplan_99-config.yaml ~/netplan/99-config.yaml
 cp etc_netplan_100-config.yaml ~/netplan/100-config.yaml
 cp warmstart-netplan.sh ~/netplan/warmstart-netplan.sh
 cp prepshutdown-netplan.sh ~/netplan/prepshutdown-netplan.sh
+systemctl disable NetworkManager
