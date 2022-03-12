@@ -22,9 +22,8 @@ git config core.sparseCheckout true
 # And inside it enter the name of the specific files (or subdirectory) you only want to clone
 echo 'config/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/targetVm-README.md' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/targetVm-install.yaml' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/targetVm-install.sh' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/targetVm-remove.sh' >> .git/info/sparse-checkout
-
 echo 'config/UbuntuServerX86-64/etc_netplan_101-config.yaml' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
