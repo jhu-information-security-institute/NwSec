@@ -10,5 +10,7 @@ cp etc_netplan_99-config.yaml ~/netplan/99-config.yaml
 cp etc_netplan_100-config.yaml ~/netplan/100-config.yaml
 cp warmstart-netplan.sh ~/netplan/warmstart-netplan.sh
 cp prepshutdown-netplan.sh ~/netplan/prepshutdown-netplan.sh
-echo 'Disable NetworkManager as we are using netplan'
-systemctl disable NetworkManager
+echo 'Setup network-manager'
+sudo mv /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf  /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf_orig
+sudo touch /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
+sudo systemctl restart network-manager
