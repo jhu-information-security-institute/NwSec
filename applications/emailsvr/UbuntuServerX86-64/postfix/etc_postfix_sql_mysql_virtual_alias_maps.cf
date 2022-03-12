@@ -1,5 +1,5 @@
 user = postfixadmin
-password = nwsec123
+password = netsec123
 hosts = localhost
 dbname = postfixadmin
 query = SELECT goto FROM alias WHERE address='%s' AND active = '1'
