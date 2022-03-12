@@ -5,9 +5,9 @@
 * Name your VM UbuntuServerX86-64-target and create a snapshot
 * From your target VM, download the files into a sandbox directory using
    ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/config/targetVM-UbuntuServerX86-64.sh
-    $ chmod +x targetVM-UbuntuServerX86-64.sh
-    $ ./targetVM-UbuntuServerX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/config/targetVm-UbuntuServerX86-64.sh
+    $ chmod +x targetVm-UbuntuServerX86-64.sh
+    $ ./targetVm-UbuntuServerX86-64.sh
     ```
 * Change into the downloaded `targetVm/config/UbuntuServerX86-64` directory
 * Run the installer using: `$ sudo ./targetVm-install.sh`
