@@ -21,11 +21,11 @@ git config core.sparseCheckout true
 # by running the command: git init
 # And inside it enter the name of the specific files (or subdirectory) you only want to clone
 echo 'config/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/targetREADME.md' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/targetvm_install.yaml' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/remove.sh' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/etc_netplan_100_config.yaml' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/etc_netplan_101_config.yaml' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/targetVm-README.md' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/targetVm-install.yaml' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/targetVm-remove.sh' >> .git/info/sparse-checkout
+
+echo 'config/UbuntuServerX86-64/etc_netplan_101-config.yaml' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
