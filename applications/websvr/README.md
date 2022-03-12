@@ -42,7 +42,7 @@ Connection closed by foreign host.
 ## Server (on VM)
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/websvr/websvr-UbuntuServerX86-64.sh`
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/websvr/websvr-UbuntuServerX86-64.sh
     $ chmod +x websvr-UbuntuServerX86-64.sh
     $ ./websvr-UbuntuServerX86-64.sh
     ```
