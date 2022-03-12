@@ -1,4 +1,4 @@
-# Script to clone specific files for setup of infrastructure Ubuntu Server X86-64 VM
+# Script to clone specific files for setup of target Ubuntu Server X86-64 VM
 # running a minimal Ubuntu server image
 
 # Create a directory, so Git doesn't get messy, and enter it
@@ -30,7 +30,7 @@ echo 'config/UbuntuServerX86-64/etc_netplan_101-config.yaml' >> .git/info/sparse
 ## Download with pull, not clone
 git pull origin master
 
-echo 'cd into infrastructurevm/config/UbuntuServerX86-64 and view details in targetREADME.md'
+echo 'cd into targetvm/config/UbuntuServerX86-64 and view details in targetREADME.md'
 
 # References:
 #   https://terminalroot.com/how-to-clone-only-a-subdirectory-with-git-or-svn
