@@ -1,6 +1,12 @@
 # Application overview
 postfix (SMTP) and dovecot (IMAP/POP3) servers
 
+What is Postfix? It is Wietse Venema's mail server that started life at IBM research as an alternative to the widely-used Sendmail program. Now at Google, Wietse continues to support Postfix.
+
+Postfix attempts to be fast, easy to administer, and secure. The outside has a definite Sendmail-ish flavor, but the inside is completely different.
+
+Dovecot is an open source IMAP and POP3 email server for Linux/UNIX-like systems, written with security primarily in mind. Dovecot is an excellent choice for both small and large installations. It’s fast, simple to set up, requires no special administration and it uses very little memory.
+
 ## Server (on RPI4B)
 The email servers on the RPI4B runs in a docker container.   The RPI4B is using Ubuntu Server OS, version 18.04.
 
