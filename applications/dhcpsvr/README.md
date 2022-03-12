@@ -6,7 +6,7 @@ ISC DHCP offers a complete open source solution for implementing DHCP servers, r
 # Runtime environment setup
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/dhcpsvr/dhcpsvr-UbuntuServerX86-64.sh`
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/dhcpsvr/dhcpsvr-UbuntuServerX86-64.sh
     $ chmod +x dhcpsvr-UbuntuServerX86-64.sh
     $ ./dhcpsvr-UbuntuServerX86-64.sh
     ```
