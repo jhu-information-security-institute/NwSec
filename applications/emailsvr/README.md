@@ -45,7 +45,7 @@ Connection closed by foreign host.
 
 # Runtime environment setup
 ## Server (on RPI4B)
-1. Set your hostname: udo hostnamectl set-hostname your-fqdn`
+1. Set your hostname: `$ sudo hostnamectl set-hostname your-fqdn`
 1. Disable the firewall on the appropriate ports:
 `$ sudo ufw allow 25/tcp`, `$ sudo ufw allow 80,443,587,465,143,993/tcp`, and `$ sudo ufw allow 110,995/tcp`
 1. Build the Docker container using: `$ sudo docker build -t temailsvr .`
