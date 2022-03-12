@@ -5,9 +5,9 @@
 * Name your VM UbuntuX86-64-infrastructure and create a snapshot
 * From your infrastructure VM, download the files into a sandbox directory using
    ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/config/infrastructureVM_UbuntuServerX86-64.sh
-    $ chmod +x infrastructureVM_UbuntuServerX86-64.sh
-    $ ./infrastructureVM_UbuntuServerX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/config/infrastructureVM-UbuntuServerX86-64.sh
+    $ chmod +x infrastructureVM-UbuntuServerX86-64.sh
+    $ ./infrastructureVM-UbuntuServerX86-64.sh
     ```
 * Change into the downloaded `infrastructureVm/config/UbuntuServerX86-64` directory
 * Run the installer using: `$ sudo ./infrastructureVm-install.sh`
