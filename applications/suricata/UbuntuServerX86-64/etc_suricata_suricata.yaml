@@ -1865,7 +1865,7 @@ default-rule-path: /var/lib/suricata/rules
 
 rule-files:
 ##  - suricata.rules
-  - test-ddos.rules	
+  - test-dos.rules	
 
 ##
 ## Auxiliary configuration files.
