@@ -6,7 +6,7 @@ BIND 9 has evolved to be a very flexible, full-featured DNS system. Whatever you
 # Runtime environment setup
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/dnssvr/dnssvr-UbuntuServerX86-64.sh`
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/dnssvr/dnssvr-UbuntuServerX86-64.sh
     $ chmod +x dnssvr-UbuntuServerX86-64.sh
     $ ./dnssvr-UbuntuServerX86-64.sh
     ```
