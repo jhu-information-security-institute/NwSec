@@ -49,7 +49,7 @@ Connection closed by foreign host.
 1. Build, run, attach to container
     ```
     $ docker build -t twebsvr .
-    $ docker run -d --name websvr --hostname nginx --add-host nginx.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdnssvr:latest
+    $ docker run -d --name websvr --hostname nginx --add-host nginx.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 twebsvr:latest
     $ sudo docker exec -it websvr bash 
     ```
 1. Enable the server using: `$ sudo systemctl enable nginx`
