@@ -45,13 +45,13 @@ RUN apt-get install -y suricata jq
 #configure suricata and install some rules
 RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
 RUN mv /etc/default/suricata /etc/default/suricata.orig
-COPY suricata.yaml /etc/suricata/suricata.yaml
+COPY etc_suricata_suricata.yaml /etc/suricata/suricata.yaml
 COPY etc_default_suricata /etc/default/suricata
 RUN suricata-update
 COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.rules
 
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
+* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.netsec-docker.isi.jhu.edu --add-host suricata.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
 * Attach to it using $ docker exec -it suricata bash \n\
 * suricata status is available using # systemctl status suricata \n\
 * suricata can be stopped and started as well using systemctl'
