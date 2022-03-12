@@ -11,7 +11,7 @@ The Suricata instance on Ubuntu runs in a Docker container in our [UbuntuServerX
 ## Kali
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/suricata/suricata-KaliX86-64.sh`
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/suricata/suricata-KaliX86-64.sh
     $ chmod +x suricata-kaliX86-64.sh
     $ ./suricata-kaliX86-64.sh
     ```
@@ -28,7 +28,7 @@ The Suricata instance on Ubuntu runs in a Docker container in our [UbuntuServerX
 ## Ubuntu
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/suricata/suricata-UbuntuServerX86-64.sh`
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/suricata/suricata-UbuntuServerX86-64.sh
     $ chmod +x suricata-UbuntuServerX86-64.sh
     $ ./suricata-UbuntuServerX86-64.sh
     ```
