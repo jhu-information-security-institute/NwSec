@@ -21,18 +21,18 @@ git config core.sparseCheckout true
 # by running the command: git init
 # And inside it enter the name of the specific files (or subdirectory) you only want to clone
 echo 'config/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/infrastructureREADME.md' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/infrastructurevm_install.sh' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/remove.sh' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/warmstart_netplan.sh' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/prepshutdown_netplan.sh' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/etc_netplan_99_config.yaml' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/etc_netplan_100_config.yaml' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/infrastructureVm-README.md' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/infrastructureVm-install.sh' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/infrastructureVm-remove.sh' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/warmstart-netplan.sh' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/prepshutdown-netplan.sh' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/etc_netplan_99-config.yaml' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/etc_netplan_100-config.yaml' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
 
-echo 'cd into infrastructureVm/config/UbuntuServerX86-64 and view details in infrastructureREADME.md'
+echo 'cd into infrastructureVm/config/UbuntuServerX86-64 and view details in infrastructureVm-README.md'
 
 # References:
 #   https://terminalroot.com/how-to-clone-only-a-subdirectory-with-git-or-svn
