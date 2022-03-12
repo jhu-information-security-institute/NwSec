@@ -48,7 +48,7 @@ RUN mv /etc/default/suricata /etc/default/suricata.orig
 COPY etc_suricata_suricata.yaml /etc/suricata/suricata.yaml
 COPY etc_default_suricata /etc/default/suricata
 RUN suricata-update
-COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.rules
+COPY var_lib_suricata_rules_test-dos.rules /var/lib/suricata/rules/test-dos.rules
 
 RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name suricata --hostname suricata.netsec-docker.isi.jhu.edu --add-host suricata.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
