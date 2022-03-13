@@ -9,6 +9,9 @@
 # service type  private unpriv  chroot  wakeup  maxproc command + args
 #               (yes)   (yes)   (no)    (never) (100)
 # ==========================================================================
+#spamassassin unix -     n       n       -       -       pipe
+#    user=spamd argv=/usr/bin/spamc -f -e  
+#    /usr/sbin/sendmail -oi -f ${sender} ${recipient} 
 smtp      inet  n       -       y       -       -       smtpd -v
 #smtp      inet  n       -       y       -       1       postscreen
 #smtpd     pass  -       -       y       -       -       smtpd
