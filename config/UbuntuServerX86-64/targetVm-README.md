@@ -1,7 +1,7 @@
 # Initial setup
 * Create Ubuntu server target VM as described on [Ubuntu-x86-64-VM](https://github.com/jhu-information-security-institute/NwSec/wiki/Ubuntu-x86-64-VM)
 * Install Docker in the target VM as described on [Docker-on-Ubuntu](https://github.com/jhu-information-security-institute/NwSec/wiki/Docker-on-Ubuntu)
-* Ensure that your VM has x5 additional virtual network interfaces that are attached to VMnet1 and disable dhcp on VMnet1
+* Ensure that your VM has x4 additional virtual network interfaces that are attached to VMnet1 and VMWare's dhcp server is disabled on VMnet1
 * Name your VM UbuntuServerX86-64-target and create a snapshot
 * From your target VM, download the files into a sandbox directory using
    ```
