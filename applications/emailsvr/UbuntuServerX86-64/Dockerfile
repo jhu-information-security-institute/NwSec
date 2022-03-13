@@ -113,4 +113,4 @@ RUN echo $'\n\
     * Create a new netsec-docker.isi.jhu.edu domain using postfix.admin \n\
     * Create new email accounts in the netsec-docker.isi.jhu.edu domain \n\
     * Note, you will need to create an email account for superadmin user \n\
-* Install Mozilla Thunderbird for a mail client in the VM using $ sudo apt-get install thunderbird'
+* Use Mozilla Thunderbird for a mail client from the VM or another container'
