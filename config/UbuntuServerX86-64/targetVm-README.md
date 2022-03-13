@@ -12,6 +12,7 @@
 * Change into the downloaded `targetVm/config/UbuntuServerX86-64` directory
 * Run the installer using: `$ sudo ./targetVm-install.sh`
 * Edit nameserver IP address and domain name in nameserver section of `ens33` portion within `/etc/netplan/101-config.yaml` to values for your internet router
+  * Ensure that the device names `ens??` within `/etc/netplan/101-config.yaml` match with those created in your vm
 * Ensure that /etc/NetworkManager/NetworkManager.conf has the lines below
     ```
     [ifupdown]
