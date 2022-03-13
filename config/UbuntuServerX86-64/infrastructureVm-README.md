@@ -1,7 +1,7 @@
 # Initial setup
 * Create Ubuntu server infrastructure VM as described on [Ubuntu-x86-64-VM](https://github.com/jhu-information-security-institute/NwSec/wiki/Ubuntu-x86-64-VM)
 * Install Docker in the infrastructure VM as described on [Docker-on-Ubuntu](https://github.com/jhu-information-security-institute/NwSec/wiki/Docker-on-Ubuntu)
-* Ensure that your VM has x5 additional virtual network interfaces that are attached to VMnet1 and disable dhcp on VMnet1
+* Ensure that your VM has x4 additional virtual network interfaces that are attached to VMnet1 and VMWare's dhcp server is disabled on VMnet1
 * Name your VM UbuntuX86-64-infrastructure and create a snapshot
 * From your infrastructure VM, download the files into a sandbox directory using
    ```
