@@ -2,7 +2,7 @@
 * Denial of service attacks on Nginx using hping3
 * Username guessing attacks (via RCPT TO) on Postfix using ismtp
 * Email spoofing attacks on Postfix using SEToolkit
-* Brute-force dictionary attacks on Dovecot using nmap
+* Brute-force dictionary attacks on Dovecot using hydra
 * Firefox web client
 * Thunderbird email client
 
