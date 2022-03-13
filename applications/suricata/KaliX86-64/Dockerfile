@@ -51,6 +51,8 @@ RUN mv /etc/default/suricata /etc/default/suricata.orig
 COPY etc_suricata_suricata.yaml /etc/suricata/suricata.yaml
 COPY etc_default_suricata /etc/default/suricata
 COPY var_lib_suricata_rules_test-ping.rules /var/lib/suricata/rules/test-ping.rules
+COPY var_lib_suricata_rules_test-ping.rules /var/lib/suricata/rules/test-dos.rules
+COPY var_lib_suricata_rules_test-ping.rules /var/lib/suricata/rules/test-mail.rules
 RUN suricata-update
 
 RUN echo $'\n\

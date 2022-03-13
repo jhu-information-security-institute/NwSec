@@ -1,0 +1,2 @@
+alert smtp 192.168.25.155 any -> $HOME_NET 25 (msg:"LOCAL SMTP packet flood inbound, POTENTIAL RCP_TO attack to Server"; flow:to_server; threshold: type both, track by_dst, count 10, seconds 5; classtype:misc-activity;sid:21;)
+alert tcp 192.168.25.155 any -> $HOME_NET 110 (msg:"Multiple Login Attempts detected, POTENTIAL BRUTE_FORCE POP3 attack to Server"; flow:to_server; threshold: type both, track by_dst, count 5, seconds 5; classtype:misc-activity;sid:22;)

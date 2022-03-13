@@ -25,6 +25,8 @@ echo 'applications/suricata/KaliX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/suricata/KaliX86-64/etc_default_suricata' >> .git/info/sparse-checkout
 echo 'applications/suricata/KaliX86-64/etc_suricata_suricata.yaml' >> .git/info/sparse-checkout
 echo 'applications/suricata/KaliX86-64/var_lib_suricata_rules_test-ping.rules' >> .git/info/sparse-checkout
+echo 'applications/suricata/KaliX86-64/var_lib_suricata_rules_test-dos.rules' >> .git/info/sparse-checkout
+echo 'applications/suricata/KaliX86-64/var_lib_suricata_rules_test-mail.rules' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master

@@ -1866,7 +1866,9 @@ default-rule-path: /var/lib/suricata/rules
 rule-files:
 ##  - suricata.rules
   - test-ping.rules	
-
+  - test-dos.rules	
+  - test-mail.rules	
+    
 ##
 ## Auxiliary configuration files.
 ##
