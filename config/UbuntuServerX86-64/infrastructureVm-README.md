@@ -13,6 +13,8 @@
 * Run the installer1 with sudo using: `$ sudo ./infrastructureVm-install1.sh`
 * Run the installer2 using: `$ ./infrastructureVm-install2.sh`
 * Edit nameserver IP address and domain name in nameserver section of `ens33` portion within `/etc/netplan/99-config.yaml` to values for your internet router
+    * Ensure that the device names `ens??` match with those created in your vm
+* Ensure that the device names `ens??` within `~/netplan/100-config.yaml` match with those created in your vm
 * Ensure that /etc/NetworkManager/NetworkManager.conf has the lines below
     ```
     [ifupdown]
