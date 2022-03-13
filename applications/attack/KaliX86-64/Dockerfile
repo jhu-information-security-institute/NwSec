@@ -47,6 +47,8 @@ CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 #Must create a directory for any host VM users you intend to also use in the container
 RUN mkdir -p $HOME
 COPY setup_user.sh /root/setup_user.sh
+COPY email_common_roots.txt /root/email_common_roots.txt
+COPY lame.txt /root/lame.txt
 
 #For convenience, replicate /etc/sudoers.d on VM to this container \n\ 
 #First remove the default one from the container
@@ -61,4 +63,5 @@ RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name attack --hostname attack.netsec-docker.isi.jhu.edu --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -e DISPLAY=$DISPLAY --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro -v /etc/shadow:/etc/shadow:ro -v /home/$USER/.Xauthority:/home/$USER/.Xauthority:rw --network host tattack:latest \n\
 * Attach to it using $ docker exec -it attack bash \n\
 * Finish setup of your <USER> by running # /root/setup_user.sh -u <USER> -H <HOME> \n\
-* Attack!'
+* Then copy /root/email_common_roots.txt and /root/lame.txt into your user folder with appropriate permissions \n\
+* su to your user and then Attack!'
