@@ -1,5 +1,5 @@
 # Application overview
-## inetutils-telnetd
+## inetutils-inetd
 * Configuration file located in `/etc/inetd.conf`
 * Reload config using `$ sudo systemctl daemon-reload`
 * Enable service using `$ systemctl enable inetutils-inetd`
