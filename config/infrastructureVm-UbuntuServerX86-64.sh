@@ -22,7 +22,8 @@ git config core.sparseCheckout true
 # And inside it enter the name of the specific files (or subdirectory) you only want to clone
 echo 'config/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/infrastructureVm-README.md' >> .git/info/sparse-checkout
-echo 'config/UbuntuServerX86-64/infrastructureVm-install.sh' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/infrastructureVm-install1.sh' >> .git/info/sparse-checkout
+echo 'config/UbuntuServerX86-64/infrastructureVm-install2.sh' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/infrastructureVm-remove.sh' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/warmstart-netplan.sh' >> .git/info/sparse-checkout
 echo 'config/UbuntuServerX86-64/prepshutdown-netplan.sh' >> .git/info/sparse-checkout
