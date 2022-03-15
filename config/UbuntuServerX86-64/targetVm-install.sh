@@ -6,7 +6,6 @@ mkdir -p /etc/netplan/backup
 mv /etc/netplan/* /etc/netplan/backup
 echo 'Copying netplan configuration files to /etc/netplan'
 cp etc_netplan_101-config.yaml /etc/netplan/101-config.yaml
-echo 'Setup network-manager'
-sudo mv /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf  /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf_orig
-sudo touch /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
-sudo systemctl restart network-manager
+echo 'Disable network-manager'
+sudo systemctl stop NetworkManager
+sudo systemctl disable NetworkManager
