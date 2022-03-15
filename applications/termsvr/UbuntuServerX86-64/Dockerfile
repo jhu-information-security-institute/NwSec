@@ -59,7 +59,7 @@ RUN echo $'\n\
 * Enable the ssh service using # systemctl enable ssh \n\
 * Start the telnet service using # systemctl start inetutils-inetd \n\
 * Start the ssh service using # systemctl start ssh \n\
-* inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
+* inetutils-inetd status is available using # systemctl status inetutils-inetd \n\
 * openssh-server status is available using # systemctl status ssh \n\
 * inetutils-inetd can be stopped and started as well using systemctl \n\
 * openssh-server can be stopped and started as well using systemctl \n\
