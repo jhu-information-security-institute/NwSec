@@ -40,6 +40,7 @@ COPY etc_bind_named.conf.options /etc/bind/named.conf.options
 COPY etc_bind_named.conf.local /etc/bind/named.conf.local
 COPY etc_bind_zones_db.netsec-docker.isi.jhu.edu /etc/bind/zones/db.netsec-docker.isi.jhu.edu
 COPY etc_bind_zones_db.25.168.192 /etc/bind/zones/db.25.168.192
+COPY etc_resolv.conf /etc/resolv.conf
 
 # Finished!
 RUN echo $'\n\
