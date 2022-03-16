@@ -35,6 +35,7 @@ CMD ["/usr/lib/systemd/systemd", "--system"]
 RUN apt-get install isc-dhcp-server -y
 
 COPY etc_dhcp_dhcpd.conf /etc/dhcp/dhcpd.conf
+COPY etc_resolv.conf /etc/resolv.conf
 
 # Finished!
 RUN echo $'\n\
