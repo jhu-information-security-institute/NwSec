@@ -41,7 +41,7 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
 #install all the things (inetutils-inetd, openssh-server)
-RUN apt-get install inetutils-inetd -y
+RUN apt-get install inetutils-inetd inetutils-telnetd -y
 RUN apt-get install openssh-server -y
 
 COPY etc_ssh_sshd_config /etc/ssh/sshd_config
