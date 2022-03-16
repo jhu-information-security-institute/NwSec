@@ -23,6 +23,7 @@ git config core.sparseCheckout true
 echo 'applications/dhcpsvr/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'applications/dhcpsvr/UbuntuServerX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/dhcpsvr/UbuntuServerX86-64/etc_dhcp_dhcpd.conf' >> .git/info/sparse-checkout
+echo 'applications/dhcpsvr/UbuntuServerX86-64/etc_resolv.conf' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
