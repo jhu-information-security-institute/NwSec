@@ -27,6 +27,7 @@ echo 'applications/dnssvr/UbuntuServerX86-64/etc_bind_named.conf.options' >> .gi
 echo 'applications/dnssvr/UbuntuServerX86-64/etc_bind_zones_db.25.168.192' >> .git/info/sparse-checkout
 echo 'applications/dnssvr/UbuntuServerX86-64/etc_bind_zones_db.netsec-docker.isi.jhu.edu' >> .git/info/sparse-checkout
 echo 'applications/dnssvr/UbuntuServerX86-64/etc_default_named' >> .git/info/sparse-checkout
+echo 'applications/dnssvr/UbuntuServerX86-64/etc_resolv.conf' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
