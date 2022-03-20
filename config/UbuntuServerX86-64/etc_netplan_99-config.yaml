@@ -11,8 +11,8 @@ network:
                         dhcp4-overrides:
                                 use-dns: false
                         nameservers:
-                                addresses: [192.168.50.1]  #customize this with your own internet router IP address
-                                search: [MHI] #customize this with your own internet router domain name
+                                addresses: [192.168.50.1, 8.8.8.8, 1.1.1.1]  #customize this with your own internet router IP address (leave 8.8.8.8 and 1.1.1.1)
+                                search: [invalid] #leave this as is
                 #dns docker
                 ens38:
                         #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
