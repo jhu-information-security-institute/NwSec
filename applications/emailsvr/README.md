@@ -66,10 +66,26 @@ Connection closed by foreign host.
     $ docker run -d --name emailsvr --hostname mail --add-host mail.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 temailsvr:latest
     $ docker exec -it emailsvr bash 
     ```
-1. Enable the server using: `$ sudo systemctl enable postfix`
-1. Start the server by running `$ sudo systemctl start postfix`
-1. Enable the server using: `$ sudo systemctl enable dovecot`
-1. Start the server by running `$ sudo systemctl start dovecot`
+1. Configure using postfixadmin by running the following command and using the guidance below `$ dpkg-reconfigure postfixadmin`
+    ```
+    Reinstall database for postfixadmin? [yes/no] yes
+    ...
+      1. Unix socket  2. TCP/IP
+    Connection method for MySQL database of postfixadmin: 1
+    ...
+      1. default  2. mysql_native_password  3. sha256_password  4. caching_sha2_password
+    Authentication plugin for MySQL database: 1
+    ...
+    MySQL database name for postfixadmin: postfixadmin
+    ...
+    MySQL username for postfixadmin: postfixadmin@localhost
+    ...
+    MySQL application password for postfixadmin: nwsec123
+    Password confirmation: nwsec123
+    ...
+    Name of the database's administrative user: root
+    ...
+    ```
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart postfix`
