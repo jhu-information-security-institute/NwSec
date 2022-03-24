@@ -20,9 +20,9 @@
     $ docker exec -it attack bash 
     ```
 1. Setup xauth with client container
-    1. Generate a MIT_MAGIC_COOKIE-1 by running on VM: $ mcookie
-    1. Get <COOKIE> hash by running on VM: $ xauth list
-    1. Share cookie with container’s X11 server by running (on container): $ xauth add attack/unix$DISPLAY . <COOKIE>
+    1. Generate a MIT_MAGIC_COOKIE-1 by running on VM: `$ mcookie`
+    1. Get <COOKIEHASH> hash by running on VM: `$ xauth list`
+    1. Share cookie with container’s X11 server by running (on container): `$ xauth add attack/unix$DISPLAY . <COOKIEHASH>`
 1. Create a user folder in the container by running: `# /root/setup_user.sh -u <USER> -H <HOME> `
 # Notes
 
