@@ -97,21 +97,21 @@ RUN echo $'\n\
 * Attach to it using $ docker exec -it emailsvr bash \n\
 * Build the postfixadmin mysql database # dpkg-reconfigure postfixadmin \n\
     * Specify these values when prompted: \n\
-        * Configure database for postfixadmin with dbconfig-common? [yes/no] yes \n\
+        * Reinstall database for postfixadmin? [yes/no] yes \n\
         * Connection method for MySQL database of postfixadmin: 1 \n\
         * Authentication plugin for MySQL database: 1 \n\
         * MySQL database name for postfixadmin: postfixadmin \n\
         * MySQL username for postfixadmin: postfixadmin@localhost \n\
-        * MySQL application password for postfixadmin: <PASSWORD> \n\
-        * Password confirmation: <PASSWORD> \n\
-        * Name of the databases administrative user: root \n\
-* Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype to mysqli \n\
-* Edit /etc/dbconfig-common/postfixadmin.conf and change value of line with dbc_dbtype to mysqli \n\
+        * MySQL application password for postfixadmin: nwsec123 \n\
+        * Password confirmation: nwsec123 \n\
+        * Name of the database's administrative user: root \n\
+* Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype from mysql to mysqli \n\
+* Edit /etc/dbconfig-common/postfixadmin.conf and change value of line with dbc_dbtype from mysql to mysqli \n\
 * Log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/setup.php \n\
     * Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php \n\
     * Then, create a superadmin account Admin postfixadmin@netsec-docker.isi.jhu.edu and specify its password \n\
-* Use that account to log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/login.php \n\
-    * Create a new netsec-docker.isi.jhu.edu domain using postfix.admin \n\
+* Use that superadmin account to log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/login.php \n\
+    * Create a new netsec-docker.isi.jhu.edu domain \n\
     * Create new email accounts in the netsec-docker.isi.jhu.edu domain \n\
     * Note, you will need to create an email account for superadmin user \n\
-* Use Mozilla Thunderbird for a mail client from the VM or another container'
+* Use Mozilla Thunderbird for a mail client from the VM or another container to access email'
