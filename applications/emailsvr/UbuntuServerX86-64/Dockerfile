@@ -106,7 +106,7 @@ RUN echo $'\n\
         * Password confirmation: <PASSWORD> \n\
         * Name of the databases administrative user: root \n\
 * Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype to mysqli \n\
-* Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype to mysqli \n\
+* Edit /etc/dbconfig-common/postfixadmin.conf and change value of line with dbc_dbtype to mysqli \n\
 * Log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/setup.php \n\
     * Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php \n\
     * Then, create a superadmin account Admin postfixadmin@netsec-docker.isi.jhu.edu and specify its password \n\
