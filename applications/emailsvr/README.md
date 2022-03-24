@@ -86,6 +86,16 @@ Connection closed by foreign host.
     Name of the database's administrative user: root
     ...
     ```
+1. Edit `/etc/postfixadmin/dbconfig.inc.php` and change value of line with `$dbtype` from `mysql` to `mysqli`
+1. Edit `/etc/dbconfig-common/postfixadmin.conf` and change value of line with `dbc_dbtype` from `mysql` to `mysqli`
+1. Log in to `http://mail.netsec-docker.isi.jhu.edu/postfixadmin/setup.php`
+    * Specify a setup password and copy the generated hash into the value for the setup_password variable in `/etc/postfixadmin/config.inc.php`
+    * Then, create a superadmin account `postfixadmin@netsec-docker.isi.jhu.edu` and specify its password
+1. Use that superadmin account to log in to `http://mail.netsec-docker.isi.jhu.edu/postfixadmin/login.php`
+    * Create a new `netsec-docker.isi.jhu.edu` domain 
+    * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
+    * Note, you will need to create an email account for superadmin user
+1. Use Mozilla Thunderbird for a mail client from the VM or another container to access email
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart postfix`
