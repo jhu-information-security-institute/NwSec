@@ -1,5 +1,5 @@
 user = postfixadmin
-password = netsec123
+password = nwsec123
 hosts = localhost
 dbname = postfixadmin
 query = SELECT domain FROM domain WHERE domain='%s' AND active = '1'
