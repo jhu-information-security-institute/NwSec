@@ -36,4 +36,5 @@
     * In your VM, add your internet router's IP address as an additional nameserver by creating a new line in `/etc/resolv.conf`
     ```
     nameserver <IPADDRESSOFINTERNETROUTER>
+    nameserver 8.8.8.8
     ```
