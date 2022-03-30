@@ -104,7 +104,7 @@ RUN echo $'\n\
         * MySQL username for postfixadmin: postfixadmin@localhost \n\
         * MySQL application password for postfixadmin: nwsec123 \n\
         * Password confirmation: nwsec123 \n\
-        * Name of the database's administrative user: root \n\
+        * Name of the database administrative user: root \n\
 * Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype from mysql to mysqli \n\
 * Edit /etc/dbconfig-common/postfixadmin.conf and change value of line with dbc_dbtype from mysql to mysqli \n\
 * Log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/setup.php \n\
