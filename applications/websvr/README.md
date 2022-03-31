@@ -57,6 +57,7 @@ Connection closed by foreign host.
 1. Ensure that your server entries have symbolic links located in `/etc/nginx/sites-available`
 1. Reload the configuration by running `$ sudo systemctl daemon-reload`
 1. Restart the server by running `$ sudo systemctl start nginx`
+1. Page should be viewable in a browser at the following url: `http://192.168.25.120:81/`
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart nginx`
