@@ -40,6 +40,7 @@ RUN chmod +x /root/postfix_install.sh
 RUN /root/postfix_install.sh
 RUN apt-get install postfix -y
 RUN apt-get install spamassassin spamc -y
+RUN apt-get install spamass-milter -y
 
 # configure postfix
 COPY postfix/etc_postfix_main.cf /etc/postfix/main.cf
