@@ -103,7 +103,7 @@ Connection closed by foreign host.
 * Check the server status (there should be no errors) using: `$ sudo systemctl status postfix`
 * Check the server status (there should be no errors) using: `$ sudo systemctl status dovecot`
 * View the server log: `$ sudo journalctl -u postfix`
-* View the server log: `$ sudo journalctl -u dovecot`
+* View the server log: `$ sudo journalctl -u dovecot` and `$ sudo tail -f /var/log/dovecot.log`
 
 # Useful websites
 * http://www.postfix.org
