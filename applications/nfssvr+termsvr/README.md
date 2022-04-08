@@ -8,6 +8,7 @@ The VM is using Ubuntu Server OS, version 20.04.  It is designed to run within a
 Todo
 
 ## Server (on VM)
+1. Add entries in DHCP and DNS servers for nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu that setup an interface in your UbuntuServerx86-64-target VM to be assigned 192.168.25.123
 1. Download files to build container
     ```
     $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/nfssvr+termsvr/nfssvr_plus_termsvr-UbuntuServerX86-64.sh
