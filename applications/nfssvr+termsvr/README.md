@@ -17,7 +17,7 @@ Todo
     ```
 1. Build, run, attach to container
     ```
-    $ docker build -t tnfssvr_plus_termsvr .
+    $ tar -czh . | docker build -t tnfssvr_plus_termsvr -
     $ docker run -d --name nfssvr_plus_termsvr --hostname nfssvr-plus-termsvr --add-host nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tnfssvr_plus_termsvr:latest
     $ docker exec -it nfssvr_plus_termsvr bash 
     ```
