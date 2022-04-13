@@ -11,9 +11,9 @@ Todo
 1. Add entries in DHCP and DNS servers for nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu that setup an interface in your UbuntuServerx86-64-target VM to be assigned 192.168.25.123
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/nfssvr+termsvr/nfssvr_plus_termsvr-UbuntuServerX86-64.sh
-    $ chmod +x nfssvr_plus_termsvr-UbuntuServerX86-64.sh
-    $ ./nfssvr_plus_termsvr-UbuntuServerX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/nfssvr%2Btermsvr/nfssvr_plus_termsvr_UbuntuServerX86-64.sh
+    $ chmod +x nfssvr_plus_termsvr_UbuntuServerX86-64.sh
+    $ ./nfssvr_plus_termsvr_UbuntuServerX86-64.sh
     ```
 1. Build, run, attach to container
     ```
