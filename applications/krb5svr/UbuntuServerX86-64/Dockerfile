@@ -33,8 +33,8 @@ CMD ["/usr/lib/systemd/systemd", "--system"]
 
 #install all the things (kdc and admin server)
 RUN echo "krb5-config krb5-config/default_realm string NWSECDOCKER.JHU.EDU" | sudo debconf-set-selections
-RUN echo "krb5-config krb5-config/kerberos_servers string auth.nwsecdocker.jhu.edu" | sudo debconf-set-selections
-RUN echo "krb5-config krb5-config/admin_server string auth.nwsecdocker.jhu.edu" | sudo debconf-set-selections
+RUN echo "krb5-config krb5-config/kerberos_servers string auth.netsec-docker.isi.jhu.edu" | sudo debconf-set-selections
+RUN echo "krb5-config krb5-config/admin_server string auth.netsec-docker.isi.jhu.edu" | sudo debconf-set-selections
 RUN apt-get install krb5-kdc krb5-admin-server -y
 
 COPY etc_krb5.conf /etc/krb5.conf
@@ -42,7 +42,7 @@ COPY etc_krb5kdc_kdc.conf /etc/krb5kdc/kdc.conf
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name krb5svr --hostname auth.nwsecdocker.jhu.edu --add-host auth.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tkrb5svr:latest \n\
+* Container is ready, run it using $ docker run -d --name krb5svr --hostname auth.netsec-docker.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tkrb5svr:latest \n\
 * Attach to it using $ docker exec -it krb5svr bash \n\
 * krb5-kdc status is available using # systemctl status krb5-kdc \n\
 * krb5-admin-server status is available using # systemctl status krb5-admin-server \n\
