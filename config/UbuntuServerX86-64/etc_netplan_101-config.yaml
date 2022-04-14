@@ -11,8 +11,8 @@ network:
                         dhcp4-overrides:
                                 use-dns: false
                         nameservers:
-                                addresses: [192.168.50.1] #customize this with your own internet router IP address
-                                search: [MHI] #customize this with your own internet router domain name
+                                addresses: [192.168.50.1,8.8.8.8,1.1.1.1] #customize this with your own internet router IP address
+                                search: [invalid] #customize this with your own internet router domain name
                 #container 1
                 ens38:
                         #dhcp route adds default
