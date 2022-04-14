@@ -32,7 +32,7 @@ RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
 #install all the things (kdc and admin server)
-RUN echo "krb5-config krb5-config/default_realm string NWSECDOCKER.JHU.EDU" | sudo debconf-set-selections
+RUN echo "krb5-config krb5-config/default_realm string NETSEC-DOCKER.ISI.JHU.EDU" | sudo debconf-set-selections
 RUN echo "krb5-config krb5-config/kerberos_servers string auth.netsec-docker.isi.jhu.edu" | sudo debconf-set-selections
 RUN echo "krb5-config krb5-config/admin_server string auth.netsec-docker.isi.jhu.edu" | sudo debconf-set-selections
 RUN apt-get install krb5-kdc krb5-admin-server -y
