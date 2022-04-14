@@ -22,6 +22,9 @@ git config core.sparseCheckout true
 # And inside it enter the name of the specific files (or subdirectory) you only want to clone
 echo 'applications/krb5svr/UbuntuServerX86-64/.project' >> .git/info/sparse-checkout
 echo 'applications/krb5svr/UbuntuServerX86-64/Dockerfile' >> .git/info/sparse-checkout
+echo 'applications/krb5svr/UbuntuServerX86-64/etc_krb5.conf' >> .git/info/sparse-checkout
+echo 'applications/krb5svr/UbuntuServerX86-64/etc_krb5kdc_kadm5.acl' >> .git/info/sparse-checkout
+echo 'applications/krb5svr/UbuntuServerX86-64/etc_krb5kdc_kdc.conf' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
