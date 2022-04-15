@@ -41,6 +41,7 @@ RUN /root/postfix_install.sh
 RUN apt-get install postfix -y
 RUN apt-get install spamassassin spamc -y
 RUN apt-get install spamass-milter -y
+RUN apt-get install postfix-pcre -y
 
 # configure postfix
 COPY postfix/etc_postfix_main.cf /etc/postfix/main.cf
