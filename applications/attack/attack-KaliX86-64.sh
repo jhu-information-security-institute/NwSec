@@ -24,7 +24,7 @@ echo 'applications/attack/KaliX86-64/.project' >> .git/info/sparse-checkout
 echo 'applications/attack/KaliX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/attack/KaliX86-64/email_common_roots.txt' >> .git/info/sparse-checkout
 echo 'applications/attack/KaliX86-64/lame.txt' >> .git/info/sparse-checkout
-echo 'applications/attack/KaliX86-64/setup_user.sh >> .git/info/sparse-checkout
+echo 'applications/attack/KaliX86-64/setup_user.sh' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin master
