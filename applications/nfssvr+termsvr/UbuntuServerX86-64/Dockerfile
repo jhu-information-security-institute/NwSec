@@ -65,7 +65,7 @@ RUN echo 'jane:password' | chpasswd
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name nfssvr_plus_termsvr --hostname nfs_plus_term.netsec.isi.jhu.edu --add-host nfs_plus_term.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr_plus_termsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name nfssvr_plus_termsvr --hostname nfssvr-plus-termsvr --add-host nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/export/nfsshare:rw -v /nfsshare:/nfsshare:rw -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tnfssvr_plus_termsvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr_plus_termsvr bash \n\
 * Enable the telnet service using # systemctl enable inetutils-inetd \n\
 * Enable the ssh service using # systemctl enable ssh \n\
