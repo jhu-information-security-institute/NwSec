@@ -45,8 +45,8 @@ COPY etc_krb5kdc_kadm5.acl /etc/krb5kdc/kadm5.acl
 RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tauthsvr:latest \n\
 * Attach to it using $ docker exec -it krb5svr bash \n\
-* Build database using $ kdb5_util create -r NETSEC-DOCKER.ISI.JHU.EDU -s
-* Restart the servers $ sudo systemctl restart krb5-admin-server krb5-kdc
+* Build database using $ kdb5_util create -r NETSEC-DOCKER.ISI.JHU.EDU -s \n\
+* Restart the servers $ sudo systemctl restart krb5-admin-server krb5-kdc \n\
 * krb5-kdc status is available using # systemctl status krb5-kdc \n\
 * krb5-admin-server status is available using # systemctl status krb5-admin-server \n\
 * krb5-kdc and krb5-admin-server can be stopped and started as well using systemctl \n\
@@ -55,5 +55,5 @@ RUN echo $'\n\
         * set the password when prompted \n\
     * quit kadmin using: kadmin.local: quit \n\
 * Restart the server to reload the new ACL using: $ sudo systemctl restart krb5-admin-server krb5-kdc \n\
-* Test the principle user using # kinit ubuntu/admin'
-* Check if you can see the ticket assigned # klist
+* Test the principle user using # kinit ubuntu/admin \n\
+* Check if you can see the ticket assigned # klist'
