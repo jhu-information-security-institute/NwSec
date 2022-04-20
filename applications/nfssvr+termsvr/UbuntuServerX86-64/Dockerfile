@@ -1,7 +1,8 @@
 # Description:
 #   This runtime environment example Dockerfile creates a container with a telnet server and a ssh server
 # Usage:
-#   From this directory, run $ docker build -t tnfssvr_plus_termsvr .
+#   We create a tar file from the current directory to resolve symlinks and then pipe that in to our build command
+#   From this directory, run $ tar -czh . | docker build -t tnfssvr_plus_termsvr -
 #   By default, runs as root
 # https://www.gnu.org/software/inetutils/
 # https://ubuntu.com/server/docs/service-openssh
