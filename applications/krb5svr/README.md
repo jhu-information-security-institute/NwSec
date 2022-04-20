@@ -38,9 +38,9 @@
     ```
 1. Build, run, attach to container
     ```
-    $ docker build -t ttermsvr .
-    $ docker run -d --name termsvr --hostname jhedid-termsvr.netsec.isi.jhu.edu --add-host jhedid-termsvr.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network bridge --cpus=1 ttermsvr:latest
-    $ docker exec -it termsvr bash 
+    $ docker build -t tauthsvr .
+    $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tauthsvr:latest
+    $ docker exec -it authsvr bash 
     ```
 
 # Useful links
