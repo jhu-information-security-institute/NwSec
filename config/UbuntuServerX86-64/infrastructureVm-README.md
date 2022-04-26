@@ -33,7 +33,7 @@
 * After booting UbuntuX86-64-infrastructure
     * Start dnssvr (uses ens38, static ip) container using `$ sudo docker start dnssvr`
     * Start dhcpsvr (uses ens39, static ip) container using `$ sudo docker start dhcpsvr`
-    * Configure dhcp assigned addresses by running `$ sudo ~/netplan/warmstart_netplan.sh -c ~/netplan/100-config.yaml`
+    * Configure dhcp assigned addresses by running `$ sudo ~/netplan/warmstart-netplan.sh -c ~/netplan/100-config.yaml`
     * Start other containers (e.g., suricata or kerberos)
         * start suricata (uses ens41, static ip) container using `$ sudo docker start suricata`
 
