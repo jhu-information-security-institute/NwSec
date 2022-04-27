@@ -5,6 +5,7 @@
 //+e makes the capability effected (i.e., activated)
 //+p makes the capability permitted (i.e., can be used/is allowed)
 //See https://www.insecure.ws/linux/getcap_setcap.html
+//When you copy the compiled binary over to its destination, you may need to run $ chmod +s goroot
 
 #include <stdio.h>
 #include <stdlib.h>
