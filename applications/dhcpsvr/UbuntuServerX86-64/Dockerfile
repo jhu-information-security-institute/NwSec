@@ -39,7 +39,7 @@ COPY etc_resolv.conf /etc/resolv.conf
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdhcpsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdhcpsvr:latest \n\
 * Attach to it using $ docker exec -it dhcpsvr bash \n\
 * isc-dhcp-server status is available using # systemctl status isc-dhcp-server \n\
 * isc-dhcp-server can be stopped and started as well using systemctl'
