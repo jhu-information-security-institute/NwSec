@@ -25,7 +25,7 @@
 * Create and start Ubuntu server DNS Docker container as described on [dnssvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dnssvr)
 * Use nmcli to query the ethernet mac addresses the VMNet1 virtual network adapters on UbuntuX86-64-infrastructure
 * Update `/etc/dhcp/dhcpd.conf` in the dhcpsvr project based on your ethernet mac addresses from above
-* Reload and restart isc-server-dhcp in your container
+* Reload and restart isc-dhcp-server in your container
 * Shutdown UbuntuServerX86-64-infrastructure and take a snapshot
 
 # Startup
