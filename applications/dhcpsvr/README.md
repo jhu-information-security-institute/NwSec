@@ -13,7 +13,7 @@ ISC DHCP offers a complete open source solution for implementing DHCP servers, r
 1. Build, run, attach to container
     ```
     $ docker build -t tdhcpsvr .
-    $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdhcpsvr:latest
+    $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdhcpsvr:latest
     $ sudo docker exec -it dhcpsvr bash 
     ```
 1. Enable the server using: `$ sudo systemctl enable isc-dhcp-server`
