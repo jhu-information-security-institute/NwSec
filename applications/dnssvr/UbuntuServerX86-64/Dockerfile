@@ -28,9 +28,17 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+# Remove unnecessary units
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+  /etc/systemd/system/*.wants/* \
+  /lib/systemd/system/local-fs.target.wants/* \
+  /lib/systemd/system/sockets.target.wants/*udev* \
+  /lib/systemd/system/sockets.target.wants/*initctl* \
+  /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+  /lib/systemd/system/systemd-update-utmp*
 #start systemd
-CMD ["/usr/lib/systemd/systemd", "--system"]
-
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 #install all the things (web server)
 RUN apt-get install bind9 -y
 
@@ -44,7 +52,7 @@ COPY etc_resolv.conf /etc/resolv.conf
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns --add-host ns.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tdnssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns.netsec-docker.isi.jhu.edu --add-host ns.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdnssvr:latest \n\
 * Attach to it using $ docker exec -it dnssvr bash \n\
 * bind9 status is available using # systemctl status bind9 \n\
 * bind9 can be stopped and started as well using systemctl'
