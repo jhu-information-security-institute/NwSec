@@ -18,7 +18,7 @@ The Suricata instance on Ubuntu runs in a Docker container in our [UbuntuServerX
 1. Build, run, attach to container
     ```
     $ docker build -t tsuricata .
-    $ docker run -d --name suricata --hostname jhedid-suricata.netsec.isi.jhu.edu --add-host jhedid-suricata.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest
+    $ docker run -d --name suricata --hostname suricata.netsec-docker.isi.jhu.edu --add-host suricata.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest
     $ docker exec -it suricata bash 
     ```
 1. Edit `/var/lib/suricata/rules/test-ping.rules` and update IP addresseses appropriately
@@ -35,7 +35,7 @@ The Suricata instance on Ubuntu runs in a Docker container in our [UbuntuServerX
 1. Build, run, attach to container
     ```
     $ docker build -t tsuricata .
-    $ docker run -d --name suricata --hostname suricata --add-host suricata.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest   
+    $ docker run -d --name suricata --hostname suricata.netsec-docker.isi.jhu.edu --add-host suricata.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsuricata:latest   
     $ docker exec -it suricata bash 
     ```
 1. Edit `/var/lib/suricata/rules/test-ping.rules` and update IP addresseses appropriately
