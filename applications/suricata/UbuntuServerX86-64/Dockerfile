@@ -28,8 +28,17 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+# Remove unnecessary units
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+  /etc/systemd/system/*.wants/* \
+  /lib/systemd/system/local-fs.target.wants/* \
+  /lib/systemd/system/sockets.target.wants/*udev* \
+  /lib/systemd/system/sockets.target.wants/*initctl* \
+  /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+  /lib/systemd/system/systemd-update-utmp*
 #start systemd
-CMD ["/usr/lib/systemd/systemd", "--system"]
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
 RUN echo 'Install dependencies'
 RUN apt-get install -y libpcre3 libpcre3-dbg libpcre3-dev 
