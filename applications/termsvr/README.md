@@ -24,7 +24,7 @@ The terminal server instances on Ubuntu run in a single docker container.
 1. Build, run, attach to container
     ```
     $ docker build -t ttermsvr .
-    $ docker run -d --name termsvr --hostname termsvr.netsec-docker.isi.jhu.edu --add-host termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 --cpus=1 ttermsvr:latest
+    $ docker run -d --name termsvr --hostname termsvr.netsec-docker.isi.jhu.edu --add-host termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 --cpus=1 ttermsvr:latest
     $ docker exec -it termsvr bash 
     ```
 * Note that the above command remaps port 23 in the docker container to 2323 on the host VM
