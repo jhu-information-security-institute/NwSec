@@ -48,3 +48,4 @@
     nameserver <IPADDRESSOFINTERNETROUTER>
     nameserver 8.8.8.8
     ```
+* If your container build fails due to dns not working, follow the 'Specify DNS servers for Docker' [here](https://docs.docker.com/engine/install/troubleshoot)
