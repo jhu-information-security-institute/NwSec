@@ -27,7 +27,7 @@ RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dns
 RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 
 #install dependencies for systemd and syslog
-RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb rsyslog -y
+RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
 VOLUME [ "/tmp", "/run", "/run/lock" ]
 # Remove unnecessary units
