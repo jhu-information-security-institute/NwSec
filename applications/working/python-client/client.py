@@ -1,4 +1,5 @@
 #Reuben Johnston, reub@jhu.edu
+#This utility program performs network activity on a timed interval.  It was written for laboratory exercises where students needed to monitor wireless traffic.
 
 import ftplib
 import telnetlib
