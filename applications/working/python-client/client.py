@@ -1,3 +1,5 @@
+#Reuben Johnston, reub@jhu.edu
+
 import ftplib
 import telnetlib
 import time
