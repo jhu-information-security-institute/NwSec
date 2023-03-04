@@ -30,7 +30,7 @@ RUN yum install systemd -y
 CMD ["/usr/lib/systemd/systemd", "--system"]
 
 #install all the things (ipa server)
-RUN yum install freeipa-server
+RUN yum install freeipa-server -y
 
 # Finished!
 RUN echo $'\n\    
