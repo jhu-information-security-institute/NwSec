@@ -35,5 +35,5 @@ RUN yum install freeipa-server -y
 
 # Finished!
 RUN echo $'\n\    
-* Container is ready, run it using $ docker run -d --name ipasvr --hostname ipa.netsec.isi.jhu.edu --add-host ipa.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --network host --cpus=1 tipasvr:latest \n\
+* Container is ready, run it using $ docker run -d --name ipasvr --hostname ipa.netsec.isi.jhu.edu --privileged --network host --cpus=2 tipasvr:latest \n\
 * Attach to it using $ docker exec -it ipasvr bash'
