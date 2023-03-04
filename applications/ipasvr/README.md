@@ -7,5 +7,5 @@ $ sudo firewall-cmd --runtime-to-permanent
 
 in container:
 ```
-# ipa-server-install --hostname='ipa.netsec.isi.jhu.edu' --domain=netsec.isi.jhu.edu --realm=netsec.isi.jhu.edu --ds-password=<PASSWORD> --admin-password=<PASSWORD> --no-ntp
+# ipa-server-install --hostname='ipa.netsec.isi.jhu.edu' --domain=netsec.isi.jhu.edu --realm=NETSEC.ISI.JHU.EDU --no-ntp
 ```
