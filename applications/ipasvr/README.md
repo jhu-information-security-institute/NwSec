@@ -25,4 +25,5 @@ The freeipa server instances on CentOS run in a single docker container.
     # ipa-server-install --hostname='ipa.netsec.isi.jhu.edu' --domain=netsec.isi.jhu.edu --realm=NETSEC.ISI.JHU.EDU --no-ntp
     ```
 # Useful websites
+* https://www.freeipa.org/page/Quick_Start_Guide
 
