@@ -6,7 +6,7 @@
 1. Create a user in the container (e.g., for git commits) via: `/mnt/docker/scripts/create-user.sh -u user -p password`
 1. Log in as user via: `su user`
 1. From the running container, use these display and xauthtoken values and call: `$ export DISPLAY=display && /mnt/docker/scripts/display-runtime.sh -x xauthtoken`
-1. git clone `$ https://github.com/openwrt/openwrt.git`
+1. `$ git clone https://github.com/openwrt/openwrt.git`
 1. cd into openwrt
 1. `$ make menuconfig`
     * Target system->x86, Subtarget->x86_64 (x86-64, x4 AMD GX-412TC SOC)
