@@ -28,8 +28,17 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+# Remove unnecessary units
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+  /etc/systemd/system/*.wants/* \
+  /lib/systemd/system/local-fs.target.wants/* \
+  /lib/systemd/system/sockets.target.wants/*udev* \
+  /lib/systemd/system/sockets.target.wants/*initctl* \
+  /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+  /lib/systemd/system/systemd-update-utmp*
 #start systemd
-CMD ["/usr/lib/systemd/systemd", "--system"]
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
 RUN echo 'Install dependencies'
 RUN apt-get install -y libpcre3 libpcre3-dbg libpcre3-dev 
@@ -45,13 +54,13 @@ RUN apt-get install -y suricata jq
 #configure suricata and install some rules
 RUN mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.orig
 RUN mv /etc/default/suricata /etc/default/suricata.orig
-COPY suricata.yaml /etc/suricata/suricata.yaml
+COPY etc_suricata_suricata.yaml /etc/suricata/suricata.yaml
 COPY etc_default_suricata /etc/default/suricata
 RUN suricata-update
-COPY var_lib_suricata_rules_test-ddos.rules /var/lib/suricata/rules/test-ddos.rules
+COPY var_lib_suricata_rules_test-dos.rules /var/lib/suricata/rules/test-dos.rules
 
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.nwsecdocker.jhu.edu --add-host suricata.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
+* Container is ready, run it using $ docker run -d --name suricata --hostname suricata.netsec-docker.isi.jhu.edu --add-host suricata.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tsuricata:latest \n\
 * Attach to it using $ docker exec -it suricata bash \n\
 * suricata status is available using # systemctl status suricata \n\
 * suricata can be stopped and started as well using systemctl'

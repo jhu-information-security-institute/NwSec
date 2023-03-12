@@ -1,0 +1,3 @@
+alert tcp 192.168.25.155 any -> $HOME_NET any (msg:"LOCAL DOS SYN packet flood inbound, Potential DOS"; flow:to_server; flags: S,12; threshold: type both, track by_dst, count 500, seconds 5; classtype:misc-activity; sid:11;)
+alert tcp 192.168.25.155 any -> $HOME_NET any (msg:"LOCAL DOS SYN+PSH packet flood inbound, Potential DOS"; flow:to_server; flags: SU,12; threshold: type both, track by_dst, count 500, seconds 5; classtype:misc-activity; sid:12;)
+alert tcp 192.168.25.155 any -> $HOME_NET any (msg:"LOCAL DOS SYN+PSH+URG packet flood inbound, Potential DOS"; flow:to_server; flags: SPU,12; threshold: type both, track by_dst, count 500, seconds 5; classtype:misc-activity; sid:13;)

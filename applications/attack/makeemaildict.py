@@ -28,8 +28,8 @@ def create_emaildb(userdb, domain, emaildb):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--userdb', type=str, help='database (text) list of users')    
-    parser.add_argument('--domain', type=int, help='email domain to append with users')    
-    parser.add_argument('--emaildb', type=int, help='output email database (text) list of emails')
+    parser.add_argument('--domain', type=str, help='email domain to append with users')    
+    parser.add_argument('--emaildb', type=str, help='output email database (text) list of emails')
     
     args=parser.parse_args()
     

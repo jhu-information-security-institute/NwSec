@@ -29,36 +29,40 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+# Remove unnecessary units
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+  /etc/systemd/system/*.wants/* \
+  /lib/systemd/system/local-fs.target.wants/* \
+  /lib/systemd/system/sockets.target.wants/*udev* \
+  /lib/systemd/system/sockets.target.wants/*initctl* \
+  /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+  /lib/systemd/system/systemd-update-utmp*
 #start systemd
-CMD ["/usr/lib/systemd/systemd", "--system"]
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
-#install all the things (inetutils-telnetd, openssh-server)
-RUN apt-get install inetutils-telnetd openssh-server -y
+#install all the things (inetutils-inetd, openssh-server)
+RUN apt-get install inetutils-inetd inetutils-telnetd -y
+RUN apt-get install openssh-server -y
 
 COPY etc_ssh_sshd_config /etc/ssh/sshd_config
-COPY etc_pam.d_login /etc/pam.d/login
 COPY etc_inetd.conf /etc/inetd.conf
 
-#create a few easy to guess users and passwords
+#create a user student with password nwsec
 RUN useradd -m student
 RUN echo 'student:nwsec' | chpasswd
-RUN useradd -m john
-RUN echo 'john:password' | chpasswd
-RUN useradd -m jane
-RUN echo 'jane:password' | chpasswd
-
-#create a goldenkeyfile
-RUN echo 'reubwashere' > /root/goldenkey
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name termsvr --hostname term.nwsecdocker.jhu.edu --add-host term.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus=1 ttermsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name termsvr --hostname jhedid-termsvr.netsec.isi.jhu.edu --add-host jhedid-termsvr.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 --cpus=1 ttermsvr:latest \n\
 * Attach to it using $ docker exec -it termsvr bash \n\
-* inetutils-telnetd status is available using # systemctl status inetutils-inetd \n\
-* openssh-server status is available using # systemctl status sshd \n\
+* Enable the telnet service using # systemctl enable inetutils-inetd \n\
+* Enable the ssh service using # systemctl enable ssh \n\
+* Start the telnet service using # systemctl start inetutils-inetd \n\
+* Start the ssh service using # systemctl start ssh \n\
+* inetutils-inetd status is available using # systemctl status inetutils-inetd \n\
+* openssh-server status is available using # systemctl status ssh \n\
 * inetutils-inetd can be stopped and started as well using systemctl \n\
 * openssh-server can be stopped and started as well using systemctl \n\
-* telnet into the server by running $ telnet term.nwsecdocker.jhu.edu \n\
-* ssh into the server by running $ ssh userterm.nwsecdocker.jhu.edu -p 10022 \n\
-* Build the goroot executable and set its capabilities using # setcap CAP_SETUID+ep goroot \n\
-* Then upload goroot to the nfsshare'
+* telnet into the server by running $ telnet CONTAINERIPADDRESS \n\
+* ssh into the server by running $ ssh student@CONTAINERIPADDRESS'

@@ -39,7 +39,7 @@ RUN mkdir -p /var/www/nwsec
 COPY index.html /var/www/nwsec/.
 
 #make the example site available
-COPY nwsec /etc/nginx/sites-available/.
+COPY etc_nginx_sites-available_nwsec /etc/nginx/sites-available/nwsec
 RUN ln -s /etc/nginx/sites-available/nwsec /etc/nginx/sites-enabled/nwsec
 
 #remove the default site

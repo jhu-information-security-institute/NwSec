@@ -34,3 +34,4 @@ The client that communicates with the NFS server is any remote NFS sclient.
 
 # Useful websites
 * https://help.ubuntu.com/community/SettingUpNFSHowTo
+* https://ubuntu.com/server/docs/service-nfs

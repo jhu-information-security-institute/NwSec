@@ -7,9 +7,9 @@
 //include "/etc/bind/zones.rfc1918";
 
 // forward zone
-zone "nwsecdocker.jhu.edu" {
+zone "netsec-docker.isi.jhu.edu" {
     type master;
-    file "/etc/bind/zones/db.nwsecdocker.jhu.edu"; # zone file path
+    file "/etc/bind/zones/db.netsec-docker.isi.jhu.edu"; # zone file path
 };
 
 // reverse zone

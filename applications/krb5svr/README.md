@@ -4,7 +4,7 @@
     * Admin server
     * Client nodes
 
-172.16.0.30 KDC
+192.168.25.101 KDC (auth.netsec-docker.isi.jhu.edu)
 
 * to install use: `$ sudo apt-get install krb5-kdc krb5-admin-server`
 * to purge everything use: `$ sudo apt purge -y krb5-kdc krb5-admin-server krb5-config krb5-locales krb5-user krb5.conf`
@@ -27,6 +27,21 @@
 * Restart the server to reload the new ACL using: `$ sudo systemctl restart krb5-admin-server.service`
 * Note: you need dns entry for your KDC for this to work (possibly you might be able to edit /etc/hosts if on same machine)
 * Test the principal user using: `$ kinit ubuntu/admin`
+
+# Runtime environment setup
+## Ubuntu
+1. Download files to build container
+    ```
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/krb5svr/krb5svr_UbuntuServerX86-64.sh
+    $ chmod +x krb5svr_UbuntuServerX86-64.sh
+    $ ./krb5svr_UbuntuServerX86-64.sh
+    ```
+1. Build, run, attach to container
+    ```
+    $ docker build -t tauthsvr .
+    $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tauthsvr:latest
+    $ docker exec -it authsvr bash 
+    ```
 
 # Useful links
 * https://ubuntu.com/server/docs/service-kerberos

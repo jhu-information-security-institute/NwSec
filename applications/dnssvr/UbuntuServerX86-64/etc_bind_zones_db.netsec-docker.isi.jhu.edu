@@ -1,0 +1,34 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL	86400			;default TTL for this zone (1 day)
+$ORIGIN netsec-docker.isi.jhu.edu.	;base domain name
+@	IN	SOA	ns.netsec-docker.isi.jhu.edu. root.netsec-docker.isi.jhu.edu (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+; name servers - NS records
+netsec-docker.isi.jhu.edu.			IN	NS	ns.netsec-docker.isi.jhu.edu.
+
+; name servers - A records
+ns.netsec-docker.isi.jhu.edu.			IN	A	192.168.25.10
+
+; mail servers - MX records
+netsec-docker.isi.jhu.edu.		IN	MX	0	mail.netsec-docker.isi.jhu.edu.
+
+; hosts
+; Ubuntu 2
+dhcp.netsec-docker.isi.jhu.edu.		IN	A	192.168.25.5
+suricata.netsec-docker.isi.jhu.edu.	IN	A	192.168.25.100
+auth.netsec-docker.isi.jhu.edu.		IN	A	192.168.25.101
+
+; Selks
+selks.netsec-docker.isi.jhu.edu.		IN	A	192.168.25.110
+
+; Ubuntu 1
+nginx.netsec-docker.isi.jhu.edu.		IN	A	192.168.25.120
+mail.netsec-docker.isi.jhu.edu.		IN	A	192.168.25.121
+nfs.netsec-docker.isi.jhu.edu.		IN	A	192.168.25.122

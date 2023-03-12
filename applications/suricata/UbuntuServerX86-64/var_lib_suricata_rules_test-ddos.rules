@@ -1,4 +1,0 @@
-alert icmp 192.168.25.150 any -> 192.168.25.100 any (msg: "ICMP Packet found";sid:1;)
-alert tcp any any -> $HOME_NET any (msg:"LOCAL DOS SYN packet flood inbound, Potential DOS"; flow:to_server; flags: S,12; threshold: type both, track by_dst, count 500, seconds 5; classtype:misc-activity; sid:2;)
-alert tcp any any -> $HOME_NET any (msg:"LOCAL DOS SYN+PSH packet flood inbound, Potential DOS"; flow:to_server; flags: SU,12; threshold: type both, track by_dst, count 500, seconds 5; classtype:misc-activity; sid:3;)
-alert tcp any any -> $HOME_NET any (msg:"LOCAL DOS SYN+PSH+URG packet flood inbound, Potential DOS"; flow:to_server; flags: SPU,12; threshold: type both, track by_dst, count 500, seconds 5; classtype:misc-activity; sid:4;)
