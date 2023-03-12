@@ -8,7 +8,8 @@
 1. From the running container, use these display and xauthtoken values and call: `$ export DISPLAY=display && /mnt/docker/scripts/display-runtime.sh -x xauthtoken`
 1. `$ git clone https://github.com/openwrt/openwrt.git`
 1. cd into openwrt
-1. `$ make menuconfig`
+1. checkout the latest tag, e.g.: `$ git checkout tags/v22.03.3`
+3. `$ make menuconfig`
     * Target system->x86, Subtarget->x86_64 (x86-64, x4 AMD GX-412TC SOC)
     * Base system->
         * deselect dnsmasq
@@ -48,7 +49,7 @@
     * Luci->
         * Collections->luci-nginx
         * Applications->luci-app-openvpn
-1. `$ make -j4 V=s`
+4. `$ make -j4 V=s`
     * Note: to clean up after a failed build, run `$ make dirclean && make clean`
 
 # Installation instructions
