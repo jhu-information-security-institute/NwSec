@@ -2,7 +2,7 @@
 1. Build the container by running (from this directory): `$ docker build --build-arg CONTMNTSCRIPTS=scripts --build-arg CONTMNTSHARED=/mnt/hgfs/shared --build-arg CONTMNTSANDBOX=/mnt/hgfs/sandbox -t t_openwrtapu4buildenv .`
 1. To identify $DISPLAY and its xauth token, run the following from the host: `$ echo $DISPLAY && xauth list $DISPLAY`
 1. Start the container by running: `$ docker run -d --name openwrtapu4buildenv -v scripts:/mnt/docker/scripts -v /mnt/hgfs/shared:/mnt/docker/shared -v /mnt/hgfs/sandbox:/mnt/docker/sandbox -t t_openwrtapu4buildenv:latest`
-1. Attach to the container by running: `$ sudo docker exec -it openwrtapu4buildenv bash`
+1. Attach to the container by running: `$ docker exec -it openwrtapu4buildenv bash`
 1. Create a user in the container (e.g., for git commits) via: `/mnt/docker/scripts/create-user.sh -u user -p password`
 1. Log in as user via: `su user`
 1. From the running container, use these display and xauthtoken values and call: `$ export DISPLAY=display && ./mnt/hgfs/scripts/
