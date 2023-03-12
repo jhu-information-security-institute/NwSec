@@ -1,5 +1,5 @@
 # Build instructions
-1. Build the container by running (from this directory): `$ sudo docker build --build-arg CONTMNTSCRIPTS=/mnt/hgfs/scripts --build-arg CONTMNTSHARED=/mnt/hgfs/shared --build-arg CONTMNTSANDBOX=/mnt/hgfs/sandbox -t t_openwrtapu4buildenv .`
+1. Build the container by running (from this directory): `$ docker build --build-arg CONTMNTSCRIPTS=/mnt/hgfs/scripts --build-arg CONTMNTSHARED=/mnt/hgfs/shared --build-arg CONTMNTSANDBOX=/mnt/hgfs/sandbox -t t_openwrtapu4buildenv .`
 1. To identify $DISPLAY and its xauth token, run the following from the host: `$ echo $DISPLAY && xauth list $DISPLAY`
 1. Start the container by running: `$ docker run -d --name openwrtapu4buildenv -v /mnt/hgfs/scripts:/mnt/hgfs/scripts -v /mnt/hgfs/shared:/mnt/hgfs/shared -v /mnt/hgfs/sandbox:/mnt/hgfs/sandbox -t t_openwrtapu4buildenv:latest`
 1. Attach to the container by running: `$ sudo docker exec -it openwrtapu4buildenv bash`
