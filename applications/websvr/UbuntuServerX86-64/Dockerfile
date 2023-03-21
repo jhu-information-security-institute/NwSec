@@ -28,8 +28,17 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+# Remove unnecessary units
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+  /etc/systemd/system/*.wants/* \
+  /lib/systemd/system/local-fs.target.wants/* \
+  /lib/systemd/system/sockets.target.wants/*udev* \
+  /lib/systemd/system/sockets.target.wants/*initctl* \
+  /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+  /lib/systemd/system/systemd-update-utmp*
 #start systemd
-CMD ["/usr/lib/systemd/systemd", "--system"]
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
 #install all the things (web server)
 RUN apt-get install nginx -y
@@ -47,7 +56,7 @@ RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name websvr --hostname nginx.nwsecdocker.jhu.edu --add-host nginx.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 twebsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name websvr --hostname websvr.netsec-docker.isi.jhu.edu --add-host websvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 10080:80 -p 10081:81 -p 10443:443 --cpus=1 twebsvr:latest \n\
 * Attach to it using $ docker exec -it websvr bash \n\
 * nginx status is available using # systemctl status nginx \n\
 * nginx can be stopped and started as well using systemctl'
