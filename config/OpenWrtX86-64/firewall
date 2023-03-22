@@ -7,26 +7,26 @@ config defaults
 
 config zone
 	option name 'NETSEC'
-	list network 'netsec'
 	option input 'ACCEPT'
 	option output 'ACCEPT'
 	option forward 'ACCEPT'
+	list network 'NETSEC'
 
 config zone
 	option name 'GRAVEYARD'
-	list network 'graveyard'
 	option input 'REJECT'
 	option output 'ACCEPT'
 	option forward 'REJECT'
 	option masq '1'
 	option mtu_fix '1'
+	list network 'GRAVEYARD'
 
 config zone
 	option name 'NETSECPUBLIC'
-	list network 'netsecpublic'
 	option input 'ACCEPT'
 	option output 'ACCEPT'
 	option forward 'ACCEPT'
+	list network 'NETSECPUBLIC'
 
 config forwarding
 	option src 'NETSECPUBLIC'

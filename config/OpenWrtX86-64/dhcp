@@ -1,0 +1,67 @@
+
+config dnsmasq
+	option domainneeded '1'
+	option localise_queries '1'
+	option local '/lan/'
+	option domain 'lan'
+	option expandhosts '1'
+	option authoritative '1'
+	option readethers '1'
+	option leasefile '/tmp/dhcp.leases'
+	option resolvfile '/tmp/resolv.conf.d/resolv.conf.auto'
+	option localservice '1'
+	option ednspacket_max '1232'
+	option rebind_protection '0'
+
+config dhcp 'lan'
+	option interface 'lan'
+	option start '100'
+	option limit '150'
+	option leasetime '12h'
+	option dhcpv4 'server'
+	option dhcpv6 'server'
+	option ra 'server'
+	option ra_slaac '1'
+	list ra_flags 'managed-config'
+	list ra_flags 'other-config'
+
+config dhcp 'wan'
+	option interface 'wan'
+	option ignore '1'
+
+config odhcpd 'odhcpd'
+	option maindhcp '0'
+	option leasefile '/tmp/hosts/odhcpd'
+	option leasetrigger '/usr/sbin/odhcpd-update'
+	option loglevel '4'
+
+config host
+	option name 'dns'
+	option dns '1'
+	option mac '00:50:56:a5:73:70'
+	option ip '192.168.15.10'
+
+config dhcp 'NETSECPUBLIC'
+	option interface 'NETSECPUBLIC'
+	option start '100'
+	option limit '150'
+	option leasetime '12h'
+
+config host
+	option name 'dhcp'
+	option dns '1'
+	option ip '192.168.15.5'
+	option mac '00:50:56:A5:6F:64'
+
+config host
+	option name 'ipa'
+	option dns '1'
+	option mac '00:50:56:a5:a9:67'
+	option ip '192.168.15.2'
+
+config host
+	option name 'nas'
+	option dns '1'
+	option mac '00:50:56:a5:ce:10'
+	option ip '192.168.15.3'
+

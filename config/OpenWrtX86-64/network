@@ -26,14 +26,32 @@ config interface 'NETSEC'
 	option ipaddr '172.16.0.1'
 	option netmask '255.255.255.0'
 	option ipv6 'off'
-	option device 'eth1'
 	list dns '172.16.0.10'
+	list dns_search 'netsec.isi.jhu.edu'
+	option defaultroute '0'
+	option dns_metric '1'
+	option device 'br-netsec'
 
 config interface 'NETSECPUBLIC'
 	option proto 'static'
-	option device 'eth2'
 	option ipaddr '192.168.15.1'
 	option netmask '255.255.255.0'
 	option gateway '128.220.249.5'
 	option delegate '0'
+	option device 'br-netsecpublic'
+
+config device
+	option name 'eth1'
+	option ipv6 '0'
+
+config device
+	option type 'bridge'
+	option name 'br-netsecpublic'
+	list ports 'eth2'
+
+config device
+	option type 'bridge'
+	option name 'br-netsec'
+	list ports 'eth1'
+	option ipv6 '0'
 
