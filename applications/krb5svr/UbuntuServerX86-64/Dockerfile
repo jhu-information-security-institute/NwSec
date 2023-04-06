@@ -5,7 +5,7 @@
 #   By default, runs as root
 #   https://ubuntu.com/server/docs/service-kerberos
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
@@ -29,7 +29,19 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
 #start systemd
-CMD ["/usr/lib/systemd/systemd", "--system"]
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+
+# Remove unnecessary units
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+  /etc/systemd/system/*.wants/* \
+  /lib/systemd/system/local-fs.target.wants/* \
+  /lib/systemd/system/sockets.target.wants/*udev* \
+  /lib/systemd/system/sockets.target.wants/*initctl* \
+  /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+  /lib/systemd/system/systemd-update-utmp*
+
+#start systemd
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
 #install all the things (kdc and admin server)
 RUN echo "krb5-config krb5-config/default_realm string NETSEC-DOCKER.ISI.JHU.EDU" | sudo debconf-set-selections
