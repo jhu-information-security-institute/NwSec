@@ -47,6 +47,10 @@
   <pre><code>
   $ kadmin -q "addprinc -randkey client/client.netsec-docker.isi.jhu.edu"
   </code></pre>
+* Example 3, create a principal for a user
+  <pre><code>
+  $ kadmin -q "addprinc -randkey ubuntu/student"
+  </code></pre>  
 
 # Useful links
 * https://ubuntu.com/server/docs/service-kerberos
