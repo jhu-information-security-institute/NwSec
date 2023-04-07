@@ -52,6 +52,20 @@
   $ kadmin -q "addprinc -randkey ubuntu/student"
   </code></pre>  
 
+## Configure client hosts
+* Ensure network and DNS are setup properly on the client
+* Install krb5-user on the client
+  <pre><code>
+  $ sudo apt-get install krb5-user
+  </code></pre>  
+* Example 1, setup NFS client
+    * From the NFS client, authenticate as kerberos admin principal using: `$ kinit ubuntu/admin`
+    * Add the client server principal to the keytab-file on the nfs server client (need to use the correct dns name for your termsvr+nfs host)
+    <pre><code>
+    $ kadmin -p ubuntu/admin -q "ktadd nfs/nfs.netsec-docker.isi.jhu.edu"
+    </code></pre>
+    * Query the keytab settings (should see the principal listed above) using: `$ ktutil`
+
 # Useful links
 * https://ubuntu.com/server/docs/service-kerberos
 * https://help.ubuntu.com/community/NFSv4Howto
