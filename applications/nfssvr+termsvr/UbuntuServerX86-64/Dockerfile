@@ -7,7 +7,7 @@
 # https://www.gnu.org/software/inetutils/
 # https://ubuntu.com/server/docs/service-openssh
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
@@ -66,7 +66,7 @@ RUN echo 'jane:password' | chpasswd
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name nfssvr_plus_termsvr --hostname nfssvr-plus-termsvr --add-host nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/export/nfsshare:rw -v /nfsshare:/nfsshare:rw -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tnfssvr_plus_termsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name nfssvr_plus_termsvr --hostname nfssvr-plus-termsvr --add-host nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/export/nfsshare:rw -v /nfsshare:/nfsshare:rw --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr_plus_termsvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr_plus_termsvr bash \n\
 * Enable the telnet service using # systemctl enable inetutils-inetd \n\
 * Enable the ssh service using # systemctl enable ssh \n\
