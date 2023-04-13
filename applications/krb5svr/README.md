@@ -11,9 +11,8 @@
 1. Build, run, attach to container
     ```
     $ docker build -t tauthsvr .
-    $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tauthsvr:latest
+    $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tauthsvr:latest
     $ docker exec -it authsvr bash 
-    ```
 
 ## Setup KDC container (auth.netsec-docker.isi.jhu.edu)
 * to install use: `$ sudo apt-get install krb5-kdc krb5-admin-server`
