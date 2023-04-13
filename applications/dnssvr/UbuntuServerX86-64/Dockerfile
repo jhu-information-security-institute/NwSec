@@ -39,6 +39,7 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
   /lib/systemd/system/systemd-update-utmp*
 #start systemd
 CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
+
 #install all the things (web server)
 RUN apt-get install bind9 -y
 

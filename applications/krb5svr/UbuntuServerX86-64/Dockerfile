@@ -28,9 +28,7 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-#start systemd
 VOLUME [ "/tmp", "/run", "/run/lock" ]
-
 # Remove unnecessary units
 RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
   /etc/systemd/system/*.wants/* \
@@ -39,7 +37,6 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
   /lib/systemd/system/sockets.target.wants/*initctl* \
   /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
   /lib/systemd/system/systemd-update-utmp*
-
 #start systemd
 CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
