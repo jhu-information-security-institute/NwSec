@@ -53,7 +53,7 @@ COPY etc_bind_zones_db.25.168.192 /etc/bind/zones/db.25.168.192
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns.netsec-docker.isi.jhu.edu --add-host ns.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdnssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dnssvr --hostname ns.netsec-docker.isi.jhu.edu --add-host ns.netsec-docker.isi.jhu.edu:127.0.1.1 --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdnssvr:latest \n\
 * Attach to it using $ docker exec -it dnssvr bash \n\
 * bind9 status is available using # systemctl status bind9 \n\
 * bind9 can be stopped and started as well using systemctl'
