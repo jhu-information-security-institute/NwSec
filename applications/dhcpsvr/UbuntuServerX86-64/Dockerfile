@@ -5,7 +5,7 @@
 #   By default, runs as root
 #   https://www.isc.org/dhcp
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
@@ -44,11 +44,11 @@ CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 RUN apt-get install isc-dhcp-server -y
 
 COPY etc_dhcp_dhcpd.conf /etc/dhcp/dhcpd.conf
-COPY etc_resolv.conf /etc/resolv.conf
+#COPY etc_resolv.conf /etc/resolv.conf
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdhcpsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdhcpsvr:latest \n\
 * Attach to it using $ docker exec -it dhcpsvr bash \n\
 * isc-dhcp-server status is available using # systemctl status isc-dhcp-server \n\
 * isc-dhcp-server can be stopped and started as well using systemctl'

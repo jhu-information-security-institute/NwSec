@@ -52,7 +52,7 @@ COPY etc_krb5kdc_kadm5.acl /etc/krb5kdc/kadm5.acl
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tauthsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name authsvr --hostname auth.netsec-docker.isi.jhu.edu --add-host auth.netsec-docker.isi.jhu.edu:127.0.1.1 --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tauthsvr:latest \n\
 * Attach to it using $ docker exec -it authsvr bash \n\
 * Build database using # kdb5_util create -r NETSEC-DOCKER.ISI.JHU.EDU -s \n\
 * Restart the servers # systemctl restart krb5-admin-server krb5-kdc \n\
