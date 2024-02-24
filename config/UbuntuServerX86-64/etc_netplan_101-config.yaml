@@ -18,35 +18,35 @@ network:
                                 search: [invalid] #customize this with your own internet router domain name
                 #container 1
                 ens37
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
-                        dhcp4: false
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
+                        dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
                         nameservers:
-                                addresses: [192.168.25.10] #customize this with your own internet router IP address
-                                search: [netsec-docker.isi.jhu.edu] #customize this with your own internet router domain name                       
+                                addresses: [192.168.25.10]
+                                search: [netsec-docker.isi.jhu.edu]                   
                 #container 2
                 ens38:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
-                        dhcp4: false
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
+                        dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [netsec-docker.isi.jhu.edu]      
+                                search: [netsec-docker.isi.jhu.edu]  
                 #container 3
                 ens39:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
-                        dhcp4: false
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
+                        dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
                         nameservers:
                                 addresses: [192.168.25.10]
-                                search: [netsec-docker.isi.jhu.edu]      
+                                search: [netsec-docker.isi.jhu.edu] 
                 #container 4
                 ens40:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
-                        dhcp4: false
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
+                        dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
                         nameservers:
