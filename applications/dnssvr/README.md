@@ -19,9 +19,9 @@ BIND 9 has evolved to be a very flexible, full-featured DNS system. Whatever you
 1. Enable the server using: `$ sudo systemctl enable bind9`
 
 ## Notes
-* Restart the server using: `$ sudo systemctl restart bind9`
-* Check the server status (there should be no errors) using: `$ sudo systemctl status bind9`
-* View the server log: `$ sudo journalctl -u bind9`
+* Restart the server using: `# systemctl restart bind9`
+* Check the server status (there should be no errors) using: `# systemctl status bind9`
+* View the server log: `# journalctl -u bind9`
 * Configure the server by editing `/etc/bind/zones/db.25.168.192` and `/etc/bind/zones/db.netsec-docker.isi.jhu.edu`
 
 # Useful websites
