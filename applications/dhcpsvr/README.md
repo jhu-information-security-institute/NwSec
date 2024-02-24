@@ -18,7 +18,7 @@ ISC DHCP offers a complete open source solution for implementing DHCP servers, r
     ```
 1. Enable the server using: `# systemctl enable isc-dhcp-server`
 1. Edit `/etc/dhcp/dhcpd.conf` and update MAC addresseses appropriately to match your virtual network adapters
-1. Reload the configuration by running `# systemctl daemon-reload
+1. Reload the configuration by running `# systemctl daemon-reload`
 1. Restart the server using: `# systemctl restart isc-dhcp-server`
 
 ## Notes
