@@ -5,7 +5,7 @@ network:
         renderer: networkd
         ethernets:
                 #container3
-                ens40:
+                ens39:
                         #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: false
                         dhcp4-overrides:
@@ -14,7 +14,7 @@ network:
                                 addresses: [192.168.25.10]
                                 search: [netsec-docker.isi.jhu.edu]
                 #container4
-                ens41:
+                ens40:
                         #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: false
                         dhcp4-overrides:
@@ -23,7 +23,7 @@ network:
                                 addresses: [192.168.25.10]
                                 search: [netsec-docker.isi.jhu.edu]
                 #container5
-                ens42:
+                ens41:
                         #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: false
                         dhcp4-overrides:
