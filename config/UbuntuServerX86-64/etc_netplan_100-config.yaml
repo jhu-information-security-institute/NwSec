@@ -6,7 +6,7 @@ network:
         ethernets:
                 #container3
                 ens39:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
                         dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
@@ -15,8 +15,8 @@ network:
                                 search: [netsec-docker.isi.jhu.edu]
                 #container4
                 ens40:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
-                        dhcp4: false
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
+                        dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
                         nameservers:
@@ -24,8 +24,8 @@ network:
                                 search: [netsec-docker.isi.jhu.edu]
                 #container5
                 ens41:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
-                        dhcp4: false
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
+                        dhcp4: true
                         dhcp4-overrides:
                                 use-routes: false
                         nameservers:
