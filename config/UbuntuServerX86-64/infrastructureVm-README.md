@@ -9,20 +9,23 @@
     $ chmod +x infrastructureVm-UbuntuServerX86-64.sh
     $ ./infrastructureVm-UbuntuServerX86-64.sh
     ```
-* Create and start Ubuntu server DHCP Docker container as described on [dhcpsvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dhcpsvr)
-* Create and start Ubuntu server DNS Docker container as described on [dnssvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dnssvr)
+* Create Ubuntu server DHCP Docker container as described on [dhcpsvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dhcpsvr)
+* Create Ubuntu server DNS Docker container as described on [dnssvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dnssvr)
 * Change into the downloaded `infrastructureVm/config/UbuntuServerX86-64` directory
 * Run the installer1 with sudo using: `$ sudo ./infrastructureVm-install1.sh`
 * Run the installer2 using: `$ ./infrastructureVm-install2.sh`
 * Edit nameserver IP address and domain name in nameserver section of `ens33` portion within `/etc/netplan/99-config.yaml` to values for your internet router
     * Run `$ ip route` in a terminal and use whatever ip address the "default via XXX.XXX.XXX.XXX" is
     * Ensure that the device names `ens??` match with those created in your vm
+* Run `$ sudo netplan apply`
 * Ensure that the device names `ens??` within `~/netplan/100-config.yaml` match with those created in your vm
 * Ensure that /etc/NetworkManager/NetworkManager.conf has the lines below
     ```
     [ifupdown]
     managed=false
-    ``` 
+    ```
+* Start Ubuntu server DHCP Docker container as described on [dhcpsvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dhcpsvr)
+* Start Ubuntu server DNS Docker container as described on [dnssvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dnssvr)    
 * Use nmcli to query the ethernet mac addresses the VMNet1 virtual network adapters on UbuntuX86-64-infrastructure
 * Update `/etc/dhcp/dhcpd.conf` in the dhcpsvr project based on your ethernet mac addresses from above
 * Reload and restart isc-dhcp-server in your container
