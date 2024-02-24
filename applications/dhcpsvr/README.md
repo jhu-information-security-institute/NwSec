@@ -16,10 +16,10 @@ ISC DHCP offers a complete open source solution for implementing DHCP servers, r
     $ docker run -d --name dhcpsvr --hostname dhcp.netsec-docker.isi.jhu.edu --add-host dhcp.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tdhcpsvr:latest
     $ sudo docker exec -it dhcpsvr bash 
     ```
-1. Enable the server using: `$ sudo systemctl enable isc-dhcp-server`
+1. Enable the server using: `# systemctl enable isc-dhcp-server`
 1. Edit `/etc/dhcp/dhcpd.conf` and update MAC addresseses appropriately to match your virtual network adapters
-1. Reload the configuration by running `$ sudo systemctl daemon-reload
-1. Restart the server using: `$ sudo systemctl restart isc-dhcp-server`
+1. Reload the configuration by running `# systemctl daemon-reload
+1. Restart the server using: `# systemctl restart isc-dhcp-server`
 
 ## Notes
 * Restart the server using: `$ sudo systemctl restart isc-dhcp-server`
