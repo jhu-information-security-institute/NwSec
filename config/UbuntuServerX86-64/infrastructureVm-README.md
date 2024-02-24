@@ -1,4 +1,4 @@
-# Initial setup
+# Setup
 * Create Ubuntu server infrastructure VM as described on [Ubuntu-x86-64-VM](https://github.com/jhu-information-security-institute/NwSec/wiki/Ubuntu-x86-64-VM)
 * Install Docker in the infrastructure VM as described on [Docker-on-Ubuntu](https://github.com/jhu-information-security-institute/NwSec/wiki/Docker-on-Ubuntu)
 * Ensure that your VM has x4 additional virtual network interfaces that are attached to VMnet1 and VMWare's dhcp server is disabled on VMnet1
@@ -9,6 +9,8 @@
     $ chmod +x infrastructureVm-UbuntuServerX86-64.sh
     $ ./infrastructureVm-UbuntuServerX86-64.sh
     ```
+* Create and start Ubuntu server DHCP Docker container as described on [dhcpsvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dhcpsvr)
+* Create and start Ubuntu server DNS Docker container as described on [dnssvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dnssvr)
 * Change into the downloaded `infrastructureVm/config/UbuntuServerX86-64` directory
 * Run the installer1 with sudo using: `$ sudo ./infrastructureVm-install1.sh`
 * Run the installer2 using: `$ ./infrastructureVm-install2.sh`
@@ -19,10 +21,7 @@
     ```
     [ifupdown]
     managed=false
-    ```
-# Final setup
-* Create and start Ubuntu server DHCP Docker container as described on [dhcpsvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dhcpsvr)
-* Create and start Ubuntu server DNS Docker container as described on [dnssvr](https://github.com/jhu-information-security-institute/NwSec/tree/master/applications/dnssvr)
+    ``` 
 * Use nmcli to query the ethernet mac addresses the VMNet1 virtual network adapters on UbuntuX86-64-infrastructure
 * Update `/etc/dhcp/dhcpd.conf` in the dhcpsvr project based on your ethernet mac addresses from above
 * Reload and restart isc-dhcp-server in your container
