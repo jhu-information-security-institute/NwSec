@@ -17,7 +17,7 @@ network:
                                 addresses: [192.168.50.1, 8.8.8.8, 1.1.1.1]  #customize this with your own internet router IP address (leave 8.8.8.8 and 1.1.1.1)
                                 search: [invalid] #leave this as is                                
                 #container 1
-                ens37
+                ens37:
                         #dhcp route adds default unless dhcp4-overrides, use-routes: false
                         dhcp4: true
                         dhcp4-overrides:
