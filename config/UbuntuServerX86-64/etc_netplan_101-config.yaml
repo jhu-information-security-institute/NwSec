@@ -6,7 +6,7 @@ network:
         ethernets:
                 #internet via host
                 ens33:
-                        #dhcp route adds default
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
                         dhcp4: true
                         dhcp4-overrides:
                                 use-dns: false
@@ -14,8 +14,8 @@ network:
                               - to: default
                                 via: 192.168.50.1 #customize this with your own internet router IP address
                         nameservers:
-                                addresses: [192.168.50.1,8.8.8.8,1.1.1.1] #customize this with your own internet router IP address
-                                search: [invalid] #customize this with your own internet router domain name
+                                addresses: [192.168.50.1, 8.8.8.8, 1.1.1.1]  #customize this with your own internet router IP address (leave 8.8.8.8 and 1.1.1.1)
+                                search: [invalid] #leave this as is                                
                 #container 1
                 ens37
                         #dhcp route adds default unless dhcp4-overrides, use-routes: false
