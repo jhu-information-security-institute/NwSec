@@ -6,7 +6,7 @@ network:
         ethernets:
                 #internet via host
                 ens33:
-                        #dhcp route adds default
+                        #dhcp route adds default unless dhcp4-overrides, use-routes: false
                         dhcp4: true
                         dhcp4-overrides:
                                 use-dns: false
@@ -18,20 +18,20 @@ network:
                                 search: [invalid] #leave this as is
                 #dns docker
                 ens37:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: false
-                        dhcp4-overrides:
-                                use-routes: false
+                        routes:
+                              - to: 192.168.25.0/24
+                                via: 192.168.25.1
                         addresses: [192.168.25.10/24]
                         nameservers:
                                 addresses: [192.168.25.10]
                                 search: [netsec-docker.isi.jhu.edu]
                 #dhcp docker
                 ens38:
-                        #static routes, do not add gateway4 or gateway6 so that netplan does not add default route                
                         dhcp4: false
-                        dhcp4-overrides:
-                                use-routes: false
+                        routes:
+                              - to: 192.168.25.0/24
+                                via: 192.168.25.1
                         addresses: [192.168.25.5/24]
                         nameservers:
                                 addresses: [192.168.25.10]
