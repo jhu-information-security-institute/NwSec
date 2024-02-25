@@ -50,7 +50,7 @@ COPY etc_inetd.conf /etc/inetd.conf
 
 #create a user student with password nwsec
 RUN useradd -m student
-RUN echo 'student:nwsec' | chpasswd
+RUN echo 'student:netsec' | chpasswd
 
 # Finished!
 RUN echo $'\n\
