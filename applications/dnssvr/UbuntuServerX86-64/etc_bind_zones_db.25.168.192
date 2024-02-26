@@ -13,21 +13,17 @@ $TTL	604800
 25.168.192.in-addr.arpa.	IN	NS	ns.netsec-docker.isi.jhu.edu.
 
 ; PTR records
-; Ubuntu 2
-10.25.168.192.in-addr.arpa.	IN	PTR	ns.netsec-docker.isi.jhu.edu.			; 192.168.25.10
+; Ubuntu Infrastructure
+10.25.168.192.in-addr.arpa.	IN	PTR	ns.netsec-docker.isi.jhu.edu.		; 192.168.25.10
 5.25.168.192.in-addr.arpa.	IN	PTR	dhcp.netsec-docker.isi.jhu.edu.		; 192.168.25.5
-100.25.168.192.in-addr.arpa.	IN	PTR	suricata.netsec-docker.isi.jhu.edu.	; 192.168.25.100
-101.25.168.192.in-addr.arpa.	IN	PTR	auth.netsec-docker.isi.jhu.edu.		; 192.168.25.101
-102.25.168.192.in-addr.arpa.	IN	PTR	proxy.netsec-docker.isi.jhu.edu.		; 192.168.25.102
+14.25.168.192.in-addr.arpa.	IN	PTR	ids.netsec-docker.isi.jhu.edu.		; 192.168.25.14
+15.25.168.192.in-addr.arpa.	IN	PTR	siem.netsec-docker.isi.jhu.edu.		; 192.168.25.15
 
-; Selks
-110.25.168.192.in-addr.arpa.	IN	PTR	selks.netsec-docker.isi.jhu.edu.		; 192.168.25.110
+; CentOS Infrastructure
+11.25.168.192.in-addr.arpa.	IN	PTR	auth.netsec-docker.isi.jhu.edu.		; 192.168.25.11
 
-; Ubuntu 1
-120.25.168.192.in-addr.arpa.	IN	PTR	nginx.netsec-docker.isi.jhu.edu.		; 192.168.25.120
-121.25.168.192.in-addr.arpa.	IN	PTR	mail.netsec-docker.isi.jhu.edu.		; 192.168.25.121
-122.25.168.192.in-addr.arpa.	IN	PTR	nfs.netsec-docker.isi.jhu.edu.		; 192.168.25.122
-123.25.168.192.in-addr.arpa.	IN	PTR	term.netsec-docker.isi.jhu.edu.		; 192.168.25.123
-124.25.168.192.in-addr.arpa.	IN	PTR	ftp.netsec-docker.isi.jhu.edu.		; 192.168.25.124
-125.25.168.192.in-addr.arpa.	IN	PTR honey.netsec-docker.isi.jhu.edu.		; 192.168.25.125
-126.25.168.192.in-addr.arpa.	IN	PTR	tar.netsec-docker.isi.jhu.edu.		; 192.168.25.126
+; Ubuntu Target
+120.25.168.192.in-addr.arpa.	IN	PTR	term.netsec-docker.isi.jhu.edu.		; 192.168.25.120
+121.25.168.192.in-addr.arpa.	IN	PTR	web.netsec-docker.isi.jhu.edu.		; 192.168.25.121
+122.25.168.192.in-addr.arpa.	IN	PTR	mail.netsec-docker.isi.jhu.edu.		; 192.168.25.122
+123.25.168.192.in-addr.arpa.	IN	PTR	nas.netsec-docker.isi.jhu.edu.		; 192.168.25.123
