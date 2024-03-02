@@ -5,7 +5,7 @@ The client instances on Ubuntu runs in a single docker container.
 ## Ubuntu
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/client/client_UbuntuX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/main/applications/client/client_UbuntuX86-64.sh
     $ chmod +x client_UbuntuX86-64.sh
     $ ./client_UbuntuX86-64.sh
     ```
