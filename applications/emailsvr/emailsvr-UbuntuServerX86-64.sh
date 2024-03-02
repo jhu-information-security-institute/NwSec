@@ -27,7 +27,7 @@ echo 'applications/emailsvr/UbuntuServerX86-64/postfix' >> .git/info/sparse-chec
 echo 'applications/emailsvr/UbuntuServerX86-64/postfixadmin' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into emailsvr/applications/emailsvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
