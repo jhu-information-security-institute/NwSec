@@ -27,7 +27,7 @@ echo 'applications/attack/KaliX86-64/lame.txt' >> .git/info/sparse-checkout
 echo 'applications/attack/KaliX86-64/setup_user.sh' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into attack/applications/attack/KaliX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
