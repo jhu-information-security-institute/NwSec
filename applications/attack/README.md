@@ -9,7 +9,7 @@
 # Runtime environment setup
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/attack/attack-KaliX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/main/applications/attack/attack-KaliX86-64.sh
     $ chmod +x attack-KaliX86-64.sh
     $ ./attack-KaliX86-64.sh
     ```
