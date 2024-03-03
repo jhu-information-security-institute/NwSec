@@ -26,7 +26,7 @@ echo 'applications/termsvr/UbuntuServerX86-64/etc_inetd.conf' >> .git/info/spars
 echo 'applications/termsvr/UbuntuServerX86-64/etc_ssh_sshd_config' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into termsvr/applications/termsvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
