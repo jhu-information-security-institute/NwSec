@@ -5,7 +5,7 @@ server {
        listen 81;
        #listen [::]:81; #if ipv6 is enabled, you can uncomment this
 
-       server_name websvr.netsec-docker.isi.jhu.edu;
+       server_name web.netsec-docker.isi.jhu.edu;
 
        root /var/www/nwsec;
        index index.html;
