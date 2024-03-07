@@ -26,7 +26,7 @@ echo 'applications/websvr/UbuntuServerX86-64/index.html' >> .git/info/sparse-che
 echo 'applications/websvr/UbuntuServerX86-64/etc_nginx_sites-available_nwsec' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into websvr/applications/websvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
