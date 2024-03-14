@@ -63,7 +63,7 @@ Connection closed by foreign host.
 1. Build, run, attach to container
     ```
     $ docker build -t temailsvr .
-    $ docker run -d --name emailsvr --hostname mail --add-host mail.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 temailsvr:latest
+    $ docker run -d --name emailsvr --hostname mail.netsec-docker.isi.jhu.edu --add-host mail.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest
     $ docker exec -it emailsvr bash 
     ```
 1. Configure using postfixadmin by running the following command and using the guidance below `$ dpkg-reconfigure postfixadmin`
