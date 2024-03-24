@@ -63,7 +63,7 @@ Connection closed by foreign host.
 1. Build, run, attach to container
     ```
     $ docker build -t temailsvr .
-    $ docker run -d --name emailsvr --hostname mail.netsec-docker.isi.jhu.edu --add-host mail.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest
+    $ docker run -d --name emailsvr --hostname email.netsec-docker.isi.jhu.edu --add-host email.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest
     $ docker exec -it emailsvr bash 
     ```
 1. Configure using postfixadmin by running the following command and using the guidance below `$ dpkg-reconfigure postfixadmin`
@@ -88,10 +88,10 @@ Connection closed by foreign host.
     ```
 1. Edit `/etc/postfixadmin/dbconfig.inc.php` and change value of line with `$dbtype` from `mysql` to `mysqli`
 1. Edit `/etc/dbconfig-common/postfixadmin.conf` and change value of line with `dbc_dbtype` from `mysql` to `mysqli`
-1. Log in to `http://mail.netsec-docker.isi.jhu.edu/postfixadmin/setup.php`
+1. Log in to `http://email.netsec-docker.isi.jhu.edu/postfixadmin/setup.php`
     * Specify a setup password and copy the generated hash into the value for the setup_password variable in `/etc/postfixadmin/config.inc.php`
     * Then, create a superadmin account `postfixadmin@netsec-docker.isi.jhu.edu` and specify its password
-1. Use that superadmin account to log in to `http://mail.netsec-docker.isi.jhu.edu/postfixadmin/login.php`
+1. Use that superadmin account to log in to `http://email.netsec-docker.isi.jhu.edu/postfixadmin/login.php`
     * Create a new `netsec-docker.isi.jhu.edu` domain 
     * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
     * Note, you will need to create an email account for superadmin user
