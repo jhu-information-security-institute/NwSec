@@ -95,7 +95,7 @@ RUN echo "mail" >> /etc/hostname
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name emailsvr --hostname mail --add-host mail.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 temailsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name emailsvr --hostname email --add-host email.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 temailsvr:latest \n\
 * Attach to it using $ docker exec -it emailsvr bash \n\
 * Build the postfixadmin mysql database # dpkg-reconfigure postfixadmin \n\
     * Specify these values when prompted: \n\
@@ -109,10 +109,10 @@ RUN echo $'\n\
         * Name of the database administrative user: root \n\
 * Edit /etc/postfixadmin/dbconfig.inc.php and change value of line with $dbtype from mysql to mysqli \n\
 * Edit /etc/dbconfig-common/postfixadmin.conf and change value of line with dbc_dbtype from mysql to mysqli \n\
-* Log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/setup.php \n\
+* Log in to http://email.netsec-docker.isi.jhu.edu/postfixadmin/setup.php \n\
     * Specify a setup password and copy the generated hash into the value for the setup_password variable in /etc/postfixadmin/config.inc.php \n\
     * Then, create a superadmin account Admin postfixadmin@netsec-docker.isi.jhu.edu and specify its password \n\
-* Use that superadmin account to log in to http://mail.netsec-docker.isi.jhu.edu/postfixadmin/login.php \n\
+* Use that superadmin account to log in to http://email.netsec-docker.isi.jhu.edu/postfixadmin/login.php \n\
     * Create a new netsec-docker.isi.jhu.edu domain \n\
     * Create new email accounts in the netsec-docker.isi.jhu.edu domain \n\
     * Note, you will need to create an email account for superadmin user \n\
