@@ -15,7 +15,7 @@ The client that communicates with the NFS and SSH servers are common clients for
     $ chmod +x nfssvr_plus_termsvr_UbuntuServerX86-64.sh
     $ ./nfssvr_plus_termsvr_UbuntuServerX86-64.sh
     ```
-1. Build, run, attach to container
+1. Build, run, attach to container (the tar command -h dereferences symlinks into files)
     ```
     $ tar -czh . | docker build -t tnfssvr_plus_termsvr -
     $ docker run -d --name nfssvr_plus_termsvr --hostname nas --add-host nas.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr_plus_termsvr:latest
