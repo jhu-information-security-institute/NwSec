@@ -50,7 +50,7 @@ RUN echo 'jane:password' | chpasswd
 # Finished!
 RUN echo $'\n\
 * Make sure that you have created the /nfsshare directory on the VM itself prior to running the container \n\    
-* Container is ready, run it using $ docker run -d --name nfssvr --hostname nfs.nwsecdocker.jhu.edu --add-host nfs.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /nfsshare:/nfsshare:rw --network host --cpus=1 tnfssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name nfssvr --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr bash \n\
 * nfs-kernel-server status is available using # systemctl status nfs-kernel-server \n\
 * nfs-kernel-server can be stopped and started as well using systemctl \n\
