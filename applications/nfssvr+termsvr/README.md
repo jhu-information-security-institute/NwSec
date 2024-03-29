@@ -18,10 +18,10 @@ Todo
 1. Build, run, attach to container
     ```
     $ tar -czh . | docker build -t tnfssvr_plus_termsvr -
-    $ docker run -d --name nfssvr_plus_termsvr --hostname nfssvr-plus-termsvr --add-host nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/export/nfsshare:rw -v /nfsshare:/nfsshare:rw -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 tnfssvr_plus_termsvr:latest
+    $ docker run -d --name nfssvr_plus_termsvr --hostname nas --add-host nas.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr_plus_termsvr:latest
     $ docker exec -it nfssvr_plus_termsvr bash 
     ```
-1. See the notes at the following link for configuration of TELNET (inetutils-inetd service) and SSH (ssh service): `https://github.com/jhu-information-security-institute/NwSec/blob/master/applications/termsvr/README.md`
+1. See the notes at the following link for configuration of SSH (ssh service): `https://github.com/jhu-information-security-institute/NwSec/blob/master/applications/termsvr/README.md`
 1. See the notes at the following link for configuration of NFS (nfs-kernel-server service): `https://github.com/jhu-information-security-institute/NwSec/blob/master/applications/nfssvr/README.md`
 
 # Notes
