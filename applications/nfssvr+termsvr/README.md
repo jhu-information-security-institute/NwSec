@@ -1,11 +1,11 @@
 # Application overview
-Todo
+NFS and SSH servers
 
 ## Server (on UbuntuServerx86-64-target VM)
 The VM is using Ubuntu Server OS, version 20.04.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetVm-README.md).
 
 ## Client
-Todo
+The client that communicates with the NFS and SSH servers are common clients for the same.
 
 ## Server (on VM)
 1. Add entries in DHCP and DNS servers for nfssvr-plus-termsvr.netsec-docker.isi.jhu.edu that setup an interface in your UbuntuServerx86-64-target VM to be assigned 192.168.25.123
