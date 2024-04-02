@@ -50,10 +50,10 @@ RUN echo 'jane:password' | chpasswd
 # Finished!
 RUN echo $'\n\
 * Make sure that you have created the /nfsshare directory on the VM itself prior to running the container \n\    
-* Container is ready, run it using $ docker run -d --name nfssvr --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr:latest \n\
+* Container is ready, run it using $ docker run -d --name nfssvr --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/nfsshare:rw --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr:latest \n\
 * Attach to it using $ docker exec -it nfssvr bash \n\
 * nfs-kernel-server status is available using # systemctl status nfs-kernel-server \n\
 * nfs-kernel-server can be stopped and started as well using systemctl \n\
 * On the VM hosting this nfs server, create the /nfsshared directory for the volume shared with the container \n\
-* On the client, create /mnt/nfs and mount using $ sudo mount -vvvv -t nfs -o proto=tcp,port=2049 nfs.nwsecdocker.jhu.edu:/nfsshare /mnt/nfs'
+* On the client, create /mnt/nfs and mount using $ sudo mount -vvvv -t nfs -o proto=tcp,port=2049 nas.netsec-docker.isi.jhu.edu:/nfsshare /mnt/nfs'
 
