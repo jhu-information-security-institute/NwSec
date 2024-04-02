@@ -24,7 +24,7 @@ echo 'applications/nfssvr/UbuntuServerX86-64/.project' >> .git/info/sparse-check
 echo 'applications/nfssvr/UbuntuServerX86-64/Dockerfile' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into nfssvr/applications/nfssvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
