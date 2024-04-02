@@ -6,7 +6,7 @@
 # https://help.ubuntu.com/community/SettingUpNFSHowTo
 # https://help.ubuntu.com/community/NFSv4Howto
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
