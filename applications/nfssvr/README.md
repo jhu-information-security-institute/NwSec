@@ -1,8 +1,8 @@
 # Application overview
 NFS server
 
-## Server (on RPI4B)
-The NFS server on the RPI4B runs in a docker container.   The RPI4B is using Ubuntu Server OS, version 18.04.
+## Server
+The NFS server runs in a docker container.   It is using Ubuntu Server OS, version 22.04.
 
 ## Client (on VM)
 The client that communicates with the NFS server is any remote NFS sclient.  
