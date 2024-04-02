@@ -12,7 +12,7 @@ The client that communicates with the NFS server is any remote NFS sclient.
 1. Disable the firewall on the appropriate port:
 `$ sudo ufw allow 2049/tcp`
 1. Build the Docker container using: `$ sudo docker build -t tnfssvr .`
-1. Start the Docker container using: `$ sudo docker run -d --name nfssvr --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr:latest`
+1. Start the Docker container using: `$ sudo docker run -d --name nfssvr --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/nfsshare:rw --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr:latest`
 1. Log in to the running container using: `$ sudo docker exec -it nfssvr bash`
 1. From inside the docker session:
     * Ensure `/etc/hosts.allow` contains
