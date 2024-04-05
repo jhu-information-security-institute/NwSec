@@ -32,7 +32,7 @@ echo 'applications/nfssvr/UbuntuServerX86-64/etc_exports' >> .git/info/sparse-ch
 echo 'applications/nfssvr/UbuntuServerX86-64/etc_fstab' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into nfssvr+termsvr/applications/nfssvr+termsvr/UbuntuServerX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
