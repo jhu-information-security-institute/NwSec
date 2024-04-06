@@ -9,7 +9,7 @@
 1. `$ git clone https://github.com/openwrt/openwrt.git`
 1. cd into openwrt
 1. checkout the latest tag, e.g.: `$ git checkout tags/v22.03.3`
-3. `$ make menuconfig`
+1. `$ make menuconfig`
     * Target system->x86, Subtarget->x86_64 (x86-64, x4 AMD GX-412TC SOC)
     * Base system->
         * (ignore) deselect dnsmasq
@@ -49,8 +49,13 @@
         * Collections->luci-nginx
         * Applications->luci-app-openvpn
         * Protocols->luci-proto-wireguard
-4. `$ make -j4 V=s`
+1. Write the changes to diffconfig
+    `./scripts/diffconfig.sh > diffconfig`
+1. `$ make -j4 V=s`
     * Note: to clean up after a failed build, run `$ make dirclean && make clean`
+    * Note: use `$make distclean` to revert configuration to the above created diffconfig and then `$ cp diffconfig .config`
+    * Note: build takes around X minutes 5:25
+cp diffconfig .config
 
 # Installation instructions
 1. docker copy openwrtapu4buildenv:/home/dummy/openwrt/bin/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz onto a USB drive
