@@ -12,17 +12,16 @@
 3. `$ make menuconfig`
     * Target system->x86, Subtarget->x86_64 (x86-64, x4 AMD GX-412TC SOC)
     * Base system->
-        * deselect dnsmasq
+        * (ignore) deselect dnsmasq
         * deselect logd
     * Network->
-        * SSH->openssh-server
-        * VPN->openvpn-openssl
-        * Web Servers/proxies->nginx
+        * SSH->openssh-server, openssh-client, openssh-keygen, openssh-sftp-server, openssh-sftp-client
+        * VPN->openvpn-openssl, openvpn-easy-rsa, wireguard-tools
+        * Web Servers/proxies->nginx-full
         * Routing and Redirection->ip-full
         * Ip addresses and Names->isc-dhcp-client-ipv6
-        * SSH-openssh-client, openssh-keygen, openssh-server
-        * WirelessAPD-wpa-cli, wpa-supplicant
-        * iw-full, iputils-ping, iputils-ping6
+        * WirelessAPD->wpa-cli, wpa-supplicant
+        * iw-full, iputils-ping (Install legacy ping4 and ping symlinks)
     	* deselect ppp
     * Administration->
         * monit, syslog-ng
@@ -49,6 +48,7 @@
     * Luci->
         * Collections->luci-nginx
         * Applications->luci-app-openvpn
+        * Protocols->luci-proto-wireguard
 4. `$ make -j4 V=s`
     * Note: to clean up after a failed build, run `$ make dirclean && make clean`
 
