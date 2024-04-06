@@ -59,6 +59,8 @@ cp diffconfig .config
 
 # Installation instructions
 1. docker copy openwrtapu4buildenv:/home/dummy/openwrt/bin/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz onto a USB drive
+1. create bootable, live debian image
+    * `$ sudo dd if=debian-live-12.5.0-amd64-standard.iso of=/dev/sdc bs=1M`
 1. insert USB drive containing bootable, live debian image in bottom USB port on apu4
     * Note: many usb devices do not work with apu4; Kingston DataTraveler 100G3 devices are confirmed to work with apu4
 1. insert USB drive with openwrt-x86-64-combined-ext4.img image on top USB port on apu4
