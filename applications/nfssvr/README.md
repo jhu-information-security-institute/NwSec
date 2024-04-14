@@ -10,10 +10,19 @@ The client that communicates with the NFS server is any remote NFS sclient.
 # Runtime environment setup
 ## Server
 1. Disable the firewall on the appropriate port:
-`$ sudo ufw allow 2049/tcp`
-1. Build the Docker container using: `$ sudo docker build -t tnfssvr .`
-1. Start the Docker container using: `$ sudo docker run -d --name nfssvr --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -v /export/nfsshare:/nfsshare:rw --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tnfssvr:latest`
-1. Log in to the running container using: `$ sudo docker exec -it nfssvr bash`
+    `$ sudo ufw allow 2049/tcp`
+1. Download files to build container
+    ```
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/main/applications/attack/attack-KaliX86-64.sh
+    $ chmod +x attack-KaliX86-64.sh
+    $ ./attack-KaliX86-64.sh
+    ```
+1. Build, run, attach to container
+    ```
+    $ docker build -t tnfssvr .
+    $ docker run -d --name nfssvr --hostname nas.netsec-docker.isi.jhu.edu --add-host attack:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged -e DISPLAY=$DISPLAY --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro -v /etc/shadow:/etc/shadow:ro -v /home/$USER/.Xauthority:/home/$USER/.Xauthority:rw --network host tnfssvr:latest
+    $ docker exec -it nfssvr bash 
+    ```
 1. From inside the docker session:
     * Ensure `/etc/hosts.allow` contains
     ```
