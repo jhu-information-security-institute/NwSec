@@ -13,9 +13,10 @@ The client that communicates with the NFS server is any remote NFS sclient.
     `$ sudo ufw allow 2049/tcp`
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/main/applications/attack/attack-KaliX86-64.sh
-    $ chmod +x attack-KaliX86-64.sh
-    $ ./attack-KaliX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/main/applications/nfssvr/nfssvr_UbuntuServerX86-64.sh
+    $ wget  
+    $ chmod +x nfssvr_UbuntuServerX86.sh
+    $ ./nfssvr_UbuntuServerX86.sh
     ```
 1. Build, run, attach to container
     ```
