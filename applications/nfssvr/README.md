@@ -14,7 +14,6 @@ The client that communicates with the NFS server is any remote NFS sclient.
 1. Download files to build container
     ```
     $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/main/applications/nfssvr/nfssvr_UbuntuServerX86-64.sh
-    $ wget  
     $ chmod +x nfssvr_UbuntuServerX86.sh
     $ ./nfssvr_UbuntuServerX86.sh
     ```
