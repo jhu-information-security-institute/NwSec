@@ -23,7 +23,8 @@ RUN apt-get update
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 nmap bind9-dnsutils dnsutils inetutils-traceroute isc-dhcp-common netcat-traditional -y
-RUN apt-get install wget unzip vim acl sudo ssh nfs-common -y
+RUN apt-get install acl sudo -y
+RUN apt-get install wget unzip vim ssh nfs-common -y
 
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
