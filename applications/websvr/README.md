@@ -32,13 +32,6 @@ Connection closed by foreign host.
 </code></pre>
 
 # Runtime environment setup
-## Server (on RPI4B)
-1. Build the Docker container using: `$ sudo docker build -t twebsvr .`
-1. Start the Docker container using: `$ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host twebsvr:latest`
-1. Log in to the running container using: `$ sudo docker exec -it websvr bash`
-1. Restart the server using: `# systemctl restart nginx`
-1. Check the server status (there should be no errors) using: `# systemctl status nginx`
-
 ## Server (on VM)
 1. Download files to build container
     ```
@@ -58,6 +51,13 @@ Connection closed by foreign host.
 1. Reload the configuration by running `$ sudo systemctl daemon-reload`
 1. Restart the server by running `$ sudo systemctl start nginx`
 1. Page should be viewable in a browser at the following url: `http://192.168.25.120:81/`
+
+## Server (on RPI4B)
+1. Build the Docker container using: `$ sudo docker build -t twebsvr .`
+1. Start the Docker container using: `$ sudo docker run -d --name websvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host twebsvr:latest`
+1. Log in to the running container using: `$ sudo docker exec -it websvr bash`
+1. Restart the server using: `# systemctl restart nginx`
+1. Check the server status (there should be no errors) using: `# systemctl status nginx`
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart nginx`
