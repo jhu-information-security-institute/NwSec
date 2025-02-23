@@ -2,7 +2,7 @@
 ## Ubuntu
 1. Download files to build container
     ```
-    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/systemdsvr/systemdsvr_UbuntuServerX86-64.sh
+    $ wget https://raw.githubusercontent.com/jhu-information-security-institute/NwSec/master/applications/systemdsvr/systemdsvr-UbuntuServerX86-64.sh
     $ chmod +x systemdsvr_UbuntuServerX86-64.sh
     $ ./systemdsvr_UbuntuServerX86-64.sh
     ```
