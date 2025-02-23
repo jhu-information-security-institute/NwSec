@@ -1,18 +1,3 @@
-# Application overview
-## inetutils-inetd
-* Configuration file located in `/etc/inetd.conf`
-* Reload config using `$ sudo systemctl daemon-reload`
-* Enable service using `$ systemctl enable inetutils-inetd`
-* Restart service using `$ systemctl restart inetutils-inetd`
-## openssh-server
-* Configuration file located in `/etc/ssh/sshd_config`
-* Reload config using `$ sudo systemctl daemon-reload`
-* Enable service using `$ systemctl enable ssh`
-* Restart service using `$ systemctl restart ssh`
-
-## Ubuntu
-The terminal server instances on Ubuntu run in a single docker container.
-
 # Runtime environment setup
 ## Ubuntu
 1. Download files to build container
@@ -28,5 +13,21 @@ The terminal server instances on Ubuntu run in a single docker container.
     $ docker exec -it termsvr bash 
     ```
 * Note that the above command remaps port 23 in the docker container to 2323 on the host VM and we are using bridge mode for networking
+
+# Application overview
+## inetutils-inetd
+* Configuration file located in `/etc/inetd.conf`
+* Reload config using `$ sudo systemctl daemon-reload`
+* Enable service using `$ systemctl enable inetutils-inetd`
+* Restart service using `$ systemctl restart inetutils-inetd`
+## openssh-server
+* Configuration file located in `/etc/ssh/sshd_config`
+* Reload config using `$ sudo systemctl daemon-reload`
+* Enable service using `$ systemctl enable ssh`
+* Restart service using `$ systemctl restart ssh`
+
+## Ubuntu
+The terminal server instances on Ubuntu run in a single docker container.
+
 # Useful websites
 
