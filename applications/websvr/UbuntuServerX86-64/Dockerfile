@@ -5,7 +5,7 @@
 #   By default, runs as root
 #   https://nginx.org/en
 
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
