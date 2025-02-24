@@ -15,7 +15,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
-ENV container docker
+ENV container=docker
 
 #update
 RUN apt-get update
