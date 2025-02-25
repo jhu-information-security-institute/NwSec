@@ -56,7 +56,7 @@ RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name websvr --hostname web.netsec-docker.isi.jhu.edu --add-host web.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 twebsvr:latest \n\
+* Container is ready, run it using $ docker run -d --name websvr --hostname web.netsec-docker.isi.jhu.edu --add-host web.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network bridge -p 8080:80 --cpus=1 twebsvr:latest \n\
 * Attach to it using $ docker exec -it websvr bash \n\
 * nginx status is available using # systemctl status nginx \n\
 * nginx can be stopped and started as well using systemctl'
