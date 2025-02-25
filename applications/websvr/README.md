@@ -10,11 +10,11 @@ The RPI4B is using Ubuntu Server OS, version 18.04.
 The VM is using Ubuntu Server OS, version 20.04.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/master/config/UbuntuServerX86-64/targetVm-README.md).
 
 ## Client
-The client that communicates with the web server is any remote browser.  One can also directly interface by manually applying direct http commands using telnet over port 81.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
+The client that communicates with the web server is any remote browser.  One can also directly interface by manually applying direct http commands using telnet over port 8080.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
 <pre><code>
-$ # telnet 192.168.50.46 81
-Trying 192.168.50.46...
-Connected to 192.168.50.46.
+$ # telnet web.netsec-docker.isi.jhu.edu 8080
+Trying 192.168.25.121...
+Connected to 192.168.25.121.
 Escape character is '^]'.
 GET /
     &lt!doctype html&gt
@@ -42,7 +42,7 @@ Connection closed by foreign host.
 1. Build, run, attach to container
     ```
     $ docker build -t twebsvr .
-    $ docker run -d --name websvr --hostname web.netsec-docker.isi.jhu.edu --add-host web.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 twebsvr:latest
+    $ docker run -d --name websvr --hostname web.netsec-docker.isi.jhu.edu --add-host web.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network bridge -p 8080:80 --cpus=1 twebsvr:latest
     $ docker exec -it websvr bash 
     ```
 1. Enable the server using: `$ sudo systemctl enable nginx`
