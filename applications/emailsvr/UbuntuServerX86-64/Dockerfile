@@ -8,7 +8,7 @@
 #   http://postfixadmin.sourceforge.net
 #   https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
 
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
-ENV container docker
+ENV container=docker
 
 #update
 RUN apt-get update
