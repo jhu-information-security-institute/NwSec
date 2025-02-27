@@ -6,7 +6,7 @@
 # https://www.gnu.org/software/inetutils/
 # https://ubuntu.com/server/docs/service-openssh
 
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 #https://grigorkh.medium.com/fix-tzdata-hangs-docker-image-build-cdb52cc3360d
 ENV TZ=US/Eastern
@@ -16,7 +16,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ARG DEBIAN_FRONTEND noninteractive
 
 # Setup container's ENV for systemd
-ENV container docker
+ENV container=docker
 
 #update
 RUN apt-get update
