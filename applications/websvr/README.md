@@ -70,3 +70,4 @@ Connection closed by foreign host.
 * https://www.nginx.com
 * https://www.nginx.com/resources/wiki
 * https://ubuntu.com/tutorials/install-and-configure-nginx
+* https://docs.suricata.io/en/latest/rules/header-keywords.html
