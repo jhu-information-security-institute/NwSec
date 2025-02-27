@@ -7,11 +7,11 @@ Postfix attempts to be fast, easy to administer, and secure. The outside has a d
 
 Dovecot is an open source IMAP and POP3 email server for Linux/UNIX-like systems, written with security primarily in mind. Dovecot is an excellent choice for both small and large installations. It’s fast, simple to set up, requires no special administration and it uses very little memory.
 
-## Server (on RPI4B)
-The RPI4B is using Ubuntu Server OS, version 18.04.
-
 ## Server (on UbuntuServerx86-64-target VM)
 The VM is using Ubuntu Server OS, version 24.04.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/main/config/UbuntuServerX86-64/targetVm-README.md).
+
+## Server (on RPI4B)
+The RPI4B is using Ubuntu Server OS, version 18.04.
 
 ## Client
 The client that communicates with the email server is any remote SMTP server or IMAP/POP3 client.  One can also directly interface by manually applying direct SMTP commands using telnet over port 25.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
@@ -44,15 +44,6 @@ Connection closed by foreign host.
 </code></pre>
 
 # Runtime environment setup
-## Server (on RPI4B)
-1. Set your hostname: `$ sudo hostnamectl set-hostname your-fqdn`
-1. Disable the firewall on the appropriate ports:
-`$ sudo ufw allow 25/tcp`, `$ sudo ufw allow 80,443,587,465,143,993/tcp`, and `$ sudo ufw allow 110,995/tcp`
-1. Build the Docker container using: `$ sudo docker build -t temailsvr .`
-1. Start the Docker container using: `$ sudo docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest`
-1. Log in to the running container using: `$ sudo docker exec -it emailsvr bash`
-1. From inside the docker session, enable servers using: `# systemctl enable postfix && systemctl enable dovecot`
-
 ## Server (on VM)
 1. Download files to build container
     ```
@@ -96,6 +87,15 @@ Connection closed by foreign host.
     * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
     * Note, you will need to create an email account for superadmin user
 1. Use Mozilla Thunderbird for a mail client from the VM or another container to access email
+
+## Server (on RPI4B)
+1. Set your hostname: `$ sudo hostnamectl set-hostname your-fqdn`
+1. Disable the firewall on the appropriate ports:
+`$ sudo ufw allow 25/tcp`, `$ sudo ufw allow 80,443,587,465,143,993/tcp`, and `$ sudo ufw allow 110,995/tcp`
+1. Build the Docker container using: `$ sudo docker build -t temailsvr .`
+1. Start the Docker container using: `$ sudo docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest`
+1. Log in to the running container using: `$ sudo docker exec -it emailsvr bash`
+1. From inside the docker session, enable servers using: `# systemctl enable postfix && systemctl enable dovecot`
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart postfix`
