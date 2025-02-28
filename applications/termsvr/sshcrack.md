@@ -9,7 +9,7 @@ You will setup a passive listener on an SSH session between two hosts.  In this 
 In addition to having local access, the attacker is able to capture the encrypted traffic going over the network.  For simplicity, you will use Wireshark running also inside the Attack VM.
 
 ```
-   | Attack VM (client) | <---------SSH---------> | Target VM (server) |
+|    Attack VM (client) | <---------SSH---------> | Target VM (server) |
      (devel container)               |
                                      V
  (Wireshark running from Attack VM) Tap
