@@ -16,7 +16,7 @@ In addition to having local access, the attacker is able to capture the encrypte
  (Wireshark running from Attack VM) Tap
 ```
 ### Alternate approach
-You can alternately capture the keys from the Target VM (server) side.  Here, you would create a devel container running Ubuntu.  
+You can alternately capture the keys from the Target VM (server) side.  Here, you would create a devel container running Ubuntu that would be placed on the Target VM.  
 ```
 | Attack VM (client) | <---------SSH---------> | Target VM (server) |
                                   |               (devel container)
