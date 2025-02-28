@@ -9,10 +9,10 @@ You will setup a passive listener on an SSH session between two hosts.  In this 
 In addition to having local access, the attacker is able to capture the encrypted traffic going over the network.  For simplicity, you will use Wireshark running also inside the Attack VM.
 
 ```
-| Attack VM (client) | <---------SSH---------> | Target VM (server) |
-  (devel container)               |
-                                  V
-                                 Tap (Wireshark running from Attack VM)
+   | Attack VM (client) | <---------SSH---------> | Target VM (server) |
+     (devel container)               |
+                                     V
+ (Wireshark running from Attack VM) Tap
 ```
 Also inside the Attack VM, you will create a new development container and install utilities (details below) to be able to gather the session keys and decrypt the ssh session by using them.  For this version, you would instead use the following docker run command:  `$ docker run --name devel --network host -it ubuntu:latest /bin/bash`.  Everything else should be identical other than where you are running things from.
 
