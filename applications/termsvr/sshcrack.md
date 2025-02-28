@@ -4,28 +4,26 @@
 2. Termsvr container in target VM
 
 ## Overview
-You will setup a passive listener on an SSH session between two hosts.  In this example, these are our Attack VM (a compromised host where an attacker has local access) and the Target VM.  You will setup the connection between the two but imagine that from the attacker's perspective, that connection was happening by others and you have the local access on one side.
+You will setup a passive listener on an SSH session between two hosts.  In this example, these are our Attack VM (a compromised host where an attacker has local access) and the Target VM.  You will setup the connection between the two but imagine that from the attacker's perspective, that connection was happening by others and you have the local access on one side.  
+
+Inside the Attack VM, you will create a new development container and install utilities (details below) to be able to gather the session keys and decrypt the ssh session by using them.
 
 In addition to having local access, the attacker is able to capture the encrypted traffic going over the network.  For simplicity, you will use Wireshark running also inside the Attack VM.
-
 ```
 |    Attack VM (client) | <---------SSH---------> | Target VM (server) |
      (devel container)               |
                                      V
  (Wireshark running from Attack VM) Tap
 ```
-Also inside the Attack VM, you will create a new development container and install utilities (details below) to be able to gather the session keys and decrypt the ssh session by using them.  For this version, you would instead use the following docker run command:  `$ docker run --name devel --network host -it ubuntu:latest /bin/bash`.  Everything else should be identical other than where you are running things from.
-
 ### Alternate approach
-You can alternately capture the keys from the Target VM (server) side.  Here, you would create a devel container for an Ubuntu
-
+You can alternately capture the keys from the Target VM (server) side.  Here, you would create a devel container running Ubuntu.  
 ```
 | Attack VM (client) | <---------SSH---------> | Target VM (server) |
                                   |               (devel container)
                                   V
                                  Tap (Wireshark running from Target VM)
 ```
-
+For this version, you would instead use the following docker run command:  `$ docker run --name devel --network host -it ubuntu:latest /bin/bash`.  Everything else should be identical other than where you are running things from.
 ## Instructions
 1. Launch a new devel container on the Attack VM and setup to capture the ssh session keys (note: we are just downloading the vanilla kali image and do not need a Dockerfile to build one) from it
     ```
