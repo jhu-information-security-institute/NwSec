@@ -14,7 +14,10 @@ In addition to having local access, the attacker is able to capture the encrypte
                                   V
                                  Tap (Wireshark running from Attack VM)
 ```
-Also inside the Attack VM, you will create a new development container and install utilities (details below) to be able to gather the session keys and decrypt the ssh session by using them.
+Also inside the Attack VM, you will create a new development container and install utilities (details below) to be able to gather the session keys and decrypt the ssh session by using them.  For this version, you would instead use the following docker run command:  `$ docker run --name devel --network host -it ubuntu:latest /bin/bash`.  Everything else should be identical other than where you are running things from.
+
+### Alternate approach
+You can alternately capture the keys from the Target VM (server) side.  Here, you would create a devel container for an Ubuntu
 
 ## Instructions
 1. Launch a new devel container on the Attack VM and setup to capture the ssh session keys (note: we are just downloading the vanilla kali image and do not need a Dockerfile to build one) from it
