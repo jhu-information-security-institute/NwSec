@@ -52,4 +52,10 @@ Also inside the Attack VM, you will create a new development container and insta
     * Note that we specify aes256-gcm, which is supported by the network-parser tool (some of the other modes, including the default one, aren't supported)
 1. Once you see the keys appear in the first console (i.e., the one running keys.py), you can exit out of the keys.py command and also the ssh session.  For the former, you'll want the results that were output to the screen and save the pcap for the latter.
 1. Copy the saved *.pcap into your devel docker container.  Then, in your second devel session, use the network-parser utility to decrypt the *.pcap by providing it and the captured keys to the following command: `(pynids) # network-parser -p <PCAPFILE> -o my/output/dir --proto=[protocol] [--popt key=value] [-s] [-vvvv]`
-1. profit!
+1. Fun and profit!
+
+## Useful links
+* https://research.nccgroup.com/2020/11/11/decrypting-openssh-sessions-for-fun-and-profit
+* https://github.com/jhu-information-security-institute/netsec-OpenSSH-Session-Key-Recovery
+* https://github.com/jhu-information-security-institute/netsec-OpenSSH-Network-Parser
+* https://github.com/jhu-information-security-institute/netsec-pynids
