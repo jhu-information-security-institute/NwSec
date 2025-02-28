@@ -10,7 +10,7 @@ In addition to having local access, the attacker is able to capture the encrypte
 
 ```
 | Attack VM (client) | <---------SSH---------> | Target VM (server) |
-                                  |
+  (devel container)               |
                                   V
                                  Tap (Wireshark running from Attack VM)
 ```
@@ -18,6 +18,13 @@ Also inside the Attack VM, you will create a new development container and insta
 
 ### Alternate approach
 You can alternately capture the keys from the Target VM (server) side.  Here, you would create a devel container for an Ubuntu
+
+```
+| Attack VM (client) | <---------SSH---------> | Target VM (server) |
+                                  |               (devel container)
+                                  V
+                                 Tap (Wireshark running from Target VM)
+```
 
 ## Instructions
 1. Launch a new devel container on the Attack VM and setup to capture the ssh session keys (note: we are just downloading the vanilla kali image and do not need a Dockerfile to build one) from it
