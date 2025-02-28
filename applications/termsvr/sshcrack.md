@@ -34,3 +34,4 @@
     (pynids) # cd netsec-OpenSSH-Network-Parser
     (pynids) # pip2 install .
     ```
+1. Copy the previously saved *.pcap into your devel docker container.  Then, use the network-parser utility to decrypt the ssh session that was previously saved in the *.pcap mentioned above by providing the pcap file and captured keys to the following command: `(pynids) # network-parser -p <PCAPFILE> -o my/output/dir --proto=[protocol] [--popt key=value] [-s] [-vvvv]`
