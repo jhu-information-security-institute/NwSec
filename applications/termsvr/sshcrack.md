@@ -59,7 +59,7 @@ For this version, you would instead use the termsvr container and install all th
 1. From the Attack VM, SSH into the termsvr: `# ssh -p 2222 -c aes256-gcm@openssh.com student@term.netsec-docker.isi.jhu.edu`
     * Note that we specify aes256-gcm, which is supported by the network-parser tool (some of the other modes, including the default one, aren't supported)
 1. Once you see the keys appear in the first console (i.e., the one running keys.py), you can exit out of the keys.py command and also the ssh session.  For the former, you'll want to save the json formatted portion of the key results that were output to the screen into a keys.json file.  For the latter, save the pcap file.
-1. Copy the saved *.pcap into your devel docker container.  Then, in your second devel session, use the network-parser utility to decrypt the *.pcap by providing it and the captured keys to the following command: `(pynids) # network-parser -p <PCAPFILE> -o my/output/dir --proto=ssh --popt key=<KEYJSONFILE> -s -vvvv`
+1. Copy the saved *.pcap into your devel docker container.  Then, in your second devel session, use the network-parser utility to decrypt the *.pcap by providing it and the captured keys to the following command: `(pynids) # network-parser -p <PCAPFILE> -o <OUTPUTDIR> --proto=ssh --popt key=<KEYSJSONFILE> -s -vvvv`
 1. Fun and profit!
 
 ## Useful links
