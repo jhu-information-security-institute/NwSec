@@ -23,7 +23,7 @@ You can alternately capture the keys from the Target VM (server) side.  Here, yo
                                   V
                                  Tap (Wireshark running from Target VM)
 ```
-For this version, you would instead use the following docker run command for the first step in the instructions:  `$ docker run --name devel --network host -it ubuntu:latest /bin/bash`.  Everything else should be identical other than where you are running things from.
+For this version, you would instead use the termsvr container and install all the python dependencies there.  Everything else should be identical other than where you are running things from.
 ## Instructions
 1. Launch a new devel container on the Attack VM and setup to capture the ssh session keys (note: we are just downloading the vanilla kali image and do not need a Dockerfile to build one) from it
     ```
