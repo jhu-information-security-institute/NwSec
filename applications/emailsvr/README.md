@@ -102,9 +102,9 @@ Connection closed by foreign host.
         
         Please provide a password for postfixadmin to register with the database server. If left blank, a random password will be generated.
         
-        MySQL application password for postfixadmin: netsec
+        MySQL application password for postfixadmin: nwsec123
         
-        Password confirmation: netsec
+        Password confirmation: nwsec123
         
         Determining localhost credentials from /etc/mysql/debian.cnf: succeeded.
         Please provide the name of the account with which this package should perform administrative actions. This user is the one with the power to create new database
