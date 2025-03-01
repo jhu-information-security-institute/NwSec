@@ -55,27 +55,65 @@ Connection closed by foreign host.
     ```
     $ docker build -t temailsvr .
     $ docker run -d --name emailsvr --hostname email.netsec-docker.isi.jhu.edu --add-host email.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest
-    $ docker exec -it emailsvr bash 
-    ```
+    $ docker exec -it emailsvr bash
 1. Configure using postfixadmin by running the following command and using the guidance below `$ dpkg-reconfigure postfixadmin`
     ```
-    Reinstall database for postfixadmin? [yes/no] yes
-    ...
-      1. Unix socket  2. TCP/IP
-    Connection method for MySQL database of postfixadmin: 1
-    ...
-      1. default  2. mysql_native_password  3. sha256_password  4. caching_sha2_password
-    Authentication plugin for MySQL database: 1
-    ...
-    MySQL database name for postfixadmin: postfixadmin
-    ...
-    MySQL username for postfixadmin: postfixadmin@localhost
-    ...
-    MySQL application password for postfixadmin: nwsec123
-    Password confirmation: nwsec123
-    ...
-    Name of the database's administrative user: root
-    ...
+        ...
+        Configuring postfixadmin
+        ------------------------
+        ...
+        Reinstall database for postfixadmin? [yes/no] yes
+        
+        By default, postfixadmin will be configured to use a MySQL server through a local Unix socket (this provides the best performance). To connect with a different
+        method, or to a different server entirely, select the appropriate option from the choices here.
+        
+          1. Unix socket  2. TCP/IP
+        Connection method for MySQL database of postfixadmin: 1
+        
+        Database user accounts can be configured to use a variety of plugins for authentication with MySQL. If the server default won't work with this application, it is
+        necessary to specify one that will. Please select one from the list of available plugins. Leaving the selection set to its original value should work unless a
+        remote server is using unpredictable defaults, but other options may not be supported by postfixadmin. If problems arise, the package's documentation should give
+        hints; see /usr/share/doc/postfixadmin/.
+        
+        Your options are:
+         * default - use the default determined by the server.
+         * mysql_native_password - no MySQL authentication plugin is used.
+         * sha256_password - a more secure password encryption algorithm.
+         * caching_sha2_password - SHA2 plus an in-memory authentication cache.
+        
+          1. default  2. mysql_native_password  3. sha256_password  4. caching_sha2_password
+        Authentication plugin for MySQL database: 1
+        
+        Please provide a name for the MySQL database to be used by postfixadmin.
+        
+        MySQL database name for postfixadmin: postfixadmin
+        
+        Please provide a MySQL username for postfixadmin to register with the database server. A MySQL user is not necessarily the same as a system login, especially if
+        the database is on a remote server.
+        
+        This is the user which will own the database, tables, and other objects to be created by this installation. This user will have complete freedom to insert,
+        change, or delete data in the database.
+        
+        If your username contains an @, you need to specify the domain as well (see below).
+        
+        Advanced usage: if you need to define the domain that the user will log in from, you can write "username@domain".
+        
+        MySQL username for postfixadmin: postfixadmin@localhost
+        
+        Please provide a password for postfixadmin to register with the database server. If left blank, a random password will be generated.
+        
+        MySQL application password for postfixadmin: netsec
+        
+        Password confirmation: netsec
+        
+        Determining localhost credentials from /etc/mysql/debian.cnf: succeeded.
+        Please provide the name of the account with which this package should perform administrative actions. This user is the one with the power to create new database
+        users.
+        
+        For MySQL, this is almost always "root". Note that this is not the same as the Unix login "root".
+        
+        Name of the database's administrative user: root
+        ...   
     ```
 1. Edit `/etc/postfixadmin/dbconfig.inc.php` and change value of line with `$dbtype` from `mysql` to `mysqli`
 1. Edit `/etc/dbconfig-common/postfixadmin.conf` and change value of line with `dbc_dbtype` from `mysql` to `mysqli`
