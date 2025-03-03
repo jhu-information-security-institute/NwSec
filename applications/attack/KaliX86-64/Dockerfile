@@ -26,7 +26,7 @@ RUN apt-get install apt-utils dialog dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute isc-dhcp-common -y
 RUN apt-get install zsh vim acl sudo telnet ssh netcat-traditional nfs-common -y
 RUN apt-get install hping3 -y
-RUN apt-get install hydra hydra-gtk ismtp set -y
+RUN apt-get install hydra ismtp set -y
 
 RUN apt-get install thunderbird firefox-esr sendmail -y
 
