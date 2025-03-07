@@ -16,7 +16,7 @@
 1. Create a Kali linux container using the instructions from [here](https://github.com/jhu-information-security-institute/netsec-kalilinux-docker)
 1. Run the steps in [Ansible-setup](https://github.com/jhu-information-security-institute/infrastructure/wiki/Ansible-setup)
     * Steps might require tailoring to your host
-1. Run the playbook: `(ansible)$ ansible-playbook setup.yml -v -i inventory --extra-vars "USERNAME=<USERNAME>"`
+1. Run the playbook: `(ansible)$ ansible-playbook setup.yml -v -i inventory -u <USERNAME> --extra-vars "USERNAME=<USERNAME>"`
 
 # Notes
 
