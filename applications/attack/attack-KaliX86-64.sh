@@ -20,11 +20,11 @@ git config core.sparseCheckout true
 # That is inside the hidden .git directory that was created
 # by running the command: git init
 # And inside it enter the name of the specific files (or subdirectory) you only want to clone
-echo 'applications/attack/KaliX86-64/.project' >> .git/info/sparse-checkout
-echo 'applications/attack/KaliX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/attack/KaliX86-64/email_common_roots.txt' >> .git/info/sparse-checkout
 echo 'applications/attack/KaliX86-64/lame.txt' >> .git/info/sparse-checkout
-echo 'applications/attack/KaliX86-64/setup_user.sh' >> .git/info/sparse-checkout
+echo 'applications/attack/KaliX86-64/setup.yml' >> .git/info/sparse-checkout
+echo 'applications/attack/KaliX86-64/inventory/01-attack.yml' >> .git/info/sparse-checkout
+echo 'applications/attack/KaliX86-64/inventory/group_vars/all/ssh.yml' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin main
