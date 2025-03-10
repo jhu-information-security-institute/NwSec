@@ -1,3 +1,4 @@
+** This is deprecated as it broke on 24.04 **
 # Application overview
 Postfix (SMTP) and Dovecot (IMAP/POP3) servers setup to run in a single Docker container.  Postfixadmin suite is also installed to facilitate easy configuration of the servers.
 
