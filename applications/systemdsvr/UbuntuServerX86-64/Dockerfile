@@ -45,5 +45,5 @@ CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
 
 # Finished!
 RUN echo $'\n\
-* Container is ready, run it using $ docker run -d --name systemdsvr --hostname systemdsvr.netsec-docker.isi.jhu.edu --add-host systemdsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 \n\
+* Container is ready, run it using $ docker run -d --name systemdsvr --hostname systemdsvr.netsec-docker.isi.jhu.edu --add-host systemdsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 tsystemdsvr:latest\n\
 * Attach to it using $ docker exec -it systemdsvr bash'
