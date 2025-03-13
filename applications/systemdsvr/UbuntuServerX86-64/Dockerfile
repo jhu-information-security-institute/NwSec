@@ -3,7 +3,6 @@
 # Usage:
 #   From this directory, run $ docker build -t tsystemdsvr .
 #   By default, runs as root
-#   https://www.isc.org/dhcp
 
 FROM ubuntu:24.04
 
