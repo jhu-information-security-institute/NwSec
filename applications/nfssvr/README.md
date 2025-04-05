@@ -41,6 +41,19 @@ The client that communicates with the NFS server is any remote NFS sclient.
     * Restart the nfs server: `# systemctl start nfs-kernel-server`
     * Make a file to see from the client: `# touch /nfsshare/hello`
 
+## Troubleshooting
+You might get an error with Docker when running exportfs -a when using a container owned folder.  If this happens, you will instead need to use a docker volume or mount a folder from your VM as a volume into the container.  Then, use that volume in your container for the NFS export folder.
+* For the former, you will need to rebuild and run a modified Dockerfile.  In the Dockerfile, change the volume line to below
+    ```
+    VOLUME [ "/tmp", "/run", "/run/lock", "/nfsshare" ]
+    ```
+    * Create a volume by running in the VM: `$ docker volume create nfsvol`
+    * Rerun the docker run command, but this time add the line below
+    ```
+    --mount 'type=volume,src=nfsvol,dst=/nfsshare'
+    ```
+* For the latter, create a folder in your VM.  Make a new docker container and mount a volume with this VM folder into the container with your run command.
+
 ## Client (e.g., Kali VM)
 1. Make a directory for the mount: `$ sudo mkdir /mnt/nfs`
 1. Mount the nfs share by using the following command (make sure to replace the ip address with your server's ip address): `$ sudo mount -t nfs -o proto=tcp,port=2049 192.168.25.100:/export/nfsshare /mnt/nfs`
