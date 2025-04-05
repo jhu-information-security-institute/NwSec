@@ -25,11 +25,15 @@ RUN apt-get update
 RUN apt-get install apt-utils net-tools iputils-ping openssh-server terminator vim binutils -y
 
 # Get the dependencies for openwrt (see https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem)
-RUN apt-get install build-essential ccache ecj fastjar file g++ gawk \
-gettext git java-propose-classpath libelf-dev libncurses5-dev \
-libncursesw5-dev libssl-dev python2.7-dev python3 unzip wget \
-python3-distutils python3-setuptools python3-dev rsync subversion \
-swig time xsltproc zlib1g-dev -y
+RUN apt-get install build-essential clang flex bison g++ gawk \
+gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev \
+python3-setuptools rsync swig unzip zlib1g-dev file wget
+
+#RUN apt-get install build-essential ccache ecj fastjar file g++ gawk \
+#gettext git java-propose-classpath libelf-dev libncurses5-dev \
+#libncursesw5-dev libssl-dev python2.7-dev python3 unzip wget \
+#python3-distutils python3-setuptools python3-dev rsync subversion \
+#swig time xsltproc zlib1g-dev -y
 
 # Install X dependencies
 RUN apt-get install libxext6 libxtst6 libxi6 xauth -y
