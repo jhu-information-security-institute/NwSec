@@ -27,7 +27,7 @@ echo 'os/apu4/openwrt/KaliX86-64/scripts/build.sh' >> .git/info/sparse-checkout
 echo 'os/apu4/openwrt/KaliX86-64/scripts/create-user.sh' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
-git pull origin master
+git pull origin main
 
 echo 'cd into apu4_openwrt_KaliX86-64/os/apu4/openwrt/KaliX86-64 and view details in Dockerfile for building, running, and attaching to the container'
 
