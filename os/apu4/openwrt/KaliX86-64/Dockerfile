@@ -22,10 +22,10 @@ RUN chmod -R uga+w $CONTMNTSANDBOX
 RUN apt-get update
 
 # Get useful utilities
-RUN apt-get install apt-utils net-tools iputils-ping openssh-server terminator vim binutils -y
+RUN apt-get install -y apt-utils net-tools iputils-ping openssh-server terminator vim binutils
 
 # Get the dependencies for openwrt (see https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem)
-RUN apt-get install build-essential clang flex bison g++ gawk \
+RUN apt-get install -y build-essential clang flex bison g++ gawk \
 gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev \
 python3-setuptools rsync swig unzip zlib1g-dev file wget
 
@@ -36,7 +36,7 @@ python3-setuptools rsync swig unzip zlib1g-dev file wget
 #swig time xsltproc zlib1g-dev -y
 
 # Install X dependencies
-RUN apt-get install libxext6 libxtst6 libxi6 xauth -y
+RUN apt-get install -y libxext6 libxtst6 libxi6 xauth
 
 COPY scripts/build.sh $CONTMNTSCRIPTS/.
 COPY scripts/create-user.sh $CONTMNTSCRIPTS/.
