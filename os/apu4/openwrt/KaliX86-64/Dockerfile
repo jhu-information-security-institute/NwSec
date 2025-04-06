@@ -40,6 +40,7 @@ RUN apt-get install -y libxext6 libxtst6 libxi6 xauth
 
 COPY scripts/build.sh $CONTMNTSCRIPTS/.
 COPY scripts/create-user.sh $CONTMNTSCRIPTS/.
+COPY scripts/display-runtime.sh $CONTMNTSCRIPTS/.
 COPY diffconfig $CONTMNTSANDBOX/.
 
 # Finished!
