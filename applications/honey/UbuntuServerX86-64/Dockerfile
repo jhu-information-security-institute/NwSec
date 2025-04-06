@@ -40,4 +40,4 @@ RUN pip3 install honeypots
 RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name honey --hostname honey.nwsecdocker.jhu.edu --add-host honey.nwsecdocker.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search nwsecdocker.jhu.edu --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host --cpus=1 thoney:latest \n\
 * Attach to it using $ docker exec -it honey bash \n\
-* Start the honeypot using, e.g., # python3 -m honeypots --setup ftp,httpproxy,http,imap,pop3,smtp,telnet'
+* Start the honeypot using, e.g., # python3 -m honeypots --setup ftp:21,httpproxy:443,http:80,imap:143,pop3:110,smtp:587,telnet:23'
