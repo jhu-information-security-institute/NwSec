@@ -1,7 +1,6 @@
 #Reuben Johnston, reub@jhu.edu
 #This utility program performs network activity on a timed interval.  It was written for laboratory exercises where students monitored wireless traffic 
-#whose requests originated from this program running on a raspberry pi zero wireless (RPIZeroW).  It communicated with corresponding servers running on 
-#another RPIZeroW.
+#whose requests originated from this program running on a raspberry pi.  It communicated with corresponding servers running on another system over a wireless interface.
 
 import ftplib
 import telnetlib
