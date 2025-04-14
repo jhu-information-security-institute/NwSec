@@ -27,7 +27,7 @@ def ftp_connect(server,port,username,password):
     try:    
         print("connect to "+server+":"+str(port))
         ftpconn = ftplib.FTP()
-        ftpcon.set_pasv(False)
+        ftpconn.set_pasv(False)
         ftpconn.connect(server, port)
         print("ftp login in to "+server+" as "+username)
         ftpconn.login(username, password)   
