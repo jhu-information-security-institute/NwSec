@@ -148,12 +148,12 @@ def main():
     if (args.server==None) or (args.user==None):
         usage()
 
-    if (args.ftpport=None):
+    if (args.ftpport==None):
         ftpport=cDEFAULT_FTP_PORT
     else:
         ftpport=args.ftpport
 
-    if (args.telnetport=None):
+    if (args.telnetport==None):
         telnetport=cDEFAULT_TELNET_PORT
     else:
         telnetport=args.telnetport    
