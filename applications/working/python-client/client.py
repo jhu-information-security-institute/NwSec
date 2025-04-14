@@ -25,9 +25,10 @@ def ftp_connect(server,port,username,password):
     global ftpconn,detectctrlc
 
     try:    
-        print("connect to "+server)
+        print("connect to "+server+":"+str(port))
         ftpconn = ftplib.FTP()
-        ftpconn.connect(server,port)
+        ftpcon.set_pasv(False)
+        ftpconn.connect(server, port)
         print("ftp login in to "+server+" as "+username)
         ftpconn.login(username, password)   
     except KeyboardInterrupt:
@@ -41,7 +42,7 @@ def telnet_connect(server,port,username,password):
     global telnetconn,detectctrlc
 
     try:    
-        print("connect to "+server+":"+port)
+        print("connect to "+server+":"+str(port))
         telnetconn = telnetlib.Telnet(server,port)
         print("telnet login in to "+server+" as "+username)
         print(telnetconn.read_until(b"login: ").decode('ascii'))
