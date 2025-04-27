@@ -4,6 +4,7 @@
 # Python deprecated telnetlib (cool, now we have more work for teaching demonstrations).  Install python 3.12 and python venv.
 # For Ubuntu, see instructions below where we use the deadsnakes/ppa apt repository with older python builds.  For others, you likely have to build from source as the deadsnakes/ppa is only for Ubuntu.
 # Install software-properties-common to get the add-apt-repository utility.
+# # apt-get update
 # # apt-get install software-properties-common
 # # add-apt-repository ppa:deadsnakes/ppa
 # # apt-get install python3.12 python3.12-venv
