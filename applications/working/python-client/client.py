@@ -6,7 +6,7 @@
 # Install software-properties-common to get the add-apt-repository utility.
 # # apt-get install software-properties-common
 # # add-apt-repository ppa:deadsnakes/ppa
-# # apt-get install python3-virtualenv python3.12
+# # apt-get install python3.12 python3.12-venv
 # # python3.12 -m venv python3p12
 # # source python3p12/bin/activate
 # Run the script using the venv that is activated.
