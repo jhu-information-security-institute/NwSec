@@ -8,8 +8,8 @@
 # # add-apt-repository ppa:deadsnakes/ppa
 # # apt-get install python3-virtualenv python3.12
 # # python3.12 -m venv python3p12
-#
-source python3p12/bin/activate
+# # source python3p12/bin/activate
+# Run the script using the venv that is activated.
 
 import ftplib
 import telnetlib
@@ -128,7 +128,13 @@ def telnet_listdir():
         raise       
     except:
         raise
-            
+
+def getPasswordFromFile(passwordFile):
+        #read contents of passwordFile into buffer
+        with open(passwordFile, "r") as f:
+            buffer=f.read()
+        return buffer.rstrip('\n')#remove any trailing newlines
+
 def usage():
     """ Script Usage """
     print("Usage: python3 client.py OPTIONS")
