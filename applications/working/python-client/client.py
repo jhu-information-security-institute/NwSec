@@ -53,13 +53,13 @@ def telnet_connect(server,port,username,password):
         print("connect to "+server+":"+str(port))
         telnetconn = telnetlib.Telnet(server,port)
         print("telnet login in to "+server+" as "+username)
-        print(telnetconn.read_until(b"login: ").decode('ascii'))
-        telnetconn.write(username.encode('ascii') + b"\n")
+        print(telnetconn.read_until(b"login: ").decode('utf-8'))
+        telnetconn.write(username.encode('utf-8') + b"\n")
         if password:
-            print(telnetconn.read_until(b"Password: ").decode('ascii'))
-            telnetconn.write(password.encode('ascii') + b"\n")
+            print(telnetconn.read_until(b"Password: ").decode('utf-8'))
+            telnetconn.write(password.encode('utf-8') + b"\n")
         time.sleep(0.1)  
-        print(telnetconn.read_lazy().decode('ascii'))
+        print(telnetconn.read_lazy().decode('utf-8'))
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
@@ -89,7 +89,7 @@ def telnet_disconnect():
         if not(telnetconn==None):
             print("logout from telnet")
             telnetconn.write(b"exit\n")
-            print(telnetconn.read_all().decode('ascii'))
+            print(telnetconn.read_all().decode('utf-8'))
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
@@ -121,7 +121,7 @@ def telnet_listdir():
         telnetconn.write(b"ls\n")
     
         time.sleep(0.1)
-        print(telnetconn.read_lazy().decode('ascii'))
+        print(telnetconn.read_lazy().decode('utf-8'))
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
