@@ -2,7 +2,7 @@
 # This utility program performs network activity on a timed interval.  This program runs on one host and it communicates with corresponding servers running on another system.
 #
 # Python deprecated telnetlib (cool, now we have more work for teaching demonstrations).  Install python 3.12 and python venv.
-# For Ubuntu, see instructions below.  For others, you likely have to build from source as the deadsnakes/ppa is only for Ubuntu.
+# For Ubuntu, see instructions below where we use the deadsnakes/ppa apt repository with older python builds.  For others, you likely have to build from source as the deadsnakes/ppa is only for Ubuntu.
 # Install software-properties-common to get the add-apt-repository utility.
 # # apt-get install software-properties-common
 # # add-apt-repository ppa:deadsnakes/ppa
