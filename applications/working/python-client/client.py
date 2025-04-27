@@ -6,9 +6,12 @@
 # Install software-properties-common to get the add-apt-repository utility.
 # # apt-get update
 # # apt-get install software-properties-common
+# Use add-apt-repository utility to include the deadsnakes/ppa and install python3.12 and python3.12-venv
 # # add-apt-repository ppa:deadsnakes/ppa
 # # apt-get install python3.12 python3.12-venv
+# Create the new venv with python3.12
 # # python3.12 -m venv python3p12
+# Optionally activate the new venv to test
 # # source python3p12/bin/activate
 # Run the script using the venv that is activated.
 
