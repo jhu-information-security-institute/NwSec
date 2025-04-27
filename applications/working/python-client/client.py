@@ -129,6 +129,21 @@ def telnet_listdir():
     except:
         raise
 
+def telnet_runscript(scriptabsname):
+    global telnetconn,detectctrlc
+
+    try:    
+        telnetconn.write(scriptabsname.encode('utf-8')+b"\n")
+    
+        time.sleep(0.1)
+        print(telnetconn.read_lazy().decode('utf-8'))
+    except KeyboardInterrupt:
+        print('CTRL-C detected!')
+        detectctrlc=True
+        raise       
+    except:
+        raise
+
 def getPasswordFromFile(passwordFile):
         #read contents of passwordFile into buffer
         with open(passwordFile, "r") as f:
