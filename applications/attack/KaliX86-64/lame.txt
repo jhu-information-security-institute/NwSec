@@ -15,6 +15,7 @@ admin
 welcome
 monkey
 login
+spaghetti
 abc123
 starwars
 123123
