@@ -24,6 +24,9 @@ echo 'applications/websvr/UbuntuServerX86-64/.project' >> .git/info/sparse-check
 echo 'applications/websvr/UbuntuServerX86-64/Dockerfile' >> .git/info/sparse-checkout
 echo 'applications/websvr/UbuntuServerX86-64/index.html' >> .git/info/sparse-checkout
 echo 'applications/websvr/UbuntuServerX86-64/etc_nginx_sites-available_nwsec' >> .git/info/sparse-checkout
+echo 'applications/websvr/UbuntuServerX86-64/Dockerfile.proxy' >> .git/info/sparse-checkout
+echo 'applications/websvr/UbuntuServerX86-64/mk.txt' >> .git/info/sparse-checkout
+echo 'applications/websvr/UbuntuServerX86-64/sf2.txt' >> .git/info/sparse-checkout
 
 ## Download with pull, not clone
 git pull origin main
