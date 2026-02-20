@@ -12,7 +12,7 @@ def usage():
     print("    --emaildb:  output email database (text) list of emails")
     print("")
     print("EXAMPLES:")
-    print("    python3 makeemaildict.py --userdb common_roots.txt --domain nwsecdocker.jhu.edu --emaildb email_common_roots.txt")
+    print("    python3 makeemaildict.py --userdb common_roots.txt --domain netsec-docker.isi.jhu.edu --emaildb email_common_roots.txt")
     sys.exit(1)    
 
 def create_emaildb(userdb, domain, emaildb): 

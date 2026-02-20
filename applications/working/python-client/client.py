@@ -1,7 +1,19 @@
-#Reuben Johnston, reub@jhu.edu
-#This utility program performs network activity on a timed interval.  It was written for laboratory exercises where students monitored wireless traffic 
-#whose requests originated from this program running on a raspberry pi zero wireless (RPIZeroW).  It communicated with corresponding servers running on 
-#another RPIZeroW.
+# Reuben Johnston, reub@jhu.edu
+# This utility program performs network activity on a timed interval.  This program runs on one host and it communicates with corresponding servers running on another system.
+#
+# Python deprecated telnetlib (cool, now we have more work for teaching demonstrations).  Install python 3.12 and python venv.
+# For Ubuntu, see instructions below where we use the deadsnakes/ppa apt repository with older python builds.  For others, you likely have to build from source as the deadsnakes/ppa is only for Ubuntu.
+# Install software-properties-common to get the add-apt-repository utility.
+# # apt-get update
+# # apt-get install software-properties-common
+# Use add-apt-repository utility to include the deadsnakes/ppa and install python3.12 and python3.12-venv
+# # add-apt-repository ppa:deadsnakes/ppa
+# # apt-get install python3.12 python3.12-venv
+# Create the new venv with python3.12
+# # python3.12 -m venv python3p12
+# Optionally activate the new venv to test
+# # source python3p12/bin/activate
+# Run the script using the venv that is activated.
 
 import ftplib
 import telnetlib
@@ -14,16 +26,21 @@ ftpconn=None
 telnetconn=None
 detectctrlc=None
 
+cDEFAULT_FTP_PORT=21
+cDEFAULT_TELNET_PORT=23
+
 #https://pythonspot.com/ftp-client-in-python/
 #https://docs.python.org/3/library/ftplib.html
 #https://docs.python.org/3/library/telnetlib.html
 
-def ftp_connect(server,username,password):
+def ftp_connect(server,port,username,password):
     global ftpconn,detectctrlc
 
     try:    
-        print("connect to "+server)
-        ftpconn = ftplib.FTP(server)
+        print("connect to "+server+":"+str(port))
+        ftpconn = ftplib.FTP()
+        ftpconn.set_pasv(False)
+        ftpconn.connect(server, port)
         print("ftp login in to "+server+" as "+username)
         ftpconn.login(username, password)   
     except KeyboardInterrupt:
@@ -33,20 +50,20 @@ def ftp_connect(server,username,password):
     except:
         raise       
 
-def telnet_connect(server,username,password):
+def telnet_connect(server,port,username,password):
     global telnetconn,detectctrlc
 
     try:    
-        print("connect to "+server)
-        telnetconn = telnetlib.Telnet(server)
+        print("connect to "+server+":"+str(port))
+        telnetconn = telnetlib.Telnet(server,port)
         print("telnet login in to "+server+" as "+username)
-        print(telnetconn.read_until(b"login: ").decode('ascii'))
-        telnetconn.write(username.encode('ascii') + b"\n")
+        print(telnetconn.read_until(b"login: ").decode('utf-8'))
+        telnetconn.write(username.encode('utf-8') + b"\n")
         if password:
-            print(telnetconn.read_until(b"Password: ").decode('ascii'))
-            telnetconn.write(password.encode('ascii') + b"\n")
+            print(telnetconn.read_until(b"Password: ").decode('utf-8'))
+            telnetconn.write(password.encode('utf-8') + b"\n")
         time.sleep(0.1)  
-        print(telnetconn.read_lazy().decode('ascii'))
+        print(telnetconn.read_lazy().decode('utf-8'))
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
@@ -76,7 +93,7 @@ def telnet_disconnect():
         if not(telnetconn==None):
             print("logout from telnet")
             telnetconn.write(b"exit\n")
-            print(telnetconn.read_all().decode('ascii'))
+            print(telnetconn.read_all().decode('utf-8'))
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
@@ -108,14 +125,35 @@ def telnet_listdir():
         telnetconn.write(b"ls\n")
     
         time.sleep(0.1)
-        print(telnetconn.read_lazy().decode('ascii'))
+        print(telnetconn.read_lazy().decode('utf-8'))
     except KeyboardInterrupt:
         print('CTRL-C detected!')
         detectctrlc=True
         raise       
     except:
         raise
-            
+
+def telnet_runscript(scriptabsname):
+    global telnetconn,detectctrlc
+
+    try:    
+        telnetconn.write(scriptabsname.encode('utf-8')+b"\n")
+    
+        time.sleep(0.1)
+        print(telnetconn.read_lazy().decode('utf-8'))
+    except KeyboardInterrupt:
+        print('CTRL-C detected!')
+        detectctrlc=True
+        raise       
+    except:
+        raise
+
+def getPasswordFromFile(passwordFile):
+        #read contents of passwordFile into buffer
+        with open(passwordFile, "r") as f:
+            buffer=f.read()
+        return buffer.rstrip('\n')#remove any trailing newlines
+
 def usage():
     """ Script Usage """
     print("Usage: python3 client.py OPTIONS")
@@ -123,40 +161,68 @@ def usage():
     print("    --help, --usage, -h: Show this help message")
     print("    --server: IP address of server")
     print("    --user: Username on server")
+    print("    --passwordFile: Password file")
+    print("    --noftp: Do not perform ftp")
+    print("    --notelnet: Do not perform telnet")    
+    print("    --ftpport: Port for ftp")
+    print("    --telnetport: Port for telnet")
     print("")
     print("EXAMPLES:")
-    print("    python3 client.py --server 192.168.70.11 --user anonymous")
+    print("    python3 client.py --server 192.168.70.11 --user anonymous --ftpport 21 --telnetport 23")
     sys.exit(1)    
         
 def main():
-    global ftpconn,detectctrlc
+    global detectctrlc
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--server', help='server ip')    
-    parser.add_argument('--user', help='username')    
+    parser.add_argument('--user', help='username')
+    parser.add_argument('--passwordFile', type=str, help='password file')
+    parser.add_argument('--interval', type=int, default=45, help='interval in seconds to repeat on')
+    parser.add_argument('--noftp', action="store_true", help='if present, do not perform ftp')
+    parser.add_argument('--notelnet', action="store_true", help='if present, do not perform telnet')
+    parser.add_argument('--ftpport', type=int, help='ftp port')
+    parser.add_argument('--telnetport', type=int, help='telnet port')
     
     args=parser.parse_args()
     
     if (args.server==None) or (args.user==None):
         usage()
-    
-    password=getpass.getpass(prompt='Password for '+args.user+':', stream=None)
 
+    if args.passwordFile==None:    
+        password=getpass.getpass(prompt='Password for '+args.user+':', stream=None)
+    else: #read password from passwordFile
+        password=getPasswordFromFile(args.passwordFile)
+    
+    if (args.ftpport==None):
+        ftpport=cDEFAULT_FTP_PORT
+    else:
+        ftpport=args.ftpport
+
+    if (args.telnetport==None):
+        telnetport=cDEFAULT_TELNET_PORT
+    else:
+        telnetport=args.telnetport    
+
+    interval=args.interval
+    
     print('Running. Press CTRL-C to exit.')
     detectctrlc=False
     while detectctrlc==False:
         try:
             # Do nothing and hog CPU forever until SIGINT received.
-            time.sleep(5)
-            ftp_connect(args.server,"anonymous","")
-            time.sleep(1)
-            ftp_listdir()
-            ftp_disconnect()
-            time.sleep(5)
-            telnet_connect(args.server,args.user,password)
-            time.sleep(1)
-            telnet_listdir()
-            telnet_disconnect()            
+            if not args.noftp:
+                time.sleep(interval)
+                ftp_connect(args.server,ftpport,args.user,password)
+                time.sleep(1)
+                ftp_listdir()
+                ftp_disconnect()
+            if not args.notelnet:
+                time.sleep(interval)
+                telnet_connect(args.server,telnetport,args.user,password)
+                time.sleep(1)
+                telnet_listdir()
+                telnet_disconnect()            
             pass
         except KeyboardInterrupt:
             print('CTRL-C detected!')

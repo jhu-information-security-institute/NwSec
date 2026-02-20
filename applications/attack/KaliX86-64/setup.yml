@@ -1,0 +1,30 @@
+# Description:
+# Some minimal setup for the attack container
+#
+# Usage:
+# $ ansible-playbook setup.yml -v -i inventory --extra-vars "USERNAME=<USERNAME>"
+---
+- hosts: kali2024
+  become: true
+  name: setup-attack.yml
+  tasks:
+  - name: Install packages
+    shell: |
+      apt-get update
+      apt-get -y install thunderbird firefox-esr sendmail
+    register: result
+  - debug:
+      msg: result.stdout_lines
+
+  - name: Copy files with owner and permissions
+    ansible.builtin.copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: "{{ USERNAME }}"
+      group: "{{ USERNAME }}"
+      mode: '0644'
+    loop:
+      - src: email_common_roots.txt
+        dest: /home/{{ USERNAME }}/email_common_roots.txt
+      - src: lame.txt
+        dest: /home/{{ USERNAME }}/lame.txt
