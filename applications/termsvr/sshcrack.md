@@ -62,6 +62,53 @@ For this version, you would instead use the termsvr container and install all th
 1. Copy the saved *.pcap into your devel docker container.  Then, in your second devel session, use the network-parser utility to decrypt the *.pcap by providing it and the captured keys to the following command: `(pynids) # network-parser -p <PCAPFILE> -o <OUTPUTDIR> --proto=ssh --popt key=<KEYSJSONFILE> -s -vvvv`
 1. Fun and profit!
 
+## MacOS guidance
+On MacOS, it is likely you will encounter issues such as:
+*  Difficulties installing the required Python2 dependencies (gevent, cryptography) for OpenSSH-Network-Parser on an ARM (aarch64) system. The installation fails due to compatibility issues, specifically:
+* Compilation errors related to OpenSSL (functions like ERR_GET_FUNC and FIPS_mode have been deprecated or removed in OpenSSL 3.x).
+* Inability to build wheel files for gevent and cryptography using Python 2, as required by the provided instructions.
+
+Here are some specific problems with solutions:
+```
+“error: command 'aarch64-linux-gnu-gcc' failed with exit status 1” when run python setup.py build
+```
+Cause: libnids.a can’t be auto generated when compile due to the original version of config.guess and config.sub doesn’t recognize aarch64
+Solution: 
+* copy /usr/share/misc/config.guess and /usr/share/misc/config.sub to replace the file under the libnids-1.25 directory
+* Run ./configure CFLAGS="-fPIC" --disable-libglib --disable-libnet under libnids-1.25 directory
+* Run make
+Now we can see libnids.a under libnids-1.25/src
+```
+pip2 install . failed
+```
+Cause: Under Big Sur, the wheel can’t be autodetected
+Solution:
+* First we need to manually construct the wheel
+```
+curl -O https://files.pythonhosted.org/packages/source/c/cryptography/cryptography-3.3.2.tar.gz
+tar -xzvf cryptography-3.3.2.tar.gz
+cd cryptography-3.3.2
+python setup.py bdist_wheel --plat-name=manylinux2014_aarch64
+```
+* Then we can see cryptography-3.3.2-cp27-cp27mu-manylinux2014_aarch64.whl under dist/
+* Now, we still face incompatibility due to the cryptography compiled with a new version of OpenSSL, so we also need to install old version OpenSSL
+```
+curl -O https://www.openssl.org/source/openssl-1.1.1l.tar.gz
+tar -xzvf openssl-1.1.1l.tar.gz
+cd openssl-1.1.1l ./config --prefix=/usr/local/ssl1.1 --openssldir=/usr/local/ssl1.1 
+make 
+make install
+export CFLAGS="-I/usr/local/ssl1.1/include -fPIC" 
+export LDFLAGS="-L/usr/local/ssl1.1/lib"
+```
+* Under /cryptography 3.3.2
+```
+python setup.py clean --all
+python setup.py bdist_wheel --plat-name=manylinux2014_aarch64
+pip install dist/cryptography-3.3.2-cp27-cp27mu-manylinux2014_aarch64.whl
+```
+* Now we can run pip2 install . with no error
+
 ## Useful links
 * https://research.nccgroup.com/2020/11/11/decrypting-openssh-sessions-for-fun-and-profit
 * https://github.com/jhu-information-security-institute/netsec-OpenSSH-Session-Key-Recovery
