@@ -62,7 +62,7 @@ For this version, you would instead use the termsvr container and install all th
 1. Copy the saved *.pcap into your devel docker container.  Then, in your second devel session, use the network-parser utility to decrypt the *.pcap by providing it and the captured keys to the following command: `(pynids) # network-parser -p <PCAPFILE> -o <OUTPUTDIR> --proto=ssh --popt key=<KEYSJSONFILE> -s -vvvv`
 1. Fun and profit!
 
-## MacOS guidance
+## MacOS guidance (Solution provided by Spring 2025 student, Da Li)
 On MacOS, it is likely you will encounter issues such as:
 *  Difficulties installing the required Python2 dependencies (gevent, cryptography) for OpenSSH-Network-Parser on an ARM (aarch64) system. The installation fails due to compatibility issues, specifically:
 * Compilation errors related to OpenSSL (functions like ERR_GET_FUNC and FIPS_mode have been deprecated or removed in OpenSSL 3.x).
