@@ -44,7 +44,7 @@ Connection closed by foreign host.
    ```
    $ docker build -t tproxysvr -f Dockerfile.proxy . 
    $ docker run -d --name webproxy --hostname proxy.netsec-docker.isi.jhu.edu --add-host proxy.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network bridge -p 8080:80 --cpus=1 tproxysvr:latest
-   $ docker exec -it proxysvr bash 
+   $ docker exec -it webproxy bash 
    ```
 1. Setup proxy server (in the container, you will likely need to temporarily add 8.8.8.8 as a dns server in /etc/resolv.conf).  The /run/haproxy file must be created or haproxy startup could fail.
    ```
