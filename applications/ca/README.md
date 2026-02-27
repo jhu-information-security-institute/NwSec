@@ -33,7 +33,7 @@
     ```
 1. Update frontend section in the /etc/haproxy/haproxy.cfg
     ```
-    bind :443 ssl crt /certs
+    bind 0.0.0.0:443 ssl crt /certs
     ```
 1. Alternately, force server to use https by also adding to the file above in the frontend section
     ```
