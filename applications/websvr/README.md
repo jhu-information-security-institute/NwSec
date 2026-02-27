@@ -33,6 +33,8 @@ Connection closed by foreign host.
 </code></pre>
 
 # Runtime environment setup
+## Prerequisites
+1. Update your dns container on the infrastructure VM to define proxy.netsec-docker.isi.jhu.edu, web1.netsec-docker.isi.jhu.edu, and web2.netsec-docker.isi.jhu.edu.  Note, you should add additional names respectively for term, web, and mail entries (you can specify multiple names for an ip)
 ## Server (on VM)
 1. Download files to build container
     ```
