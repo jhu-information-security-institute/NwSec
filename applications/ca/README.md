@@ -36,10 +36,6 @@
     ```
     bind 0.0.0.0:443 ssl crt /certs
     ```
-1. Alternately, force server to use https by also adding to the file above in the frontend section
-    ```
-    http-request redirect scheme https unless { ssl_fc }
-    ```
 ## Client (on Kali VM)
 1. In client browser, add the CA by importing root_ca.crt
     1. Firefox: Settings > Privacy & Security > Certificates > View Certificates
