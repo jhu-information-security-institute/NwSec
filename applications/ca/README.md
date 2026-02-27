@@ -9,6 +9,7 @@
 1. Run the container: $ docker run --name ca -it -v step:/home/step -p 9000:9000 -e "DOCKER_STEPCA_INIT_NAME=Smallstep" -e "DOCKER_STEPCA_INIT_DNS_NAMES=localhost,ca.netsec-docker.isi.jhu.edu" -e "DOCKER_STEPCA_INIT_REMOTE_MANAGEMENT=true" -e "DOCKER_STEPCA_INIT_PASSWORD=student" smallstep/step-ca
 1. Confirm the server is operational by viewing: https://ca.netsec-docker.isi.jhu.edu:9000/health
 1. Query the root ca fingerprint from the smallstep container using: `$ docker run -v step:/home/step smallstep/step-ca step certificate fingerprint certs/root_ca.crt`
+1. Copy the root certificate from the container into the VM and then scp it over to your kali VM to use later: `$ docker cp ca:/home/step/certs/root_ca.crt ~/.`
 ## Server (on target VM)
 1. For haproxy container, install step client and bootstrap it to the smallstep server
     ```
