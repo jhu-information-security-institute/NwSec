@@ -150,8 +150,11 @@ Connection closed by foreign host.
 # Useful websites
 * http://www.postfix.org
 * https://www.dovecot.org
-* http://postfixadmin.sourceforge.net
+* https://github.com/postfixadmin/postfixadmin
+* https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
+* https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
