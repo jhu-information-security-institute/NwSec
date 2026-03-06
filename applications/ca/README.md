@@ -25,7 +25,7 @@
     # apt-get update && apt-get -y install step-cli
     ```
 1. Test the installation by running: `# step certificate inspect https://smallstep.com`
-1. Configure the step client with the smallstep server: `# step ca bootstrap --ca-url https://ca.netsec-docker.isi.jhu.edu:9000 --fingerprint <CA fingerprint>`
+1. Configure the step client with the smallstep server by securely fetching the root_ca certificate: `# step ca bootstrap --ca-url https://ca.netsec-docker.isi.jhu.edu:9000 --fingerprint <CA fingerprint>`
 1. Establish system-wide trust of CA: `# step certificate install /root/.step/certs/root_ca.crt`
 1. Generate a private key for haproxy and obtain a signed certificate (you will be prompted for ca server's administrative password, it was fixed in a command above to 'student')
     ```
