@@ -1,6 +1,8 @@
 ** In-progress updates for Ubuntu 24.04 **
 
 # Application overview
+<img width="783" height="512" alt="emailsvr" src="https://github.com/user-attachments/assets/94cca68c-5baf-4907-b154-be3c4598092e" />
+
 Postfix (SMTP) and Dovecot (IMAP/POP3) servers setup to run in a single Docker container.  Postfixadmin suite is also installed to facilitate easy configuration of the servers.
 
 What is Postfix? It is Wietse Venema's mail server that started life at IBM research as an alternative to the widely-used Sendmail program. Now at Google, Wietse continues to support Postfix.
@@ -150,4 +152,5 @@ Connection closed by foreign host.
 * https://www.dovecot.org
 * http://postfixadmin.sourceforge.net
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
