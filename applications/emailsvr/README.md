@@ -20,22 +20,22 @@ The RPI4B is using Ubuntu Server OS, version 18.04.
 ## Client
 The client that communicates with the email server is any remote SMTP server or IMAP/POP3 client.  One can also directly interface by manually applying direct SMTP commands using telnet over port 25.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
 <pre><code>
-$ # telnet 192.168.50.46 25
-Trying 192.168.50.46...
-Connected to 192.168.50.46.
+$ # telnet 192.168.25.122 25
+Trying 192.168.25.122...
+Connected to 192.168.25.122.
 Escape character is '^]'.
     220 ubuntu.MHI ESMTP Postfix (Ubuntu)
 HELO reubenjohnston.com
-    250 Hello reubenjohnston.com (kali.MHI [192.168.50.31])
-MAIL FROM:&ltreuben@reubenjohnston.com&gt
+    250 Hello evil.com (hostname.lan [192.168.25.50])
+MAIL FROM:&ltreuben@evil.com&gt
     250 Sender ok
-RCPT TO:&ltadmin@ubuntu.mhi&gt
-    250 RCPT ok &ltadmin@ubuntu.mhi&gt
+RCPT TO:&ltadmin@ubuntu.lan&gt
+    250 RCPT ok &ltadmin@ubuntu.lan&gt
 DATA
     354 Transmit message now - terminate with '.' by itself
 Subject: sample message
-From: reuben@reubenjohnston.com
-To: admin@ubuntu.mhi
+From: reuben@evil.com
+To: admin@ubuntu.lan
 
 Hey,
 Can you send me your password?
@@ -154,6 +154,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
