@@ -73,9 +73,9 @@ COPY dovecot/etc_dovecot_conf.d_15-mailboxes.conf /etc/dovecot/conf.d/15-mailbox
 #create dovecot and mail users
 RUN adduser dovecot mail
 
-#install all the things (web server, MariaDB database server, PHP8.2, postfixadmin)
+#install all the things (web server, MariaDB database server, PHP8.3, postfixadmin)
 RUN apt-get install nginx mariadb-server mariadb-client -y
-RUN apt-get install php8.2 php8.2-fpm php8.2-mysql php-common php8.2-cli php8.2-common php8.2-json php8.2-opcache php8.2-readline php8.2-mbstring php8.2-xml php8.2-gd php8.2-curl -y
+RUN apt-get install php8.3 php8.3-fpm php8.3-mysql php-common php8.3-cli php8.3-common php8.3-json php8.3-opcache php8.3-readline php8.3-mbstring php8.3-xml php8.3-gd php8.3-curl -y
 
 #remove the default nginx site
 RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
