@@ -5,11 +5,11 @@
 
 Postfix (SMTP) and Dovecot (IMAP/POP3) servers setup to run in a single Docker container.  Postfixadmin suite is also installed to facilitate easy configuration of the servers.
 
-What is Postfix? It is Wietse Venema's mail server that started life at IBM research as an alternative to the widely-used Sendmail program. Now at Google, Wietse continues to support Postfix.
-
-Postfix attempts to be fast, easy to administer, and secure. The outside has a definite Sendmail-ish flavor, but the inside is completely different.
+Postfix is Wietse Venema's mail server that started life at IBM research as an alternative to the widely-used Sendmail program. Postfix attempts to be fast, easy to administer, and secure. The outside has a definite Sendmail-ish flavor, but the inside is completely different.
 
 Dovecot is an open source IMAP and POP3 email server for Linux/UNIX-like systems, written with security primarily in mind. Dovecot is an excellent choice for both small and large installations. It’s fast, simple to set up, requires no special administration and it uses very little memory.
+
+Postfixadmin is an open source, web based interface for managing domains/mailboxes/aliases etc on a Postfix based mail server.  It integrates with Postfix, Dovecot IMAP/POP3 server, MariaDB database back end.
 
 ## Server (on UbuntuServerx86-64-target VM)
 The VM is using Ubuntu Server OS, version 24.04.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/main/config/UbuntuServerX86-64/targetVm-README.md).
@@ -152,5 +152,6 @@ Connection closed by foreign host.
 * https://www.dovecot.org
 * http://postfixadmin.sourceforge.net
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
