@@ -1,4 +1,6 @@
 # Runtime environment setup
+<img width="561" height="531" alt="https_ca_proxy_load_balancer drawio" src="https://github.com/user-attachments/assets/115631e1-d0d6-4dd7-a32d-a74df7cc64fc" />
+
 ## Prerequisites
 1. webproxy container setup and running
 1. Create a dns entry for virtual interface on infrastructure vm: ca.netsec-docker.isi.jhu.edu on 192.168.25.15
