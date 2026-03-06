@@ -25,7 +25,7 @@ Trying 192.168.25.122...
 Connected to 192.168.25.122.
 Escape character is '^]'.
     220 ubuntu.MHI ESMTP Postfix (Ubuntu)
-HELO reubenjohnston.com
+HELO evil.com
     250 Hello evil.com (hostname.lan [192.168.25.50])
 MAIL FROM:&ltreuben@evil.com&gt
     250 Sender ok
@@ -154,6 +154,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
