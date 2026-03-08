@@ -125,10 +125,12 @@ Connection closed by foreign host.
     * Specify a setup password and copy the generated hash into the value for the setup_password variable in `/etc/postfixadmin/config.inc.php`
     * Then, login with the setup password to create a superadmin account `postfixadmin@netsec-docker.isi.jhu.edu` and specify its password
 1. Use that superadmin account to log in to `http://email.netsec-docker.isi.jhu.edu/postfixadmin/login.php`
-    * Create a new `netsec-docker.isi.jhu.edu` domain 
+    * Create a new `netsec-docker.isi.jhu.edu` domain
+        * Domain List -> New Domain 
     * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
-    * Note, you will need to create an email account for superadmin user
-1. Use Mozilla Thunderbird for a mail client from the VM or another container to access email
+        * Virtual List -> Add Mailbox
+        * Note, you will need to create an email account for superadmin user
+1. Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
 
 ## Server (on RPI4B)
 1. Set your hostname: `$ sudo hostnamectl set-hostname your-fqdn`
@@ -154,6 +156,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
