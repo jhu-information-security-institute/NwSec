@@ -131,6 +131,24 @@ Connection closed by foreign host.
         * Virtual List -> Add Mailbox
         * Note, you will need to create an email account for superadmin user
 1. Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
+    * Start Thunderbird and enter the following, then click configure manually
+   ```
+   Your full name: postfixadmin
+   Email address: postfixadmin@netsec-docker.isi.jhu.edu
+   Password: nwsec123
+   ```
+   * Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
+   ```
+   Incoming Server
+   Hostname: email.netsec-docker.isi.jhu.edu
+   Outgoing Server
+   Hostname: email.netsec-docker.isi.jhu.edu
+   ```
+<img width="975" height="903" alt="image" src="https://github.com/user-attachments/assets/b9111397-3e7a-4fa4-ae3f-7aae8f41efd5" />
+   * Accept the risks and hit confirm
+<img width="805" height="630" alt="image" src="https://github.com/user-attachments/assets/b8ced997-68ee-40ef-b001-e7c374ee98a7" />
+<img width="975" height="483" alt="image" src="https://github.com/user-attachments/assets/fecd129f-59bb-4474-a64b-8073da7ef36b" />
+
 
 ## Server (on RPI4B)
 1. Set your hostname: `$ sudo hostnamectl set-hostname your-fqdn`
@@ -156,6 +174,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
