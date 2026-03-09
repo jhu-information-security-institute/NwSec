@@ -53,6 +53,7 @@ quit
 221 2.0.0 Bye
 Connection closed by foreign host.
 </code></pre>
+<img width="1475" height="619" alt="image" src="https://github.com/user-attachments/assets/1f7bc4ee-1515-4dbc-af78-e924e22f469a" />
 
 # Runtime environment setup
 ## Server (on VM)
@@ -181,6 +182,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
