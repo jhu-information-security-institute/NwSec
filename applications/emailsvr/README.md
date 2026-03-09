@@ -20,30 +20,37 @@ The RPI4B is using Ubuntu Server OS, version 18.04.
 ## Client
 The client that communicates with the email server is any remote SMTP server or IMAP/POP3 client.  One can also directly interface by manually applying direct SMTP commands using telnet over port 25.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
 <pre><code>
-$ # telnet 192.168.25.122 25
+└─$ telnet email.netsec-docker.isi.jhu.edu 25
 Trying 192.168.25.122...
-Connected to 192.168.25.122.
+Connected to email.netsec-docker.isi.jhu.edu.
 Escape character is '^]'.
-    220 ubuntu.MHI ESMTP Postfix (Ubuntu)
-HELO evil.com
-    250 Hello evil.com (hostname.lan [192.168.25.50])
-MAIL FROM:&ltreuben@evil.com&gt
-    250 Sender ok
-RCPT TO:&ltadmin@ubuntu.lan&gt
-    250 RCPT ok &ltadmin@ubuntu.lan&gt
-DATA
-    354 Transmit message now - terminate with '.' by itself
-Subject: sample message
-From: reuben@evil.com
-To: admin@ubuntu.lan
+220 localhost ESMTP Postfix (Ubuntu)
+ehlo fakeemailserver.com
+250-localhost
+250-PIPELINING
+250-SIZE 10240000
+250-VRFY
+250-ETRN
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250-DSN
+250 CHUNKING
+mail from: <fakeenvelopesender@fakedomain.com>
+250 2.1.0 Ok
+rcpt to: <student@netsec-docker.isi.jhu.edu>
+250 2.1.5 Ok
+data
+354 End data with <CR><LF>.<CR><LF>
+From: "Fake sender" <fakeheadersender@fakedomain.com>
+To: "Student" <student@netsec-docker.isi.jhu.edu>
+Subject: Free bitcoins, click here!
 
-Hey,
-Can you send me your password?
-Thanks!
+Hello, this is my malicious message!  I see you like bitcoins.
+
 .
-    250 Message accepted.
-QUIT
-    221 Goodbye...
+250 2.0.0 Ok: queued as 7FF76A1AB3
+quit
+221 2.0.0 Bye
 Connection closed by foreign host.
 </code></pre>
 
@@ -174,6 +181,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
