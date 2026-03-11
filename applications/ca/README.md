@@ -9,6 +9,16 @@
 1. Pull the smallstep image on your infrastructure VM: $ docker pull smallstep/step-ca
 1. If you have run this previously, delete any existing docker volumes created (should be named step)
 1. Run the container: $ docker run --name ca -it -v step:/home/step -p 9000:9000 -e "DOCKER_STEPCA_INIT_NAME=Smallstep" -e "DOCKER_STEPCA_INIT_DNS_NAMES=localhost,ca.netsec-docker.isi.jhu.edu" -e "DOCKER_STEPCA_INIT_REMOTE_MANAGEMENT=true" -e "DOCKER_STEPCA_INIT_PASSWORD=student" smallstep/step-ca
+1. Edit config/ca.json and add below
+    ```
+	"authority": {
+		"enableAdmin": true,
+		"claims": {
+			"maxTLSCertDuration": "720h",
+			"defaultTLSCertDuration": "24h"
+		}
+	},
+    ```
 1. Confirm the server is operational by viewing: https://ca.netsec-docker.isi.jhu.edu:9000/health
 1. Query the root ca fingerprint from the smallstep container using: `$ docker run -v step:/home/step smallstep/step-ca step certificate fingerprint certs/root_ca.crt`
 1. Copy the root certificate from the container into the VM and then scp it over to your kali VM to use later: `$ docker cp ca:/home/step/certs/root_ca.crt ~/.`
@@ -35,7 +45,7 @@
     * Replace <KEYNAME> below with a name corresponding to the host name (e.g., proxy_ca.crt.key, email_ca.crt.key)
     ```
     $ mkdir -p /certs
-    $ step ca certificate proxy.netsec-docker.isi.jhu.edu /certs/proxy_ca.crt /certs/proxy_ca.crt.key  --not-after=12m
+    $ step ca certificate <HOSTNAME>.netsec-docker.isi.jhu.edu /certs/<CERTNAME> /certs/<KEYNAME>  --not-after="720h"
     ```
 ## Client (on Kali VM) browser
 1. Copy the root_ca.crt into the Kali VM
