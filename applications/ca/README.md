@@ -37,11 +37,18 @@
     $ mkdir -p /certs
     $ step ca certificate proxy.netsec-docker.isi.jhu.edu /certs/proxy_ca.crt /certs/proxy_ca.crt.key  --not-after=12m
     ```
-## Client (on Kali VM)
+## Client (on Kali VM) browser
+1. Copy the root_ca.crt into the Kali VM
 1. In client browser, add the CA by importing root_ca.crt
-    1. Firefox: Settings > Privacy & Security > Certificates > View Certificates
-    1. click Import and select your root_ca.crt file
+    1. Firefox: Settings -> Privacy & Security -> Certificates -> View Certificates
+    1. click Import and select your root_ca.crt file (ensure you enable trust for identifying websites)
 1. Go to: https://proxy.netsec-docker.isi.jhu.edu:4443/
+
+## Client (on Kali VM) thunderbird
+1. Copy the root_ca.crt into the attack container
+1. In thunderbird, add the CA by importing root_ca.crt
+    1. Thunderbird: Edit -> Settings, select Privacy and Security tab (on left), scroll down and click Manage Certificates button
+    2. On Authorities, click Import and select your root_ca.crt file (ensure you enable trust for identify email users)
 
 ## Useful websites
 * https://hub.docker.com/r/smallstep/step-ca
