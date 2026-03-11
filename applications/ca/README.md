@@ -13,7 +13,7 @@
 1. Query the root ca fingerprint from the smallstep container using: `$ docker run -v step:/home/step smallstep/step-ca step certificate fingerprint certs/root_ca.crt`
 1. Copy the root certificate from the container into the VM and then scp it over to your kali VM to use later: `$ docker cp ca:/home/step/certs/root_ca.crt ~/.`
 ## Server (on target VM)
-1. For haproxy container, install step client and bootstrap it to the smallstep server
+1. For server's container, install step client and bootstrap it to the smallstep server
     ```
     # apt-get install curl gpg ca-certificates
     # curl -fsSL https://packages.smallstep.com/keys/apt/repo-signing-key.gpg -o /etc/apt/keyrings/smallstep.asc
@@ -29,11 +29,15 @@
 1. Test the installation by running: `# step certificate inspect https://smallstep.com`
 1. Configure the step client with the smallstep server by securely fetching the root_ca certificate: `# step ca bootstrap --ca-url https://ca.netsec-docker.isi.jhu.edu:9000 --fingerprint <CA fingerprint>`
 1. Establish system-wide trust of CA: `# step certificate install /root/.step/certs/root_ca.crt`
-1. Generate a private key for haproxy and obtain a signed certificate (you will be prompted for ca server's administrative password, it was fixed in a command above to 'student')
+1. Generate a private key for server and obtain a signed certificate (you will be prompted for ca server's administrative password, it was fixed in the ca's installation to 'student')
+    * Replace <HOSTNAME> below with the server's hostname (e.g., proxy, email)
+    * Replace <CERTNAME> below with a name corresponding to the host name (e.g., proxy_ca.crt, email_ca.crt)
+    * Replace <KEYNAME> below with a name corresponding to the host name (e.g., proxy_ca.crt.key, email_ca.crt.key)
     ```
     $ mkdir -p /certs
     $ step ca certificate proxy.netsec-docker.isi.jhu.edu /certs/proxy_ca.crt /certs/proxy_ca.crt.key  --not-after=12m
     ```
+## haproxy server specific
 1. Update frontend section in the /etc/haproxy/haproxy.cfg
     ```
     bind 0.0.0.0:443 ssl crt /certs
