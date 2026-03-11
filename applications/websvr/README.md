@@ -81,6 +81,12 @@ Connection closed by foreign host.
 1. Make each /var/www/nwsec/index.html unique
 1. Pages should be viewable in a browser at one of the following urls: `http://192.168.25.121:8081` or `http://192.168.25.122:8082`
 
+# TLS
+1. Update frontend section in the /etc/haproxy/haproxy.cfg
+    ```
+    bind 0.0.0.0:443 ssl crt /certs
+    ```
+
 # Notes
 * Restart the server using: `$ sudo systemctl restart nginx`
 * Check the server status (there should be no errors) using: `$ sudo systemctl status nginx`
