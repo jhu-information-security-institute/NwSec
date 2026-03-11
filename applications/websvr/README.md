@@ -82,6 +82,8 @@ Connection closed by foreign host.
 1. Pages should be viewable in a browser at one of the following urls: `http://192.168.25.121:8081` or `http://192.168.25.122:8082`
 
 # TLS
+1. Ensure the ca is setup as instructed [here](https://github.com/jhu-information-security-institute/NwSec/blob/main/applications/ca/README.md)
+2. Use the ca to generate the haproxy certificates (notes are on the link above)
 1. Update frontend section in the /etc/haproxy/haproxy.cfg
     ```
     bind 0.0.0.0:443 ssl crt /certs
