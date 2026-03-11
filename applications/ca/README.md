@@ -37,11 +37,6 @@
     $ mkdir -p /certs
     $ step ca certificate proxy.netsec-docker.isi.jhu.edu /certs/proxy_ca.crt /certs/proxy_ca.crt.key  --not-after=12m
     ```
-## haproxy server specific
-1. Update frontend section in the /etc/haproxy/haproxy.cfg
-    ```
-    bind 0.0.0.0:443 ssl crt /certs
-    ```
 ## Client (on Kali VM)
 1. In client browser, add the CA by importing root_ca.crt
     1. Firefox: Settings > Privacy & Security > Certificates > View Certificates
