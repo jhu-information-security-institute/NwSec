@@ -5,8 +5,7 @@
 <img width="601" height="221" alt="email" src="https://github.com/user-attachments/assets/4f13a6bc-64d1-401d-a9c4-f45d282e35d7" />
 
 ## Individual server architecture
-<img width="783" height="512" alt="email-detailed" src="https://github.com/user-attachments/assets/7438384d-1415-4035-87c5-b522c33b460e" />
-
+<img width="783" height="512" alt="email-detailed" src="https://github.com/user-attachments/assets/89d91cc4-746e-404c-98d5-f3456a6d8348" />
 
 Postfix (SMTP) and Dovecot (IMAP/POP3) servers setup to run in a single Docker container.  Postfixadmin suite is also installed to facilitate easy configuration of the servers.
 
@@ -187,6 +186,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
