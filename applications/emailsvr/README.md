@@ -2,7 +2,8 @@
 
 # Application overview
 ## Experiment
-<img width="783" height="512" alt="emailsvr" src="https://github.com/user-attachments/assets/adcabab0-d5c7-4ba9-a96d-e3eb55d1195f" />
+<img width="601" height="221" alt="email" src="https://github.com/user-attachments/assets/4f13a6bc-64d1-401d-a9c4-f45d282e35d7" />
+
 ## Individual server architecture
 <img width="783" height="512" alt="email-detailed" src="https://github.com/user-attachments/assets/7438384d-1415-4035-87c5-b522c33b460e" />
 
@@ -186,6 +187,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
