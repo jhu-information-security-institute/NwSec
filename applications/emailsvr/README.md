@@ -1,7 +1,11 @@
 ** In-progress updates for Ubuntu 24.04 **
 
 # Application overview
-<img width="783" height="512" alt="emailsvr" src="https://github.com/user-attachments/assets/94cca68c-5baf-4907-b154-be3c4598092e" />
+## Experiment
+<img width="783" height="512" alt="emailsvr" src="https://github.com/user-attachments/assets/adcabab0-d5c7-4ba9-a96d-e3eb55d1195f" />
+## Individual server architecture
+<img width="783" height="512" alt="email-detailed" src="https://github.com/user-attachments/assets/7438384d-1415-4035-87c5-b522c33b460e" />
+
 
 Postfix (SMTP) and Dovecot (IMAP/POP3) servers setup to run in a single Docker container.  Postfixadmin suite is also installed to facilitate easy configuration of the servers.
 
@@ -182,6 +186,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
