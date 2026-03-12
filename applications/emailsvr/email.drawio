@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0" version="29.6.1">
+  <diagram name="Page-1" id="CL6J_g5tVeIqVMdq5rXk">
+    <mxGraphModel dx="1025" dy="538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Tj77vSagvMrUk4h7G2pl-3" edge="1" parent="1" source="Tj77vSagvMrUk4h7G2pl-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="Tj77vSagvMrUk4h7G2pl-2" value="SMTP">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Tj77vSagvMrUk4h7G2pl-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="email1.netsec-docker.isi.jhu.edu" vertex="1">
+          <mxGeometry height="60" width="120" x="120" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Tj77vSagvMrUk4h7G2pl-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="email2.netsec-docker.isi.jhu.edu" vertex="1">
+          <mxGeometry height="60" width="120" x="600" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Tj77vSagvMrUk4h7G2pl-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="attack.netsec-docker.isi.jhu.edu" vertex="1">
+          <mxGeometry height="60" width="120" x="360" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="Tj77vSagvMrUk4h7G2pl-5" edge="1" parent="1" source="Tj77vSagvMrUk4h7G2pl-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.858;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;" target="Tj77vSagvMrUk4h7G2pl-1" value="POP3, IMAP, HTTP, SMTP">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Tj77vSagvMrUk4h7G2pl-6" edge="1" parent="1" source="Tj77vSagvMrUk4h7G2pl-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.142;entryY=1.017;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;" target="Tj77vSagvMrUk4h7G2pl-2" value="POP3, IMAP, HTTP, SMTP">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="437" y="363" as="sourcePoint" />
+            <mxPoint x="300" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
