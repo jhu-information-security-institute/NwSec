@@ -39,14 +39,14 @@ ehlo fakeemailserver.com
 250-8BITMIME
 250-DSN
 250 CHUNKING
-mail from: <fakeenvelopesender@fakedomain.com>
+mail from: &lt;fakeenvelopesender@fakedomain.com&gt;
 250 2.1.0 Ok
-rcpt to: <student@netsec-docker.isi.jhu.edu>
+rcpt to: &lt;student@netsec-docker.isi.jhu.edu&gt;
 250 2.1.5 Ok
 data
 354 End data with <CR><LF>.<CR><LF>
-From: "Fake sender" <fakeheadersender@fakedomain.com>
-To: "Student" <student@netsec-docker.isi.jhu.edu>
+From: "Fake sender" &lt;fakeheadersender@fakedomain.com&gt;
+To: "Student" &lt;student@netsec-docker.isi.jhu.edu&gt;
 Subject: Free bitcoins, click here!
 
 Hello, this is my malicious message!  I see you like bitcoins.
@@ -186,6 +186,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
