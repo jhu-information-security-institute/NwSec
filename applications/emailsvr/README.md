@@ -72,7 +72,10 @@ Connection closed by foreign host.
     $ docker build -t temailsvr .
     $ docker run -d --name emailsvr1 --hostname email1.netsec-docker.isi.jhu.edu --add-host email1.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest
     $ docker run -d --name emailsvr2 --hostname email2.netsec-docker.isi.jhu.edu --add-host email2.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest    
-    $ docker exec -it emailsvr1 bash
+    ```
+## Container setup (do for emailsvr1 and emailsvr2)
+1. Log in to the container with a shell: `$ docker exec -it <NAME> bash`
+1. Update /etc/nginx/conf.d/postfixadmin.conf and update the hostname appropriately (emailsvr1 or emailsvr2)   
 1. Configure using postfixadmin by running the following command and using the guidance below `$ dpkg-reconfigure postfixadmin`
     ```
         ...
@@ -143,19 +146,20 @@ Connection closed by foreign host.
     * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
         * Virtual List -> Add Mailbox
         * Note, you will need to create an email account for superadmin user
+## Client setup (do accounts for emailsvr1 and emailsvr2)
 1. Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
     * Start Thunderbird and enter the following, then click configure manually
    ```
    Your full name: postfixadmin
-   Email address: postfixadmin@netsec-docker.isi.jhu.edu
+   Email address: postfixadmin@email1.netsec-docker.isi.jhu.edu
    Password: nwsec123
    ```
    * Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
    ```
    Incoming Server
-   Hostname: email.netsec-docker.isi.jhu.edu
+   Hostname: email1.netsec-docker.isi.jhu.edu
    Outgoing Server
-   Hostname: email.netsec-docker.isi.jhu.edu
+   Hostname: email1.netsec-docker.isi.jhu.edu
    ```
 <img width="975" height="903" alt="image" src="https://github.com/user-attachments/assets/b9111397-3e7a-4fa4-ae3f-7aae8f41efd5" />
    * Accept the risks and hit confirm
@@ -187,6 +191,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
