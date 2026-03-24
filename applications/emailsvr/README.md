@@ -22,7 +22,7 @@ The VM is using Ubuntu Server OS, version 24.04.  It is designed to run within a
 The RPI4B is using Ubuntu Server OS, version 18.04.
 
 ## Client
-The client that communicates with the email server is any remote SMTP server or IMAP/POP3 client.  One can also directly interface by manually applying direct SMTP commands using telnet over port 25.  E.g., see the command/response sequence below (note: commands have no indentation and  responses are indented).
+The client that communicates with the email server is any remote SMTP server or IMAP/POP3 client.  One can also directly interface by manually applying direct SMTP commands using telnet over the port for SMTP (usually 25, or 5025 for our container below).  E.g., see the command/response sequence below for port 25 (note: commands have no indentation and  responses are indented).
 <pre><code>
 └─$ telnet email.netsec-docker.isi.jhu.edu 25
 Trying 192.168.25.122...
@@ -190,6 +190,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
