@@ -136,10 +136,10 @@ Connection closed by foreign host.
     ```
 1. Edit `/etc/postfixadmin/dbconfig.inc.php` and change value of line with `$dbtype` from `mysql` to `mysqli`
 1. Edit `/etc/dbconfig-common/postfixadmin.conf` and change value of line with `dbc_dbtype` from `mysql` to `mysqli`
-1. Log in to `http://email.netsec-docker.isi.jhu.edu/postfixadmin/setup.php`
+1. Log in to `http://email.netsec-docker.isi.jhu.edu:5080/postfixadmin/setup.php`
     * Specify a setup password and copy the generated hash into the value for the setup_password variable in `/etc/postfixadmin/config.inc.php`
     * Then, login with the setup password to create a superadmin account `postfixadmin@netsec-docker.isi.jhu.edu` and specify its password
-1. Use that superadmin account to log in to `http://email.netsec-docker.isi.jhu.edu/postfixadmin/login.php`
+1. Use that superadmin account to log in to `http://email.netsec-docker.isi.jhu.edu:5080/postfixadmin/login.php`
     * Create a new `netsec-docker.isi.jhu.edu` domain
         * Domain List -> New Domain 
     * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
@@ -190,6 +190,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
