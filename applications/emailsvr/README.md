@@ -19,9 +19,6 @@ Postfixadmin is an open source, web based interface for managing domains/mailbox
 ## Server (on UbuntuServerx86-64-target VM)
 The VM is using Ubuntu Server OS, version 24.04.  It is designed to run within a Docker container in our [UbuntuServerx86-64-target VM](https://github.com/jhu-information-security-institute/NwSec/blob/main/config/UbuntuServerX86-64/targetVm-README.md).
 
-## Server (on RPI4B)
-The RPI4B is using Ubuntu Server OS, version 18.04.
-
 ## Client
 The client that communicates with the email server is any remote SMTP server or IMAP/POP3 client.  One can also directly interface by manually applying direct SMTP commands using telnet over the port for SMTP (usually 25, or 5025 for our container below).  E.g., see the command/response sequence below for port 25 (note: commands have no indentation and  responses are indented).
 <pre><code>
@@ -186,18 +183,6 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
 <img width="1171" height="1442" alt="insecure emailsvr pop3" src="https://github.com/user-attachments/assets/7e8bfe0b-0a8c-4b34-a9a4-8e1e7cccdd6a" />
 <img width="1208" height="771" alt="insecure emailsvr smtp" src="https://github.com/user-attachments/assets/04991a0d-ebda-486e-b0f2-2d7046aa1de2" />
 
-
-
-
-## Server (on RPI4B)
-1. Set your hostname: `$ sudo hostnamectl set-hostname your-fqdn`
-1. Disable the firewall on the appropriate ports:
-`$ sudo ufw allow 25/tcp`, `$ sudo ufw allow 80,443,587,465,143,993/tcp`, and `$ sudo ufw allow 110,995/tcp`
-1. Build the Docker container using: `$ sudo docker build -t temailsvr .`
-1. Start the Docker container using: `$ sudo docker run -d --name emailsvr --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --network host temailsvr:latest`
-1. Log in to the running container using: `$ sudo docker exec -it emailsvr bash`
-1. From inside the docker session, enable servers using: `# systemctl enable postfix && systemctl enable dovecot`
-
 # Notes
 * Restart the server using: `$ sudo systemctl restart postfix`
 * Restart the server using: `$ sudo systemctl restart dovecot`
@@ -213,6 +198,7 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
