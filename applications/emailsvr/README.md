@@ -2,6 +2,7 @@
 
 # Application overview
 ## Experiment
+This experiment uses our email server that is controlled by a Thunderbird client via either POP3 or IMAP.   Using the Thunderbird client, we interface with our server and send test messages to the external server, https://temp-mail.org, while we are intercepting packets locally (IMAP, POP3, SMTP).
 <img width="606" height="221" alt="email" src="https://github.com/user-attachments/assets/5ff4de0c-33fe-4e86-bd68-3fda70707445" />
 
 ## Individual server architecture
@@ -190,6 +191,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
