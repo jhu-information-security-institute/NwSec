@@ -145,14 +145,14 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
         * Virtual List -> Add Mailbox
         * Note, you will need to create an email account for superadmin user
 ## Client setup
-1. Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
-    * Start Thunderbird, create a new account and enter the following, then click configure manually
+Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
+1. Start Thunderbird, create a new account and enter the following, then click configure manually
    ```
    Your full name: postfixadmin (imap)
    Email address: postfixadmin@email.netsec-docker.isi.jhu.edu
    Password: nwsec123
    ```
-   * Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
+1. Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
    ```
    Incoming Server
    Protocol: IMAP
@@ -162,13 +162,13 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
    Hostname: email.netsec-docker.isi.jhu.edu
    Port: 5025
    ```
-   * Create another new account and enter the following, then click configure manually
+1. Create another new account and enter the following, then click configure manually
    ```
    Your full name: postfixadmin (pop3)
    Email address: postfixadmin@email.netsec-docker.isi.jhu.edu
    Password: nwsec123
    ```
-   * Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
+1. Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
    ```
    Incoming Server
    Protocol: POP3
@@ -178,10 +178,11 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
    Hostname: email.netsec-docker.isi.jhu.edu
    Port: 5025
    ```   
-   * Ensure the outgoing server settings are setup for port 5025 (Thunderbird Settings->Outgoing mail server->Edit)
+1. Ensure the outgoing server settings are setup for port 5025 (Thunderbird Settings->Outgoing mail server->Edit)
 <img width="1122" height="1388" alt="insecure emailsvr imap" src="https://github.com/user-attachments/assets/dfeea2f5-2e2e-48e9-b948-484907990b5c" />
 <img width="1171" height="1442" alt="insecure emailsvr pop3" src="https://github.com/user-attachments/assets/7e8bfe0b-0a8c-4b34-a9a4-8e1e7cccdd6a" />
 <img width="1208" height="771" alt="insecure emailsvr smtp" src="https://github.com/user-attachments/assets/04991a0d-ebda-486e-b0f2-2d7046aa1de2" />
+1. Test that you can send an email from each account to a temporary email address setup using [temp-mail.org](https://temp-mail.org/en)
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart postfix`
@@ -198,6 +199,7 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
