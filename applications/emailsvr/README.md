@@ -61,6 +61,7 @@ Connection closed by foreign host.
 <img width="1475" height="619" alt="image" src="https://github.com/user-attachments/assets/1f7bc4ee-1515-4dbc-af78-e924e22f469a" />
 
 # Runtime environment setup
+Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
 ## Server (on VM)
 1. Download files to build container
     ```
@@ -71,11 +72,11 @@ Connection closed by foreign host.
 1. Build, run, attach to container
     ```
     $ docker build -t temailsvr .
-    $ docker run -d --name emailsvr1 --hostname email1.netsec-docker.isi.jhu.edu --add-host email1.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host --cpus=1 temailsvr:latest
+    $ docker run -d --name emailsvr --hostname email.netsec-docker.isi.jhu.edu --add-host email.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns 8.8.8.8 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network bridge -p 5080:80 -p 5025:25 -p 5587:587 -p 5143:143 -p 5993:993 -p 5110:110 -p 5995:995 --cpus=1 temailsvr:latest
     ```
-## Container setup (do for emailsvr1)
+## Container setup
 1. Log in to the container with a shell: `$ docker exec -it <NAME> bash`
-1. Update /etc/nginx/conf.d/postfixadmin.conf and update the hostname appropriately (emailsvr1)   
+1. Update /etc/nginx/conf.d/postfixadmin.conf and update the hostname appropriately   
 1. Configure using postfixadmin by running the following command and using the guidance below `# dpkg-reconfigure postfixadmin`
     ```
         ...
@@ -148,23 +149,44 @@ Connection closed by foreign host.
         * Note, you will need to create an email account for superadmin user
 ## Client setup (do accounts for emailsvr1 and emailsvr2)
 1. Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
-    * Start Thunderbird and enter the following, then click configure manually
+    * Start Thunderbird, create a new account and enter the following, then click configure manually
    ```
-   Your full name: postfixadmin
-   Email address: postfixadmin@email1.netsec-docker.isi.jhu.edu
+   Your full name: postfixadmin (imap)
+   Email address: postfixadmin@email.netsec-docker.isi.jhu.edu
    Password: nwsec123
    ```
    * Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
    ```
    Incoming Server
-   Hostname: email1.netsec-docker.isi.jhu.edu
+   Protocol: IMAP
+   Hostname: email.netsec-docker.isi.jhu.edu
+   Port: 5143
    Outgoing Server
-   Hostname: email1.netsec-docker.isi.jhu.edu
+   Hostname: email.netsec-docker.isi.jhu.edu
+   Port: 5025
    ```
-<img width="975" height="903" alt="image" src="https://github.com/user-attachments/assets/b9111397-3e7a-4fa4-ae3f-7aae8f41efd5" />
-   * Accept the risks and hit confirm
-<img width="805" height="630" alt="image" src="https://github.com/user-attachments/assets/b8ced997-68ee-40ef-b001-e7c374ee98a7" />
-<img width="975" height="483" alt="image" src="https://github.com/user-attachments/assets/fecd129f-59bb-4474-a64b-8073da7ef36b" />
+   * Create another new account and enter the following, then click configure manually
+   ```
+   Your full name: postfixadmin (pop3)
+   Email address: postfixadmin@email.netsec-docker.isi.jhu.edu
+   Password: nwsec123
+   ```
+   * Enter the following for hostnames and then click Re-test (everything should be autopopulated afterwards)
+   ```
+   Incoming Server
+   Protocol: POP3
+   Hostname: email.netsec-docker.isi.jhu.edu
+   Port: 5110
+   Outgoing Server
+   Hostname: email.netsec-docker.isi.jhu.edu
+   Port: 5025
+   ```   
+   * Ensure the outgoing server settings are setup for port 5025 (Thunderbird Settings->Outgoing mail server->Edit)
+<img width="1122" height="1388" alt="insecure emailsvr imap" src="https://github.com/user-attachments/assets/dfeea2f5-2e2e-48e9-b948-484907990b5c" />
+<img width="1171" height="1442" alt="insecure emailsvr pop3" src="https://github.com/user-attachments/assets/7e8bfe0b-0a8c-4b34-a9a4-8e1e7cccdd6a" />
+<img width="1208" height="771" alt="insecure emailsvr smtp" src="https://github.com/user-attachments/assets/04991a0d-ebda-486e-b0f2-2d7046aa1de2" />
+
+
 
 
 ## Server (on RPI4B)
@@ -191,6 +213,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
