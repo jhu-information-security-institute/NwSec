@@ -179,9 +179,9 @@ Use Mozilla Thunderbird for a mail client from the VM or another container (reco
    Port: 5025
    ```   
 1. Ensure the outgoing server settings are setup for port 5025 (Thunderbird Settings->Outgoing mail server->Edit)
-<img width="1122" height="1388" alt="insecure emailsvr imap" src="https://github.com/user-attachments/assets/dfeea2f5-2e2e-48e9-b948-484907990b5c" />
-<img width="1171" height="1442" alt="insecure emailsvr pop3" src="https://github.com/user-attachments/assets/7e8bfe0b-0a8c-4b34-a9a4-8e1e7cccdd6a" />
-<img width="1208" height="771" alt="insecure emailsvr smtp" src="https://github.com/user-attachments/assets/04991a0d-ebda-486e-b0f2-2d7046aa1de2" />
+    <img width="1122" height="1388" alt="insecure emailsvr imap" src="https://github.com/user-attachments/assets/dfeea2f5-2e2e-48e9-b948-484907990b5c" />
+    <img width="1171" height="1442" alt="insecure emailsvr pop3" src="https://github.com/user-attachments/assets/7e8bfe0b-0a8c-4b34-a9a4-8e1e7cccdd6a" />
+    <img width="1208" height="771" alt="insecure emailsvr smtp" src="https://github.com/user-attachments/assets/04991a0d-ebda-486e-b0f2-2d7046aa1de2" />
 1. Test that you can send an email from each account to a temporary email address setup using [temp-mail.org](https://temp-mail.org/en)
 
 # Notes
@@ -199,6 +199,7 @@ Use Mozilla Thunderbird for a mail client from the VM or another container (reco
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
