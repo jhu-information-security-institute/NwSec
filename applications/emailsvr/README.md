@@ -183,6 +183,14 @@ Use Mozilla Thunderbird for a mail client from the VM or another container (reco
     <img width="1171" height="1442" alt="insecure emailsvr pop3" src="https://github.com/user-attachments/assets/7e8bfe0b-0a8c-4b34-a9a4-8e1e7cccdd6a" />
     <img width="1208" height="771" alt="insecure emailsvr smtp" src="https://github.com/user-attachments/assets/04991a0d-ebda-486e-b0f2-2d7046aa1de2" />
 1. Test that you can send an email from each account to a temporary email address setup using [temp-mail.org](https://temp-mail.org/en)
+## Backup
+1. Shutdown the mailsvr container
+1. Commit the image by running: `$ docker commit emailsvr temailsvr:insecure`
+1. Start the mailsvr container again
+## Restore
+1. Shutdown the mailsvr container
+1. Remove the current instance
+1. Run a new container using the desired tag that you would like to rollback to.  This will use the same docker run as before but will replace temailsvr:latest with the image you would like to rollback to (e.g., temailsvr:insecure)
 
 # Notes
 * Restart the server using: `$ sudo systemctl restart postfix`
