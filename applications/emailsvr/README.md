@@ -75,7 +75,7 @@ Connection closed by foreign host.
 ## Container setup (do for emailsvr1)
 1. Log in to the container with a shell: `$ docker exec -it <NAME> bash`
 1. Update /etc/nginx/conf.d/postfixadmin.conf and update the hostname appropriately (emailsvr1)   
-1. Configure using postfixadmin by running the following command and using the guidance below `$ dpkg-reconfigure postfixadmin`
+1. Configure using postfixadmin by running the following command and using the guidance below `# dpkg-reconfigure postfixadmin`
     ```
         ...
         Configuring postfixadmin
@@ -190,6 +190,7 @@ Connection closed by foreign host.
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
