@@ -147,7 +147,7 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
     * Create new email accounts in the `netsec-docker.isi.jhu.edu` domain
         * Virtual List -> Add Mailbox
         * Note, you will need to create an email account for superadmin user
-## Client setup (do accounts for emailsvr1 and emailsvr2)
+## Client setup
 1. Use Mozilla Thunderbird for a mail client from the VM or another container (recommended to use attack container in the Kali VM) to access email
     * Start Thunderbird, create a new account and enter the following, then click configure manually
    ```
@@ -213,6 +213,7 @@ Port summary: http (80), imap/s (143/993), pop3/s (110/995), smtp/s (25/587)
 * https://www.linuxbabe.com/mail-server/setup-basic-postfix-mail-sever-ubuntu
 * https://www.linuxbabe.com/mail-server/secure-email-server-ubuntu-postfix-dovecot
 * https://www.linuxbabe.com/mail-server/postfixadmin-ubuntu
+
 
 
 
