@@ -1,7 +1,7 @@
 # Identity and Access Management with FreeIPA
 ## Prerequisites
 * DNS must be working on all hosts
-* NTP must be working on all hosts
+* NTP must be working on all hosts.  See the chrony instructions below.
 * Centos VM that is named iam.netsec-docker.isi.jhu.edu
 
 # NTP setup with Chrony
@@ -26,3 +26,18 @@ $ sudo systemctl enable chrony
 $ sudo systemctl restart chrony 
 ```
 * Query status on the client by running: `$ chronyc sources`
+
+# FreeIPA setup on CentOS VM
+* Install the dependencies: `# yum install krb5-workstation krb5-libs freeipa-server`
+* Run the installer:
+```
+# ipa-server-install --hostname=iam.netsec-docker.isi.jhu.edu --domain=netsec-docker.isi.jhu.edu --realm=NETSEC-DOCKER.ISI.JHU.EDU
+```
+* Update the firewall and open the ports
+```
+# firewall-cmd --add-service={freeipa-ldap,freeipa-ldaps,ntp,kerberos,http,https,ssh} 
+# firewall-cmd --runtime-to-permanent
+```
+* Confirm it is working by logging in to Kerberos: `$ kinit admin`
+* Then run: `$ ipa user-find admin`
+* You should get a response with `1.User matched` that is followed with details on that user
