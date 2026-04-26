@@ -1,5 +1,6 @@
 # Troubleshooting freeipa
 ## freeipa certificates expired
+### server
 * Confirm by looking at the certs:
 `# getcert list`
 * Rollback the clock by disabling chronyd
@@ -21,3 +22,6 @@
 `# ipactl restart`
 * Check status:
 `# ipactl status`
+### clients
+* Update certificates
+`# ipa-certupdate`
