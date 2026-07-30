@@ -1,4 +1,8 @@
-EN.650.624 Network Security 
+Copyright 2026 Reuben Johnston
+
+Permission is granted to use these materials for instructional purposes.  Redistribution, publication, or modification for commercial purposes requires written permission from the copyright holder.
+
+Network Security 
 
 This repository contains multiple Docker images that support activities in the course.
 
